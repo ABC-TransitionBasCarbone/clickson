@@ -1,113 +1,115 @@
-import Image from "next/image";
+"use client"; // This is a client component 👈🏽
+
+// import Engine from 'publicodes'
+
+import rules from '@incubateur-ademe/nosgestesclimat/public/co2-model.FR-lang.fr.json'
+import React, { useState } from 'react'
+
+// const engine = new Engine(rules)
+// const test = engine.evaluate("alimentation . boisson . alcool . facteur bière")
+
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Unstable_Grid2';
+import Input from '@mui/material/Input';
+import Tooltip from '@mui/material/Tooltip';
+
+
+const platsVegetarien = rules['alimentation . plats . végétarien . empreinte'];
+const platsViandeBlanche = rules['alimentation . plats . viande blanche . empreinte'];
+const platsViandeRouge = rules['alimentation . plats . viande rouge . empreinte'];
 
 export default function Home() {
+  const [empreinteVegetarien, setEmpreinteVegetarien] = useState(0);
+  const [empreinteViandeBlanche, setEmpreinteViandeBlanche] = useState(0);
+  const [empreinteViandeRouge, setEmpreinteViandeRouge] = useState(0);
+  const [empreinteMoyenne, setEmpreinteMoyenne] = useState(0);
+
+
+  const changeEmpreinteVegetarien = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEmpreinteVegetarien(parseInt(event.target.value));
+  };
+  const changeEmpreinteViandeBlanche = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEmpreinteViandeBlanche(parseInt(event.target.value));
+  };
+  const changeEmpreinteViandeRouge = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEmpreinteViandeRouge(parseInt(event.target.value));
+  };
+  const changeEmpreinteMoyenne = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEmpreinteMoyenne(parseInt(event.target.value));
+  };
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    <><main style={{ margin: 10 }}>
+      <h1>Clickson</h1>
 
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+      <Box sx={{ flexGrow: 1 }}>
+        <Grid container spacing={2}>
+          <Grid xs={12}>
+            <h1>RESTAURATION - CANTINE</h1>
+          </Grid>
+          <Grid xs={4}>
+            Nous allons ici calculer les émissions liées aux repas servis à la cantine, au self ou au restaurant de ton établissement. Attention, il faut que tu calcules tous les repas pour une année ! Nous te conseillons de calculer sur la période de Janvier à Décembre!
+          </Grid>
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+          <Grid xs={4}>
+            <Tooltip title={platsVegetarien.note}>
+              <p>
+                {platsVegetarien.titre}  ({platsVegetarien.unité})<br />
+                Facteur d'émission ADEME: {platsVegetarien.formule}<br />
+                Facteur d'émission PEBC: 0.45<br />
+                Incertitude: 4
+              </p>
+            </Tooltip>
+            <Input
+              onChange={changeEmpreinteVegetarien}
+              value={empreinteVegetarien} /> Repas<br />
+            Calcul de l'empreinte globale : {empreinteVegetarien * platsVegetarien.formule} kgCO2
+            <br /><br />
+            <Tooltip title={platsViandeRouge.note}>
+              <p>
+                {platsViandeRouge.titre}  ({platsViandeRouge.unité})<br />
+                Facteur d'émission ADEME: {platsViandeRouge.formule}<br />
+                Facteur d'émission PEBC: 1.58 <br />
+                Incertitude: 4
+              </p>
+            </Tooltip>
+            <Input
+              onChange={changeEmpreinteViandeRouge}
+              value={empreinteViandeRouge}
+              /> Repas<br />
+            Calcul de l'empreinte globale : {empreinteViandeRouge * platsViandeRouge.formule} kgCO2
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+          </Grid>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
+          <Grid xs={4}>
+            <Tooltip title={platsViandeBlanche.note}>
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  );
+              <p>
+                {platsViandeBlanche.titre}  ({platsViandeBlanche.unité})<br />
+                Facteur d'émission ADEME: {platsViandeBlanche.formule}<br />
+                Facteur d'émission PEBC: 7.26<br />
+                Incertitude: 4
+              </p>
+            </Tooltip>
+            <Input
+              onChange={changeEmpreinteViandeBlanche}
+              value={empreinteViandeBlanche} /> Repas<br />
+            Calcul de l'empreinte globale : {empreinteViandeBlanche * platsViandeBlanche.formule} kgCO2
+            <br /><br />
+            <p>
+              Repas moyen (kgCO2e/meal)<br />
+              Facteur d'émission ADEME: Pas dispo ??<br />
+              Facteur d'émission PEBC: 2.25<br />
+              Incertitude: 4
+            </p>
+            <Input
+              onChange={changeEmpreinteMoyenne}
+              value={empreinteMoyenne} /> Repas<br />
+            Calcul de l'empreinte globale : {empreinteMoyenne * 2.25} kgCO2
+
+          </Grid>
+        </Grid>
+      </Box>
+    </main ></>
+      );
+
 }
