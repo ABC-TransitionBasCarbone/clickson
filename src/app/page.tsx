@@ -3,7 +3,7 @@
 // import Engine from 'publicodes'
 
 import rules from '@incubateur-ademe/nosgestesclimat/public/co2-model.FR-lang.fr.json'
-import React, { useState, useTransition } from 'react'
+import React, { useEffect, useState, useTransition } from 'react'
 
 // const engine = new Engine(rules)
 // const test = engine.evaluate("alimentation . boisson . alcool . facteur bière")
@@ -14,7 +14,8 @@ import Input from '@mui/material/Input';
 import Tooltip from '@mui/material/Tooltip';
 
 import './i18n';
-import { Test } from './components/test';
+import { Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 const platsVegetarien = rules['alimentation . plats . végétarien . empreinte'];
 const platsViandeBlanche = rules['alimentation . plats . viande blanche . empreinte'];
@@ -39,11 +40,18 @@ export default function Home() {
   const changeEmpreinteMoyenne = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmpreinteMoyenne(parseInt(event.target.value));
   };
+  const { t, i18n } = useTranslation();
+
+  useEffect(() => {
+      const lng = navigator.language;
+      i18n.changeLanguage(lng);
+      console.log(lng);
+  }, []);
 
   return (
     <><main style={{ margin: 10 }}>
       <h1>Clickson</h1>
-      <Test /> 
+      <Typography>{t("Hello")}</Typography>
 
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
