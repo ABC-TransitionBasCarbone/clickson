@@ -45,8 +45,7 @@ export default function Home() {
   useEffect(() => {
       const lng = navigator.language;
       i18n.changeLanguage(lng);
-      console.log(lng);
-  }, []);
+  }, [i18n]);
 
   return (
     <><main style={{ margin: 10 }}>
@@ -66,21 +65,21 @@ export default function Home() {
             <Tooltip title={platsVegetarien.note}>
               <p>
                 {platsVegetarien.titre}  ({platsVegetarien.unité})<br />
-                Facteur d'émission ADEME: {platsVegetarien.formule}<br />
-                Facteur d'émission PEBC: 0.45<br />
+                Facteur d&prime;émission ADEME: {platsVegetarien.formule}<br />
+                Facteur d&prime;émission PEBC: 0.45<br />
                 Incertitude: 4
               </p>
             </Tooltip>
             <Input
               onChange={changeEmpreinteVegetarien}
               value={empreinteVegetarien} /> Repas<br />
-            Calcul de l'empreinte globale : {empreinteVegetarien * platsVegetarien.formule} kgCO2
+            Calcul de l&prime;empreinte globale : {empreinteVegetarien * platsVegetarien.formule} kgCO2
             <br /><br />
             <Tooltip title={platsViandeRouge.note}>
               <p>
                 {platsViandeRouge.titre}  ({platsViandeRouge.unité})<br />
-                Facteur d'émission ADEME: {platsViandeRouge.formule}<br />
-                Facteur d'émission PEBC: 1.58 <br />
+                Facteur d&prime;émission ADEME: {platsViandeRouge.formule}<br />
+                Facteur d&prime;émission PEBC: 1.58 <br />
                 Incertitude: 4
               </p>
             </Tooltip>
@@ -88,7 +87,7 @@ export default function Home() {
               onChange={changeEmpreinteViandeRouge}
               value={empreinteViandeRouge}
               /> Repas<br />
-            Calcul de l'empreinte globale : {empreinteViandeRouge * platsViandeRouge.formule} kgCO2
+            Calcul de l&prime;empreinte globale : {empreinteViandeRouge * platsViandeRouge.formule} kgCO2
 
           </Grid>
 
@@ -97,26 +96,26 @@ export default function Home() {
 
               <p>
                 {platsViandeBlanche.titre}  ({platsViandeBlanche.unité})<br />
-                Facteur d'émission ADEME: {platsViandeBlanche.formule}<br />
-                Facteur d'émission PEBC: 7.26<br />
+                Facteur d&prime;émission ADEME: {platsViandeBlanche.formule}<br />
+                Facteur d&prime;émission PEBC: 7.26<br />
                 Incertitude: 4
               </p>
             </Tooltip>
             <Input
               onChange={changeEmpreinteViandeBlanche}
               value={empreinteViandeBlanche} /> Repas<br />
-            Calcul de l'empreinte globale : {empreinteViandeBlanche * platsViandeBlanche.formule} kgCO2
+            Calcul de l&prime;empreinte globale : {empreinteViandeBlanche * platsViandeBlanche.formule} kgCO2
             <br /><br />
             <p>
               Repas moyen (kgCO2e/meal)<br />
-              Facteur d'émission ADEME: Pas dispo ??<br />
-              Facteur d'émission PEBC: 2.25<br />
+              Facteur d&prime;émission ADEME: Pas dispo ??<br />
+              Facteur d&prime;émission PEBC: 2.25<br />
               Incertitude: 4
             </p>
             <Input
               onChange={changeEmpreinteMoyenne}
               value={empreinteMoyenne} /> Repas<br />
-            Calcul de l'empreinte globale : {empreinteMoyenne * 2.25} kgCO2
+            Calcul de l&prime;empreinte globale : {empreinteMoyenne * 2.25} kgCO2
 
           </Grid>
         </Grid>
