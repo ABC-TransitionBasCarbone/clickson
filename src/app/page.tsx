@@ -3,7 +3,7 @@
 // import Engine from 'publicodes'
 
 import rules from '@incubateur-ademe/nosgestesclimat/public/co2-model.FR-lang.fr.json'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 // const engine = new Engine(rules)
 // const test = engine.evaluate("alimentation . boisson . alcool . facteur bière")
@@ -13,6 +13,9 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Input from '@mui/material/Input';
 import Tooltip from '@mui/material/Tooltip';
 
+import './i18n';
+import dynamic from 'next/dynamic';
+const Greetings = dynamic(() => import('../components/greetings').then(module => module.Greetings), { ssr: false });
 
 const platsVegetarien = rules['alimentation . plats . végétarien . empreinte'];
 const platsViandeBlanche = rules['alimentation . plats . viande blanche . empreinte'];
@@ -37,9 +40,11 @@ export default function Home() {
   const changeEmpreinteMoyenne = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmpreinteMoyenne(parseInt(event.target.value));
   };
+
   return (
     <><main style={{ margin: 10 }}>
       <h1>Clickson</h1>
+      <Greetings />
 
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
@@ -54,21 +59,21 @@ export default function Home() {
             <Tooltip title={platsVegetarien.note}>
               <p>
                 {platsVegetarien.titre}  ({platsVegetarien.unité})<br />
-                Facteur d'émission ADEME: {platsVegetarien.formule}<br />
-                Facteur d'émission PEBC: 0.45<br />
+                Facteur d&prime;émission ADEME: {platsVegetarien.formule}<br />
+                Facteur d&prime;émission PEBC: 0.45<br />
                 Incertitude: 4
               </p>
             </Tooltip>
             <Input
               onChange={changeEmpreinteVegetarien}
               value={empreinteVegetarien} /> Repas<br />
-            Calcul de l'empreinte globale : {empreinteVegetarien * platsVegetarien.formule} kgCO2
+            Calcul de l&prime;empreinte globale : {empreinteVegetarien * platsVegetarien.formule} kgCO2
             <br /><br />
             <Tooltip title={platsViandeRouge.note}>
               <p>
                 {platsViandeRouge.titre}  ({platsViandeRouge.unité})<br />
-                Facteur d'émission ADEME: {platsViandeRouge.formule}<br />
-                Facteur d'émission PEBC: 1.58 <br />
+                Facteur d&prime;émission ADEME: {platsViandeRouge.formule}<br />
+                Facteur d&prime;émission PEBC: 1.58 <br />
                 Incertitude: 4
               </p>
             </Tooltip>
@@ -76,7 +81,7 @@ export default function Home() {
               onChange={changeEmpreinteViandeRouge}
               value={empreinteViandeRouge}
               /> Repas<br />
-            Calcul de l'empreinte globale : {empreinteViandeRouge * platsViandeRouge.formule} kgCO2
+            Calcul de l&prime;empreinte globale : {empreinteViandeRouge * platsViandeRouge.formule} kgCO2
 
           </Grid>
 
@@ -85,26 +90,26 @@ export default function Home() {
 
               <p>
                 {platsViandeBlanche.titre}  ({platsViandeBlanche.unité})<br />
-                Facteur d'émission ADEME: {platsViandeBlanche.formule}<br />
-                Facteur d'émission PEBC: 7.26<br />
+                Facteur d&prime;émission ADEME: {platsViandeBlanche.formule}<br />
+                Facteur d&prime;émission PEBC: 7.26<br />
                 Incertitude: 4
               </p>
             </Tooltip>
             <Input
               onChange={changeEmpreinteViandeBlanche}
               value={empreinteViandeBlanche} /> Repas<br />
-            Calcul de l'empreinte globale : {empreinteViandeBlanche * platsViandeBlanche.formule} kgCO2
+            Calcul de l&prime;empreinte globale : {empreinteViandeBlanche * platsViandeBlanche.formule} kgCO2
             <br /><br />
             <p>
               Repas moyen (kgCO2e/meal)<br />
-              Facteur d'émission ADEME: Pas dispo ??<br />
-              Facteur d'émission PEBC: 2.25<br />
+              Facteur d&prime;émission ADEME: Pas dispo ??<br />
+              Facteur d&prime;émission PEBC: 2.25<br />
               Incertitude: 4
             </p>
             <Input
               onChange={changeEmpreinteMoyenne}
               value={empreinteMoyenne} /> Repas<br />
-            Calcul de l'empreinte globale : {empreinteMoyenne * 2.25} kgCO2
+            Calcul de l&prime;empreinte globale : {empreinteMoyenne * 2.25} kgCO2
 
           </Grid>
         </Grid>
