@@ -1,9 +1,9 @@
 "use client"; // This is a client component 👈🏽
 
-// import Engine from 'publicodes'
-
 import rules from '@incubateur-ademe/nosgestesclimat/public/co2-model.FR-lang.fr.json'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
+
+// import Engine from 'publicodes'
 
 // const engine = new Engine(rules)
 // const test = engine.evaluate("alimentation . boisson . alcool . facteur bière")
@@ -44,6 +44,8 @@ export default function Home() {
   return (
     <><main style={{ margin: 10 }}>
       <h1>Clickson</h1>
+
+      
       <Greetings />
 
       <Box sx={{ flexGrow: 1 }}>
