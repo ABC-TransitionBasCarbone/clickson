@@ -1,18 +1,22 @@
 "use client"; // This is a client component 👈🏽
 
-import { Grid } from '@mui/material';
-
-// TODO On click send new password
-// TODO get token
-
-import { useForm, SubmitHandler } from "react-hook-form"
+import { Grid, Input, FormGroup, Button } from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
+import { useForm, SubmitHandler, Controller } from "react-hook-form"
+import { LoadingButton } from '@mui/lab';
+import React from 'react';
 
 type Inputs = {
     username: string
     password: string
 }
 
+
+// TODO On click send new password
+// TODO get token
+
 export default function SignIn() {
+    const [loading, setLoading] = React.useState(false);
 
     const {
         register,
@@ -20,21 +24,28 @@ export default function SignIn() {
         watch,
         formState: { errors },
     } = useForm<Inputs>()
-
+    const { control } = useForm({
+        defaultValues: {
+            password: "",
+            username: "romain.crevecoeur@abc-transitionbascarbone.fr",
+        },
+    })
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
-        console.log("🚀 ~ constonSubmit:SubmitHandler<Inputs>= ~ data:", data)
+
+        setLoading(!loading)
+
         const response = await fetch('http://localhost:4000/auth/signin', {
             method: 'POST',
             body: JSON.stringify({
-                'email': 'romain.crevecoeur@abc-transitionbascarbone.fr',
-                'password': '14747'
+                'username': data.username,
+                'password': data.password
             })
         })
-        console.log("🚀 ~ onSubmit ~ response:", response)
-
         // Handle response if necessary
-        await response
-        console.log("🚀 ~ onSubmit ~ data:", data)
+        const status = response.status
+        const ok = response.ok
+        console.log("🚀 ~ constonSubmit:SubmitHandler<Inputs>= ~ ok:", ok)
+        console.log("🚀 ~ constonSubmit:SubmitHandler<Inputs>= ~ status:", status)
         // ...
     }
 
@@ -49,10 +60,23 @@ export default function SignIn() {
     >
         <Grid item xs={3}>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <input defaultValue="romain.crevecoeur@abc-transitionbascarbone.fr" {...register("username")} />
-                <input {...register("password", { required: true })} />
-                {errors.password && <span>This field is required</span>}
-                <input type="submit" />
+                <FormGroup>
+                    <Controller
+                        name="username"
+                        control={control}
+                        render={() => <Input {...register("username")} />}
+                    />
+                    <Controller
+                        name="password"
+                        control={control}
+                        rules={{ required: true }}
+                        render={() => <Input {...register("password")} />}
+                    />
+                    {errors.password && <span>This field is required</span>}
+                    <LoadingButton type="submit" loading={loading} variant="contained" endIcon={<SendIcon />}>
+                        Connexion
+                    </LoadingButton>
+                </FormGroup>
             </form>
         </Grid>
     </Grid>;
