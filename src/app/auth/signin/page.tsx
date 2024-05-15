@@ -1,6 +1,6 @@
 "use client"; // This is a client component 👈🏽
 
-import { Grid, Input, FormGroup, Button } from '@mui/material';
+import { Grid, Input, FormGroup } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import { useForm, SubmitHandler, Controller } from "react-hook-form"
 import { LoadingButton } from '@mui/lab';
@@ -17,6 +17,7 @@ type Inputs = {
 
 export default function SignIn() {
     const [loading, setLoading] = React.useState(false);
+    const [connected, setConnected] = React.useState(false);
 
     const {
         register,
@@ -27,26 +28,30 @@ export default function SignIn() {
     const { control } = useForm({
         defaultValues: {
             password: "",
-            username: "romain.crevecoeur@abc-transitionbascarbone.fr",
+            username: "",
         },
     })
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
 
-        setLoading(!loading)
+        setLoading((prevLoading) => !prevLoading)
 
         const response = await fetch('http://localhost:4000/auth/signin', {
             method: 'POST',
             body: JSON.stringify({
                 'username': data.username,
                 'password': data.password
-            })
+            }),
         })
-        // Handle response if necessary
-        const status = response.status
-        const ok = response.ok
-        console.log("🚀 ~ constonSubmit:SubmitHandler<Inputs>= ~ ok:", ok)
-        console.log("🚀 ~ constonSubmit:SubmitHandler<Inputs>= ~ status:", status)
-        // ...
+
+        setConnected((prevLoading) => {
+            console.log("🚀 ~ setConnected ~ prevLoading:", prevLoading)
+            console.log("🚀 ~ setConnected ~ !prevLoading:", !prevLoading)
+
+            return true
+        })
+        console.log("🚀 ~ SignIn ~ connected:", connected)
+
+        setLoading((prevLoading) => !prevLoading)
     }
 
 
@@ -60,22 +65,24 @@ export default function SignIn() {
     >
         <Grid item xs={3}>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <FormGroup>
+                <FormGroup >
                     <Controller
                         name="username"
                         control={control}
-                        render={() => <Input {...register("username")} />}
+                        rules={{ required: true }}
+                        render={() => <Input {...register("username")} placeholder="Email" />}
                     />
                     <Controller
                         name="password"
                         control={control}
                         rules={{ required: true }}
-                        render={() => <Input {...register("password")} />}
+                        render={() => <Input {...register("password")} placeholder="Mot de passe" />}
                     />
                     {errors.password && <span>This field is required</span>}
-                    <LoadingButton type="submit" loading={loading} variant="contained" endIcon={<SendIcon />}>
-                        Connexion
+                    <LoadingButton sx={{ m: 2 }} type="submit" loading={loading} variant="contained" endIcon={<SendIcon />}>
+                        Connexion {connected}
                     </LoadingButton>
+
                 </FormGroup>
             </form>
         </Grid>
