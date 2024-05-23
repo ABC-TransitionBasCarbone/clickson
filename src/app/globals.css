@@ -1,6 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+#signin > * {
+  margin: 10px;
+}
+
+
+/*@tailwind base;
+ @tailwind components;
+ @tailwind utilities;
 
 :root {
   --foreground-rgb: 0, 0, 0;
