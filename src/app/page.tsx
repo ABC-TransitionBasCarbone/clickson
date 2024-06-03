@@ -3,7 +3,7 @@
 // import Engine from 'publicodes'
 
 import rules from '@incubateur-ademe/nosgestesclimat/public/co2-model.FR-lang.fr.json'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 // const engine = new Engine(rules)
 // const test = engine.evaluate("alimentation . boisson . alcool . facteur bière")
@@ -15,11 +15,27 @@ import Tooltip from '@mui/material/Tooltip';
 
 import './i18n';
 import dynamic from 'next/dynamic';
+import { getCurrentUser, getAllPostsWithSlug } from '../../lib/api';
 const Greetings = dynamic(() => import('../components/greetings').then(module => module.Greetings), { ssr: false });
 
 const platsVegetarien = rules['alimentation . plats . végétarien . empreinte'];
 const platsViandeBlanche = rules['alimentation . plats . viande blanche . empreinte'];
 const platsViandeRouge = rules['alimentation . plats . viande rouge . empreinte'];
+
+const test = async () => {
+  /**
+   * mutation KO je ne sais pas pourquoi
+   */
+  // const currentUser = await getCurrentUser();
+  // console.log("🚀 ~ test ~ currentUser:", currentUser)
+
+  /**
+   * OK mais j'ai du mal à reproduire sur Postman pour tester de remplacer query par mutation sur Postman
+   */
+  const slug = await getAllPostsWithSlug();
+  console.log("🚀 ~ test ~ slug:", slug) 
+}
+
 
 export default function Home() {
   const [empreinteVegetarien, setEmpreinteVegetarien] = useState(0);
@@ -41,10 +57,11 @@ export default function Home() {
     setEmpreinteMoyenne(parseInt(event.target.value));
   };
 
+  test()
   return (
     <><main style={{ margin: 10 }}>
       <h1>Clickson</h1>
-      <Greetings />
+      {/* <Greetings /> */}
 
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
@@ -80,7 +97,7 @@ export default function Home() {
             <Input
               onChange={changeEmpreinteViandeRouge}
               value={empreinteViandeRouge}
-              /> Repas<br />
+            /> Repas<br />
             Calcul de l&prime;empreinte globale : {empreinteViandeRouge * platsViandeRouge.formule} kgCO2
 
           </Grid>
@@ -115,6 +132,6 @@ export default function Home() {
         </Grid>
       </Box>
     </main ></>
-      );
+  );
 
 }
