@@ -15,26 +15,13 @@ import Tooltip from '@mui/material/Tooltip';
 
 import './i18n';
 import dynamic from 'next/dynamic';
-import { getCurrentUser, getAllPostsWithSlug } from '../../lib/api';
+import LoginForm from '@/components/login-form';
 const Greetings = dynamic(() => import('../components/greetings').then(module => module.Greetings), { ssr: false });
 
 const platsVegetarien = rules['alimentation . plats . végétarien . empreinte'];
 const platsViandeBlanche = rules['alimentation . plats . viande blanche . empreinte'];
 const platsViandeRouge = rules['alimentation . plats . viande rouge . empreinte'];
 
-const test = async () => {
-  /**
-   * mutation KO je ne sais pas pourquoi
-   */
-  // const currentUser = await getCurrentUser();
-  // console.log("🚀 ~ test ~ currentUser:", currentUser)
-
-  /**
-   * OK mais j'ai du mal à reproduire sur Postman pour tester de remplacer query par mutation sur Postman
-   */
-  const slug = await getAllPostsWithSlug();
-  console.log("🚀 ~ test ~ slug:", slug) 
-}
 
 
 export default function Home() {
@@ -57,12 +44,12 @@ export default function Home() {
     setEmpreinteMoyenne(parseInt(event.target.value));
   };
 
-  test()
   return (
     <><main style={{ margin: 10 }}>
+      <LoginForm />
+
       <h1>Clickson</h1>
       {/* <Greetings /> */}
-
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
           <Grid xs={12}>

@@ -1,6 +1,8 @@
-"use server";
+// "use server";
 
-const API_URL = process.env.WORDPRESS_API_URL;
+import { User } from "@/types/user";
+
+const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
 
 async function fetchAPI(query = "", { variables }: Record<string, any> = {}) {
   const headers = { "Content-Type": "application/json" };
@@ -19,7 +21,6 @@ async function fetchAPI(query = "", { variables }: Record<string, any> = {}) {
       variables,
     }),
   });
-  console.log("🚀 ~ fetchAPI ~ res:", res)
 
   const json = await res.json();
   if (json.errors) {
@@ -33,7 +34,7 @@ async function fetchAPI(query = "", { variables }: Record<string, any> = {}) {
 export async function getCurrentUser() {
   const data = await fetchAPI(
     `
-    query LoginUser {
+    mutation LoginUser {
     login(input: {username: "admin", password: "8DwLXRqnbC4G"}) {
       user {
         email
@@ -46,9 +47,8 @@ export async function getCurrentUser() {
     }
   }
   `);
-  console.log("🚀 ~ getCurrentUser ~ data:", data)
 
-  return data.post;
+  return data.login.user as User;
 
 }
 
