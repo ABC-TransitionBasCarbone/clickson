@@ -1,9 +1,10 @@
 import { useForm, SubmitHandler } from "react-hook-form"
+import { getCurrentUser } from "../../lib/api"
 
 
-type Inputs = {
-  example: string
-  exampleRequired: string
+type User = {
+  username: string
+  password: string
 }
 
 
@@ -13,24 +14,22 @@ export default function LoginForm() {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<Inputs>()
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
-
-
-  console.log(watch("example")) // watch input value by passing the name of it
-
+  } = useForm<User>()
+  const onSubmit: SubmitHandler<User> = (data) => {
+    getCurrentUser(data.username, data.password)
+  }
 
   return (
     /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
     <form onSubmit={handleSubmit(onSubmit)}>
       {/* register your input into the hook by invoking the "register" function */}
-      <input defaultValue="test" {...register("example")} />
+      <input defaultValue="admin" {...register("username")} />
 
 
       {/* include validation with required or other standard HTML validation rules */}
-      <input {...register("exampleRequired", { required: true })} />
+      <input defaultValue="8DwLXRqnbC4G"{...register("password", { required: true })} />
       {/* errors will return when field validation fails  */}
-      {errors.exampleRequired && <span>This field is required</span>}
+      {errors.password && <span>This field is required</span>}
 
 
       <input type="submit" />
