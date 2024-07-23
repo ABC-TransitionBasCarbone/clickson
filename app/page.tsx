@@ -40,6 +40,11 @@ export default function Page() {
     logout();
     setSession({})
   }
+  const onResetPassword = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    logout();
+    setSession({})
+  }
 
   return (
     loading ?
@@ -47,14 +52,17 @@ export default function Page() {
       :
       (<section>
         <form onSubmit={onLogin}>
-          <input name="username" type="username" defaultValue={"admin"} />
+          <input name="username" type="username" defaultValue={"romain.crevecoeur@abc-transitionbascarbone.fr"} />
           <br />
-          <input name="password" type="password" defaultValue={"8DwLXRqnbC4G"} />
+          <input name="password" type="password" defaultValue={"om@XBC4H(hAVyG%s%@AWBVWS"} />
           <br />
           <button type="submit">Login</button>
         </form>
         <form onSubmit={onLogout}>
           <button type="submit">Logout</button>
+        </form>
+        <form onSubmit={onResetPassword}>
+          <button type="submit">Reset Password</button>
         </form>
         <pre>{JSON.stringify(session, null, 2)}</pre>
       </section>)
