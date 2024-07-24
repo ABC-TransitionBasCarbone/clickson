@@ -1,12 +1,7 @@
-'use client'
-
-
-
-
-export default function Dashboard() {
+export default function Login() {
 
     if (true) {
-        return <h1>Welcome to Dashboard</h1>;
+        return <h1>Welcome to Login</h1>;
     }
     return (
         <>
