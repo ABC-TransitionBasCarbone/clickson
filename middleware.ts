@@ -2,17 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { updateSession } from "./lib";
 
 export async function middleware(request: NextRequest) {
-  console.log("🚀 ~ middleware ~ url:", request.nextUrl.pathname)
   const session = request.cookies.has('session')
-
-
 
   if (!session && (request.nextUrl.pathname !== "/")) {
    return NextResponse.redirect(new URL('/', request.url))
   }
   return await updateSession(request);
-
-
 }
 
 export const config = {

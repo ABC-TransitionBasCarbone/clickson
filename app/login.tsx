@@ -1,8 +1,3 @@
-'use client'
-
-
-
-
 export default function Login() {
 
     if (true) {
