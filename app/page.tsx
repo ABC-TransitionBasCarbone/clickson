@@ -3,6 +3,7 @@
 import { getSession, login, logout } from "@/lib";
 import { FormEvent, useEffect, useState } from "react";
 import { redirect } from 'next/navigation'
+import {Button} from "@mui/material";
 
 export default function Page() {
   const [session, setSession] = useState({})
@@ -56,7 +57,7 @@ export default function Page() {
           <br />
           <input name="password" type="password" defaultValue={"om@XBC4H(hAVyG%s%@AWBVWS"} />
           <br />
-          <button type="submit">Login</button>
+          <Button variant="contained" type="submit">Login</Button>
         </form>
         <form onSubmit={onLogout}>
           <button type="submit">Logout</button>
