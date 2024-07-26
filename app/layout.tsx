@@ -1,3 +1,5 @@
+import './global.css';
+
 export const metadata = {
   title: "Next.js Authentication",
   description: "Example using NextAuth.js",
