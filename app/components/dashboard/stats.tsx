@@ -1,4 +1,3 @@
-import {useEffect, useState} from "react";
 import {Box, Grid} from "@mui/material";
 import {Doughnut} from 'react-chartjs-2';
 import {
@@ -12,27 +11,12 @@ import {
     Legend, ArcElement
 } from 'chart.js';
 
+import { useTheme } from '@mui/material/styles';
+
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement);
 
 export const Stats = () => {
-    const [chartColors, setChartColors] = useState({
-        energie: '',
-        restauration: '',
-        deplacements: '',
-        fournitures: '',
-        immobilisations: ''
-    });
-
-    useEffect(() => {
-        const root = getComputedStyle(document.documentElement);
-        setChartColors({
-            energie: root.getPropertyValue('--abc-blue').trim(),
-            restauration: root.getPropertyValue('--abc-red').trim(),
-            deplacements: root.getPropertyValue('--abc-green').trim(),
-            fournitures: root.getPropertyValue('--abc-orange').trim(),
-            immobilisations: root.getPropertyValue('--abc-violet').trim(),
-        });
-    }, []);
+    const theme = useTheme();
 
     const data = {
         labels: ['Energie', 'Restauration', 'Déplacements', 'Fournitures', 'Immobilisations'],
@@ -42,11 +26,11 @@ export const Stats = () => {
                 data: [54434, 225882, 221, 12339, 6863],
                 fill: false,
                 backgroundColor: [
-                    chartColors.energie,
-                    chartColors.restauration,
-                    chartColors.deplacements,
-                    chartColors.fournitures,
-                    chartColors.immobilisations
+                    theme.palette.abcBlue.main,
+                    theme.palette.abcRed.main,
+                    theme.palette.abcGreen.main,
+                    theme.palette.abcOrange.main,
+                    theme.palette.abcViolet.main
                 ],
                 border: 0
             },
@@ -72,15 +56,15 @@ export const Stats = () => {
                 <div className="info-wrapper">
                     <Box sx={{
                         color: 'text.primary',
-                        marginTop: 'var(--totalco2margintop)',
-                        fontSize: 'var(--totalco2value)',
-                        fontWeight: 'var(--secteursfontweight)'
+                        marginTop: theme.spacing(2),
+                        fontSize: theme.spacing(4),
+                        fontWeight: 'medium'
                     }}>299739</Box>
                     <Box sx={{
                         color: 'text.primary',
                         marginTop: '30px',
-                        fontSize: 'var(--totalco2label)',
-                        marginLeft: 'var(--totalco2marginleft)'
+                        fontSize: theme.spacing(2),
+                        marginLeft: theme.spacing(2)
                     }}>kgCO2e</Box>
                 </div>
                 <div className="chart">
@@ -89,15 +73,15 @@ export const Stats = () => {
 
             </Grid>
             <Grid item xs={12} md={6} className="stats">
-                <Grid container spacing={3} columns={12} sx={{paddingLeft: '30px'}}>
+                <Grid container spacing={3} columns={12} sx={{paddingLeft: theme.spacing(3.75)}}>
                     <Grid item xs={6}>
                         <div className="stats-wrapper">
                             <span>Energie</span>
                             <Box sx={{
                                 color: 'info.main',
-                                marginTop: 'var(--secteursmargintop)',
-                                fontSize: 'var(--secteursfontsize)',
-                                fontWeight: 'var(--secteursfontweight)'}}
+                                marginTop: theme.spacing(2),
+                                fontSize: theme.spacing(2),
+                                fontWeight: 'medium'}}
                             >
                                 54434 (kgCO2e)
                             </Box>
@@ -109,9 +93,9 @@ export const Stats = () => {
                             <Box
                                 sx={{
                                     color: 'error.main',
-                                    marginTop: 'var(--secteursmargintop)',
-                                    fontSize: 'var(--secteursfontsize)',
-                                    fontWeight: 'var(--secteursfontweight)'}}
+                                    marginTop: theme.spacing(2),
+                                    fontSize: theme.spacing(2),
+                                    fontWeight: 'medium'}}
                             >
                                 225882 (kgCO2e)
                             </Box>
@@ -123,9 +107,9 @@ export const Stats = () => {
                             <Box
                                 sx={{
                                     color: 'success.main',
-                                    marginTop: 'var(--secteursmargintop)',
-                                    fontSize: 'var(--secteursmargintop)',
-                                    fontWeight: 'var(--secteursfontweight)'}}
+                                    marginTop: theme.spacing(2),
+                                    fontSize: theme.spacing(2),
+                                    fontWeight: 'medium'}}
                             >
                                 221 (kgCO2e)
                             </Box>
@@ -136,9 +120,9 @@ export const Stats = () => {
                             <span>Fournitures</span>
                             <Box sx={{
                                 color: 'warning.main',
-                                marginTop: 'var(--secteursmargintop)',
-                                fontSize: 'var(--secteursmargintop)',
-                                fontWeight: 'var(--secteursfontweight)'}}
+                                marginTop: theme.spacing(2),
+                                fontSize: theme.spacing(2),
+                                fontWeight: 'medium'}}
                             >
                                 12339 (kgCO2e)
                             </Box>
@@ -149,9 +133,9 @@ export const Stats = () => {
                             <span>Immobilisations</span>
                             <Box sx={{
                                 color: 'secondary.main',
-                                marginTop: 'var(--secteursmargintop)',
-                                fontSize: 'var(--secteursmargintop)',
-                                fontWeight: 'var(--secteursfontweight)'}}
+                                marginTop: theme.spacing(2),
+                                fontSize: theme.spacing(2),
+                                fontWeight: 'medium'}}
                             >
                                 6863 (kgCO2e)
                             </Box>

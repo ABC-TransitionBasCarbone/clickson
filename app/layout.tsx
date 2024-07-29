@@ -1,4 +1,7 @@
+import {CssBaseline, ThemeProvider} from '@mui/material';
 import './global.css';
+import theme from "@/app/theme";
+import React from "react";
 
 export const metadata = {
   title: "Next.js Authentication",
@@ -11,8 +14,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
+
+      <html lang="en">
+      <body>
+      <ThemeProvider theme={theme}>
+          <CssBaseline />
+          {children}
+      </ThemeProvider>
+      </body>
+      </html>
+
+
   );
 }
