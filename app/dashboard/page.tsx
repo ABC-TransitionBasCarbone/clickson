@@ -31,7 +31,6 @@ export default function Dashboard() {
                     <Stats/>
 
                 </Box>
-
             </Container>
 
         </>
@@ -39,3 +38,4 @@ export default function Dashboard() {
 
     );
 };
+

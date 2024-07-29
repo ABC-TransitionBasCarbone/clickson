@@ -15,7 +15,6 @@
     "@mui/material": "^5.16.5",
     "@mui/material-nextjs": "^5.16.4",
     "@mui/system": "^5.16.5",
-    "@mui/x-charts": "^7.11.0",
     "chart.js": "^4.4.3",
     "i18next": "^23.12.1",
     "i18next-http-backend": "^2.5.2",
