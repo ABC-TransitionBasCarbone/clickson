@@ -1,8 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playwrite+CZ:wght@100..400&display=swap');
 
 :root {
-    --blue: #1c82b8;
-    --orange: #ff6900;
+    --abc-blue: #1c82b8;
+    --abc-orange: #ff6900;
+    --abc-red: #d32f2f;
+    --abc-grey: #6d6d6d;
+    --abc-green: #2e7d32;
+    --abc-violet: #9c27b0;
+    --totalco2margintop: 16px;
+    --totalco2marginleft: 16px;
+    --totalco2value: 32px;
+    --totalco2label: 16px;
+    --secteursmargintop: 16px;
+    --secteurfontsize: 16px;
+    --secteursfontweight: 'medium'
 }
 
 * {
@@ -84,11 +95,11 @@ a {
 
 .username a {
     font-family: 'Montserrat', 'sans-serif';
-    color: var(--blue);
+    color: var(--abc-blue);
 }
 
 .username a:hover {
-    color: var(--orange);
+    color: var(--abc-orange);
 }
 
 .dashboard h6 {
