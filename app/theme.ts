@@ -10,22 +10,22 @@ const montserrat = Montserrat({
 
 const theme = createTheme({
     palette: {
-        abcBlue: {
+        primary: {
             main: '#1c82b8'
         },
-        abcOrange: {
+        secondary: {
             main: '#ff6900'
         },
-        abcRed: {
+        error: {
             main: '#d32f2f'
         },
-        abcGrey: {
+        warning: {
             main: '#6d6d6d',
         },
-        abcViolet: {
+        info: {
             main: '#9c27b0',
         },
-       abcGreen: {
+        success: {
             main: '#2e7d32'
         }
     },

@@ -9,28 +9,62 @@ import Container from '@mui/material/Container';
 import {Box} from "@mui/material";
 import Divider from '@mui/material/Divider';
 import {Stats} from "@/app/components/dashboard/stats";
-const Greetings = dynamic(() => import('../components/greetings').then(module => module.Greetings), { ssr: false });
+import {useTheme} from "@mui/material/styles";
+import {styled} from "@mui/system";
 
+const Greetings = dynamic(() => import('../components/greetings').then(module => module.Greetings), { ssr: false });
+const CustomContainer = styled('div')`
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1030;
+    background-color: white;
+`
+
+const DashboardWrapper = styled(Box)`
+    max-width: 100%;
+    margin-top: 60px;
+    min-height: calc(100vh - 290px);
+    padding-top: 60px;
+    padding-bottom: 80px;
+    a {
+        color: #6d6d6d;
+    }
+    a:hover {
+        color: black;
+    }
+`
+
+const Link = styled('a')`
+    text-decoration: none;
+`
+
+const CustomH6 = styled('h6')`
+    font-size: 1rem;
+    line-height: 1.2;
+`
 export default function Dashboard() {
+    const theme = useTheme();
 
     return (
         <>
             {/*<Greetings />*/}
-            <div className="container">
+            <CustomContainer>
                 <Header/>
-            </div>
+            </CustomContainer>
             <Container maxWidth="xl">
-                <Box className="dashboard">
-                    <a href="#">
+                <DashboardWrapper>
+                    <Link href="#">
                         <HomeIcon fontSize="large"/>
-                    </a>
-                    <h6>
+                    </Link>
+                    <CustomH6>
                         <strong>PROFIL D'ÉMISSIONS (kgCO2e)</strong>
-                    </h6>
-                    <Divider aria-hidden="true" sx={{ marginTop: '10px' }} />
+                    </CustomH6>
+                    <Divider aria-hidden="true" sx={{ marginTop: theme.spacing(1.25) }} />
                     <Stats/>
 
-                </Box>
+                </DashboardWrapper>
             </Container>
 
         </>

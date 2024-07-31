@@ -1,4 +1,5 @@
 import {Box, Grid} from "@mui/material";
+import {styled} from "@mui/system";
 import {Doughnut} from 'react-chartjs-2';
 import {
     Chart as ChartJS,
@@ -8,13 +9,34 @@ import {
     LineElement,
     Title,
     Tooltip,
-    Legend, ArcElement
+    Legend, ArcElement, ChartOptions
 } from 'chart.js';
 
-import { useTheme } from '@mui/material/styles';
+import {useTheme} from '@mui/material/styles';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement);
 
+const StatsGrid = styled(Grid)`
+    margin-top: 30px;
+`;
+
+const InfoWrapper = styled('div')`
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: left;
+`
+
+const ChartWrapper = styled('div')`
+    padding: 0 80px 0 0;
+    max-width: 500px;
+`
+
+const StatsWrapper = styled('div')`
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 80px;
+`
 export const Stats = () => {
     const theme = useTheme();
 
@@ -26,18 +48,18 @@ export const Stats = () => {
                 data: [54434, 225882, 221, 12339, 6863],
                 fill: false,
                 backgroundColor: [
-                    theme.palette.abcBlue.main,
-                    theme.palette.abcRed.main,
-                    theme.palette.abcGreen.main,
-                    theme.palette.abcOrange.main,
-                    theme.palette.abcViolet.main
+                    theme.palette.primary.main,
+                    theme.palette.error.main,
+                    theme.palette.success.main,
+                    theme.palette.secondary.main,
+                    theme.palette.info.main
                 ],
                 border: 0
             },
         ],
     };
 
-    const options = {
+    const options: ChartOptions<'doughnut'> = {
         responsive: true,
         plugins: {
             legend: {
@@ -47,13 +69,14 @@ export const Stats = () => {
                 display: true,
                 text: 'Chart',
             },
-        },
-    };
+        }
+}
+    ;
     return (
         <Grid container>
-            <Grid item xs={12} md={6} className="stats">
+            <StatsGrid item xs={12} md={6} className="stats">
                 <span>LE TOTAL</span>
-                <div className="info-wrapper">
+                <InfoWrapper>
                     <Box sx={{
                         color: 'text.primary',
                         marginTop: theme.spacing(2),
@@ -66,13 +89,13 @@ export const Stats = () => {
                         fontSize: theme.spacing(2),
                         marginLeft: theme.spacing(2)
                     }}>kgCO2e</Box>
-                </div>
-                <div className="chart">
+                </InfoWrapper>
+                <ChartWrapper>
                     <Doughnut data={data} options={options}/>
-                </div>
+                </ChartWrapper>
 
-            </Grid>
-            <Grid item xs={12} md={6} className="stats">
+            </StatsGrid>
+            <StatsGrid item xs={12} md={6}>
                 <Grid container spacing={3} columns={12} sx={{paddingLeft: theme.spacing(3.75)}}>
                     <Grid item xs={6}>
                         <div className="stats-wrapper">
@@ -81,68 +104,73 @@ export const Stats = () => {
                                 color: 'info.main',
                                 marginTop: theme.spacing(2),
                                 fontSize: theme.spacing(2),
-                                fontWeight: 'medium'}}
+                                fontWeight: 'medium'
+                            }}
                             >
                                 54434 (kgCO2e)
                             </Box>
                         </div>
                     </Grid>
                     <Grid item xs={6}>
-                        <div className="stats-wrapper">
+                        <StatsWrapper>
                             <span>Restauration</span>
                             <Box
                                 sx={{
                                     color: 'error.main',
                                     marginTop: theme.spacing(2),
                                     fontSize: theme.spacing(2),
-                                    fontWeight: 'medium'}}
+                                    fontWeight: 'medium'
+                                }}
                             >
                                 225882 (kgCO2e)
                             </Box>
-                        </div>
+                        </StatsWrapper>
                     </Grid>
                     <Grid item xs={6}>
-                        <div className="stats-wrapper">
+                        <StatsWrapper>
                             <span>Déplacements</span>
                             <Box
                                 sx={{
                                     color: 'success.main',
                                     marginTop: theme.spacing(2),
                                     fontSize: theme.spacing(2),
-                                    fontWeight: 'medium'}}
+                                    fontWeight: 'medium'
+                                }}
                             >
                                 221 (kgCO2e)
                             </Box>
-                        </div>
+                        </StatsWrapper>
                     </Grid>
                     <Grid item xs={6}>
-                        <div className="stats-wrapper">
+                        <StatsWrapper>
                             <span>Fournitures</span>
                             <Box sx={{
                                 color: 'warning.main',
                                 marginTop: theme.spacing(2),
                                 fontSize: theme.spacing(2),
-                                fontWeight: 'medium'}}
+                                fontWeight: 'medium'
+                            }}
                             >
                                 12339 (kgCO2e)
                             </Box>
-                        </div>
+                        </StatsWrapper>
                     </Grid>
                     <Grid item xs={6}>
-                        <div className="stats-wrapper">
+                        <StatsWrapper>
                             <span>Immobilisations</span>
                             <Box sx={{
                                 color: 'secondary.main',
                                 marginTop: theme.spacing(2),
                                 fontSize: theme.spacing(2),
-                                fontWeight: 'medium'}}
+                                fontWeight: 'medium'
+                            }}
                             >
                                 6863 (kgCO2e)
                             </Box>
-                        </div>
+                        </StatsWrapper>
                     </Grid>
                 </Grid>
-            </Grid>
+            </StatsGrid>
         </Grid>
     )
 }
