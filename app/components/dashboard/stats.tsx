@@ -101,7 +101,7 @@ export const Stats = () => {
                         <div className="stats-wrapper">
                             <span>Energie</span>
                             <Box sx={{
-                                color: 'info.main',
+                                color: 'primary.main',
                                 marginTop: theme.spacing(2),
                                 fontSize: theme.spacing(2),
                                 fontWeight: 'medium'
@@ -145,7 +145,7 @@ export const Stats = () => {
                         <StatsWrapper>
                             <span>Fournitures</span>
                             <Box sx={{
-                                color: 'warning.main',
+                                color: 'secondary.main',
                                 marginTop: theme.spacing(2),
                                 fontSize: theme.spacing(2),
                                 fontWeight: 'medium'
@@ -159,7 +159,7 @@ export const Stats = () => {
                         <StatsWrapper>
                             <span>Immobilisations</span>
                             <Box sx={{
-                                color: 'secondary.main',
+                                color: 'info.main',
                                 marginTop: theme.spacing(2),
                                 fontSize: theme.spacing(2),
                                 fontWeight: 'medium'

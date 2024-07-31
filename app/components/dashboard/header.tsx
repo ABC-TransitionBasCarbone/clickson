@@ -14,26 +14,6 @@ const BoxHeader = styled(Box)`
         padding-left: 15px;
     }
 `;
-
-const UsernameBox = styled(Box)`
-    text-align: right;
-    list-style: none;
-    margin: 0 10px 0 0;
-
-    p {
-        font-weight: bold;
-        font-size: 12px;
-        padding-bottom: 5px;
-    }
-
-    a {
-        color: var(--abc-blue);
-    }
-    a:hover {
-        color: var(--abc-orange);
-    }
-`;
-
 const Link = styled('a')`
     text-decoration: none;
     
@@ -48,9 +28,23 @@ const LanguageMenu = styled('ul')`
     }
 `;
 
-
+const UsernameBox = styled('div')(({ theme }) => ({
+    a: {
+        color: theme.palette.primary.main,
+    },
+    textAlign: 'right',
+    listStyle: 'none',
+    marginRight: theme.spacing(1.25),
+    p: {
+        fontWeight: 'bold',
+        fontSize: theme.spacing(1.5),
+        paddingBottom: theme.spacing(0.625),
+    },
+    'a:hover': {
+        color: theme.palette.secondary.main
+    }
+}));
 export const Header = () => {
-
     const languages: StaticImageData[] = [eng, fra, ita, esp];
     return (
         <Box sx={{width: '100%'}}>
