@@ -14,11 +14,11 @@ const BoxHeader = styled(Box)`
         padding-left: 15px;
     }
 `;
+
 const Link = styled('a')`
     text-decoration: none;
-    
-    
-`
+`;
+
 const LanguageMenu = styled('ul')`
     li {
         display: inline-block;
@@ -37,13 +37,14 @@ const UsernameBox = styled('div')(({ theme }) => ({
     marginRight: theme.spacing(1.25),
     p: {
         fontWeight: 'bold',
-        fontSize: theme.spacing(1.5),
-        paddingBottom: theme.spacing(0.625),
+        fontSize: 12,
+        paddingBottom: theme.spacing(1),
     },
     'a:hover': {
         color: theme.palette.secondary.main
     }
 }));
+
 export const Header = () => {
     const languages: StaticImageData[] = [eng, fra, ita, esp];
     return (

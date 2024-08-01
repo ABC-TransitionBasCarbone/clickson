@@ -1,12 +1,3 @@
-:root {
-    --abc-blue: #1c82b8;
-    --abc-orange: #ff6900;
-    --abc-red: #d32f2f;
-    --abc-grey: #6d6d6d;
-    --abc-green: #2e7d32;
-    --abc-violet: #9c27b0;
-}
-
 * {
     margin: 0;
     padding: 0;

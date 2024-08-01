@@ -80,13 +80,13 @@ export const Stats = () => {
                     <Box sx={{
                         color: 'text.primary',
                         marginTop: theme.spacing(2),
-                        fontSize: theme.spacing(4),
+                        fontSize: 32,
                         fontWeight: 'medium'
                     }}>299739</Box>
                     <Box sx={{
                         color: 'text.primary',
                         marginTop: '30px',
-                        fontSize: theme.spacing(2),
+                        fontSize: 16,
                         marginLeft: theme.spacing(2)
                     }}>kgCO2e</Box>
                 </InfoWrapper>
@@ -103,7 +103,7 @@ export const Stats = () => {
                             <Box sx={{
                                 color: 'primary.main',
                                 marginTop: theme.spacing(2),
-                                fontSize: theme.spacing(2),
+                                fontSize: 16,
                                 fontWeight: 'medium'
                             }}
                             >
@@ -118,7 +118,7 @@ export const Stats = () => {
                                 sx={{
                                     color: 'error.main',
                                     marginTop: theme.spacing(2),
-                                    fontSize: theme.spacing(2),
+                                    fontSize: 16,
                                     fontWeight: 'medium'
                                 }}
                             >
@@ -133,7 +133,7 @@ export const Stats = () => {
                                 sx={{
                                     color: 'success.main',
                                     marginTop: theme.spacing(2),
-                                    fontSize: theme.spacing(2),
+                                    fontSize: 16,
                                     fontWeight: 'medium'
                                 }}
                             >
@@ -147,7 +147,7 @@ export const Stats = () => {
                             <Box sx={{
                                 color: 'secondary.main',
                                 marginTop: theme.spacing(2),
-                                fontSize: theme.spacing(2),
+                                fontSize: 16,
                                 fontWeight: 'medium'
                             }}
                             >
