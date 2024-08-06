@@ -8,6 +8,7 @@
   "dependencies": {
     "@incubateur-ademe/nosgestesclimat": "3.0.0-rc.3",
     "@mui/icons-material": "^5.16.5",
+    "@mui/lab": "5.0.0-alpha.173",
     "@mui/material": "^5.16.5",
     "@mui/material-nextjs": "^5.16.4",
     "@mui/system": "^5.16.5",

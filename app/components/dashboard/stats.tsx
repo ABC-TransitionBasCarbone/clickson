@@ -74,7 +74,7 @@ export const Stats = () => {
     ;
     return (
         <Grid container>
-            <StatsGrid item xs={12} md={6} className="stats">
+            <StatsGrid item xs={12} md={6}>
                 <span>LE TOTAL</span>
                 <InfoWrapper>
                     <Box sx={{

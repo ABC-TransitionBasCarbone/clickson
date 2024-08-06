@@ -1,4 +1,4 @@
-import {CssBaseline, ThemeProvider} from '@mui/material';
+import {Box, CssBaseline, ThemeProvider} from '@mui/material';
 import './global.css';
 import theme from "@/app/theme";
 import React from "react";
