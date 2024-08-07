@@ -12,7 +12,6 @@ import {Stats} from "@/app/components/dashboard/stats";
 import {useTheme} from "@mui/material/styles";
 import {styled} from "@mui/system";
 
-const Greetings = dynamic(() => import('../components/greetings').then(module => module.Greetings), { ssr: false });
 const CustomContainer = styled('div')`
     position: fixed;
     top: 0;
@@ -49,7 +48,6 @@ export default function Dashboard() {
 
     return (
         <>
-            {/*<Greetings />*/}
             <CustomContainer>
                 <Header/>
             </CustomContainer>
@@ -66,10 +64,7 @@ export default function Dashboard() {
 
                 </DashboardWrapper>
             </Container>
-
         </>
-
-
     );
 };
 

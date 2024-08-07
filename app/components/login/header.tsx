@@ -1,4 +1,4 @@
-import {Grid, Box} from "@mui/material";
+import {Grid, Box, Link} from "@mui/material";
 
 import eng from '../../public/eng.png';
 import fra from '../../public/fra.png';
@@ -7,31 +7,28 @@ import ita from '../../public/ita.png';
 
 import Image, {StaticImageData} from 'next/image'
 import {styled} from "@mui/system";
-import {MouseEvent, useState} from "react";
-import {logout} from "@/lib";
-import {useRouter} from "next/navigation";
 
 const BoxHeader = styled(Box)`
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
     img {
-        max-height: 50px;
-        padding-left: 15px;
+        max-height: 60px;
+        padding: 5px;
     }
-`;
-
-const Link = styled('a')`
-    text-decoration: none;
+    margin: 16px 0 16px 0;
 `;
 
 const LanguageMenu = styled('ul')`
     li {
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
         padding-left: 10px;
-        margin-top: 10px;
-        margin-bottom: 14px;
+        margin-bottom: 16px;
     }
 `;
 
-const UsernameBox = styled('div')(({theme}) => ({
+const UsernameBox = styled('div')(({ theme }) => ({
     a: {
         color: theme.palette.primary.main,
     },
@@ -49,15 +46,6 @@ const UsernameBox = styled('div')(({theme}) => ({
 }));
 
 export const Header = () => {
-    const router = useRouter();
-    const [session, setSession] = useState({})
-    const onLogout = (event: MouseEvent<HTMLAnchorElement>) => {
-        event.preventDefault()
-        logout().then(() => {
-            setSession({});
-            router.push('/')
-        })
-    }
     const languages: StaticImageData[] = [eng, fra, ita, esp];
     return (
         <Box sx={{width: '100%'}}>
@@ -67,16 +55,13 @@ export const Header = () => {
                 justifyContent="space-between"
                 alignItems="center"
             >
-                <Grid item sm={3}>
+                <Grid item sm={6}>
                     <BoxHeader>
                         <img
                             src="https://calculator.clickson.eu/wp-content/themes/co2calc-child/images/logo.png"
                             alt="logo"
                         />
                     </BoxHeader>
-                </Grid>
-                <Grid item sm={6}>
-                    <Box sx={{border: 'none'}}></Box>
                 </Grid>
                 <Grid item sm={3}>
                     <UsernameBox sx={{border: 'none'}}>
@@ -87,11 +72,10 @@ export const Header = () => {
                                 </li>
                             ))}
                         </LanguageMenu>
-                        <p>teddy.courtaux@abc-transitionbascarbone.fr</p>
-                        <Link href="" onClick={onLogout}>Se déconnecter</Link>
                     </UsernameBox>
                 </Grid>
             </Grid>
         </Box>
     )
 }
+
