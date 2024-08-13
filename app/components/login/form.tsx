@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import theme from "@/app/theme";
 import {styled} from "@mui/system";
-import {FormEventHandler} from "react";
+import {FormEventHandler, MouseEventHandler} from "react";
 import LoadingButton from '@mui/lab/LoadingButton';
 
 const BodyGrid = styled(Grid)(({theme}) => ({
@@ -47,9 +47,10 @@ interface Props {
     onLogin: FormEventHandler,
     loading: boolean,
     buttonValue: string,
+    goToSignUp: MouseEventHandler
 }
 
-export const Form = ({correctUserInfo, onLogin, loading, buttonValue}: Props) =>
+export const Form = ({correctUserInfo, onLogin, loading, buttonValue, goToSignUp}: Props) =>
     (
         <BodyGrid container spacing={5} columns={16}>
             <Grid item md={10}>
@@ -182,7 +183,7 @@ export const Form = ({correctUserInfo, onLogin, loading, buttonValue}: Props) =>
                     marginTop: theme.spacing(3),
                     marginBottom: theme.spacing(1)
                 }}>
-                    <StyledButton variant="contained" size="large">S'IDENTIFIER</StyledButton>
+                    <StyledButton variant="contained" size="large" onClick={goToSignUp}>S'IDENTIFIER</StyledButton>
                 </FormControl>
             </Grid>
         </BodyGrid>

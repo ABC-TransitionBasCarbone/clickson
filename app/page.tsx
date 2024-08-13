@@ -59,8 +59,10 @@ export default function Page() {
                 setCorrectUserInfo(false);
             }
         });
-        console.log("🚀 ~ onLogin ~ dashboard:", "dashboard")
+    }
 
+    const goToSignUp = () => {
+        router.push("/signup");
     }
 
     const onResetPassword = (event: FormEvent<HTMLFormElement>) => {
@@ -72,10 +74,10 @@ export default function Page() {
     return (
         <>
             <CustomContainer>
-                <Header />
+                <Header logoPosition="flex-end"/>
             </CustomContainer>
             <Container>
-                <Form correctUserInfo={correctUserInfo} onLogin={onLogin} loading={loading} buttonValue={buttonValue} />
+                <Form correctUserInfo={correctUserInfo} onLogin={onLogin} loading={loading} buttonValue={buttonValue} goToSignUp={goToSignUp}/>
             </Container>
             <Footer/>
         </>
