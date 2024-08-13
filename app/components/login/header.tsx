@@ -8,16 +8,6 @@ import ita from '../../public/ita.png';
 import Image, {StaticImageData} from 'next/image'
 import {styled} from "@mui/system";
 
-const BoxHeader = styled(Box)`
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    img {
-        max-height: 60px;
-        padding: 5px;
-    }
-    margin: 16px 0 16px 0;
-`;
 
 const LanguageMenu = styled('ul')`
     li {
@@ -45,7 +35,21 @@ const UsernameBox = styled('div')(({ theme }) => ({
     }
 }));
 
-export const Header = () => {
+interface Props {
+    logoPosition: string,
+}
+
+export const Header = ({logoPosition}: Props) => {
+    const BoxHeader = styled(Box)(({ theme }) => ({
+        display: 'flex',
+        justifyContent: logoPosition,
+        alignItems: 'center',
+        img: {
+            maxHeight: '60px',
+            padding: '5px',
+        },
+        margin: theme.spacing(2,1,2,1),
+    }));
     const languages: StaticImageData[] = [eng, fra, ita, esp];
     return (
         <Box sx={{width: '100%'}}>

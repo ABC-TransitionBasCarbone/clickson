@@ -1,7 +1,7 @@
 'use server'
 
 
-import {SignJWT, jwtVerify} from "jose";
+import {jwtVerify, SignJWT} from "jose";
 import {cookies} from "next/headers";
 import {NextRequest, NextResponse} from "next/server";
 
@@ -46,7 +46,7 @@ export async function getCurrentUser(username: string, password: string) {
         redirect: "follow"
     } as RequestInit;
     try {
-        const result = await fetch(urlApi + "/login", requestOptions)
+        const result = await fetch(urlApi + "/auth/login", requestOptions)
         const login = await result.json();
 
         if (login.errors) {
@@ -98,9 +98,44 @@ export async function updateSession(request: NextRequest) {
         name: "session",
         value: await encrypt(parsed),
         httpOnly: true,
+
         expires: parsed.expires,
     });
     return res;
+}
+
+export async function getCountries() {
+    try {
+        const response = await fetch(urlApi + "/countries")
+        return await response.json();
+    } catch(error) {
+        console.error(error);
+    }
+}
+
+export async function signUp(formData: FormData) {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify({
+        "email": formData.get("email")?.toString() || "",
+        "firstName": formData.get("firstName")?.toString() || "",
+        "lastName": formData.get("lastName")?.toString() || "",
+        "password": formData.get("password")?.toString() || "",
+    });
+
+    const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow"
+    } as RequestInit;
+    try {
+        const result = await fetch(urlApi + "/auth/signup", requestOptions)
+        return await result.json();
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 
