@@ -1,7 +1,7 @@
 'use server'
 
 
-import {jwtVerify, SignJWT} from "jose";
+import {SignJWT, jwtVerify} from "jose";
 import {cookies} from "next/headers";
 import {NextRequest, NextResponse} from "next/server";
 
@@ -269,8 +269,8 @@ export async function AddEnergyComment(formData: FormData) {
 
 /**
  * Fetch Comments for energy by sub_category_id
- * @param id 
- * @returns 
+ * @param id
+ * @returns
  */
 export async function getComments(id: number) {
     const myHeaders = new Headers();

@@ -1,22 +1,7 @@
 import {Grid, Box, Link} from "@mui/material";
 
-import eng from '../../public/eng.png';
-import fra from '../../public/fra.png';
-import esp from '../../public/esp.png';
-import ita from '../../public/ita.png';
-
-import Image, {StaticImageData} from 'next/image'
 import {styled} from "@mui/system";
-
-
-const LanguageMenu = styled('ul')`
-    li {
-        display: inline-flex;
-        align-items: center;
-        padding-left: 10px;
-        margin-bottom: 16px;
-    }
-`;
+import LanguageSwitcher from "@/app/components/LanguageSwitcher/LanguageSwitcher";
 
 const UsernameBox = styled('div')(({ theme }) => ({
     a: {
@@ -50,7 +35,6 @@ export const Header = ({logoPosition}: Props) => {
         },
         margin: theme.spacing(2,1,2,1),
     }));
-    const languages: StaticImageData[] = [eng, fra, ita, esp];
     return (
         <Box sx={{width: '100%'}}>
             <Grid
@@ -69,13 +53,7 @@ export const Header = ({logoPosition}: Props) => {
                 </Grid>
                 <Grid item sm={3}>
                     <UsernameBox sx={{border: 'none'}}>
-                        <LanguageMenu>
-                            {languages.map((language, id) => (
-                                <li key={id}>
-                                    <Link href=""><Image src={language} alt="languages" width={16} height={11}/></Link>
-                                </li>
-                            ))}
-                        </LanguageMenu>
+                        <LanguageSwitcher />
                     </UsernameBox>
                 </Grid>
             </Grid>

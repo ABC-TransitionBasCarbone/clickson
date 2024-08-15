@@ -1,22 +1,20 @@
-import {Box, CssBaseline, Stack, ThemeProvider} from '@mui/material';
+import {CssBaseline, Stack, ThemeProvider} from '@mui/material';
 import './global.css';
 import theme from "@/app/theme";
-import React from "react";
-import { Suspense } from 'react';
+import {ReactNode, Suspense} from "react";
 import CircularProgress from '@mui/material/CircularProgress';
 
 import './global.css';
+import './i18n';
+import React from 'react';
 
 export const metadata = {
   title: "Next.js Authentication",
   description: "Example using NextAuth.js",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({children, params}: { children: ReactNode, params: { locale: string } }) {
+
 
   const loaderComponent = (<Stack sx={{ height: "100vh", justifyContent: "center", alignItems: "center"}}>
     <React.Fragment>
@@ -34,7 +32,7 @@ export default function RootLayout({
 
   return (
 
-      <html lang="en">
+      <html lang={params.locale}>
       <body>
       <ThemeProvider theme={theme}>
           <CssBaseline />
@@ -46,5 +44,5 @@ export default function RootLayout({
       </html>
 
 
-  );
+    );
 }
