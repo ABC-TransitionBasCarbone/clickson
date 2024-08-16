@@ -11,7 +11,6 @@ import {Form} from './components/login/form'
 import {Footer} from './components/login/footer'
 import {useTheme} from "@mui/material/styles";
 
-
 export default function Page() {
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
