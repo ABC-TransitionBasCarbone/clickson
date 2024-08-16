@@ -3,7 +3,6 @@ import { updateSession } from "./lib";
 
 export async function middleware(request: NextRequest) {
   const session = request.cookies.has('session')
-
   if (session && (request.nextUrl.pathname === "/")) {
    return NextResponse.redirect(new URL('/dashboard', request.url))
   } else if (!session && (request.nextUrl.pathname !== "/") && (request.nextUrl.pathname !== "/signup")) {

@@ -15,18 +15,23 @@ export async function login(formData: FormData) {
 
   const login = await getCurrentUser(formData.get("username")?.toString() || "", formData.get("password")?.toString() || "")
 
-    if(login){
+    if(!login.errors){
         // Create the session
         const expires = new Date(Date.now() + 3600 * 1000);
-        const session = await encrypt({ login, expires });
+        let session = "";
 
         // Save the session in a cookie
-        cookies().set("session", session, { expires, httpOnly: true });
-        return true;
-    } else {
-        return false;
+        if (formData.get("keepSession")) {
+            session = await encrypt({ login });
+            cookies().set("session", session, { httpOnly: true });
+        } else {
+            session = await encrypt({ login, expires });
+            cookies().set("session", session, { expires, httpOnly: true });
+        }
+
     }
 
+    return login;
 }
 
 
@@ -54,7 +59,7 @@ export async function getCurrentUser(username: string, password: string) {
         }
         return login;
     } catch (error) {
-        console.error(error);
+        return error;
     }
 }
 
