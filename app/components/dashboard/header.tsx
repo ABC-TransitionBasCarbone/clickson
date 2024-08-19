@@ -7,9 +7,10 @@ import ita from '../../public/ita.png';
 
 import Image, {StaticImageData} from 'next/image'
 import {styled} from "@mui/system";
-import {MouseEvent, useState} from "react";
-import {logout} from "@/lib";
+import {MouseEvent, useEffect, useState} from "react";
+import {getSession, logout} from "@/lib";
 import {useRouter} from "next/navigation";
+
 
 const BoxHeader = styled(Box)`
     img {
@@ -51,6 +52,20 @@ const UsernameBox = styled('div')(({theme}) => ({
 export const Header = () => {
     const router = useRouter();
     const [session, setSession] = useState({})
+    const [user, setUser] = useState("");
+    useEffect(() => {
+        fetchCookies();
+    }, [setSession]);
+
+    const fetchCookies = async () => {
+        const cookies = await getSession();
+        if (!cookies) {
+            return
+        }
+        setSession(cookies);
+        console.log("🚀 ~ fetchCookies ~ cookies:", cookies)
+        setUser(cookies.login.user.email)
+    }
     const onLogout = (event: MouseEvent<HTMLAnchorElement>) => {
         event.preventDefault()
         logout().then(() => {
@@ -87,7 +102,7 @@ export const Header = () => {
                                 </li>
                             ))}
                         </LanguageMenu>
-                        <p>teddy.courtaux@abc-transitionbascarbone.fr</p>
+                        <p>{user}</p>
                         <Link href="" onClick={onLogout}>Se déconnecter</Link>
                     </UsernameBox>
                 </Grid>
