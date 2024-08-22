@@ -1,4 +1,6 @@
-import {Box, Grid} from "@mui/material";
+"use client"
+
+import {Box, Button, Grid} from "@mui/material";
 import {styled} from "@mui/system";
 import {Doughnut} from 'react-chartjs-2';
 import {
@@ -11,8 +13,10 @@ import {
     Tooltip,
     Legend, ArcElement, ChartOptions
 } from 'chart.js';
-
+import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import {useTheme} from '@mui/material/styles';
+import ExcelJS from "exceljs";
+import {fetchExportFile} from "@/app/helpers/export";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement);
 
@@ -70,10 +74,60 @@ export const Stats = () => {
                 text: 'Chart',
             },
         }
-}
-    ;
+    }
+    const handleExport = async () => {
+        try {
+            const arrayBuffer = await fetchExportFile();
+
+            if (!arrayBuffer) {
+                throw new Error('Failed to fetch the file');
+            }
+
+            const workbook = new ExcelJS.Workbook();
+
+            await workbook.xlsx.load(arrayBuffer);
+
+            const worksheet = workbook.getWorksheet('Summary and profile');
+            if (!worksheet) {
+                throw new Error(`Sheet not found`);
+            }
+
+            const energy = 54434;
+            const foodService = 225882;
+            const travel = 221;
+            const supplies = 12339;
+            const fixedAssets = 6893;
+
+            const total = energy + foodService + travel + supplies + fixedAssets;
+            worksheet.getCell('B6').value = energy;
+            worksheet.getCell('B7').value = foodService;
+            worksheet.getCell('B8').value = travel;
+            worksheet.getCell('B9').value = supplies;
+            worksheet.getCell('B10').value = fixedAssets;
+
+            worksheet.getCell('B11').value = total;
+            const buffer = await workbook.xlsx.writeBuffer();
+
+            const blob = new Blob([buffer], {type: 'application/octet-stream'});
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'clickson_report.xlsx');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
     return (
         <Grid container>
+            <StatsGrid item xs={12} sx={{
+                display: 'flex',
+                justifyContent: 'flex-end',
+            }}>
+                <SaveAltIcon onClick={handleExport}/>
+            </StatsGrid>
             <StatsGrid item xs={12} md={6}>
                 <span>LE TOTAL</span>
                 <InfoWrapper>

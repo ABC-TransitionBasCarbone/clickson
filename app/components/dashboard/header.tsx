@@ -64,7 +64,7 @@ export const Header = () => {
         }
         setSession(cookies);
         console.log("🚀 ~ fetchCookies ~ cookies:", cookies)
-        setUser(cookies.login.user.email)
+        setUser(cookies.login[0].name)
     }
     const onLogout = (event: MouseEvent<HTMLAnchorElement>) => {
         event.preventDefault()
