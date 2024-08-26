@@ -18,6 +18,7 @@
     "i18next": "^23.12.1",
     "i18next-http-backend": "^2.5.2",
     "jose": "^5.6.3",
+    "moment": "^2.30.1",
     "next": "^14.2.5",
     "publicodes": "^1.4.0",
     "react": "latest",
