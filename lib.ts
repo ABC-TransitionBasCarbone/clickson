@@ -143,4 +143,14 @@ export async function signUp(formData: FormData) {
     }
 }
 
+export async function getCategories() {
+    try {
+        const result = await fetch(urlApi + "/emission/categories")
+        return await result.json();
+    } catch (error) {
+        console.error(error);
+        return {"error" : error}
+    }
+}
+
 
