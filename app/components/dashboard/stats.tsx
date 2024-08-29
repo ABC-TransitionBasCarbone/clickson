@@ -1,6 +1,6 @@
 "use client"
 
-import {Box, Button, Grid} from "@mui/material";
+import {Box, Grid, Popover, Typography} from "@mui/material";
 import {styled} from "@mui/system";
 import {Doughnut} from 'react-chartjs-2';
 import {
@@ -17,6 +17,7 @@ import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import {useTheme} from '@mui/material/styles';
 import ExcelJS from "exceljs";
 import {fetchExportFile} from "@/app/helpers/export";
+import React, {useState} from "react";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement);
 
@@ -120,13 +121,52 @@ export const Stats = () => {
             console.error('Error:', error);
         }
     };
+
+    const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+
+    const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handlePopoverClose = () => {
+        setAnchorEl(null);
+    };
+
+    const open = Boolean(anchorEl);
+
     return (
         <Grid container>
             <StatsGrid item xs={12} sx={{
                 display: 'flex',
                 justifyContent: 'flex-end',
             }}>
-                <SaveAltIcon onClick={handleExport}/>
+                <Typography
+                    aria-owns={open ? 'mouse-over-popover' : undefined}
+                    aria-haspopup="true"
+                    onMouseEnter={handlePopoverOpen}
+                    onMouseLeave={handlePopoverClose}
+                >
+                    <SaveAltIcon sx={{cursor: 'pointer'}} onClick={handleExport}/>
+                </Typography>
+                <Popover
+                    id="mouse-over-popover"
+                    sx={{ pointerEvents: 'none' }}
+                    open={open}
+                    anchorEl={anchorEl}
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                    }}
+                    transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'left',
+                    }}
+                    onClose={handlePopoverClose}
+                    disableRestoreFocus
+                >
+                    <Typography sx={{ p: 1 }}>Télécharger les résultats de la session au format Excel</Typography>
+                </Popover>
+
             </StatsGrid>
             <StatsGrid item xs={12} md={6}>
                 <span>LE TOTAL</span>
