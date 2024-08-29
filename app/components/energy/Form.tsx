@@ -14,7 +14,6 @@ import { useEffect, useState } from "react";
 import { generateUuid } from "@/app/helpers/uuid";
 import { Comment } from "@/app/models/Energy/Comment";
 import CircularProgress from '@mui/material/CircularProgress';
-import moment from 'moment'
 
 const CustomContainer = styled('div')`
     z-index: 1030;
@@ -296,7 +295,7 @@ export const Form = ({username, data, category, description, options, titleSelec
                     <Stack spacing={1} marginTop={5} paddingLeft={2} paddingRight={2} sx={{ width: '100%' }}>
                             {comments.map((c) => (
                                 <Alert key={c.id} sx={{backgroundColor: "whitesmoke"}}>
-                                    <AlertTitle>{c.created_by} - {moment(c.created_at).format("DD/MM/yyyy")}</AlertTitle>
+                                    <AlertTitle>{c.created_by} - {new Date(c.created_at).toLocaleDateString("en-GB")}</AlertTitle>
                                     {c.text}
                                 </Alert>
                             ))}
