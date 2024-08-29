@@ -1,20 +1,20 @@
 import {
-    Alert, Box,
+    Alert, AlertTitle, Box,
     Button,
     Checkbox,
     FormControl,
     FormControlLabel,
-    Grid,
+    Grid, LinearProgress,
     Link, MenuItem,
     OutlinedInput, Select, SelectChangeEvent, TextField,
     Typography
 } from "@mui/material";
 import theme from "@/app/theme";
 import {styled} from "@mui/system";
-import {ChangeEvent, FormEventHandler} from "react";
+import {ChangeEvent, FormEventHandler, JSXElementConstructor, ReactElement} from "react";
 import LoadingButton from '@mui/lab/LoadingButton';
 import Image from "next/image";
-import {Autocomplete} from "@mui/lab";
+import {Autocomplete} from "@mui/material";
 
 const BodyGrid = styled(Grid)(({theme}) => ({
     display: 'flex',
@@ -53,19 +53,52 @@ interface Country {
 }
 
 interface Props {
-    correctUserInfo?: boolean,
+    showError?: boolean,
+    showSuccess?: boolean,
     onSignUp: FormEventHandler,
     loading?: boolean,
     buttonValue?: string,
     handleChange?: ChangeEvent<HTMLInputElement>,
     countries: Country[],
-    message: string
+    message: ReactElement | null,
+    progress: number | undefined,
 }
 
-export const SignUpForm = ({onSignUp, countries, correctUserInfo, message}: Props) =>
+export const SignUpForm = ({onSignUp, countries, showError, showSuccess, message, progress}: Props) =>
     (
         <BodyGrid container spacing={5} columns={16}>
             <Grid item md={16}>
+                {showError && (
+                    <FormControl sx={{
+                        width: '100%',
+                        marginTop: theme.spacing(1),
+                        marginBottom: theme.spacing(1)
+                    }}>
+                        <Alert severity="error">
+                            {message}
+                        </Alert>
+                    </FormControl>
+                )}
+                {showSuccess && (
+                    <FormControl sx={{
+                        width: '100%',
+                        marginTop: theme.spacing(1),
+                        marginBottom: theme.spacing(1)
+                    }}>
+                        <Alert severity="success">
+                            {message}
+                            <div style={{paddingBottom: '4px'}}></div>
+                            <LinearProgress variant="determinate" value={progress} sx={{
+                                position: 'absolute',
+                                bottom: 0,
+                                left: 0,
+                                width: '100%',
+                                borderBottomLeftRadius: 4,
+                                borderBottomRightRadius: 4
+                            }}/>
+                        </Alert>
+                    </FormControl>
+                )}
                 <form onSubmit={onSignUp}>
                     <FormControl
                         sx={{
@@ -74,7 +107,7 @@ export const SignUpForm = ({onSignUp, countries, correctUserInfo, message}: Prop
                             marginBottom: theme.spacing(1)
                         }}>
                         <TextField placeholder="Prénom"
-                                   name="firstname"
+                                   name="first_name"
                                    label="Prénom"
                         />
                     </FormControl>
@@ -86,7 +119,7 @@ export const SignUpForm = ({onSignUp, countries, correctUserInfo, message}: Prop
                         }}>
                         <TextField placeholder="Nom de famille"
                                    type="text"
-                                   name="lastname"
+                                   name="last_name"
                                    label="Nom de famille"
                         />
                     </FormControl>
@@ -150,6 +183,7 @@ export const SignUpForm = ({onSignUp, countries, correctUserInfo, message}: Prop
                                 <TextField
                                     {...params}
                                     label="Pays"
+                                    name="state"
                                     inputProps={{
                                         ...params.inputProps,
                                     }}
@@ -163,10 +197,34 @@ export const SignUpForm = ({onSignUp, countries, correctUserInfo, message}: Prop
                             marginTop: theme.spacing(1),
                             marginBottom: theme.spacing(1)
                         }}>
-                        <TextField placeholder="L'école"
+                        <TextField placeholder="Ville"
                                    type="text"
-                                   name="ecole"
-                                   label="L'école"
+                                   name="city"
+                                   label="Ville"
+                        />
+                    </FormControl>
+                    <FormControl
+                        sx={{
+                            width: '100%',
+                            marginTop: theme.spacing(1),
+                            marginBottom: theme.spacing(1)
+                        }}>
+                        <TextField placeholder="Code Postale"
+                                   type="text"
+                                   name="zip_code"
+                                   label="Code Postale"
+                        />
+                    </FormControl>
+                    <FormControl
+                        sx={{
+                            width: '100%',
+                            marginTop: theme.spacing(1),
+                            marginBottom: theme.spacing(1)
+                        }}>
+                        <TextField placeholder="Nom de mon établissement"
+                                   type="text"
+                                   name="school"
+                                   label="Nom de mon établissement"
                         />
                     </FormControl>
                     <FormControl
@@ -191,20 +249,7 @@ export const SignUpForm = ({onSignUp, countries, correctUserInfo, message}: Prop
                         </StyledLoadingButton>
                     </FormControl>
 
-                    {!correctUserInfo && (
-                        <FormControl sx={{
-                            width: '100%',
-                            marginTop: theme.spacing(1),
-                            marginBottom: theme.spacing(1)
-                        }}>
-                            <Alert
-                                severity="error"
-                                variant="filled"
-                            >
-                                {message}
-                            </Alert>
-                        </FormControl>
-                    )}
+
                 </form>
             </Grid>
         </BodyGrid>

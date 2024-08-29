@@ -4,13 +4,14 @@ import {Header} from "@/app/components/login/header";
 import Container from "@mui/material/Container";
 import {SignUpForm} from "@/app/components/signup/signupform";
 import {styled} from "@mui/system";
-import {Grid, useMediaQuery} from "@mui/material";
+import {Grid, Link, useMediaQuery} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
-import {FormEvent, useEffect, useState} from "react";
+import {FormEvent, ReactElement, useEffect, useState} from "react";
 import {getCountries, signUp} from "@/lib";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Divider from "@mui/material/Divider";
 import {useRouter} from "next/navigation";
+
 /**
  * Page de création de compte
  * @returns vers le Dashboard
@@ -38,10 +39,34 @@ export default function SignUp() {
     }
 
     const [countries, setCountries] = useState<Country[]>([]);
-    const [correctUserInfo, setCorrectUserInfo] = useState(true)
-    const [message, setMessage] = useState("")
+    const [showSuccess, setShowSuccess] = useState(false)
+    const [showError, setShowError] = useState(false);
+    const [message, setMessage] = useState<ReactElement | null>(null);
+    const [progress, setProgress] = useState(0);
 
+    const redirectToLogin = (showSuccess: boolean, message: ReactElement|null) => {
+        if (showSuccess && message) {
+            setProgress(0);
+            const totalTime = 3000;
+            const intervalTime = 100;
 
+            let currentProgress = 0;
+            const interval = setInterval(() => {
+                currentProgress += (intervalTime / totalTime) * 100;
+                setProgress(currentProgress);
+
+                if (currentProgress >= 100) {
+                    clearInterval(interval);
+                }
+            }, intervalTime);
+
+            setTimeout(() => {
+                router.push('/');
+            }, totalTime);
+
+            return () => clearInterval(interval);
+        }
+    }
     const fetchCountries = async () => {
         const data = await getCountries();
         setCountries(data);
@@ -51,19 +76,33 @@ export default function SignUp() {
         event.preventDefault()
         const formData = new FormData(event.currentTarget)
         signUp(formData).then(data => {
-
-            if(data.message) {
-                setCorrectUserInfo(false)
-                setMessage("Cette adresse email est déjà enregistré, veuillez choisir une autre.")
-            } else if(data.error) {
-                setCorrectUserInfo(false)
-                setMessage(data.error)
+            if (Object.keys(data).length === 0) {
+                setShowError(true)
+                setMessage(
+                    <span>
+                        Un compte est déjà associé à cette adresse email, cliquez&nbsp;
+                        <Link href="/" sx={{
+                            color: 'black',
+                            fontWeight: 'bold',
+                            textDecoration: 'none'
+                        }}>ici pour vous connecter
+                        </Link>
+                        &nbsp;ou choisissez une autre adresse email.
+                    </span>
+                )
+            } else {
+                setShowError(false)
+                setShowSuccess(true)
+                setMessage(
+                    <span>Votre compte a été créé avec succès</span>
+                )
             }
         });
     }
     useEffect(() => {
         fetchCountries()
-    }, []);
+        redirectToLogin(showSuccess, message)
+    }, [message]);
     return (
         <>
             <CustomContainer>
@@ -76,13 +115,16 @@ export default function SignUp() {
                     xs: theme.spacing(2),
                 }
             }}>
-                <ArrowBackIosIcon onClick={() => {router.back()}} sx={{
+                <ArrowBackIosIcon onClick={() => {
+                    router.back()
+                }} sx={{
                     cursor: 'pointer'
                 }}/>
                 <Divider sx={{marginTop: theme.spacing(2)}}/>
             </Container>
             <Container>
-                <SignUpForm onSignUp={onSignUp} countries={countries} correctUserInfo={correctUserInfo} message={message}/>
+                <SignUpForm onSignUp={onSignUp} countries={countries} showSuccess={showSuccess} showError={showError}
+                            message={message} progress={progress}/>
             </Container>
         </>
     );
