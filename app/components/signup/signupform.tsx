@@ -1,22 +1,18 @@
 import {
     Alert, Box,
     Button,
-    Checkbox,
     FormControl,
-    FormControlLabel,
+    TextField,
     Grid,
-    Link, MenuItem,
-    OutlinedInput, Select, SelectChangeEvent, TextField,
-    Typography
-} from "@mui/material";
+    Link, 
+    } from "@mui/material";
 import theme from "@/app/theme";
 import {styled} from "@mui/system";
 import {ChangeEvent, FormEventHandler} from "react";
 import LoadingButton from '@mui/lab/LoadingButton';
-import Image from "next/image";
 import {Autocomplete} from "@mui/lab";
 
-const BodyGrid = styled(Grid)(({theme}) => ({
+const BodyGrid = styled(Grid)(() => ({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
@@ -24,12 +20,6 @@ const BodyGrid = styled(Grid)(({theme}) => ({
     minHeight: '80vh',
 }));
 
-const StyledButton = styled(Button)(({theme}) => ({
-    '&:hover': {
-        backgroundColor: theme.palette.secondary.main,
-        color: 'white'
-    }
-}));
 
 const StyledLoadingButton = styled(LoadingButton)(({theme}) => ({
     '&:hover': {
@@ -38,11 +28,6 @@ const StyledLoadingButton = styled(LoadingButton)(({theme}) => ({
     },
 }));
 
-const CustomLink = styled(Link)(({theme}) => ({
-    '&:hover': {
-        color: theme.palette.secondary.main
-    }
-}))
 
 interface Country {
     country: {

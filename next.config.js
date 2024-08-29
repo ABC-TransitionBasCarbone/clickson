@@ -1,7 +1,6 @@
 module.exports = {
     webpack: (
-        config,
-        { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }
+        config
     ) => {
         config.module.rules.push({
             test: /\.csv$/,
@@ -9,11 +8,11 @@ module.exports = {
             options: {
                 dynamicTyping: true,
                 header: true,
+                transformHeader: (h) => h.replace(/[^\w\s]|_/g, "").replace(/\s+/g, "").toLowerCase(),
                 skipEmptyLines: true
             }
         })
 
-        // Important: return the modified config
         return config
     },
 }
