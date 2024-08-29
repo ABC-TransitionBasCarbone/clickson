@@ -1,11 +1,16 @@
 //page.js
 "use client";
 import React, { useState } from 'react';
+
+const fileList = require('../../public/Base_Carbone_V23.3_UTF8.csv')
+
 const Page = () => {
     const [csvData, setCsvData] = useState<string[][]>([]);
     const [errorMessage, setErrorMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+        console.log("🚀 ~ fileList:", fileList)
+        return
         const file = event.target.files![0];
         if (!file) {
             setErrorMessage('Please select a file.');
