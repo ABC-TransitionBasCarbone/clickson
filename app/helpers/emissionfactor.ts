@@ -1,4 +1,4 @@
-const file = require('./Base_Carbone_V23.3_UTF8.csv') as FE[]
+const file = require('../models/FE/Base_Carbone_V23.3_UTF8.csv') as FE[]
 
 /**
  * TODO check if i have multiple data ? Do i have to do a average ?
