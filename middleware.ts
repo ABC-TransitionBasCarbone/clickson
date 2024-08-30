@@ -1,14 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { updateSession } from "./lib";
 
 export async function middleware(request: NextRequest) {
-  const session = request.cookies.has('session')
-  if (session && (request.nextUrl.pathname === "/")) {
+  const user = request.cookies.has('user')
+  if (user && (request.nextUrl.pathname === "/" || request.nextUrl.pathname === "/signup")) {
    return NextResponse.redirect(new URL('/dashboard', request.url))
-  } else if (!session && (request.nextUrl.pathname !== "/") && (request.nextUrl.pathname !== "/signup")) {
+  } else if (!user && (request.nextUrl.pathname !== "/") && (request.nextUrl.pathname !== "/signup")) {
     return NextResponse.redirect(new URL('/', request.url))
   }
-  return await updateSession(request);
 }
 
 export const config = {
