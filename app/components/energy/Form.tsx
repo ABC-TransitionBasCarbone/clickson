@@ -13,6 +13,7 @@ import { Option } from "@/app/models/Select/Option";
 import { useEffect, useState } from "react";
 import { generateUuid } from "@/app/helpers/uuid";
 import { Comment } from "@/app/models/Energy/Comment";
+import CircularProgress from '@mui/material/CircularProgress';
 
 const CustomContainer = styled('div')`
     z-index: 1030;
@@ -89,12 +90,14 @@ interface Props {
     comments: Comment[],
     hasUnites?: boolean,
     unites?: Map<string, string> | null,
+    loadingData: boolean,
+    loadingComments: boolean,
     handleAddComment: (newComment: Comment, category: string) => void,
     handleAdd: (newEnergy: Energy) => void,
     handleDelete: (item: Energy) => void
 }
 
-export const Form = ({username, data, category, description, options, titleSelectInput, titleAnnualConsumptionInput, tableHeader, comments, hasUnites=false, unites=null, handleAdd, handleDelete, handleAddComment}: Props) => {
+export const Form = ({username, data, category, description, options, titleSelectInput, titleAnnualConsumptionInput, tableHeader, comments, hasUnites=false, unites=null, loadingData, loadingComments, handleAdd, handleDelete, handleAddComment}: Props) => {
 
     const theme = useTheme();
 
@@ -107,30 +110,36 @@ export const Form = ({username, data, category, description, options, titleSelec
 
     const [isExpanded, setIsExpanded] = useState(false);
 
-    const hangleAddEnergy = () => {
+    const [saving, setSaving] = useState(false);
+    const [savingComment, setSavingComment] = useState(false);
+
+    const hangleAddEnergy = async () => {
         if(type && value){
             if(Number(value)){
-                handleAdd(new Energy(generateUuid(), type, Number(value), category));
+                setSaving(true);
+                await handleAdd(new Energy(generateUuid(), type, Number(value), category));
                 setType("");
                 setValue("");
+                setSaving(false);
                 return;
             }
         }
-        alert("Ajouter une valeur")
-        console.log(type, value);
+        alert("Ajouter une valeur");
         
     }
 
-    const addComment = () => {
+    const addComment = async () => {
         if(username == undefined || username == null){
             alert("Tu n'es pas connecté");
             return;
         }
         if(textComment){
             if(textComment.trim().length > 0){
-                const comment = new Comment(generateUuid(), textComment, category, username);
-                handleAddComment(comment, category);
+                const comment = new Comment(generateUuid(), textComment, category, username, new Date());
+                setSavingComment(true);
+                await handleAddComment(comment, category);
                 setComment("");
+                setSavingComment(false);
                 return;
             }
         }
@@ -140,13 +149,13 @@ export const Form = ({username, data, category, description, options, titleSelec
     useEffect(() => {
         // Calculate Total of values
         const total1 = data.reduce((accumulator, currentItem) => {
-            return accumulator + currentItem.value;
+            return accumulator + Number(currentItem.value);
         }, 0);
         setTotalValues(total1);
 
         // Calculate Total of Uncertainty
         const total2 = data.reduce((accumulator, currentItem) => {
-            return accumulator + currentItem.uncertainty;
+            return accumulator + Number(currentItem.uncertainty);
         }, 0);
         setTotalUncertainty(total2);
     }, [data]);
@@ -204,12 +213,16 @@ export const Form = ({username, data, category, description, options, titleSelec
                     </Grid>
                     <Grid container xs={12} sm={4} paddingLeft={2} paddingRight={2} alignItems={'self-start'} justifyContent={'center'}>
                         <PrimaryButton
+                            disabled={saving}
                             onClick={hangleAddEnergy}
                         >ADD</PrimaryButton>
                     </Grid>
                 </Grid>
                 <Grid container>
-                    <TableContainer >
+                    {loadingData ? (<Box sx={{ display: 'flex', justifyContent: "center", alignItems: "center", height: "20" }}>
+                            <CircularProgress />
+                        </Box>) :
+                    (<TableContainer >
                         <Table aria-label="simple table">
                             <TableHead>
                                 <TableRow>
@@ -250,7 +263,7 @@ export const Form = ({username, data, category, description, options, titleSelec
                             </TableBody>
                             
                         </Table>
-                    </TableContainer>
+                    </TableContainer>)}
                 </Grid>
 
                 <Grid container marginTop={5}>
@@ -271,17 +284,25 @@ export const Form = ({username, data, category, description, options, titleSelec
                     </Grid>
                     
                     <Grid container xs={12} sm={4} paddingLeft={2} paddingRight={2} alignItems={'self-start'} justifyContent={'center'}>
-                        <PrimaryButton onClick={addComment}>ADD NOTES</PrimaryButton>
+                        <PrimaryButton disabled={savingComment} onClick={addComment}>ADD NOTES</PrimaryButton>
                     </Grid>
                 </Grid>
-                <Stack spacing={1} marginTop={5} paddingLeft={2} paddingRight={2} sx={{ width: '100%' }}>
-                        {comments.map((c) => (
-                            <Alert key={c.id} sx={{backgroundColor: "whitesmoke"}}>
-                                <AlertTitle>{c.created_by} - {c.created_at.toLocaleDateString()}</AlertTitle>
-                                {c.text}
-                            </Alert>
-                        ))}
-                </Stack>
+                {
+                    loadingComments ? (<Box sx={{ display: 'flex', justifyContent: "center", alignItems: "center", height: "20" }}>
+                        <CircularProgress />
+                    </Box>):
+                    (
+                    <Stack spacing={1} marginTop={5} paddingLeft={2} paddingRight={2} sx={{ width: '100%' }}>
+                            {comments.map((c) => (
+                                <Alert key={c.id} sx={{backgroundColor: "whitesmoke"}}>
+                                    <AlertTitle>{c.created_by} - {new Date(c.created_at).toLocaleDateString("en-GB")}</AlertTitle>
+                                    {c.text}
+                                </Alert>
+                            ))}
+                    </Stack>
+                    )
+                }
+                
             </Grid>
         
         </Grid>
