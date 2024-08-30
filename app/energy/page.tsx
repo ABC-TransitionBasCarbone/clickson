@@ -220,12 +220,11 @@ export default function EnergyPage() {
 
     useEffect(() => {
         const fetchSession = async () => {
-            const sessionCookie = await getSession();
-            if(sessionCookie){
-                if(sessionCookie.login && sessionCookie.login.user){
-                    if(sessionCookie.login.user.email){
-                        setUsername(sessionCookie.login.user.email.split("@")[0]);
-                    }
+            const cookies = await getSession();
+
+            if(cookies){
+                if(cookies.user_email){
+                    setUsername(cookies.user_email.split("@")[0]);
                 }
             }
         }
