@@ -49,27 +49,40 @@ const UsernameBox = styled('div')(({theme}) => ({
     }
 }));
 
+interface User {
+    user_display_name: string,
+    user_email: string,
+    role: string,
+    state: string,
+    school: string,
+    city: string,
+    zip_code: string
+}
 export const Header = () => {
     const router = useRouter();
-    const [session, setSession] = useState({})
-    const [user, setUser] = useState("");
+    const [user, setUser] = useState<User>({
+        city: "",
+        role: "",
+        school: "",
+        state: "",
+        user_display_name: "",
+        user_email: "",
+        zip_code: ""
+    });
     useEffect(() => {
         fetchCookies();
-    }, [setSession]);
+    }, [setUser]);
 
     const fetchCookies = async () => {
         const cookies = await getSession();
         if (!cookies) {
             return
         }
-        setSession(cookies);
-        console.log("🚀 ~ fetchCookies ~ cookies:", cookies)
-        setUser(cookies.login[0].name)
+        setUser(cookies);
     }
     const onLogout = (event: MouseEvent<HTMLAnchorElement>) => {
         event.preventDefault()
         logout().then(() => {
-            setSession({});
             router.push('/')
         })
     }
@@ -102,7 +115,8 @@ export const Header = () => {
                                 </li>
                             ))}
                         </LanguageMenu>
-                        <p>{user}</p>
+                        <p>{user.user_email}</p>
+                        <p>Connecté en tant que: <strong>{user.role}</strong></p>
                         <Link href="" onClick={onLogout}>Se déconnecter</Link>
                     </UsernameBox>
                 </Grid>

@@ -80,9 +80,9 @@ export async function decrypt(input: string): Promise<any> {
 }
 
 export async function getSession() {
-    const session = cookies().get("session")?.value;
+    const session = cookies().get("user")?.value;
     if (!session) return null;
-    return await decrypt(session);
+    return JSON.parse(session!);
 }
 
 export async function updateSession(request: NextRequest) {
