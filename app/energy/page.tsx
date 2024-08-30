@@ -21,6 +21,7 @@ import { Comment } from '../models/Energy/Comment';
 import { AddEnergy, AddEnergyComment, DeleteEnergy, getComments, getEmissions, getSession, getSubCategories } from '@/lib';
 import { useTranslation } from "react-i18next";
 import CircularProgress from '@mui/material/CircularProgress';
+import { useSearchParams } from 'next/navigation';
 
 const CustomContainer = styled('div')`
     z-index: 1030;
@@ -87,6 +88,8 @@ const LabelInput = styled("label")`
 
 export default function EnergyPage() {
     const theme = useTheme();
+
+    const searchParams = useSearchParams()
 
     const { t, i18n } = useTranslation();
 
@@ -237,6 +240,13 @@ export default function EnergyPage() {
         ["Natural gas", "kgCO2e/kWh gross heating value"],
         ["Wood pellets (8% humidity)", "kgCO2e/kWh net heating value"],
     ]);
+
+    useEffect(()=> {
+        
+        if(searchParams){
+            console.log(searchParams.get("id"));
+        }
+    }, [searchParams])
 
     const fecthSubCategories = async () => {
         setLoading(true);
