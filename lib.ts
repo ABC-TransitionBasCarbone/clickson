@@ -157,9 +157,6 @@ export async function getCategories() {
     }
 }
 
-
-
-
 export async function getSubCategories(id: number) {
     try {
         const result = await fetch(urlApi + "/emission/sub-categories/"+id)

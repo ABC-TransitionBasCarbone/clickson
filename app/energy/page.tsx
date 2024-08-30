@@ -93,11 +93,11 @@ export default function EnergyPage() {
 
     const { t, i18n } = useTranslation();
 
-    const energyID = 1;
+    const [energyID, setEnergyID] = useState<number|null>(null);
 
     const [loading, setLoading] = useState(false);
 
-    const [username, setUsername] = useState(null);
+    const [username, setUsername] = useState<string|null>(null);
 
     const [fuelData, setFuelData] = useState<Energy[]>([]);
     const [electricityData, setElectricityData] = useState<Energy[]>([]);
@@ -231,7 +231,6 @@ export default function EnergyPage() {
         }
        
         fetchSession();
-        fecthSubCategories();
     }, []);
 
     const unitesFuel = new Map<string, string>([
@@ -244,14 +243,17 @@ export default function EnergyPage() {
     useEffect(()=> {
         
         if(searchParams){
-            console.log(searchParams.get("id"));
+            if(Number(searchParams.get("id"))){
+                setEnergyID(Number(searchParams.get("id")));
+                fecthSubCategories(Number(searchParams.get("id")));
+            }
         }
     }, [searchParams])
 
-    const fecthSubCategories = async () => {
+    const fecthSubCategories = async (category_id:number) => {
         setLoading(true);
         try {
-            const res = await getSubCategories(1);
+            const res = await getSubCategories(category_id);
             
             setSubCategories(res);
             fetchEmissions(res);
@@ -390,7 +392,7 @@ export default function EnergyPage() {
                 :(<EnergyWrapper key={Math.random()}>
                     <Grid container spacing={3} alignItems={"center"} marginBottom={5}>
                         <Grid item  md={3}>
-                            <Link href='#'>
+                            <Link href='/dashboard'>
                                 <ArrowBackIosNewIcon />
                             </Link>
                         </Grid>
