@@ -11,7 +11,7 @@ const key = new TextEncoder().encode(secretKey);
 const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
 
 export async function login(formData: FormData) {
-  // Verify credentials && get the user
+    // Verify credentials && get the user
 
   const login = await getCurrentUser(formData.get("username")?.toString() || "", formData.get("password")?.toString() || "")
 
@@ -46,7 +46,6 @@ export async function getCurrentUser(username: string, password: string) {
 
     const requestOptions = {
         method: "POST",
-        headers: myHeaders,
         body: raw,
         redirect: "follow"
     } as RequestInit;
@@ -54,7 +53,7 @@ export async function getCurrentUser(username: string, password: string) {
         const result = await fetch(urlApi + "/auth/login", requestOptions)
         const login = await result.json();
 
-        if (login.errors) {
+        if (!login) {
             console.error("Failed to fetch API");
         }
         return login;
@@ -113,7 +112,7 @@ export async function getCountries() {
     try {
         const response = await fetch(urlApi + "/countries")
         return await response.json();
-    } catch(error) {
+    } catch (error) {
         console.error(error);
     }
 }
@@ -124,9 +123,14 @@ export async function signUp(formData: FormData) {
 
     const raw = JSON.stringify({
         "email": formData.get("email")?.toString() || "",
-        "firstName": formData.get("firstName")?.toString() || "",
-        "lastName": formData.get("lastName")?.toString() || "",
+        "username": formData.get("email")?.toString() || "",
+        "first_name": formData.get("first_name")?.toString() || "",
+        "last_name": formData.get("last_name")?.toString() || "",
         "password": formData.get("password")?.toString() || "",
+        "state": formData.get("state")?.toString() || "",
+        "school": formData.get("school")?.toString() || "",
+        "city": formData.get("city")?.toString() || "",
+        "zip_code": formData.get("zip_code")?.toString() || "",
     });
 
     const requestOptions = {
@@ -136,7 +140,7 @@ export async function signUp(formData: FormData) {
         redirect: "follow"
     } as RequestInit;
     try {
-        const result = await fetch(urlApi + "/auth/signup", requestOptions)
+        const result = await fetch(urlApi + "/auth/sign-up", requestOptions)
         return await result.json();
     } catch (error) {
         console.error(error);
