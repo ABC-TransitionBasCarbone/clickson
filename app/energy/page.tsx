@@ -20,6 +20,7 @@ import { Option } from '../models/Select/Option';
 import { Comment } from '../models/Energy/Comment';
 import { getSession } from '@/lib';
 import { useTranslation } from "react-i18next";
+import { useSearchParams } from 'next/navigation';
 
 const CustomContainer = styled('div')`
     z-index: 1030;
@@ -86,6 +87,8 @@ const LabelInput = styled("label")`
 
 export default function EnergyPage() {
     const theme = useTheme();
+
+    const searchParams = useSearchParams()
 
     const { t, i18n } = useTranslation();
 
@@ -175,6 +178,13 @@ export default function EnergyPage() {
         ["Wood pellets (8% humidity)", "kgCO2e/kWh net heating value"],
     ]);
 
+    useEffect(()=> {
+        
+        if(searchParams){
+            console.log(searchParams.get("id"));
+        }
+    }, [searchParams])
+
     return (
         <>
             <CustomContainer>
@@ -184,7 +194,7 @@ export default function EnergyPage() {
                 <EnergyWrapper>
                     <Grid container spacing={3} alignItems={"center"} marginBottom={5}>
                         <Grid item  md={3}>
-                            <Link href='#'>
+                            <Link href='/dashboard'>
                                 <ArrowBackIosNewIcon />
                             </Link>
                         </Grid>
