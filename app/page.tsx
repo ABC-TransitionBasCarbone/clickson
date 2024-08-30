@@ -39,11 +39,9 @@ export default function Page() {
         setLoading(true)
         setButtonValue("Connexion en cours")
         const formData = new FormData(event.currentTarget)
-        console.log(formData.get('username'))
-        console.log(formData.get('password'))
         login(formData).then(result => {
             if (!result.errors) {
-                router.push("/dashboard")
+                router.push("/accueil")
             } else {
                 setCorrectUserInfo(false);
             }
