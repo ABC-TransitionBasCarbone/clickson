@@ -209,10 +209,10 @@ export const SignUpForm = ({onSignUp, countries, showError, showSuccess, message
                             marginTop: theme.spacing(1),
                             marginBottom: theme.spacing(1)
                         }}>
-                        <TextField placeholder="Code Postale"
+                        <TextField placeholder="Code Postal"
                                    type="text"
                                    name="zip_code"
-                                   label="Code Postale"
+                                   label="Code Postal"
                         />
                     </FormControl>
                     <FormControl

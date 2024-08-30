@@ -12,50 +12,45 @@ const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
 
 export async function login(formData: FormData) {
     // Verify credentials && get the user
-
-  const login = await getCurrentUser(formData.get("username")?.toString() || "", formData.get("password")?.toString() || "")
-
-    if(!login.errors){
-        // Create the session
-        const expires = new Date(Date.now() + 3600 * 1000);
-        let session = "";
-
-        // Save the session in a cookie
-        if (formData.get("keepSession")) {
-            session = await encrypt({ login });
-            cookies().set("session", session, { httpOnly: true });
-        } else {
-            session = await encrypt({ login, expires });
-            cookies().set("session", session, { expires, httpOnly: true });
-        }
-
+    const rememberMe = formData.get("rememberMe") !== null;
+    if(formData.get("username") == null || formData.get("password") == null) {
+        console.log("invalid credential");
+        return {"error": "invalid credential"};
     }
-
-    return login;
+    return await getCurrentUser(
+        `${formData.get("username")}`, `${formData.get("password")}`, rememberMe
+    );
 }
 
 
-export async function getCurrentUser(username: string, password: string) {
+export async function getCurrentUser(username: string, password: string, rememberMe: boolean) {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
     const raw = JSON.stringify({
-        "username": username,
-        "password": password
+        username: username,
+        password: password,
+        rememberMe: rememberMe,
     });
 
+    console.log("raw: ",raw);
     const requestOptions = {
+        headers: myHeaders,
         method: "POST",
         body: raw,
         redirect: "follow"
     } as RequestInit;
+
+    console.log(requestOptions)
     try {
         const result = await fetch(urlApi + "/auth/login", requestOptions)
         const login = await result.json();
-
-        if (!login) {
+        console.log("login: ",login);
+        if (login.errors) {
             console.error("Failed to fetch API");
+            return login.errors;
         }
+        cookies().set('user', JSON.stringify(login))
         return login;
     } catch (error) {
         return error;
@@ -65,7 +60,7 @@ export async function getCurrentUser(username: string, password: string) {
 
 export async function logout() {
     // Destroy the session
-    cookies().set("session", "", {expires: new Date(0)});
+    cookies().delete('user');
 }
 
 

@@ -157,7 +157,7 @@ export const Form = ({correctUserInfo, onLogin, loading, buttonValue, goToSignUp
                             marginTop: theme.spacing(1),
                             marginBottom: theme.spacing(1)
                         }}>
-                        <FormControlLabel control={<Checkbox name="keepSession"/>} label="Se souvenir de moi"/>
+                        <FormControlLabel control={<Checkbox name="rememberMe"/>} label="Se souvenir de moi"/>
                     </FormControl>
                     {!correctUserInfo && (
                         <FormControl sx={{

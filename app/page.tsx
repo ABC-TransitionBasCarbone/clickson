@@ -32,27 +32,17 @@ export default function Page() {
     const [buttonValue, setButtonValue] = useState("se connecter")
 
     useEffect(() => {
-        fetchCookies();
-    }, [setSession]);
-
-    const fetchCookies = async () => {
-        const cookies = await getSession();
-        setLoading(false)
-
-        if (!cookies) {
-            return
-        }
-        setSession(cookies);
-        console.log("🚀 ~ fetchCookies ~ cookies:", cookies)
-    }
+    }, []);
 
     const onLogin = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         setLoading(true)
         setButtonValue("Connexion en cours")
         const formData = new FormData(event.currentTarget)
+        console.log(formData.get('username'))
+        console.log(formData.get('password'))
         login(formData).then(result => {
-            if (result.user) {
+            if (!result.errors) {
                 router.push("/dashboard")
             } else {
                 setCorrectUserInfo(false);
