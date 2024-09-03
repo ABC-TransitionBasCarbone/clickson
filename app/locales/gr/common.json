@@ -1,0 +1,20 @@
+{
+  "abc-energy": "Ενέργεια",
+  "abc-travel": "Ταξίδι",
+  "abc-foodservice": "Υπηρεσία φαγητού",
+  "abc-supplies": "Προμήθειες",
+  "abc-fixedassets": "Πάγιο ενεργητικό",
+  "abc-connectedas": "Συνδεθήκατε ως",
+  "abc-logout": "Αποσυνδεθείτε",
+  "abc-total": "ΤΟ ΣΥΝΟΛΟ",
+  "abc-login": "Σύνδεση",
+  "abc-loginbutton": "Σύνδεση",
+  "abc-loginpending": "Σύνδεση σε εξέλιξη",
+  "abc-rememberme": "Θυμήσου με",
+  "abc-forgotpassword": "Ξεχάσατε τον κωδικό πρόσβασης;",
+  "abc-restorepassword": "πάρε το πίσω",
+  "abc-signup": "Εγγραφείτε",
+  "abc-calculator": "Υπολογιστής",
+  "abc-calculatorsubtext": "Ας μετρήσουμε τις εκπομπές CO2 της επιχείρησής σας!",
+  "abc-calculatorsmalltext": "Χρησιμοποιήστε τη φόρμα σύνδεσης για να αποκτήσετε πρόσβαση στον πίνακα ελέγχου σας ή ζητήστε από τον δάσκαλό σας να σας προσκαλέσει."
+}

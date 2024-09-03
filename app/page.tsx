@@ -10,6 +10,7 @@ import {Header} from './components/login/header';
 import {Form} from './components/login/form'
 import {Footer} from './components/login/footer'
 import {useTheme} from "@mui/material/styles";
+import {useTranslation} from "react-i18next";
 
 export default function Page() {
     const theme = useTheme();
@@ -29,15 +30,18 @@ export default function Page() {
     const [session, setSession] = useState({})
     const [loading, setLoading] = useState(false)
     const [correctUserInfo, setCorrectUserInfo] = useState(true)
-    const [buttonValue, setButtonValue] = useState("se connecter")
+    const {t} = useTranslation();
+    const [buttonValue, setButtonValue] = useState(t('abc-loginbutton'))
+    const bValue = t('abc-loginbutton');
 
     useEffect(() => {
-    }, []);
+        setButtonValue(bValue);
+    }, [bValue]);
 
     const onLogin = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         setLoading(true)
-        setButtonValue("Connexion en cours")
+        setButtonValue(t('abc-loginpending'))
         const formData = new FormData(event.currentTarget)
         login(formData).then(result => {
             if (!result.errors) {

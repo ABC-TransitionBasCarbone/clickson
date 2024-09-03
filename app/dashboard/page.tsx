@@ -80,12 +80,8 @@ const DividerSmall = styled("hr")`
 
 export default function Dashboard() {
      // Default language
-    const {  i18n } = useTranslation();
+    const { t } = useTranslation('common');
 
-    useEffect(() => {
-        // Logic that depends on client-side environment
-        i18n.changeLanguage('fr');
-    }, [i18n]);
     const theme = useTheme();
 
     const [loadingCategories, setLoadingCategories] = useState(false);

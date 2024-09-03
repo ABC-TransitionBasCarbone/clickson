@@ -6,6 +6,7 @@ import {getSession, logout} from "@/lib";
 import {useRouter} from "next/navigation";
 import dynamic from "next/dynamic";
 import LanguageSwitcher from "@/app/components/LanguageSwitcher/LanguageSwitcher";
+import {useTranslation} from "react-i18next";
 // const LanguageSwitcher = dynamic(() => import("@/app/components/LanguageSwitcher/LanguageSwitcher"), {ssr: false});
 
 
@@ -66,6 +67,7 @@ export const Header = () => {
         user_email: "",
         zip_code: ""
     });
+    const {t} = useTranslation();
     useEffect(() => {
         fetchCookies();
     }, [setUser]);
@@ -106,8 +108,8 @@ export const Header = () => {
                     <UsernameBox sx={{border: 'none'}}>
                         <LanguageSwitcher />
                         <p>{user.user_email}</p>
-                        <p>Connecté en tant que: <strong>{user.role}</strong></p>
-                        <Link href="" onClick={onLogout}>Se déconnecter</Link>
+                        <p>{t('abc-connectedas')}: <strong>{user.role}</strong></p>
+                        <Link href="" onClick={onLogout}>{t('abc-logout')}</Link>
                     </UsernameBox>
                 </Grid>
             </Grid>

@@ -1,0 +1,20 @@
+{
+  "abc-energy": "Energia",
+  "abc-travel": "Viajar",
+  "abc-foodservice": "Servicio de comida",
+  "abc-supplies": "Suministros",
+  "abc-fixedassets": "Activos fijos",
+  "abc-connectedas": "Iniciado sesión como",
+  "abc-logout": "Finalizar la sesión",
+  "abc-total": "EL TOTAL",
+  "abc-login": "Conexión",
+  "abc-loginbutton": "Acceso",
+  "abc-loginpending": "Conexión en progreso",
+  "abc-rememberme": "Acuérdate de mí",
+  "abc-forgotpassword": "¿Olvidaste tu contraseña?",
+  "abc-restorepassword": "recuperarlo",
+  "abc-signup": "Inscribirse",
+  "abc-calculator": "Calculadora",
+  "abc-calculatorsubtext": "Vamos a medir el impacto del CO2 de tu centro educativo",
+  "abc-calculatorsmalltext": "Utilice el formulario de inicio de sesión para acceder a su panel de control o pídale a su profesor que lo invite."
+}

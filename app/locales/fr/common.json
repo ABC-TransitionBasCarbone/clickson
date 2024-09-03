@@ -1,0 +1,20 @@
+{
+  "abc-energy": "Énergie",
+  "abc-travel": "Déplacements",
+  "abc-foodservice": "Restauration",
+  "abc-supplies": "Fournitures",
+  "abc-fixedassets": "Immobilisation",
+  "abc-connectedas": "Connecté en tant que",
+  "abc-logout": "Se déconnecter",
+  "abc-total": "LE TOTAL",
+  "abc-login": "Connexion",
+  "abc-loginbutton": "Se Connecter",
+  "abc-loginpending": "Connexion en cours",
+  "abc-rememberme": "Se souvenir de moi",
+  "abc-forgotpassword": "Mot de passe oublié ?",
+  "abc-restorepassword": "Le récupérer",
+  "abc-signup": "S'enregistrer",
+  "abc-calculator": "Calculateur",
+  "abc-calculatorsubtext": "Mesurons les émissions de CO2 de votre établissement!",
+  "abc-calculatorsmalltext": "Utilisez le formulaire de connexion pour accéder à votre tableau de bord, ou demandez à votre enseignant de vous inviter."
+}
