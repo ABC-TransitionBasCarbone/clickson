@@ -31,8 +31,8 @@ export default function Page() {
     const [loading, setLoading] = useState(false)
     const [correctUserInfo, setCorrectUserInfo] = useState(true)
     const {t} = useTranslation();
-    const [buttonValue, setButtonValue] = useState(t('abc-loginbutton'))
-    const bValue = t('abc-loginbutton');
+    const [buttonValue, setButtonValue] = useState(t('abc-login-button'))
+    const bValue = t('abc-login-button');
 
     useEffect(() => {
         setButtonValue(bValue);
@@ -41,7 +41,7 @@ export default function Page() {
     const onLogin = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         setLoading(true)
-        setButtonValue(t('abc-loginpending'))
+        setButtonValue(t('abc-login-pending'))
         const formData = new FormData(event.currentTarget)
         login(formData).then(result => {
             if (!result.errors) {

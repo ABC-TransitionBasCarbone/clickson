@@ -1,4 +1,4 @@
-"use client"; // Mark this as a Client Component
+"use client";
 
 import { useEffect, useState } from "react";
 import i18n from "i18next";
@@ -15,12 +15,11 @@ export default function I18nProvider({ children, locale }: { children: React.Rea
             setIsReady(true);
         }).catch((error) => {
             console.error('Failed to initialize i18n:', error);
-            setIsReady(true); // Optionally handle errors or set a fallback
+            setIsReady(true);
         });
     }, [locale]);
 
     if (!isReady) {
-        // Return a loader or null while waiting for i18n to initialize
         return <Stack sx={{ height: "100vh", justifyContent: "center", alignItems: "center"}}>
             <React.Fragment>
                 <svg width={0} height={0}>
@@ -33,7 +32,7 @@ export default function I18nProvider({ children, locale }: { children: React.Rea
                 </svg>
                 <CircularProgress sx={{ 'svg circle': { stroke: 'url(#my_gradient)' } }} />
             </React.Fragment>
-        </Stack>; // Or your custom loader
+        </Stack>;
     }
 
     return <I18nextProvider i18n={i18n}>{children}</I18nextProvider>;

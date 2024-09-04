@@ -4,10 +4,8 @@ import {styled} from "@mui/system";
 import {MouseEvent, useEffect, useState} from "react";
 import {getSession, logout} from "@/lib";
 import {useRouter} from "next/navigation";
-import dynamic from "next/dynamic";
 import LanguageSwitcher from "@/app/components/LanguageSwitcher/LanguageSwitcher";
 import {useTranslation} from "react-i18next";
-// const LanguageSwitcher = dynamic(() => import("@/app/components/LanguageSwitcher/LanguageSwitcher"), {ssr: false});
 
 
 const BoxHeader = styled(Box)`
@@ -108,7 +106,7 @@ export const Header = () => {
                     <UsernameBox sx={{border: 'none'}}>
                         <LanguageSwitcher />
                         <p>{user.user_email}</p>
-                        <p>{t('abc-connectedas')}: <strong>{user.role}</strong></p>
+                        <p>{t('abc-connected-as')}: <strong>{user.role}</strong></p>
                         <Link href="" onClick={onLogout}>{t('abc-logout')}</Link>
                     </UsernameBox>
                 </Grid>

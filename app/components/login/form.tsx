@@ -97,10 +97,10 @@ export const Form = ({correctUserInfo, onLogin, loading, buttonValue, goToSignUp
                     },
                     fontWeight: 500
                 }}>
-                    {t('abc-calculatorsubtext')}
+                    {t('abc-calculator-sub-text')}
                 </Typography>
                 <p>
-                    {t('abc-calculatorsmalltext')}
+                    {t('abc-calculator-small-text')}
                 </p>
             </Grid>
             <Grid item md={6}>
@@ -159,7 +159,7 @@ export const Form = ({correctUserInfo, onLogin, loading, buttonValue, goToSignUp
                             marginTop: theme.spacing(1),
                             marginBottom: theme.spacing(1)
                         }}>
-                        <FormControlLabel control={<Checkbox name="rememberMe"/>} label={t('abc-rememberme')}/>
+                        <FormControlLabel control={<Checkbox name="rememberMe"/>} label={t('abc-remember-me')}/>
                     </FormControl>
                     {!correctUserInfo && (
                         <FormControl sx={{
@@ -178,7 +178,7 @@ export const Form = ({correctUserInfo, onLogin, loading, buttonValue, goToSignUp
                     )}
                 </form>
                 <span>
-                    <p>{t('abc-forgotpassword')} <CustomLink href="#" underline="none">{t('abc-restorepassword')}</CustomLink></p>
+                    <p>{t('abc-forgot-password')} <CustomLink href="#" underline="none">{t('abc-restore-password')}</CustomLink></p>
                 </span>
                 <FormControl sx={{
                     width: {xs: '100%', sm: '100%', md: '35ch', lg: '35ch'},

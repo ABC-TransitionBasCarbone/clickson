@@ -48,7 +48,7 @@ export const Stats = () => {
     const theme = useTheme();
     const {t} = useTranslation();
     const data = {
-        labels: [t("abc-energy"), t("abc-foodservice"), t('abc-travel'), t('abc-supplies'), t('abc-fixedassets')],
+        labels: [t("abc-energy"), t("abc-food-service"), t('abc-travel'), t('abc-supplies'), t('abc-fixed-assets')],
         datasets: [
             {
                 label: 'Dataset 1',
@@ -209,7 +209,7 @@ export const Stats = () => {
                     </Grid>
                     <Grid item xs={6}>
                         <StatsWrapper>
-                            <span>{t("abc-foodservice")}</span>
+                            <span>{t("abc-food-service")}</span>
                             <Box
                                 sx={{
                                     color: 'error.main',
@@ -253,7 +253,7 @@ export const Stats = () => {
                     </Grid>
                     <Grid item xs={6}>
                         <StatsWrapper>
-                            <span>{t("abc-fixedassets")}</span>
+                            <span>{t("abc-fixed-assets")}</span>
                             <Box sx={{
                                 color: 'info.main',
                                 marginTop: theme.spacing(2),
