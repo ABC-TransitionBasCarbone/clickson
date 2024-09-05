@@ -8,7 +8,7 @@ import Container from '@mui/material/Container';
 import {Box, Button} from "@mui/material";
 import Divider from '@mui/material/Divider';
 import {useTheme} from "@mui/material/styles";
-import {styled} from "@mui/system";
+import {minWidth, styled} from "@mui/system";
 import {Grid} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import CircularProgress, {
@@ -18,6 +18,10 @@ import Typography from '@mui/material/Typography';
 import {DataGrid, GridColDef} from '@mui/x-data-grid';
 
 import ExcelJS from 'exceljs';
+import { useEffect, useState } from 'react';
+import { Session } from '../models/Session/Session';
+import ConfirmationDialog from '../components/ConfirmationDialog';
+import { useRouter } from 'next/navigation'
 
 const CustomContainer = styled('div')`
     position: fixed;
@@ -68,6 +72,91 @@ const classes = {
 export default function Accueil() {
     const theme = useTheme();
 
+    const router = useRouter();
+
+    const [currentSession, setCurrentSession] = useState<Session[]>([]);
+    const [sessions, setSessions] = useState<Session[]>([]);
+
+    const handleDeleteCurrentSession = (s: Session) => {
+        setCurrentSession(currentSession.filter((e:Session) => s.id != e.id));
+    }
+
+    const handleDeleteSession = (s: Session) => {
+        setSessions(sessions.filter((e:Session) => s.id != e.id));
+    }
+
+    const handleEdit = () => {
+        router.push(`/dashboard`)
+    }
+
+    const columnsCurrent = [
+        {field: 'id', headerName: 'ID', width: 90},
+        {field: 'name', headerName: "Nom de session", flex: 1,},
+        {
+            field: 'progress',
+            headerName: "Progression",
+            flex: 1,
+            sortable: false,
+            disableClickEventBubbling: true,
+
+            renderCell: (params: any) => {
+                const value = params.row.progress
+                return (
+                    <Box sx={{position: 'relative', display: 'inline-flex'}}>
+                        <CircularProgress variant="determinate" value={value}/>
+                        <Box
+                            sx={{
+                                top: 0,
+                                left: 0,
+                                bottom: 0,
+                                right: 0,
+                                position: 'absolute',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}
+                        >
+                            <Typography
+                                variant="caption"
+                                component="div"
+                                color="text.secondary"
+                            >{`${Math.round(value)}%`}</Typography>
+                        </Box>
+                    </Box>
+                );
+            },
+        },
+        {
+            field: 'action',
+            headerName: "ACTIONS",
+            minWidth: 230,
+            sortable: false,
+            disableClickEventBubbling: true,
+
+            renderCell: (params: any) => {
+                const onDelete = (e: any) => {
+                    handleDeleteCurrentSession(params.row);
+                };
+
+                return (
+                    <Box>
+                        <Button type='button' color='primary' onClick={handleEdit}>Modifier</Button>
+                        <ConfirmationDialog
+                            title="Confirmation"
+                            description="Souhaitez-vous supprimer définitivement cette donnée ?"
+                            response={onDelete}
+                            >
+                            {(showDialog:any) => (
+                                <Button type='button' color='error' onClick={showDialog} >Supprimer</Button>
+                            )}
+                        </ConfirmationDialog>
+                    </Box>
+                );
+            },
+        }
+
+    ];
+
     const columns = [
         {field: 'id', headerName: 'ID', width: 90},
         {field: 'name', headerName: "Nom de session", flex: 1,},
@@ -108,18 +197,28 @@ export default function Accueil() {
         {
             field: 'action',
             headerName: "ACTIONS",
-            width: 180,
+            minWidth: 230,
             sortable: false,
             disableClickEventBubbling: true,
 
             renderCell: (params: any) => {
                 const onDelete = (e: any) => {
-
+                    handleDeleteSession(params.row)
                 };
 
                 return (
                     <Box>
-                        <Button type='button' color='error' onClick={onDelete}>Supprimer</Button>
+                        <Button type='button' color='primary' onClick={()=>{}}>Consulter</Button>
+                        <ConfirmationDialog
+                            title="Confirmation"
+                            description="Souhaitez-vous supprimer définitivement cette donnée ?"
+                            response={onDelete}
+                            >
+                            {(showDialog:any) => (
+                                <Button type='button' color='error' onClick={showDialog} >Supprimer</Button>
+                            )}
+                        </ConfirmationDialog>
+                        
                     </Box>
                 );
             },
@@ -128,7 +227,7 @@ export default function Accueil() {
     ];
 
     const data1 = [
-        {id: 1, name: 'Collecte 2023-2024_Collège VictorHugo', progress: 50},
+        {id: 1, name: 'Collecte 2023-2024_Collège VictorHugo', progress: 75.5},
     ];
 
     const data2 = [
@@ -138,6 +237,10 @@ export default function Accueil() {
         {id: 5, name: 'Collecte 2029-2020_Collège VictorHugo', progress: 90},
     ];
 
+    useEffect(()=> {
+        setCurrentSession(data1.map((e) => new Session(e.id, e.name, e.progress)));
+        setSessions(data2.map((e) => new Session(e.id, e.name, e.progress)));
+    }, []);
 
 
     return (
@@ -169,8 +272,8 @@ export default function Accueil() {
                         </Box>
                         <Box sx={{height: 180, width: '100%', marginTop: 3}}>
                             <DataGrid
-                                rows={data1}
-                                columns={columns}
+                                rows={currentSession}
+                                columns={columnsCurrent}
                                 initialState={{
                                     pagination: {
                                         paginationModel: {
@@ -187,7 +290,7 @@ export default function Accueil() {
                         <h2>Mes sessions précédentes</h2>
                         <Box sx={{height: 375, width: '100%', marginTop: 3}}>
                             <DataGrid
-                                rows={data2}
+                                rows={sessions}
                                 columns={columns}
                                 initialState={{
                                     pagination: {

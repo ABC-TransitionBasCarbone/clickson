@@ -115,7 +115,7 @@ export default function Dashboard() {
             </CustomContainer>
             <Container maxWidth="xl">
                 <DashboardWrapper>
-                    <Link href="#">
+                    <Link href="/accueil">
                         <HomeIcon fontSize="large"/>
                     </Link>
                     <CustomH6>
