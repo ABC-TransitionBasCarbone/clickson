@@ -20,9 +20,9 @@ const languages: Language[] = [
 const LanguageMenu = styled('ul')(({theme}) => ({
     li: {
         display: "inline-block",
-        paddingLeft: theme.spacing(1.25),
-        marginTop: theme.spacing(1.25),
-        marginBottom: theme.spacing(1.75),
+        paddingLeft: theme.spacing(1),
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(1),
     },
 }));
 
