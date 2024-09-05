@@ -15,6 +15,8 @@ import { getCategories } from '@/lib';
 import { Category } from '../models/Category/Category';
 import { CategoryItem } from '../components/dashboard/Category';
 import CircularProgress from '@mui/material/CircularProgress';
+import i18n from "i18next";
+import {useTranslation} from "react-i18next";
 
 const CustomContainer = styled('div')`
     position: fixed;
@@ -51,7 +53,6 @@ const CustomH6 = styled('h6')`
 const CustomH3 = styled('h3')`
     font-family: "Montserrat", sans-serif;
     font-size: 18px;
-    font-weight: 500;
     position: relative;
     padding-bottom: 30px;
     font-weight: 600;
@@ -78,6 +79,9 @@ const DividerSmall = styled("hr")`
 `;
 
 export default function Dashboard() {
+     // Default language
+    const { t } = useTranslation('common');
+
     const theme = useTheme();
 
     const [loadingCategories, setLoadingCategories] = useState(false);
@@ -91,7 +95,7 @@ export default function Dashboard() {
         setLoadingCategories(true);
         try {
             const res = await getCategories();
-            
+
             setCategories(res.data.map((c:any) => new Category(c.id, c.label, c.details)));
             setLoadingCategories(false);
         } catch (error) {
@@ -147,7 +151,7 @@ export default function Dashboard() {
                             </Grid>
                         )
                     }
-                    
+
                 </DashboardWrapper>
             </Container>
         </>

@@ -1,0 +1,20 @@
+{
+  "abc-energy": "Energia",
+  "abc-travel": "Viaggio",
+  "abc-food-service": "Servizio di ristorazione",
+  "abc-supplies": "Forniture",
+  "abc-fixed-assets": "Immobilizzazioni",
+  "abc-connected-as": "Effettuato l'accesso come",
+  "abc-logout": "Esci",
+  "abc-total": "IL TOTALE",
+  "abc-login": "Connessione",
+  "abc-login-button": "Effettua il login",
+  "abc-login-pending": "Connessione in corso",
+  "abc-remember-me": "Ricordati di me",
+  "abc-forgot-password": "Password dimenticata?",
+  "abc-restore-password": "riprenderlo",
+  "abc-signup": "Iscrizione",
+  "abc-calculator": "Calcolatore",
+  "abc-calculator-sub-text": "Misuriamo l'impatto di CO2 della tua scuola!",
+  "abc-calculator-small-text": "Utilizza il modulo di accesso per accedere alla tua dashboard o chiedi al tuo insegnante di invitarti."
+}
