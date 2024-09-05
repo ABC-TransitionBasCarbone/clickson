@@ -2,17 +2,7 @@
 
 import {Box, Grid, Popover, Typography, Button} from "@mui/material";
 import {styled} from "@mui/system";
-import {Doughnut} from 'react-chartjs-2';
-import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend, ArcElement, ChartOptions
-} from 'chart.js';
+
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import {useTheme} from '@mui/material/styles';
 import ExcelJS from "exceljs";
@@ -20,9 +10,10 @@ import {fetchExportFile} from "@/app/helpers/export";
 import React, {useState} from "react";
 import {useTranslation} from "react-i18next";
 
+import {convertToPercentage} from "@/app/helpers/helpers";
+import PieChart from "@/app/components/charts/PieChart";
 import { Download } from '@mui/icons-material';
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement);
 
 const StatsGrid = styled(Grid)`
     margin-top: 30px;
@@ -47,7 +38,7 @@ const StatsWrapper = styled('div')`
 `
 
 const DownloadButton = styled(Button)(({theme}) => ({
-    border: `1px solid ${theme.palette.secondary.main}`, 
+    border: `1px solid ${theme.palette.secondary.main}`,
     color: theme.palette.secondary.main,
     minWidth: 150,
     minHeight: 40,
@@ -55,7 +46,7 @@ const DownloadButton = styled(Button)(({theme}) => ({
     justifyContent: "center",
     alignItems: "center",
     '&:hover': {
-        border: `1px solid ${theme.palette.primary.main}`, 
+        border: `1px solid ${theme.palette.primary.main}`,
         backgroundColor: theme.palette.primary.main,
         color: 'white'
     }
@@ -64,37 +55,11 @@ const DownloadButton = styled(Button)(({theme}) => ({
 export const Stats = () => {
     const theme = useTheme();
     const {t} = useTranslation();
-    const data = {
-        labels: [t("abc-energy"), t("abc-food-service"), t('abc-travel'), t('abc-supplies'), t('abc-fixed-assets')],
-        datasets: [
-            {
-                label: 'Dataset 1',
-                data: [54434, 225882, 221, 12339, 6863],
-                fill: false,
-                backgroundColor: [
-                    theme.palette.primary.main,
-                    theme.palette.error.main,
-                    theme.palette.success.main,
-                    theme.palette.secondary.main,
-                    theme.palette.info.main
-                ],
-                border: 0
-            },
-        ],
-    };
 
-    const options: ChartOptions<'doughnut'> = {
-        responsive: true,
-        plugins: {
-            legend: {
-                position: 'right',
-            },
-            title: {
-                display: true,
-                text: 'Chart',
-            },
-        }
-    }
+    const labels = [t("abc-energy"), t("abc-food-service"), t('abc-travel'), t('abc-supplies'), t('abc-fixed-assets')];
+    const data = convertToPercentage([54434, 225882, 221, 12339, 6863])
+
+
     const handleExport = async () => {
         try {
             const arrayBuffer = await fetchExportFile();
@@ -201,7 +166,7 @@ export const Stats = () => {
                     }}>kgCO2e</Box>
                 </InfoWrapper>
                 <ChartWrapper>
-                    <Doughnut data={data} options={options}/>
+                    <PieChart data={data} labels={labels} />
                 </ChartWrapper>
 
             </StatsGrid>

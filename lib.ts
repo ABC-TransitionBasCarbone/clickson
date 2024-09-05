@@ -48,7 +48,7 @@ export async function getCurrentUser(username: string, password: string, remembe
         console.log("login: ",login);
         if (login.errors) {
             console.error("Failed to fetch API");
-            return login.errors;
+            return login;
         }
         cookies().set('user', JSON.stringify(login))
         return login;
@@ -294,3 +294,4 @@ export async function getComments(id: number) {
         return {"error" : error}
     }
 }
+

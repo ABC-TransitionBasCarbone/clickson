@@ -11,7 +11,7 @@ import {Stats} from "@/app/components/dashboard/stats";
 import {useTheme} from "@mui/material/styles";
 import {styled} from "@mui/system";
 import { useEffect, useState } from 'react';
-import { getCategories } from '@/lib';
+import {getCategories, getSession} from '@/lib';
 import { Category } from '../models/Category/Category';
 import { CategoryItem } from '../components/dashboard/Category';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -48,6 +48,7 @@ const Link = styled('a')`
 const CustomH6 = styled('h6')`
     font-size: 1rem;
     line-height: 1.2;
+    font-weight: 500;
 `
 
 const CustomH3 = styled('h3')`
@@ -78,6 +79,13 @@ const DividerSmall = styled("hr")`
     border-radius: 5px;
 `;
 
+interface User {
+    state: string,
+    school: string,
+    city: string,
+    zip_code: string
+}
+
 export default function Dashboard() {
      // Default language
     const { t } = useTranslation('common');
@@ -86,10 +94,23 @@ export default function Dashboard() {
 
     const [loadingCategories, setLoadingCategories] = useState(false);
     const [categories, setCategories] = useState<Category[]>([]);
-
+    const [user, setUser] = useState<User>({
+        city: "",
+        school: "",
+        state: "",
+        zip_code: ""
+    });
+    const fetchCookies = async () => {
+        const cookies = await getSession();
+        if (!cookies) {
+            return
+        }
+        setUser(cookies);
+    }
     useEffect(()=> {
+        fetchCookies()
         fetchCategories();
-    }, []);
+    }, [setUser]);
 
     const fetchCategories = async () => {
         setLoadingCategories(true);
@@ -123,9 +144,10 @@ export default function Dashboard() {
                         <HomeIcon fontSize="large"/>
                     </Link>
                     <CustomH6>
-                        <strong>PROFIL D'ÉMISSIONS (kgCO2e)</strong>
+                        <strong>PROFIL D'ÉMISSIONS (kgCO2e)</strong> | {user.school} {user.city ? " - " + user.city : ""}
                     </CustomH6>
-                    <Divider aria-hidden="true" sx={{ marginTop: theme.spacing(1.25) }} />
+
+                    <Divider aria-hidden="true" sx={{marginTop: theme.spacing(1.25)}}/>
                     <Stats/>
                     <Grid container marginTop={4} marginBottom={6} sx={{alignItems: "center", flexDirection: "column"}}>
                         <CustomH3>
@@ -136,11 +158,12 @@ export default function Dashboard() {
                             Just click on a marker and start the <strong>data gathering</strong>
                         </Paragraph>
                     </Grid>
-                    {loadingCategories ? (<Box sx={{ display: 'flex', justifyContent: "center", alignItems: "center", height: "20" }}>
-                            <CircularProgress />
-                        </Box>) :
+                    {loadingCategories ? (
+                            <Box sx={{display: 'flex', justifyContent: "center", alignItems: "center", height: "20"}}>
+                                <CircularProgress/>
+                            </Box>) :
                         (
-                            <Grid container  marginTop={2}>
+                            <Grid container marginTop={2}>
                                 {categories.map((c, _index) => (
                                     <CategoryItem
                                         key={_index}
