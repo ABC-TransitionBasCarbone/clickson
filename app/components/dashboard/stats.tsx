@@ -18,6 +18,8 @@ import {useTheme} from '@mui/material/styles';
 import ExcelJS from "exceljs";
 import {fetchExportFile} from "@/app/helpers/export";
 import React, {useState} from "react";
+import {useTranslation} from "react-i18next";
+
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement);
 
@@ -44,9 +46,9 @@ const StatsWrapper = styled('div')`
 `
 export const Stats = () => {
     const theme = useTheme();
-
+    const {t} = useTranslation();
     const data = {
-        labels: ['Energie', 'Restauration', 'Déplacements', 'Fournitures', 'Immobilisations'],
+        labels: [t("abc-energy"), t("abc-food-service"), t('abc-travel'), t('abc-supplies'), t('abc-fixed-assets')],
         datasets: [
             {
                 label: 'Dataset 1',
@@ -169,7 +171,7 @@ export const Stats = () => {
 
             </StatsGrid>
             <StatsGrid item xs={12} md={6}>
-                <span>LE TOTAL</span>
+                <span>{t('abc-total')}</span>
                 <InfoWrapper>
                     <Box sx={{
                         color: 'text.primary',
@@ -193,7 +195,7 @@ export const Stats = () => {
                 <Grid container spacing={3} columns={12} sx={{paddingLeft: theme.spacing(3.75)}}>
                     <Grid item xs={6}>
                         <div className="stats-wrapper">
-                            <span>Energie</span>
+                            <span>{t("abc-energy")}</span>
                             <Box sx={{
                                 color: 'primary.main',
                                 marginTop: theme.spacing(2),
@@ -207,7 +209,7 @@ export const Stats = () => {
                     </Grid>
                     <Grid item xs={6}>
                         <StatsWrapper>
-                            <span>Restauration</span>
+                            <span>{t("abc-food-service")}</span>
                             <Box
                                 sx={{
                                     color: 'error.main',
@@ -222,7 +224,7 @@ export const Stats = () => {
                     </Grid>
                     <Grid item xs={6}>
                         <StatsWrapper>
-                            <span>Déplacements</span>
+                            <span>{t("abc-travel")}</span>
                             <Box
                                 sx={{
                                     color: 'success.main',
@@ -237,7 +239,7 @@ export const Stats = () => {
                     </Grid>
                     <Grid item xs={6}>
                         <StatsWrapper>
-                            <span>Fournitures</span>
+                            <span>{t("abc-supplies")}</span>
                             <Box sx={{
                                 color: 'secondary.main',
                                 marginTop: theme.spacing(2),
@@ -251,7 +253,7 @@ export const Stats = () => {
                     </Grid>
                     <Grid item xs={6}>
                         <StatsWrapper>
-                            <span>Immobilisations</span>
+                            <span>{t("abc-fixed-assets")}</span>
                             <Box sx={{
                                 color: 'info.main',
                                 marginTop: theme.spacing(2),

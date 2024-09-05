@@ -1,15 +1,11 @@
 import {Grid, Box} from "@mui/material";
 
-import eng from '../../public/eng.png';
-import fra from '../../public/fra.png';
-import esp from '../../public/esp.png';
-import ita from '../../public/ita.png';
-
-import Image, {StaticImageData} from 'next/image'
 import {styled} from "@mui/system";
 import {MouseEvent, useEffect, useState} from "react";
 import {getSession, logout} from "@/lib";
 import {useRouter} from "next/navigation";
+import LanguageSwitcher from "@/app/components/LanguageSwitcher/LanguageSwitcher";
+import {useTranslation} from "react-i18next";
 
 
 const BoxHeader = styled(Box)`
@@ -69,6 +65,7 @@ export const Header = () => {
         user_email: "",
         zip_code: ""
     });
+    const {t} = useTranslation();
     useEffect(() => {
         fetchCookies();
     }, [setUser]);
@@ -86,7 +83,6 @@ export const Header = () => {
             router.push('/')
         })
     }
-    const languages: StaticImageData[] = [eng, fra, ita, esp];
     return (
         <Box sx={{width: '100%'}}>
             <Grid
@@ -108,16 +104,10 @@ export const Header = () => {
                 </Grid>
                 <Grid item sm={3}>
                     <UsernameBox sx={{border: 'none'}}>
-                        <LanguageMenu>
-                            {languages.map((language, id) => (
-                                <li key={id}>
-                                    <Link href=""><Image src={language} alt="languages" width={16} height={11}/></Link>
-                                </li>
-                            ))}
-                        </LanguageMenu>
+                        <LanguageSwitcher />
                         <p>{user.user_email}</p>
-                        <p>Connecté en tant que: <strong>{user.role}</strong></p>
-                        <Link href="" onClick={onLogout}>Se déconnecter</Link>
+                        <p>{t('abc-connected-as')}: <strong>{user.role}</strong></p>
+                        <Link href="" onClick={onLogout}>{t('abc-logout')}</Link>
                     </UsernameBox>
                 </Grid>
             </Grid>

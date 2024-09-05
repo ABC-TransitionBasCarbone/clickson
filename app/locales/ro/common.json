@@ -1,0 +1,20 @@
+{
+  "abc-energy": "Energie",
+  "abc-travel": "Voiaj",
+  "abc-food-service": "Serviciu alimentar",
+  "abc-supplies": "Furnituri",
+  "abc-fixed-assets": "Mijloace fixe",
+  "abc-connected-as": "Conectat ca",
+  "abc-logout": "Deconectați-vă",
+  "abc-total": "TOTALUL",
+  "abc-login": "Conexiune",
+  "abc-login-button": "Conectați-vă",
+  "abc-login-pending": "Conexiune în curs",
+  "abc-remember-me": "Ține-mă minte",
+  "abc-forgot-password": "Ai uitat parola?",
+  "abc-restore-password": "ia-l înapoi",
+  "abc-signup": "Înscrie-te",
+  "abc-calculator": "Calculator",
+  "abc-calculator-sub-text": "Să măsurăm emisiile de CO2 ale unității dvs.!",
+  "abc-calculator-small-text": "Folosiți formularul de conectare pentru a vă accesa tabloul de bord sau cereți profesorului să vă invite."
+}
