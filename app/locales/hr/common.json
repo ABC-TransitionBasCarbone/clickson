@@ -1,0 +1,20 @@
+{
+  "abc-energy": "Energija",
+  "abc-travel": "Putovati",
+  "abc-food-service": "Posluživanje hrane",
+  "abc-supplies": "Pribor",
+  "abc-fixed-assets": "Osnovna sredstva",
+  "abc-connected-as": "Prijavljen kao",
+  "abc-logout": "Odjavi se",
+  "abc-total": "UKUPNO",
+  "abc-login": "Veza",
+  "abc-login-button": "Prijava",
+  "abc-login-pending": "Povezivanje u tijeku",
+  "abc-remember-me": "Zapamti me",
+  "abc-forgot-password": "Zaboravili ste lozinku?",
+  "abc-restore-password": "dobiti ga natrag",
+  "abc-signup": "Prijavite se",
+  "abc-calculator": "Kalkulator",
+  "abc-calculator-sub-text": "Izmjerimo emisiju CO2 vašeg objekta!",
+  "abc-calculator-small-text": "Upotrijebite obrazac za prijavu za pristup svojoj nadzornoj ploči ili zamolite svog učitelja da vas pozove."
+}

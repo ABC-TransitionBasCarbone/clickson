@@ -14,6 +14,13 @@ import { useEffect, useState } from "react";
 import { generateUuid } from "@/app/helpers/uuid";
 import { Comment } from "@/app/models/Energy/Comment";
 import CircularProgress from '@mui/material/CircularProgress';
+import ConfirmationDialog from "../ConfirmationDialog";
+
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 const CustomContainer = styled('div')`
     z-index: 1030;
@@ -113,19 +120,32 @@ export const Form = ({username, data, category, description, options, titleSelec
     const [saving, setSaving] = useState(false);
     const [savingComment, setSavingComment] = useState(false);
 
+    const [open, setOpen] = useState(false);
+
     const hangleAddEnergy = async () => {
         if(type && value){
             if(Number(value)){
-                setSaving(true);
-                await handleAdd(new Energy(generateUuid(), type, Number(value), category));
-                setType("");
-                setValue("");
-                setSaving(false);
+                const existValues = data.filter((e) => e.type == type);
+                if(existValues.length > 0 ){
+                    handleOpen();
+                    return;
+                }
+                addEnergy();
                 return;
             }
         }
         alert("Ajouter une valeur");
         
+    }
+
+    const addEnergy = async () => {
+        setOpen(false);
+        setSaving(true);
+        await handleAdd(new Energy(generateUuid(), type, Number(value), category));
+        setType("");
+        setValue("");
+        setSaving(false);
+        return;
     }
 
     const addComment = async () => {
@@ -158,13 +178,59 @@ export const Form = ({username, data, category, description, options, titleSelec
             return accumulator + Number(currentItem.uncertainty);
         }, 0);
         setTotalUncertainty(total2);
+
+        data.sort((a:Energy, b:Energy) => {
+            const typeA = a.type.toUpperCase(); // ignore upper and lowercase
+            const typeB = b.type.toUpperCase(); // ignore upper and lowercase
+            if (typeA < typeB) {
+              return -1;
+            }
+            if (typeA > typeB) {
+              return 1;
+            }
+          
+            // names must be equal
+            return 0;
+          });
     }, [data]);
     
     const toggleText = () => {
         setIsExpanded(!isExpanded);
     };
 
+    const handleOpen = () => {
+        setOpen(true);
+
+    };
+  
+    const handleClose = () => {
+        setType("");
+        setValue("");
+        setOpen(false);
+    };
+
     return <>
+        <Dialog
+            open={open}
+            keepMounted={true}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+        >
+            <DialogTitle id="alert-dialog-title">
+                {"Confirmation"}
+            </DialogTitle>
+            <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                {`Une donnée d'activité existe déjà pour ${type} , voulez-vous quand même enregistrer une nouvelle donnée ? `}
+                </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={handleClose} autoFocus color="primary">
+                    Non
+                </Button>
+                <Button onClick={addEnergy} color="secondary">Oui</Button>
+            </DialogActions>
+        </Dialog>
         <h4>ENERGY - {category.toUpperCase()}</h4>
         <Divider aria-hidden="true" sx={{ marginTop: theme.spacing(5) }} />
         <Grid container spacing={2} marginTop={2}>
@@ -245,9 +311,21 @@ export const Form = ({username, data, category, description, options, titleSelec
                                     <TableCell align="right">{row.emission}</TableCell>
                                     <TableCell align="right">{row.uncertainty}</TableCell>
                                     <TableCell align="right">
-                                        <IconButton onClick={()=> handleDelete(row)} >
-                                            <CancelPresentationOutlined sx={{color: "red"}}/>
-                                        </IconButton>
+                                        
+                                        <ConfirmationDialog
+                                            title="Confirmation"
+                                            description="Souhaitez-vous supprimer définitivement cette donnée ?"
+                                            response={()=> {
+                                                console.log('Confirmed!', row.id);
+                                                handleDelete(row)
+                                            }}
+                                            >
+                                            {(showDialog:any) => (
+                                                <IconButton onClick={showDialog} >
+                                                    <CancelPresentationOutlined sx={{color: "red"}}/>
+                                                </IconButton>
+                                            )}
+                                        </ConfirmationDialog>
                                     </TableCell>
                                 </TableRow>
                             ))}
