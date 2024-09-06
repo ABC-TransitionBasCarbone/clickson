@@ -80,7 +80,7 @@ const DividerSmall = styled("hr")`
 
 export default function Dashboard() {
      // Default language
-    const { t } = useTranslation('common');
+    const { t } = useTranslation();
 
     const theme = useTheme();
 
@@ -123,17 +123,17 @@ export default function Dashboard() {
                         <HomeIcon fontSize="large"/>
                     </Link>
                     <CustomH6>
-                        <strong>PROFIL D'ÉMISSIONS (kgCO2e)</strong>
+                        <strong>{t("EMISSIONS PROFILE")} (kgCO2e)</strong>
                     </CustomH6>
                     <Divider aria-hidden="true" sx={{ marginTop: theme.spacing(1.25) }} />
                     <Stats/>
                     <Grid container marginTop={4} marginBottom={6} sx={{alignItems: "center", flexDirection: "column"}}>
                         <CustomH3>
-                            CALCULATOR'S MARKERS
+                            {t("CALCULATOR'S MARKERS")}
                         </CustomH3>
                         <DividerSmall/>
                         <Paragraph>
-                            Just click on a marker and start the <strong>data gathering</strong>
+                            {t("Just click on a marker and start the")} <strong>{t("data gathering")}</strong>
                         </Paragraph>
                     </Grid>
                     {loadingCategories ? (<Box sx={{ display: 'flex', justifyContent: "center", alignItems: "center", height: "20" }}>
