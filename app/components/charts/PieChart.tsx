@@ -13,7 +13,7 @@ import {
 } from 'chart.js';
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import 'chartjs-plugin-annotation';
-import {Grid} from "@mui/material";
+import {Checkbox, Grid } from "@mui/material";
 import {styled} from "@mui/system";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement, ChartDataLabels);
@@ -47,7 +47,6 @@ const PieChart: React.FC<PieChartProps> = ({data, labels}) => {
         theme.palette.info.main
     ];
 
-
     const handleLabelClick = (index: number) => {
         setHiddenIndices(prevIndices => {
             const newIndices = new Set(prevIndices);
@@ -80,18 +79,7 @@ const PieChart: React.FC<PieChartProps> = ({data, labels}) => {
                 text: 'Chart',
             },
             datalabels: {
-                color: 'white',
-                formatter: (value) => {
-                    const percentage = (value / total) * 100;
-                    return percentage >= minVisiblePercentage ? `${percentage.toFixed(2)}%` : null;
-                },
-                font: {
-                    family: theme.typography.fontFamily,
-                    weight: 'bold',
-                    size: 15,
-                },
-                align: 'end',
-                offset: 5,
+                display: false,
             },
             tooltip: {
                 enabled: true,
@@ -107,13 +95,13 @@ const PieChart: React.FC<PieChartProps> = ({data, labels}) => {
     };
     return (
         <BodyGrid container spacing={0} columns={12}>
-            <Grid item xs={9}>
+            <Grid item xs={8}>
                 <Pie data={chartData} options={options} ref={chartRef}/>
             </Grid>
-            <Grid item xs={3} sx={{
+            <Grid item xs={4} sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: 2
+                gap: 1
             }}>
                 {labels.map((label, index) => (
                     <Grid
@@ -125,16 +113,19 @@ const PieChart: React.FC<PieChartProps> = ({data, labels}) => {
                             fontSize: '14px',
                             lineHeight: '1.2',
                         }}
-                        onClick={() => handleLabelClick(index)}
+
                     >
+                        <Checkbox onChange={() => handleLabelClick(index)}/>
                         <Grid
                             style={{
-                                minWidth: '50px',
+                                minWidth: '30px',
                                 height: '10px',
                                 backgroundColor: backgroundColors[index],
                                 marginRight: theme.spacing(1),
                             }}
-                        ></Grid>
+                        >
+
+                        </Grid>
                         <span style={{textDecoration: hiddenIndices.has(index) ? 'line-through' : 'none'}}>
                         <strong>{label}</strong><p>{((data[index] / total) * 100).toFixed(2)}%</p>
                     </span>
