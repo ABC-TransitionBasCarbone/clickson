@@ -26,7 +26,7 @@ export default function ConfirmationDialog(props:any) {
   };
 
   return (<>
-  
+
   {props.children(showDialog)}
       {open && (
         <Dialog
