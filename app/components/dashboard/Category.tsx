@@ -5,6 +5,9 @@ import { Grid } from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import { styled } from "@mui/system";
 import { useRouter } from 'next/navigation'
+import SaveAltIcon from '@mui/icons-material/SaveAlt';
+import { Download } from '@mui/icons-material';
+
 
 const CustomH3 = styled('h3')(({theme}) => ({
     color: theme.palette.primary.main,
@@ -42,6 +45,30 @@ const OngoingButton = styled("button")(({theme}) => ({
     }
 }));
 
+const DownloadButton = styled("button")(({theme}) => ({
+    marginTop: 5,
+    backgroundColor: "white",
+    border: `1px solid ${theme.palette.primary.main}`, 
+    color: theme.palette.primary.main ,
+    fontSize: 16,
+    textTransform: "capitalize",
+    minWidth: 120,
+    minHeight: 40,
+    paddingRight: 4, 
+    paddingLeft: 4,
+    borderRadius: 8,
+    textAlign: "center",
+    textDecoration: "none",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+
+    '&:hover': {
+        border: `1px solid ${theme.palette.secondary.main}`, 
+        color: theme.palette.secondary.main ,
+    }
+}));
+
 interface Props {
     category: Category,
     borderColor: string
@@ -73,5 +100,6 @@ export const CategoryItem = ({category, borderColor}: Props) => {
             {category.details}
         </Paragraph>
         <OngoingButton onClick={() => handleOnGoing(category)}>On going</OngoingButton>
+        <DownloadButton onClick={() => {}}>Télécharger <Download sx={{cursor: 'pointer'}} onClick={()=>{}}/></DownloadButton>
     </Grid>);
 }

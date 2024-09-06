@@ -1,6 +1,6 @@
 "use client"
 
-import {Box, Grid, Popover, Typography} from "@mui/material";
+import {Box, Grid, Popover, Typography, Button} from "@mui/material";
 import {styled} from "@mui/system";
 import {Doughnut} from 'react-chartjs-2';
 import {
@@ -20,6 +20,7 @@ import {fetchExportFile} from "@/app/helpers/export";
 import React, {useState} from "react";
 import {useTranslation} from "react-i18next";
 
+import { Download } from '@mui/icons-material';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement);
 
@@ -44,6 +45,22 @@ const StatsWrapper = styled('div')`
     flex-direction: column;
     margin-bottom: 80px;
 `
+
+const DownloadButton = styled(Button)(({theme}) => ({
+    border: `1px solid ${theme.palette.secondary.main}`, 
+    color: theme.palette.secondary.main,
+    minWidth: 150,
+    minHeight: 40,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    '&:hover': {
+        border: `1px solid ${theme.palette.primary.main}`, 
+        backgroundColor: theme.palette.primary.main,
+        color: 'white'
+    }
+}));
+
 export const Stats = () => {
     const theme = useTheme();
     const {t} = useTranslation();
@@ -142,14 +159,11 @@ export const Stats = () => {
                 display: 'flex',
                 justifyContent: 'flex-end',
             }}>
-                <Typography
-                    aria-owns={open ? 'mouse-over-popover' : undefined}
-                    aria-haspopup="true"
-                    onMouseEnter={handlePopoverOpen}
-                    onMouseLeave={handlePopoverClose}
+                <DownloadButton
+                    onClick={handleExport}
                 >
-                    <SaveAltIcon sx={{cursor: 'pointer'}} onClick={handleExport}/>
-                </Typography>
+                 Télécharger <Download sx={{cursor: 'pointer'}} />
+                </DownloadButton>
                 <Popover
                     id="mouse-over-popover"
                     sx={{ pointerEvents: 'none' }}
