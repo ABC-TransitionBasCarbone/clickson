@@ -15,7 +15,6 @@ import {getCategories, getSession} from '@/lib';
 import { Category } from '../models/Category/Category';
 import { CategoryItem } from '../components/dashboard/Category';
 import CircularProgress from '@mui/material/CircularProgress';
-import i18n from "i18next";
 import {useTranslation} from "react-i18next";
 
 const CustomContainer = styled('div')`
@@ -88,7 +87,7 @@ interface User {
 
 export default function Dashboard() {
      // Default language
-    const { t } = useTranslation('common');
+    const { t } = useTranslation();
 
     const theme = useTheme();
 
@@ -144,7 +143,7 @@ export default function Dashboard() {
                         <HomeIcon fontSize="large"/>
                     </Link>
                     <CustomH6>
-                        <strong>PROFIL D'ÉMISSIONS (kgCO2e)</strong> | {user.school} {user.city ? " - " + user.city : ""}
+                        <strong>{t('abc-emission-profile')} (kgCO2e)</strong> | {user.school} {user.city ? " - " + user.city : ""}
                     </CustomH6>
 
                     <Divider aria-hidden="true" sx={{marginTop: theme.spacing(1.25)}}/>
