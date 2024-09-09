@@ -10,7 +10,15 @@ module.exports = {
                 header: true,
                 transformHeader: (h) => h.replace(/[^\w\s]|_/g, "").replace(/\s+/g, "").toLowerCase(),
                 skipEmptyLines: true
+            },
+            i18n: {
+                locales: ["en", "fr", "it", "es", "hr", "gr", "ro", "hu"],
+                defaultLocale: "fr",
+            },
+            images: {
+                domains: ["flagcdn.com", "flags.fmcdn.net"]
             }
+        
         })
 
         return config

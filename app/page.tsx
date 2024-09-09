@@ -10,6 +10,7 @@ import {Header} from './components/login/header';
 import {Form} from './components/login/form'
 import {Footer} from './components/login/footer'
 import {useTheme} from "@mui/material/styles";
+import {useTranslation} from "react-i18next";
 
 export default function Page() {
     const theme = useTheme();
@@ -29,31 +30,22 @@ export default function Page() {
     const [session, setSession] = useState({})
     const [loading, setLoading] = useState(false)
     const [correctUserInfo, setCorrectUserInfo] = useState(true)
-    const [buttonValue, setButtonValue] = useState("se connecter")
+    const {t} = useTranslation();
+    const [buttonValue, setButtonValue] = useState(t('abc-login-button'))
+    const bValue = t('abc-login-button');
 
     useEffect(() => {
-        fetchCookies();
-    }, [setSession]);
-
-    const fetchCookies = async () => {
-        const cookies = await getSession();
-        setLoading(false)
-
-        if (!cookies) {
-            return
-        }
-        setSession(cookies);
-        console.log("🚀 ~ fetchCookies ~ cookies:", cookies)
-    }
+        setButtonValue(bValue);
+    }, [bValue]);
 
     const onLogin = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         setLoading(true)
-        setButtonValue("Connexion en cours")
+        setButtonValue(t('abc-login-pending'))
         const formData = new FormData(event.currentTarget)
         login(formData).then(result => {
-            if (result.user) {
-                router.push("/dashboard")
+            if (!result.errors) {
+                router.push("/accueil")
             } else {
                 setCorrectUserInfo(false);
             }

@@ -1,3 +1,4 @@
+"use client"
 import {
     Alert,
     Button,
@@ -13,6 +14,7 @@ import theme from "@/app/theme";
 import {styled} from "@mui/system";
 import {FormEventHandler, MouseEventHandler} from "react";
 import LoadingButton from '@mui/lab/LoadingButton';
+import { useTranslation } from "react-i18next";
 
 const BodyGrid = styled(Grid)(({theme}) => ({
     display: 'flex',
@@ -47,11 +49,13 @@ interface Props {
     onLogin: FormEventHandler,
     loading: boolean,
     buttonValue: string,
-    goToSignUp: MouseEventHandler
+    goToSignUp: MouseEventHandler,
 }
 
-export const Form = ({correctUserInfo, onLogin, loading, buttonValue, goToSignUp}: Props) =>
-    (
+
+export const Form = ({correctUserInfo, onLogin, loading, buttonValue, goToSignUp}: Props) => {
+    const {t} = useTranslation();
+    return (
         <BodyGrid container spacing={5} columns={16}>
             <Grid item md={10}>
                 <Typography variant="h2" sx={{
@@ -77,12 +81,12 @@ export const Form = ({correctUserInfo, onLogin, loading, buttonValue, goToSignUp
                             md: 60,
                             lg: 80,
                         },
-                        color: "secondary.main"
+                        color: "secondary.main",
+                        fontWeight: 700,
+                        textTransform: "Uppercase"
                     }}
                 >
-                    <strong>
-                        CALCULATEUR
-                    </strong>
+                    {t('abc-calculator')}
                 </Typography>
                 <Typography variant="h3" sx={{
                     marginBottom: theme.spacing(3),
@@ -93,17 +97,15 @@ export const Form = ({correctUserInfo, onLogin, loading, buttonValue, goToSignUp
                     },
                     fontWeight: 500
                 }}>
-                    Mesurons les émissions de CO2 de votre établissement!
+                    {t('abc-calculator-sub-text')}
                 </Typography>
                 <p>
-                    Utilisez le formulaire de connexion pour accéder à votre tableau de bord, ou demandez à
-                    votre
-                    <strong> enseignant</strong> de <strong>vous inviter.</strong>
+                    {t('abc-calculator-small-text')}
                 </p>
             </Grid>
             <Grid item md={6}>
-                <Typography variant="h5">
-                    <strong>Connexion</strong>
+                <Typography variant="h5" sx={{fontWeight: "700"}}>
+                    {t('abc-login')}
                 </Typography>
                 <form onSubmit={onLogin}>
                     <FormControl
@@ -157,7 +159,7 @@ export const Form = ({correctUserInfo, onLogin, loading, buttonValue, goToSignUp
                             marginTop: theme.spacing(1),
                             marginBottom: theme.spacing(1)
                         }}>
-                        <FormControlLabel control={<Checkbox name="keepSession"/>} label="Se souvenir de moi"/>
+                        <FormControlLabel control={<Checkbox name="rememberMe"/>} label={t('abc-remember-me')}/>
                     </FormControl>
                     {!correctUserInfo && (
                         <FormControl sx={{
@@ -176,15 +178,18 @@ export const Form = ({correctUserInfo, onLogin, loading, buttonValue, goToSignUp
                     )}
                 </form>
                 <span>
-                    <p>Mot de passe oublié ? <CustomLink href="#" underline="none">Le récupérer</CustomLink></p>
+                    <p>{t('abc-forgot-password')} <CustomLink href="#" underline="none">{t('abc-restore-password')}</CustomLink></p>
                 </span>
                 <FormControl sx={{
                     width: {xs: '100%', sm: '100%', md: '35ch', lg: '35ch'},
                     marginTop: theme.spacing(3),
                     marginBottom: theme.spacing(1)
                 }}>
-                    <StyledButton variant="contained" size="large" onClick={goToSignUp}>S'IDENTIFIER</StyledButton>
+                    <StyledButton variant="contained" size="large" onClick={goToSignUp}>{t('abc-signup')}</StyledButton>
                 </FormControl>
             </Grid>
         </BodyGrid>
     )
+}
+
+

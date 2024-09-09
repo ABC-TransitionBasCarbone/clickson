@@ -1,7 +1,7 @@
 'use server'
 
 
-import {jwtVerify, SignJWT} from "jose";
+import {SignJWT, jwtVerify} from "jose";
 import {cookies} from "next/headers";
 import {NextRequest, NextResponse} from "next/server";
 
@@ -12,50 +12,45 @@ const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
 
 export async function login(formData: FormData) {
     // Verify credentials && get the user
-
-  const login = await getCurrentUser(formData.get("username")?.toString() || "", formData.get("password")?.toString() || "")
-
-    if(!login.errors){
-        // Create the session
-        const expires = new Date(Date.now() + 3600 * 1000);
-        let session = "";
-
-        // Save the session in a cookie
-        if (formData.get("keepSession")) {
-            session = await encrypt({ login });
-            cookies().set("session", session, { httpOnly: true });
-        } else {
-            session = await encrypt({ login, expires });
-            cookies().set("session", session, { expires, httpOnly: true });
-        }
-
+    const rememberMe = formData.get("rememberMe") !== null;
+    if(formData.get("username") == null || formData.get("password") == null) {
+        console.log("invalid credential");
+        return {"error": "invalid credential"};
     }
-
-    return login;
+    return await getCurrentUser(
+        `${formData.get("username")}`, `${formData.get("password")}`, rememberMe
+    );
 }
 
 
-export async function getCurrentUser(username: string, password: string) {
+export async function getCurrentUser(username: string, password: string, rememberMe: boolean) {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
     const raw = JSON.stringify({
-        "username": username,
-        "password": password
+        username: username,
+        password: password,
+        rememberMe: rememberMe,
     });
 
+    console.log("raw: ",raw);
     const requestOptions = {
+        headers: myHeaders,
         method: "POST",
         body: raw,
         redirect: "follow"
     } as RequestInit;
+
+    console.log(requestOptions)
     try {
         const result = await fetch(urlApi + "/auth/login", requestOptions)
         const login = await result.json();
-
-        if (!login) {
+        console.log("login: ",login);
+        if (login.errors) {
             console.error("Failed to fetch API");
+            return login.errors;
         }
+        cookies().set('user', JSON.stringify(login))
         return login;
     } catch (error) {
         return error;
@@ -65,7 +60,7 @@ export async function getCurrentUser(username: string, password: string) {
 
 export async function logout() {
     // Destroy the session
-    cookies().set("session", "", {expires: new Date(0)});
+    cookies().delete('user');
 }
 
 
@@ -85,9 +80,9 @@ export async function decrypt(input: string): Promise<any> {
 }
 
 export async function getSession() {
-    const session = cookies().get("session")?.value;
+    const session = cookies().get("user")?.value;
     if (!session) return null;
-    return await decrypt(session);
+    return JSON.parse(session!);
 }
 
 export async function updateSession(request: NextRequest) {
@@ -144,5 +139,158 @@ export async function signUp(formData: FormData) {
         return await result.json();
     } catch (error) {
         console.error(error);
+    }
+}
+
+export async function getCategories() {
+    try {
+        const result = await fetch(urlApi + "/emission/categories")
+        return await result.json();
+    } catch (error) {
+        console.error(error);
+        return {"error" : error}
+    }
+}
+
+export async function getSubCategories(id: number) {
+    try {
+        const result = await fetch(urlApi + "/emission/sub-categories/"+id)
+        const response = await result.json();
+
+        if (response.data) {
+            return response.data
+        }
+        console.error("Failed to fetch API");
+        return [];
+    } catch (error) {
+        return error;
+    }
+}
+
+export async function getEmissions(id: number) {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const data = JSON.stringify({
+        "sub_category_id": id,
+    });
+
+    const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: data,
+        redirect: "follow"
+    } as RequestInit;
+    try {
+        const result = await fetch(urlApi + "/energy/", requestOptions)
+        return await result.json();
+    } catch (error) {
+        console.error(error);
+        return {"error" : error}
+    }
+}
+
+export async function AddEnergy(formData: FormData) {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const data = JSON.stringify({
+        "category_id": formData.get("category_id")?.toString() || "",
+        "sub_category_id": formData.get("sub_category_id")?.toString() || "",
+        "label": formData.get("label")?.toString() || "",
+        "type": formData.get("type")?.toString() || "",
+        "value": formData.get("value")?.toString() || "",
+    });
+
+    const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: data,
+        redirect: "follow"
+    } as RequestInit;
+    try {
+        const result = await fetch(urlApi + "/energy/add", requestOptions)
+        return await result.json();
+    } catch (error) {
+        console.error(error);
+        return {"error" : error}
+    }
+}
+
+export async function DeleteEnergy(id: any) {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const data = JSON.stringify({
+        "id": id
+    });
+
+    const requestOptions = {
+        method: "DELETE",
+        headers: myHeaders,
+        body: data,
+        redirect: "follow"
+    } as RequestInit;
+    try {
+        const result = await fetch(urlApi + "/energy/delete", requestOptions)
+        return await result.json();
+    } catch (error) {
+        console.error(error);
+        return {"error" : error}
+    }
+}
+
+export async function AddEnergyComment(formData: FormData) {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const data = JSON.stringify({
+        "sub_category_id": formData.get("sub_category_id")?.toString() || "",
+        "comment": formData.get("comment")?.toString() || "",
+        "created_at": formData.get("created_at")?.toString() || "",
+        "craeted_by": formData.get("craeted_by")?.toString() || "",
+    });
+
+    const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: data,
+        redirect: "follow"
+    } as RequestInit;
+    try {
+        const result = await fetch(urlApi + "/energy/add/comment", requestOptions)
+        return await result.json();
+    } catch (error) {
+        console.error(error);
+        return {"error" : error}
+    }
+}
+
+
+/**
+ * Fetch Comments for energy by sub_category_id
+ * @param id
+ * @returns
+ */
+export async function getComments(id: number) {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const data = JSON.stringify({
+        "sub_category_id": id,
+    });
+
+    const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: data,
+        redirect: "follow"
+    } as RequestInit;
+    try {
+        const result = await fetch(urlApi + "/energy/comments", requestOptions)
+        return await result.json();
+    } catch (error) {
+        console.error(error);
+        return {"error" : error}
     }
 }

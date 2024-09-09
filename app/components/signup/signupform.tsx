@@ -116,120 +116,120 @@ export const SignUpForm = ({ onSignUp, countries, showError, showSuccess, messag
                         name="email"
                         label="Adresse email"
 
-                    />
-                </FormControl>
-                <FormControl
-                    sx={{
-                        width: '100%',
-                        marginTop: theme.spacing(1),
-                        marginBottom: theme.spacing(1)
-                    }}>
-                    <TextField placeholder="Mot de passe"
-                        type="password"
-                        name="password"
-                        label="Mot de passe"
-                    />
-                </FormControl>
-                <FormControl
-                    sx={{
-                        width: '100%',
-                        marginTop: theme.spacing(1),
-                        marginBottom: theme.spacing(1)
-                    }}>
-                    <Autocomplete
-                        id="country-select"
-                        options={countries}
-                        autoHighlight
-                        getOptionLabel={(option) => option.country.name_fr}
-                        renderOption={(props, option) => {
-                            const { key, ...optionProps } = props;
-                            return (
-                                <Box
-                                    key={key}
-                                    component="li"
-                                    sx={{ '& > img': { mr: 2, flexShrink: 0 } }}
-                                    {...optionProps}
-                                >
-                                    <img
-                                        loading="lazy"
-                                        width="20"
-                                        srcSet={option.country.flag}
-                                        src={option.country.flag}
-                                        alt={option.country.name_fr}
-                                    />
-                                    {option.country.name_fr}
-                                </Box>
-                            );
-                        }}
-                        renderInput={(params) => (
-                            <TextField
-                                {...params}
-                                label="Pays"
-                                name="state"
-                                inputProps={{
-                                    ...params.inputProps,
-                                }}
-                            />
-                        )}
-                    />
-                </FormControl>
-                <FormControl
-                    sx={{
-                        width: '100%',
-                        marginTop: theme.spacing(1),
-                        marginBottom: theme.spacing(1)
-                    }}>
-                    <TextField placeholder="Ville"
-                        type="text"
-                        name="city"
-                        label="Ville"
-                    />
-                </FormControl>
-                <FormControl
-                    sx={{
-                        width: '100%',
-                        marginTop: theme.spacing(1),
-                        marginBottom: theme.spacing(1)
-                    }}>
-                    <TextField placeholder="Code Postale"
-                        type="text"
-                        name="zip_code"
-                        label="Code Postale"
-                    />
-                </FormControl>
-                <FormControl
-                    sx={{
-                        width: '100%',
-                        marginTop: theme.spacing(1),
-                        marginBottom: theme.spacing(1)
-                    }}>
-                    <TextField placeholder="Nom de mon établissement"
-                        type="text"
-                        name="school"
-                        label="Nom de mon établissement"
-                    />
-                </FormControl>
-                <FormControl
-                    sx={{
-                        width: '100%',
-                        marginTop: theme.spacing(1),
-                        marginBottom: theme.spacing(1),
-                        '& .MuiLoadingButton-root.Mui-disabled': {
-                            bgcolor: theme.palette.secondary.main,
-                            color: 'white',
-                        }
-                    }}>
-                    <StyledLoadingButton
-                        size="large"
-                        color="primary"
-                        loading={false}
-                        loadingPosition="start"
-                        variant="contained"
-                        type="submit"
-                    >
-                        <span>s'enregistrer</span>
-                    </StyledLoadingButton>
-                </FormControl>
+                        />
+                    </FormControl>
+                    <FormControl
+                        sx={{
+                            width: '100%',
+                            marginTop: theme.spacing(1),
+                            marginBottom: theme.spacing(1)
+                        }}>
+                        <TextField placeholder="Mot de passe"
+                                   type="password"
+                                   name="password"
+                                   label="Mot de passe"
+                        />
+                    </FormControl>
+                    <FormControl
+                        sx={{
+                            width: '100%',
+                            marginTop: theme.spacing(1),
+                            marginBottom: theme.spacing(1)
+                        }}>
+                        <Autocomplete
+                            id="country-select"
+                            options={countries}
+                            autoHighlight
+                            getOptionLabel={(option) => option.country.name_fr}
+                            renderOption={(props, option) => {
+                                const {key, ...optionProps} = props;
+                                return (
+                                    <Box
+                                        key={key}
+                                        component="li"
+                                        sx={{'& > img': {mr: 2, flexShrink: 0}}}
+                                        {...optionProps}
+                                    >
+                                        <img
+                                            loading="lazy"
+                                            width="20"
+                                            srcSet={option.country.flag}
+                                            src={option.country.flag}
+                                            alt={option.country.name_fr}
+                                        />
+                                        {option.country.name_fr}
+                                    </Box>
+                                );
+                            }}
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    label="Pays"
+                                    name="state"
+                                    inputProps={{
+                                        ...params.inputProps,
+                                    }}
+                                />
+                            )}
+                        />
+                    </FormControl>
+                    <FormControl
+                        sx={{
+                            width: '100%',
+                            marginTop: theme.spacing(1),
+                            marginBottom: theme.spacing(1)
+                        }}>
+                        <TextField placeholder="Ville"
+                                   type="text"
+                                   name="city"
+                                   label="Ville"
+                        />
+                    </FormControl>
+                    <FormControl
+                        sx={{
+                            width: '100%',
+                            marginTop: theme.spacing(1),
+                            marginBottom: theme.spacing(1)
+                        }}>
+                        <TextField placeholder="Code Postal"
+                                   type="text"
+                                   name="zip_code"
+                                   label="Code Postal"
+                        />
+                    </FormControl>
+                    <FormControl
+                        sx={{
+                            width: '100%',
+                            marginTop: theme.spacing(1),
+                            marginBottom: theme.spacing(1)
+                        }}>
+                        <TextField placeholder="Nom de mon établissement"
+                                   type="text"
+                                   name="school"
+                                   label="Nom de mon établissement"
+                        />
+                    </FormControl>
+                    <FormControl
+                        sx={{
+                            width: '100%',
+                            marginTop: theme.spacing(1),
+                            marginBottom: theme.spacing(1),
+                            '& .MuiLoadingButton-root.Mui-disabled': {
+                                bgcolor: theme.palette.secondary.main,
+                                color: 'white',
+                            }
+                        }}>
+                        <StyledLoadingButton
+                            size="large"
+                            color="primary"
+                            loading={false}
+                            loadingPosition="start"
+                            variant="contained"
+                            type="submit"
+                        >
+                            <span>s'enregistrer</span>
+                        </StyledLoadingButton>
+                    </FormControl>
 
 
             </form>

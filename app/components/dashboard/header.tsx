@@ -1,15 +1,11 @@
 import {Grid, Box} from "@mui/material";
 
-import eng from '../../public/eng.png';
-import fra from '../../public/fra.png';
-import esp from '../../public/esp.png';
-import ita from '../../public/ita.png';
-
-import Image, {StaticImageData} from 'next/image'
 import {styled} from "@mui/system";
 import {MouseEvent, useEffect, useState} from "react";
 import {getSession, logout} from "@/lib";
 import {useRouter} from "next/navigation";
+import LanguageSwitcher from "@/app/components/LanguageSwitcher/LanguageSwitcher";
+import {useTranslation} from "react-i18next";
 
 
 const BoxHeader = styled(Box)`
@@ -49,31 +45,44 @@ const UsernameBox = styled('div')(({theme}) => ({
     }
 }));
 
+interface User {
+    user_display_name: string,
+    user_email: string,
+    role: string,
+    state: string,
+    school: string,
+    city: string,
+    zip_code: string
+}
 export const Header = () => {
     const router = useRouter();
-    const [session, setSession] = useState({})
-    const [user, setUser] = useState("");
+    const [user, setUser] = useState<User>({
+        city: "",
+        role: "",
+        school: "",
+        state: "",
+        user_display_name: "",
+        user_email: "",
+        zip_code: ""
+    });
+    const {t} = useTranslation();
     useEffect(() => {
         fetchCookies();
-    }, [setSession]);
+    }, [setUser]);
 
     const fetchCookies = async () => {
         const cookies = await getSession();
         if (!cookies) {
             return
         }
-        setSession(cookies);
-        console.log("🚀 ~ fetchCookies ~ cookies:", cookies)
-        setUser(cookies.login.user.email)
+        setUser(cookies);
     }
     const onLogout = (event: MouseEvent<HTMLAnchorElement>) => {
         event.preventDefault()
         logout().then(() => {
-            setSession({});
             router.push('/')
         })
     }
-    const languages: StaticImageData[] = [eng, fra, ita, esp];
     return (
         <Box sx={{width: '100%'}}>
             <Grid
@@ -95,15 +104,10 @@ export const Header = () => {
                 </Grid>
                 <Grid item sm={3}>
                     <UsernameBox sx={{border: 'none'}}>
-                        <LanguageMenu>
-                            {languages.map((language, id) => (
-                                <li key={id}>
-                                    <Link href=""><Image src={language} alt="languages" width={16} height={11}/></Link>
-                                </li>
-                            ))}
-                        </LanguageMenu>
-                        <p>{user}</p>
-                        <Link href="" onClick={onLogout}>Se déconnecter</Link>
+                        <LanguageSwitcher />
+                        <p>{user.user_email}</p>
+                        <p>{t('abc-connected-as')}: <strong>{user.role}</strong></p>
+                        <Link href="" onClick={onLogout}>{t('abc-logout')}</Link>
                     </UsernameBox>
                 </Grid>
             </Grid>
