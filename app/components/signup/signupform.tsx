@@ -3,7 +3,7 @@ import {
     Button,
     FormControl,
     Grid, LinearProgress,
-    Link, TextField
+    Link, TextField, Typography
 } from "@mui/material";
 import theme from "@/app/theme";
 import { styled } from "@mui/system";
@@ -274,8 +274,8 @@ export const SignUpForm = ({onSignUp, countries, showError, showSuccess, message
                     </FormControl>
 
 
-            </form>
-        </Grid>
-    </BodyGrid>
-)
+                </form>
+            </Grid>
+        </BodyGrid>
+    )
 }
