@@ -18,4 +18,20 @@
   "abc-calculator-sub-text": "Let's measure your school's CO2 impact!",
   "abc-calculator-small-text": "Use the login form to access your dashboard, or ask your teacher to invite you.",
   "abc-emission-profile": "EMISSIONS PROFILE"
+  "abc-calculator-small-text": "Use the login form to access your dashboard, or ask your teacher to invite you.",
+  "abc-first-name": "First name",
+  "abc-last-name": "Last name",
+  "abc-email":"Email address",
+  "abc-password":"Password",
+  "abc-confirm-password":"Confirm your password",
+  "abc-country":"Country",
+  "abc-city":"City",
+  "abc-zip-code":"Zip Code",
+  "abc-school":"Name of my school",
+  "abc-already-exists-account-part-one": "An account is already associated with this email address, click",
+  "abc-already-exists-account-part-two": "here to log in",
+  "abc-already-exists-account-part-three": "or choose another email address",
+  "abc-successfully-created-account": "Your account has been successfully created",
+  "abc-password-mismatch": "The passwords you entered do not match. Please ensure both fields contain the same password.",
+  "abc-username": "Username"
 }

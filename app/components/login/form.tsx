@@ -14,7 +14,7 @@ import theme from "@/app/theme";
 import {styled} from "@mui/system";
 import {FormEventHandler, MouseEventHandler} from "react";
 import LoadingButton from '@mui/lab/LoadingButton';
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 
 const BodyGrid = styled(Grid)(({theme}) => ({
     display: 'flex',
@@ -114,8 +114,7 @@ export const Form = ({correctUserInfo, onLogin, loading, buttonValue, goToSignUp
                             marginTop: theme.spacing(3),
                             marginBottom: theme.spacing(1)
                         }}>
-                        <OutlinedInput placeholder="Email / username"
-                                       defaultValue={"romain.crevecoeur@abc-transitionbascarbone.fr"}
+                        <OutlinedInput placeholder={t('abc-email') + " / " + t('abc-username')}
                                        name="username"
                         />
                     </FormControl>
@@ -125,8 +124,7 @@ export const Form = ({correctUserInfo, onLogin, loading, buttonValue, goToSignUp
                             marginTop: theme.spacing(1),
                             marginBottom: theme.spacing(1)
                         }}>
-                        <OutlinedInput placeholder="Password"
-                                       defaultValue={"om@XBC4H(hAVyG%s%@AWBVWS"}
+                        <OutlinedInput placeholder={t('abc-password')}
                                        type="password"
                                        name="password"
                         />

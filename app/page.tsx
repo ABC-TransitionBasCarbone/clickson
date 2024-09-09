@@ -47,8 +47,8 @@ export default function Page() {
             if (!result.errors) {
                 router.push("/accueil")
             } else {
-                setLoading(false)
-                setButtonValue("Se Connecter")
+                setLoading(false);
+                setButtonValue(t('abc-login'))
                 setCorrectUserInfo(false);
 
             }

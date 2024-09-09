@@ -13,12 +13,13 @@ const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
 export async function login(formData: FormData) {
     // Verify credentials && get the user
     const rememberMe = formData.get("rememberMe") !== null;
-    if(formData.get("username") == null || formData.get("password") == null) {
+    const email = formData.get('username') == null ? formData.get("email") : formData.get("username");
+    if(email == null || formData.get("password") == null) {
         console.log("invalid credential");
         return {"error": "invalid credential"};
     }
     return await getCurrentUser(
-        `${formData.get("username")}`, `${formData.get("password")}`, rememberMe
+        `${email}`, `${formData.get("password")}`, rememberMe
     );
 }
 
@@ -122,6 +123,7 @@ export async function signUp(formData: FormData) {
         "first_name": formData.get("first_name")?.toString() || "",
         "last_name": formData.get("last_name")?.toString() || "",
         "password": formData.get("password")?.toString() || "",
+        "confirm-password": formData.get("confirm-password")?.toString() || "",
         "state": formData.get("state")?.toString() || "",
         "school": formData.get("school")?.toString() || "",
         "city": formData.get("city")?.toString() || "",
