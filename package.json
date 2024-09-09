@@ -30,6 +30,7 @@
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
+    "csv-loader": "^3.0.5",
     "typescript": "latest"
   }
 }

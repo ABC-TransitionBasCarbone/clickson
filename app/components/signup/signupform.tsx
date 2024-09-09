@@ -1,22 +1,15 @@
 import {
-    Alert, AlertTitle, Box,
-    Button,
-    Checkbox,
+    Alert,
     FormControl,
-    FormControlLabel,
     Grid, LinearProgress,
-    Link, MenuItem,
-    OutlinedInput, Select, SelectChangeEvent, TextField,
-    Typography
-} from "@mui/material";
+    TextField} from "@mui/material";
 import theme from "@/app/theme";
-import {styled} from "@mui/system";
-import {ChangeEvent, FormEventHandler, JSXElementConstructor, ReactElement} from "react";
+import { Box, styled } from "@mui/system";
+import { ChangeEvent, FormEventHandler, ReactElement } from "react";
 import LoadingButton from '@mui/lab/LoadingButton';
-import Image from "next/image";
-import {Autocomplete} from "@mui/material";
+import { Autocomplete } from "@mui/material";
 
-const BodyGrid = styled(Grid)(({theme}) => ({
+const BodyGrid = styled(Grid)(() => ({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
@@ -24,25 +17,14 @@ const BodyGrid = styled(Grid)(({theme}) => ({
     minHeight: '80vh',
 }));
 
-const StyledButton = styled(Button)(({theme}) => ({
-    '&:hover': {
-        backgroundColor: theme.palette.secondary.main,
-        color: 'white'
-    }
-}));
 
-const StyledLoadingButton = styled(LoadingButton)(({theme}) => ({
+const StyledLoadingButton = styled(LoadingButton)(({ theme }) => ({
     '&:hover': {
         backgroundColor: theme.palette.secondary.main,
         color: 'white'
     },
 }));
 
-const CustomLink = styled(Link)(({theme}) => ({
-    '&:hover': {
-        color: theme.palette.secondary.main
-    }
-}))
 
 interface Country {
     country: {
@@ -64,75 +46,75 @@ interface Props {
     progress: number | undefined,
 }
 
-export const SignUpForm = ({onSignUp, countries, showError, showSuccess, message, progress}: Props) =>
-    (
-        <BodyGrid container spacing={5} columns={16}>
-            <Grid item md={16}>
-                {showError && (
-                    <FormControl sx={{
+export const SignUpForm = ({ onSignUp, countries, showError, showSuccess, message, progress }: Props) =>
+(
+    <BodyGrid container spacing={5} columns={16}>
+        <Grid item md={16}>
+            {showError && (
+                <FormControl sx={{
+                    width: '100%',
+                    marginTop: theme.spacing(1),
+                    marginBottom: theme.spacing(1)
+                }}>
+                    <Alert severity="error">
+                        {message}
+                    </Alert>
+                </FormControl>
+            )}
+            {showSuccess && (
+                <FormControl sx={{
+                    width: '100%',
+                    marginTop: theme.spacing(1),
+                    marginBottom: theme.spacing(1)
+                }}>
+                    <Alert severity="success">
+                        {message}
+                        <div style={{ paddingBottom: '4px' }}></div>
+                        <LinearProgress variant="determinate" value={progress} sx={{
+                            position: 'absolute',
+                            bottom: 0,
+                            left: 0,
+                            width: '100%',
+                            borderBottomLeftRadius: 4,
+                            borderBottomRightRadius: 4
+                        }} />
+                    </Alert>
+                </FormControl>
+            )}
+            <form onSubmit={onSignUp}>
+                <FormControl
+                    sx={{
+                        width: '100%',
+                        marginTop: theme.spacing(3),
+                        marginBottom: theme.spacing(1)
+                    }}>
+                    <TextField placeholder="Prénom"
+                        name="first_name"
+                        label="Prénom"
+                    />
+                </FormControl>
+                <FormControl
+                    sx={{
                         width: '100%',
                         marginTop: theme.spacing(1),
                         marginBottom: theme.spacing(1)
                     }}>
-                        <Alert severity="error">
-                            {message}
-                        </Alert>
-                    </FormControl>
-                )}
-                {showSuccess && (
-                    <FormControl sx={{
+                    <TextField placeholder="Nom de famille"
+                        type="text"
+                        name="last_name"
+                        label="Nom de famille"
+                    />
+                </FormControl>
+                <FormControl
+                    sx={{
                         width: '100%',
                         marginTop: theme.spacing(1),
                         marginBottom: theme.spacing(1)
                     }}>
-                        <Alert severity="success">
-                            {message}
-                            <div style={{paddingBottom: '4px'}}></div>
-                            <LinearProgress variant="determinate" value={progress} sx={{
-                                position: 'absolute',
-                                bottom: 0,
-                                left: 0,
-                                width: '100%',
-                                borderBottomLeftRadius: 4,
-                                borderBottomRightRadius: 4
-                            }}/>
-                        </Alert>
-                    </FormControl>
-                )}
-                <form onSubmit={onSignUp}>
-                    <FormControl
-                        sx={{
-                            width: '100%',
-                            marginTop: theme.spacing(3),
-                            marginBottom: theme.spacing(1)
-                        }}>
-                        <TextField placeholder="Prénom"
-                                   name="first_name"
-                                   label="Prénom"
-                        />
-                    </FormControl>
-                    <FormControl
-                        sx={{
-                            width: '100%',
-                            marginTop: theme.spacing(1),
-                            marginBottom: theme.spacing(1)
-                        }}>
-                        <TextField placeholder="Nom de famille"
-                                   type="text"
-                                   name="last_name"
-                                   label="Nom de famille"
-                        />
-                    </FormControl>
-                    <FormControl
-                        sx={{
-                            width: '100%',
-                            marginTop: theme.spacing(1),
-                            marginBottom: theme.spacing(1)
-                        }}>
-                        <TextField placeholder="Adresse email"
-                                   type="email"
-                                   name="email"
-                                   label="Adresse email"
+                    <TextField placeholder="Adresse email"
+                        type="email"
+                        name="email"
+                        label="Adresse email"
 
                         />
                     </FormControl>
@@ -250,7 +232,7 @@ export const SignUpForm = ({onSignUp, countries, showError, showSuccess, message
                     </FormControl>
 
 
-                </form>
-            </Grid>
-        </BodyGrid>
-    )
+            </form>
+        </Grid>
+    </BodyGrid>
+)
