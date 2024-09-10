@@ -7,11 +7,12 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
+import {useTranslation} from "react-i18next";
 
 export default function ConfirmationDialog(props:any) {
   //local states
   const [open, setOpen] = useState(false);
-
+  const {t} = useTranslation();
   const showDialog = () => {
     setOpen(true);
   };
@@ -42,12 +43,13 @@ export default function ConfirmationDialog(props:any) {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={hideDialog} color="primary">
-              Non
+            <Button onClick={hideDialog} color="secondary">
+              {t('abc-no')}
             </Button>
-            <Button onClick={confirmRequest} color="secondary">
-              Oui
+            <Button onClick={confirmRequest} color="primary">
+              {t('abc-yes')}
             </Button>
+
           </DialogActions>
         </Dialog>
       )}
