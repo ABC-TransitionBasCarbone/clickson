@@ -39,18 +39,16 @@ const resources = {
 };
 
 const i18nPromise = i18n
-    .use(initReactI18next) // Passes i18n instance to react-i18next
+    .use(initReactI18next)
     .init({
         resources,
-        lng: 'en', // Default language
-        fallbackLng: 'fr', // Fallback language if the selected one is not available
+        lng: 'fr',
+        fallbackLng: 'fr',
         interpolation: {
-            escapeValue: false, // React already escapes by default
+            escapeValue: false,
         },
     }).then(() => {
-        // This block will be executed after i18n initialization is complete
         console.log('i18n initialized successfully!');
-        // You can now safely start rendering your app
 })
     .catch((error) => {
         console.error('Error initializing i18n:', error);

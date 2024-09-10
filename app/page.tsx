@@ -47,7 +47,10 @@ export default function Page() {
             if (!result.errors) {
                 router.push("/accueil")
             } else {
+                setLoading(false)
+                setButtonValue("Se Connecter")
                 setCorrectUserInfo(false);
+
             }
         });
     }

@@ -35,6 +35,12 @@ importers:
       chart.js:
         specifier: ^4.4.3
         version: 4.4.3
+      chartjs-plugin-annotation:
+        specifier: ^3.0.1
+        version: 3.0.1(chart.js@4.4.3)
+      chartjs-plugin-datalabels:
+        specifier: ^2.2.0
+        version: 2.2.0(chart.js@4.4.3)
       exceljs:
         specifier: ^4.4.0
         version: 4.4.0
@@ -596,6 +602,16 @@ packages:
   chart.js@4.4.3:
     resolution: {integrity: sha512-qK1gkGSRYcJzqrrzdR6a+I0vQ4/R+SoODXyAjscQ/4mzuNzySaMCd+hyVxitSY1+L2fjPD1Gbn+ibNqRmwQeLw==}
     engines: {pnpm: '>=8'}
+
+  chartjs-plugin-annotation@3.0.1:
+    resolution: {integrity: sha512-hlIrXXKqSDgb+ZjVYHefmlZUXK8KbkCPiynSVrTb/HjTMkT62cOInaT1NTQCKtxKKOm9oHp958DY3RTAFKtkHg==}
+    peerDependencies:
+      chart.js: '>=4.0.0'
+
+  chartjs-plugin-datalabels@2.2.0:
+    resolution: {integrity: sha512-14ZU30lH7n89oq+A4bWaJPnAG8a7ZTk7dKf48YAzMvJjQtjrgg5Dpk9f+LbjCF6bpx3RAGTeL13IXpKQYyRvlw==}
+    peerDependencies:
+      chart.js: '>=3.0.0'
 
   client-only@0.0.1:
     resolution: {integrity: sha512-IV3Ou0jSMzZrd3pZ48nLkT9DA7Ag1pnPzaiQhpW7c3RbcqqzvzzVu+L8gfqMp/8IM2MQtSiqaCxrrcfu8I8rMA==}
@@ -1766,6 +1782,14 @@ snapshots:
   chart.js@4.4.3:
     dependencies:
       '@kurkle/color': 0.3.2
+
+  chartjs-plugin-annotation@3.0.1(chart.js@4.4.3):
+    dependencies:
+      chart.js: 4.4.3
+
+  chartjs-plugin-datalabels@2.2.0(chart.js@4.4.3):
+    dependencies:
+      chart.js: 4.4.3
 
   client-only@0.0.1: {}
 
