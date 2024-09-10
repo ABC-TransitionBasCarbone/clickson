@@ -16,6 +16,21 @@
   "abc-signup": "Εγγραφείτε",
   "abc-calculator": "Υπολογιστής",
   "abc-calculator-sub-text": "Ας μετρήσουμε τις εκπομπές CO2 της επιχείρησής σας!",
+  "abc-emission-profile": "ΠΡΟΦΙΛ ΕΚΠΟΜΠΩΝ",
   "abc-calculator-small-text": "Χρησιμοποιήστε τη φόρμα σύνδεσης για να αποκτήσετε πρόσβαση στον πίνακα ελέγχου σας ή ζητήστε από τον δάσκαλό σας να σας προσκαλέσει.",
-  "abc-emission-profile": "ΠΡΟΦΙΛ ΕΚΠΟΜΠΩΝ"
+  "abc-first-name": "Ονομα",
+  "abc-last-name": "Επώνυμο",
+  "abc-email":"Διεύθυνση ηλεκτρονικού ταχυδρομείου",
+  "abc-password":"Σύνθημα",
+  "abc-confirm-password":"Επιβεβαιώστε τον κωδικό πρόσβασής σας",
+  "abc-country":"Χώρα",
+  "abc-city":"Πόλη",
+  "abc-zip-code":"Τ.Κ",
+  "abc-school":"Το όνομα του σχολείου μου",
+  "abc-already-exists-account-part-one": "Ένας λογαριασμός έχει ήδη συσχετιστεί με αυτήν τη διεύθυνση email, κάντε",
+  "abc-already-exists-account-part-two": "κλικ εδώ για να συνδεθείτε",
+  "abc-already-exists-account-part-three": "ή επιλέξτε άλλη διεύθυνση email",
+  "abc-successfully-created-account": "Ο λογαριασμός σας δημιουργήθηκε με επιτυχία",
+  "abc-password-mismatch": "Οι κωδικοί πρόσβασης που εισαγάγατε δεν ταιριάζουν. Βεβαιωθείτε ότι και τα δύο πεδία περιέχουν τον ίδιο κωδικό πρόσβασης.",
+  "abc-username": "Όνομα χρήστη"
 }

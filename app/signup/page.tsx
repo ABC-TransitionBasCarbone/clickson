@@ -7,10 +7,11 @@ import {styled} from "@mui/system";
 import {Grid, Link, useMediaQuery} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {FormEvent, ReactElement, useEffect, useState} from "react";
-import {getCountries, signUp} from "@/lib";
+import {getCountries, login, signUp} from "@/lib";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Divider from "@mui/material/Divider";
 import {useRouter} from "next/navigation";
+import {useTranslation} from "react-i18next";
 
 /**
  * Page de création de compte
@@ -43,9 +44,10 @@ export default function SignUp() {
     const [showError, setShowError] = useState(false);
     const [message, setMessage] = useState<ReactElement | null>(null);
     const [progress, setProgress] = useState(0);
+    const {t} = useTranslation();
 
-    const redirectToLogin = (showSuccess: boolean, message: ReactElement|null) => {
-        if (showSuccess && message) {
+    const redirectToLogin = (showSuccess: boolean, message: ReactElement | null, showError: boolean) => {
+        if (showSuccess && message && !showError) {
             setProgress(0);
             const totalTime = 3000;
             const intervalTime = 100;
@@ -61,7 +63,7 @@ export default function SignUp() {
             }, intervalTime);
 
             setTimeout(() => {
-                router.push('/');
+                router.push('/accueil');
             }, totalTime);
 
             return () => clearInterval(interval);
@@ -76,32 +78,38 @@ export default function SignUp() {
         event.preventDefault()
         const formData = new FormData(event.currentTarget)
         signUp(formData).then(data => {
-            if (Object.keys(data).length === 0) {
+            if (data.errors) {
                 setShowError(true)
+                setShowSuccess(false)
                 setMessage(
                     <span>
-                        Un compte est déjà associé à cette adresse email, cliquez&nbsp;
+                        {t('abc-already-exists-account-part-one')}&nbsp;
                         <Link href="/" sx={{
                             color: 'black',
                             fontWeight: 'bold',
                             textDecoration: 'none'
-                        }}>ici pour vous connecter
+                        }}>{t('abc-already-exists-account-part-two')}
                         </Link>
-                        &nbsp;ou choisissez une autre adresse email.
+                        &nbsp;{t('abc-already-exists-account-part-three')}
                     </span>
                 )
             } else {
-                setShowError(false)
-                setShowSuccess(true)
-                setMessage(
-                    <span>Votre compte a été créé avec succès</span>
-                )
+                login(formData).then(result => {
+                    if(!result.errors) {
+                        setShowError(false)
+                        setShowSuccess(true)
+                        setMessage(
+                            <span>{t('abc-successfully-created-account')}</span>
+                        )
+                    }
+
+                })
             }
         });
     }
     useEffect(() => {
         fetchCountries()
-        redirectToLogin(showSuccess, message)
+        redirectToLogin(showSuccess, message, showError)
     }, [message]);
     return (
         <>

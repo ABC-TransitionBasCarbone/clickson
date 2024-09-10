@@ -16,6 +16,21 @@
   "abc-signup": "Prijavite se",
   "abc-calculator": "Kalkulator",
   "abc-calculator-sub-text": "Izmjerimo emisiju CO2 vašeg objekta!",
+  "abc-emission-profile": "PROFIL EMISIJA",
   "abc-calculator-small-text": "Upotrijebite obrazac za prijavu za pristup svojoj nadzornoj ploči ili zamolite svog učitelja da vas pozove.",
-  "abc-emission-profile": "PROFIL EMISIJA"
+  "abc-first-name": "Ime",
+  "abc-last-name": "Prezime",
+  "abc-email":"E-mail adresa",
+  "abc-password":"Lozinka",
+  "abc-confirm-password":"Potvrdite svoju lozinku",
+  "abc-country":"Zemlja",
+  "abc-city":"Grad",
+  "abc-zip-code":"Poštanski broj",
+  "abc-school":"Ime moje škole",
+  "abc-already-exists-account-part-one": "Račun je već povezan s ovom adresom e-pošte, kliknite",
+  "abc-already-exists-account-part-two": "ovdje za prijavu",
+  "abc-already-exists-account-part-three": "ili odaberite drugu adresu e-pošte",
+  "abc-successfully-created-account": "Vaš račun je uspješno kreiran",
+  "abc-password-mismatch": "Lozinke koje ste unijeli ne odgovaraju. Molimo provjerite da oba polja sadrže istu lozinku.",
+  "abc-username": "Korisničko ime"
 }

@@ -17,5 +17,20 @@
   "abc-calculator": "Számológép",
   "abc-calculator-sub-text": "Mérjük meg létesítménye CO2-kibocsátását!",
   "abc-calculator-small-text": "Használja a bejelentkezési űrlapot az irányítópult eléréséhez, vagy kérje meg tanárát, hogy hívja meg.",
-  "abc-emission-profile": "KIBOCSÁTÁSI PROFIL"
+  "abc-emission-profile": "KIBOCSÁTÁSI PROFIL",
+  "abc-first-name": "Keresztnév",
+  "abc-last-name": "Vezetéknév",
+  "abc-email":"E-mail cím",
+  "abc-password":"Jelszó",
+  "abc-confirm-password":"Erősítse meg jelszavát",
+  "abc-country":"Ország",
+  "abc-city":"Város",
+  "abc-zip-code":"Irányítószám",
+  "abc-school":"Iskolám neve",
+  "abc-already-exists-account-part-one": "Ehhez az e-mail címhez már van fiók társítva, kattintson",
+  "abc-already-exists-account-part-two": "ide a bejelentkezéshez",
+  "abc-already-exists-account-part-three": "vagy válasszon másik e-mail címet",
+  "abc-successfully-created-account": "Fiókja sikeresen létrejött",
+  "abc-password-mismatch": "A megadott jelszavak nem egyeznek. Győződjön meg arról, hogy mindkét mező ugyanazt a jelszót tartalmazza.",
+  "abc-username": "Felhasználónév"
 }

@@ -16,6 +16,21 @@
   "abc-signup": "Înscrie-te",
   "abc-calculator": "Calculator",
   "abc-calculator-sub-text": "Să măsurăm emisiile de CO2 ale unității dvs.!",
+  "abc-emission-profile": "PROFILUL EMISIILOR",
   "abc-calculator-small-text": "Folosiți formularul de conectare pentru a vă accesa tabloul de bord sau cereți profesorului să vă invite.",
-  "abc-emission-profile": "PROFILUL EMISIILOR"
+  "abc-first-name": "Prenume",
+  "abc-last-name": "Nume",
+  "abc-email":"Adresa de e-mail",
+  "abc-password":"Parolă",
+  "abc-confirm-password":"Confirmați-vă parola",
+  "abc-country":"Ţară",
+  "abc-city":"Oraş",
+  "abc-zip-code":"Cod poștal",
+  "abc-school":"Numele școlii mele",
+  "abc-already-exists-account-part-one": "Un cont este deja asociat cu această adresă de e-mail, faceți clic",
+  "abc-already-exists-account-part-two": "aici pentru a vă autentifica",
+  "abc-already-exists-account-part-three": "sau alegeți o altă adresă de e-mail",
+  "abc-successfully-created-account": "Contul dvs. a fost creat cu succes",
+  "abc-password-mismatch": "Parolele pe care le-ați introdus nu se potrivesc. Asigurați-vă că ambele câmpuri conțin aceeași parolă.",
+  "abc-username": "Nume de utilizator"
 }

@@ -16,6 +16,21 @@
   "abc-signup": "Inscribirse",
   "abc-calculator": "Calculadora",
   "abc-calculator-sub-text": "Vamos a medir el impacto del CO2 de tu centro educativo",
+  "abc-emission-profile": "PERFIL DE EMISIONES",
   "abc-calculator-small-text": "Utilice el formulario de inicio de sesión para acceder a su panel de control o pídale a su profesor que lo invite.",
-  "abc-emission-profile": "PERFIL DE EMISIONES"
+  "abc-first-name": "Nombre de pila",
+  "abc-last-name": "Nombre de familia",
+  "abc-email":"Dirección de correo electrónico",
+  "abc-password":"Contraseña",
+  "abc-confirm-password":"Confirma tu contraseña",
+  "abc-country":"País",
+  "abc-city":"Ciudad",
+  "abc-zip-code":"Código postal",
+  "abc-school":"Nom de la meva escola",
+  "abc-already-exists-account-part-one": "Ya hay una cuenta asociada con esta dirección de correo electrónico, haga clic",
+  "abc-already-exists-account-part-two": "aquí para iniciar sesión",
+  "abc-already-exists-account-part-three": "o elija otra dirección de correo electrónico",
+  "abc-successfully-created-account": "Su cuenta ha sido creada exitosamente",
+  "abc-password-mismatch": "Las contraseñas que ingresó no coinciden. Asegúrese de que ambos campos contengan la misma contraseña.",
+  "abc-username": "Nombre de usuario"
 }
