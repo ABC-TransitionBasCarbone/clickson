@@ -3,25 +3,21 @@
 
 import '../i18n';
 import {Header} from "@/app/components/dashboard/header";
-import HomeIcon from '@mui/icons-material/Home';
 import Container from '@mui/material/Container';
 import {Box, Button} from "@mui/material";
-import Divider from '@mui/material/Divider';
 import {useTheme} from "@mui/material/styles";
-import {minWidth, styled} from "@mui/system";
+import {styled} from "@mui/system";
 import {Grid} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
-import CircularProgress, {
-    CircularProgressProps,
-} from '@mui/material/CircularProgress';
+import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
-import {DataGrid, GridColDef} from '@mui/x-data-grid';
+import {DataGrid} from '@mui/x-data-grid';
 
-import ExcelJS from 'exceljs';
 import { useEffect, useState } from 'react';
 import { Session } from '../models/Session/Session';
 import ConfirmationDialog from '../components/ConfirmationDialog';
 import { useRouter } from 'next/navigation'
+import {useTranslation} from "react-i18next";
 
 const CustomContainer = styled('div')`
     position: fixed;
@@ -52,23 +48,6 @@ const Link = styled('a')`
     text-decoration: none;
 `
 
-const CustomH6 = styled('h6')`
-    font-size: 1rem;
-    line-height: 1.2;
-`
-
-const classes = {
-    root: {
-        flexGrow: 1
-    },
-    paper: {
-        padding: 20,
-        textAlign: "center",
-        color: "blue",
-        fontFamily: "Roboto"
-    }
-};
-
 export default function Accueil() {
     const theme = useTheme();
 
@@ -76,7 +55,7 @@ export default function Accueil() {
 
     const [currentSession, setCurrentSession] = useState<Session[]>([]);
     const [sessions, setSessions] = useState<Session[]>([]);
-
+    const {t} = useTranslation();
     const handleDeleteCurrentSession = (s: Session) => {
         setCurrentSession(currentSession.filter((e:Session) => s.id != e.id));
     }
@@ -90,11 +69,11 @@ export default function Accueil() {
     }
 
     const columnsCurrent = [
-        {field: 'id', headerName: 'ID', width: 90},
-        {field: 'name', headerName: "Nom de session", flex: 1,},
+        {field: 'id', headerName: t('abc-id'), width: 90},
+        {field: 'name', headerName: t('abc-session-name'), flex: 1,},
         {
             field: 'progress',
-            headerName: "Progression",
+            headerName: t('abc-progression'),
             flex: 1,
             sortable: false,
             disableClickEventBubbling: true,
@@ -128,7 +107,7 @@ export default function Accueil() {
         },
         {
             field: 'action',
-            headerName: "ACTIONS",
+            headerName: t('abc-actions'),
             minWidth: 230,
             sortable: false,
             disableClickEventBubbling: true,
@@ -140,14 +119,14 @@ export default function Accueil() {
 
                 return (
                     <Box>
-                        <Button type='button' color='primary' onClick={handleEdit}>Modifier</Button>
+                        <Button type='button' color='primary' onClick={handleEdit}>{t('abc-update')}</Button>
                         <ConfirmationDialog
-                            title="Confirmation"
-                            description="Souhaitez-vous supprimer définitivement cette donnée ?"
+                            title={t('abc-confirm-title')}
+                            description={t('abc-confirm-delete')}
                             response={onDelete}
                             >
                             {(showDialog:any) => (
-                                <Button type='button' color='error' onClick={showDialog} >Supprimer</Button>
+                                <Button type='button' color='error' onClick={showDialog} >{t('abc-delete')}</Button>
                             )}
                         </ConfirmationDialog>
                     </Box>
@@ -158,11 +137,11 @@ export default function Accueil() {
     ];
 
     const columns = [
-        {field: 'id', headerName: 'ID', width: 90},
-        {field: 'name', headerName: "Nom de session", flex: 1,},
+        {field: 'id', headerName: t('abc-id'), width: 90},
+        {field: 'name', headerName: t('abc-session-name'), flex: 1,},
         {
             field: 'progress',
-            headerName: "Progression",
+            headerName: t('abc-progression'),
             flex: 1,
             sortable: false,
             disableClickEventBubbling: true,
@@ -196,7 +175,7 @@ export default function Accueil() {
         },
         {
             field: 'action',
-            headerName: "ACTIONS",
+            headerName: t('abc-actions'),
             minWidth: 230,
             sortable: false,
             disableClickEventBubbling: true,
@@ -208,14 +187,14 @@ export default function Accueil() {
 
                 return (
                     <Box>
-                        <Button type='button' color='primary' onClick={()=>{}}>Consulter</Button>
+                        <Button type='button' color='primary' onClick={()=>{}}>{t('abc-enter')}</Button>
                         <ConfirmationDialog
-                            title="Confirmation"
-                            description="Souhaitez-vous supprimer définitivement cette donnée ?"
+                            title={t('abc-confirm-title')}
+                            description={t('abc-confirm-delete')}
                             response={onDelete}
                             >
                             {(showDialog:any) => (
-                                <Button type='button' color='error' onClick={showDialog} >Supprimer</Button>
+                                <Button type='button' color='error' onClick={showDialog} >{t('abc-delete')}</Button>
                             )}
                         </ConfirmationDialog>
                         
@@ -237,6 +216,17 @@ export default function Accueil() {
         {id: 5, name: 'Collecte 2029-2020_Collège VictorHugo', progress: 90},
     ];
 
+    const localeText = {
+
+        columnMenuSortAsc: t('abc-column-menu-sort-asc'),
+        columnMenuSortDesc: t('abc-column-menu-sort-desc'),
+        columnMenuFilter: t('abc-column-menu-filter'),
+        columnMenuHideColumn: t('abc-column-menu-hide-column'),
+        columnMenuShowColumns: t('abc-column-menu-show-columns'),
+        columnMenuManageColumns: t('abc-column-menu-manage-columns'),
+        columnMenuShowHideAll: t('abc-column-menu-show-hide-all'),
+
+    };
     useEffect(()=> {
         setCurrentSession(data1.map((e) => new Session(e.id, e.name, e.progress)));
         setSessions(data2.map((e) => new Session(e.id, e.name, e.progress)));
@@ -251,7 +241,7 @@ export default function Accueil() {
 
             <Container maxWidth="xl">
                 <AccueilWrapper>
-                    <h2>Mon établissement</h2>
+                    <h2>{t('abc-my-school')}</h2>
                     <Grid container spacing={3}>
                         <Grid item xs={12} sm={3}>
 
@@ -260,15 +250,16 @@ export default function Accueil() {
                             <p>75002 Paris</p>
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <p>Nombre élèves: 1400</p>
-                            <p>Nombre personnels: 50</p>
-                            <p>Année de construction: 1950</p>
+                            <p>{t('abc-number-students')}: 1400</p>
+                            <p>{t('abc-number-staff')}: 50</p>
+                            <p>{t('abc-year-of-construction')}: 1950</p>
                         </Grid>
                     </Grid>
                     <Box marginTop={8}>
-                        <h2>Ma session en cours</h2>
+                        <h2>{t('abc-my-current-session')}</h2>
                         <Box>
-                            <Link href='#'><AddIcon color='primary'/> Créer une session</Link>
+                            <Link href='#'>
+                                <AddIcon color='primary'/>{t('abc-create-session')}</Link>
                         </Box>
                         <Box sx={{height: 180, width: '100%', marginTop: 3}}>
                             <DataGrid
@@ -283,11 +274,12 @@ export default function Accueil() {
                                 }}
                                 pageSizeOptions={[1]}
                                 disableRowSelectionOnClick
+                                localeText={localeText}
                             />
                         </Box>
                     </Box>
                     <Box marginTop={8} height={400}>
-                        <h2>Mes sessions précédentes</h2>
+                        <h2>{t('abc-previous-session')}</h2>
                         <Box sx={{height: 375, width: '100%', marginTop: 3}}>
                             <DataGrid
                                 rows={sessions}
@@ -301,6 +293,7 @@ export default function Accueil() {
                                 }}
                                 pageSizeOptions={[5]}
                                 disableRowSelectionOnClick
+                                localeText={localeText}
                             />
                         </Box>
                     </Box>

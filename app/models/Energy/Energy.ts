@@ -1,3 +1,5 @@
+import { getEmissionFactor, getIncertitude } from "@/app/helpers/emissionfactor";
+
 export class Energy {
     id: string;
     category: string;
@@ -6,7 +8,7 @@ export class Energy {
     emission: number;
     uncertainty: number;
 
-    constructor(id: string,type: string, value: number, category:string) {
+    constructor(id: string, type: string, value: number, category: string) {
         this.id = id;
         this.category = category;
         this.type = type;
@@ -15,13 +17,13 @@ export class Energy {
         this.uncertainty = this.calculUncertainty(value, category);
     }
 
-    calculEmission(value:number, category:string): number {
-        // Add Emission calculation
-        return 0.12; // default value
+    calculEmission(value: number, category: string): number {
+        // TODO test it
+        return getEmissionFactor(category) * value;
     }
 
-    calculUncertainty(value:number, category:string): number {
-        // Add uncertainty calculation
-        return 0; // default value
+    calculUncertainty(value: number, category: string): number {
+        // TODO test it
+        return getIncertitude(category) * value; 
     }
 }

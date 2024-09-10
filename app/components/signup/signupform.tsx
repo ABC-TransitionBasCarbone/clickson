@@ -1,22 +1,18 @@
 import {
-    Alert, AlertTitle, Box,
+    Alert, Box,
     Button,
-    Checkbox,
     FormControl,
-    FormControlLabel,
     Grid, LinearProgress,
-    Link, MenuItem,
-    OutlinedInput, Select, SelectChangeEvent, TextField,
-    Typography
+    Link, TextField, Typography
 } from "@mui/material";
 import theme from "@/app/theme";
-import {styled} from "@mui/system";
-import {ChangeEvent, FormEventHandler, JSXElementConstructor, ReactElement} from "react";
+import { styled } from "@mui/system";
+import {ChangeEvent, FormEventHandler, ReactElement, useState} from "react";
 import LoadingButton from '@mui/lab/LoadingButton';
-import Image from "next/image";
-import {Autocomplete} from "@mui/material";
+import { Autocomplete } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
-const BodyGrid = styled(Grid)(({theme}) => ({
+const BodyGrid = styled(Grid)(() => ({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
@@ -24,25 +20,14 @@ const BodyGrid = styled(Grid)(({theme}) => ({
     minHeight: '80vh',
 }));
 
-const StyledButton = styled(Button)(({theme}) => ({
-    '&:hover': {
-        backgroundColor: theme.palette.secondary.main,
-        color: 'white'
-    }
-}));
 
-const StyledLoadingButton = styled(LoadingButton)(({theme}) => ({
+const StyledLoadingButton = styled(LoadingButton)(({ theme }) => ({
     '&:hover': {
         backgroundColor: theme.palette.secondary.main,
         color: 'white'
     },
 }));
 
-const CustomLink = styled(Link)(({theme}) => ({
-    '&:hover': {
-        color: theme.palette.secondary.main
-    }
-}))
 
 interface Country {
     country: {
@@ -64,8 +49,22 @@ interface Props {
     progress: number | undefined,
 }
 
-export const SignUpForm = ({onSignUp, countries, showError, showSuccess, message, progress}: Props) =>
-    (
+export const SignUpForm = ({onSignUp, countries, showError, showSuccess, message, progress}: Props) => {
+    const {t} = useTranslation();
+
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('')
+
+    const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setPassword(event.target.value);
+    };
+
+    const handleConfirmPasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setConfirmPassword(event.target.value);
+    };
+
+    const passwordConfirmPasswordEquals = password === confirmPassword;
+    return (
         <BodyGrid container spacing={5} columns={16}>
             <Grid item md={16}>
                 {showError && (
@@ -106,9 +105,9 @@ export const SignUpForm = ({onSignUp, countries, showError, showSuccess, message
                             marginTop: theme.spacing(3),
                             marginBottom: theme.spacing(1)
                         }}>
-                        <TextField placeholder="Prénom"
+                        <TextField placeholder={t('abc-first-name')}
                                    name="first_name"
-                                   label="Prénom"
+                                   label={t('abc-first-name')}
                         />
                     </FormControl>
                     <FormControl
@@ -117,10 +116,10 @@ export const SignUpForm = ({onSignUp, countries, showError, showSuccess, message
                             marginTop: theme.spacing(1),
                             marginBottom: theme.spacing(1)
                         }}>
-                        <TextField placeholder="Nom de famille"
+                        <TextField placeholder={t('abc-last-name')}
                                    type="text"
                                    name="last_name"
-                                   label="Nom de famille"
+                                   label={t('abc-last-name')}
                         />
                     </FormControl>
                     <FormControl
@@ -129,10 +128,10 @@ export const SignUpForm = ({onSignUp, countries, showError, showSuccess, message
                             marginTop: theme.spacing(1),
                             marginBottom: theme.spacing(1)
                         }}>
-                        <TextField placeholder="Adresse email"
+                        <TextField placeholder={t('abc-email')}
                                    type="email"
                                    name="email"
-                                   label="Adresse email"
+                                   label={t('abc-email')}
 
                         />
                     </FormControl>
@@ -142,11 +141,36 @@ export const SignUpForm = ({onSignUp, countries, showError, showSuccess, message
                             marginTop: theme.spacing(1),
                             marginBottom: theme.spacing(1)
                         }}>
-                        <TextField placeholder="Mot de passe"
+                        <TextField placeholder={t('abc-password')}
                                    type="password"
                                    name="password"
-                                   label="Mot de passe"
+                                   value={password}
+                                   onChange={handlePasswordChange}
+                                   label={t('abc-password')}
+                                   error={!passwordConfirmPasswordEquals && confirmPassword !== ''}
                         />
+                    </FormControl>
+                    <FormControl
+                        sx={{
+                            width: '100%',
+                            marginTop: theme.spacing(1),
+                            marginBottom: theme.spacing(1)
+                        }}>
+                        <TextField placeholder={t('abc-confirm-password')}
+                                   type="password"
+                                   value={confirmPassword}
+                                   onChange={handleConfirmPasswordChange}
+                                   name="confirm-password"
+                                   label={t('abc-confirm-password')}
+                                   error={!passwordConfirmPasswordEquals && confirmPassword !== ''}
+                        />
+                    </FormControl>
+                    <FormControl>
+                        {!passwordConfirmPasswordEquals && confirmPassword !== '' && (
+                            <Typography color="error">
+                                {t('abc-password-mismatch')}
+                            </Typography>
+                        )}
                     </FormControl>
                     <FormControl
                         sx={{
@@ -182,7 +206,7 @@ export const SignUpForm = ({onSignUp, countries, showError, showSuccess, message
                             renderInput={(params) => (
                                 <TextField
                                     {...params}
-                                    label="Pays"
+                                    label={t('abc-country')}
                                     name="state"
                                     inputProps={{
                                         ...params.inputProps,
@@ -197,10 +221,10 @@ export const SignUpForm = ({onSignUp, countries, showError, showSuccess, message
                             marginTop: theme.spacing(1),
                             marginBottom: theme.spacing(1)
                         }}>
-                        <TextField placeholder="Ville"
+                        <TextField placeholder={t('abc-city')}
                                    type="text"
                                    name="city"
-                                   label="Ville"
+                                   label={t('abc-city')}
                         />
                     </FormControl>
                     <FormControl
@@ -209,10 +233,10 @@ export const SignUpForm = ({onSignUp, countries, showError, showSuccess, message
                             marginTop: theme.spacing(1),
                             marginBottom: theme.spacing(1)
                         }}>
-                        <TextField placeholder="Code Postal"
+                        <TextField placeholder={t('abc-zip-code')}
                                    type="text"
                                    name="zip_code"
-                                   label="Code Postal"
+                                   label={t('abc-zip-code')}
                         />
                     </FormControl>
                     <FormControl
@@ -221,10 +245,10 @@ export const SignUpForm = ({onSignUp, countries, showError, showSuccess, message
                             marginTop: theme.spacing(1),
                             marginBottom: theme.spacing(1)
                         }}>
-                        <TextField placeholder="Nom de mon établissement"
+                        <TextField placeholder={t('abc-school')}
                                    type="text"
                                    name="school"
-                                   label="Nom de mon établissement"
+                                   label={t('abc-school')}
                         />
                     </FormControl>
                     <FormControl
@@ -245,7 +269,7 @@ export const SignUpForm = ({onSignUp, countries, showError, showSuccess, message
                             variant="contained"
                             type="submit"
                         >
-                            <span>s'enregistrer</span>
+                            <span>{t('abc-signup')}</span>
                         </StyledLoadingButton>
                     </FormControl>
 
@@ -254,3 +278,4 @@ export const SignUpForm = ({onSignUp, countries, showError, showSuccess, message
             </Grid>
         </BodyGrid>
     )
+}
