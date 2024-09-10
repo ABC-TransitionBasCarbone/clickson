@@ -150,11 +150,11 @@ export default function Dashboard() {
                     <Stats/>
                     <Grid container marginTop={4} marginBottom={6} sx={{alignItems: "center", flexDirection: "column"}}>
                         <CustomH3>
-                            {t("CALCULATOR'S MARKERS")}
+                            {t("abc-calculators-markers")}
                         </CustomH3>
                         <DividerSmall/>
                         <Paragraph>
-                            {t("Just click on a marker and start the")} <strong>{t("data gathering")}</strong>
+                            {t("abc-click-marker-start")} <strong>{t("abc-data-gathering")}</strong>
                         </Paragraph>
                     </Grid>
                     {loadingCategories ? (

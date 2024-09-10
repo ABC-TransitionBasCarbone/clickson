@@ -101,7 +101,7 @@ export const CategoryItem = ({category, borderColor}: Props) => {
         <Paragraph>
             {t(category.details)}
         </Paragraph>
-        <OngoingButton onClick={() => handleOnGoing(category)}>{t('On going')}</OngoingButton>
-        <DownloadButton onClick={() => {}}>{t('Download')} <Download sx={{cursor: 'pointer'}} onClick={()=>{}}/></DownloadButton>
+        <OngoingButton onClick={() => handleOnGoing(category)}>{t('abc-on-going')}</OngoingButton>
+        <DownloadButton onClick={() => {}}>{t('abc-download')} <Download sx={{cursor: 'pointer'}} onClick={()=>{}}/></DownloadButton>
     </Grid>);
 }

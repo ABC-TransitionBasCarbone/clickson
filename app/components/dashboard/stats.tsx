@@ -126,7 +126,7 @@ export const Stats = () => {
                 <DownloadButton
                     onClick={handleExport}
                 >
-                 {t("Download")} <Download sx={{cursor: 'pointer'}} />
+                 {t("abc-download")} <Download sx={{cursor: 'pointer'}} />
                 </DownloadButton>
                 <Popover
                     id="mouse-over-popover"
@@ -144,7 +144,7 @@ export const Stats = () => {
                     onClose={handlePopoverClose}
                     disableRestoreFocus
                 >
-                    <Typography sx={{ p: 1 }}>{t("Download session results in Excel format")}</Typography>
+                    <Typography sx={{ p: 1 }}>{t("abc-download-excel")}</Typography>
                 </Popover>
 
             </StatsGrid>
