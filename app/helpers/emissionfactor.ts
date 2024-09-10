@@ -8,7 +8,7 @@ const file = require('../models/FE/Base_Carbone_V23.3_UTF8.csv') as FE[]
 export function getEmissionFactor(category: string) {
     return Number(file.filter(j =>
         j.statutdellment.toLowerCase() !== "archivé"
-        && j.nombasefranais.toLowerCase().includes(category))[0].totalpostenondcompos)
+        && j.nombasefranais.toLowerCase().includes(category))[0]?.totalpostenondcompos)
 }
 
 /**
@@ -19,5 +19,5 @@ export function getEmissionFactor(category: string) {
 export function getIncertitude(category: string) {
     return Number(file.filter(j =>
         j.statutdellment.toLowerCase() !== "archivé"
-        && j.nombasefranais.toLowerCase().includes(category))[0].incertitude)
+        && j.nombasefranais.toLowerCase().includes(category))[0]?.incertitude)
 }

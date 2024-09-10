@@ -1,13 +1,8 @@
-import {Header} from "@/app/components/dashboard/header";
-import HomeIcon from '@mui/icons-material/Home';
-import Container from '@mui/material/Container';
 import {Alert, AlertTitle, Box, Button, FormControl, Grid, IconButton, MenuItem, OutlinedInput, Select, Stack, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow} from "@mui/material";
 import Divider from '@mui/material/Divider';
-import {Stats} from "@/app/components/dashboard/stats";
 import {useTheme} from "@mui/material/styles";
-import {border, styled} from "@mui/system";
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import { CancelPresentationOutlined, ClosedCaptionSharp, CloseFullscreenOutlined, CloseOutlined, CloseSharp, DeleteOutline, KeyboardArrowDown } from '@mui/icons-material';
+import {styled} from "@mui/system";
+import { CancelPresentationOutlined, KeyboardArrowDown } from '@mui/icons-material';
 import { Energy } from "@/app/models/Energy/Energy";
 import { Option } from "@/app/models/Select/Option";
 import { useEffect, useState } from "react";
@@ -21,44 +16,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-
-const CustomContainer = styled('div')`
-    z-index: 1030;
-    background-color: white;
-`
-
-const EnergyWrapper = styled(Box)`
-    max-width: 100%;
-    min-height: calc(100vh - 290px);
-    padding-top: 60px;
-    padding-bottom: 80px;
-    a {
-        color: #6d6d6d;
-    }
-    a:hover {
-        color: black;
-    }
-`
-
-const Link = styled('a')`
-    text-decoration: none;
-`
-
-const CustomH4 = styled('h4')`
-    font-size: 1rem;
-    text-align: center;
-`
-
-const OrangeButton = styled(Button)(({theme}) => ({
-    backgroundColor: theme.palette.secondary.main,
-    color: 'white',
-    minWidth: 150,
-    minHeight: 40,
-    '&:hover': {
-        backgroundColor: theme.palette.primary.main,
-        color: 'white'
-    }
-}));
+import {useTranslation} from "react-i18next";
 
 
 const PrimaryButton = styled(Button)(({theme}) => ({
@@ -74,9 +32,8 @@ const PrimaryButton = styled(Button)(({theme}) => ({
 }));
 
 const Paragraph = styled("p")`
-    text-align: right;
-    /*margin-bottom: 15px;*/
-    font-size: 14px
+    text-align: left;
+    font-size: 14px;
 `;
 
 const LabelInput = styled("label")`
@@ -122,6 +79,7 @@ export const Form = ({username, data, category, description, options, titleSelec
 
     const [open, setOpen] = useState(false);
 
+    const {t} = useTranslation();
     const hangleAddEnergy = async () => {
         if(type && value){
             if(Number(value)){
@@ -209,6 +167,18 @@ export const Form = ({username, data, category, description, options, titleSelec
         setOpen(false);
     };
 
+    const prepareValueForTranslation = (value: string) => {
+        let newValue;
+
+        newValue = value.toLowerCase()
+                .replace(/\s+/g, "-")
+                .replace(/\s/g, "")
+                .replace(/-\([^)]*\)$/, "");
+
+        return t('abc-'+newValue);
+
+    }
+
     return <>
         <Dialog
             open={open}
@@ -231,7 +201,7 @@ export const Form = ({username, data, category, description, options, titleSelec
                 <Button onClick={addEnergy} color="secondary">Oui</Button>
             </DialogActions>
         </Dialog>
-        <h4>ENERGY - {category.toUpperCase()}</h4>
+        <h4>{t('abc-energy').toUpperCase()} - {t('abc-'+category).toUpperCase()}</h4>
         <Divider aria-hidden="true" sx={{ marginTop: theme.spacing(5) }} />
         <Grid container spacing={2} marginTop={2}>
             <Grid container xs={12} sm={2} height={"fit-content"} alignItems={"flex-start"} justifyContent={"flex-end"}>
@@ -239,7 +209,7 @@ export const Form = ({username, data, category, description, options, titleSelec
                 <Paragraph>
                     {isExpanded ? description : description.slice(0, Number(description.length*0.50))}
                 </Paragraph>
-                <Button onClick={toggleText} sx={{ marginTop: 2}}>{isExpanded ? 'Read Less' : 'Read More'}</Button>
+                <Button onClick={toggleText} sx={{ marginTop: 2}}>{isExpanded ? t('abc-read-less') : t('abc-read-more')}</Button>
             </Grid>
             <Grid container xs={12} sm={10} paddingLeft={2}>
                 <Grid container >
@@ -281,7 +251,7 @@ export const Form = ({username, data, category, description, options, titleSelec
                         <PrimaryButton
                             disabled={saving}
                             onClick={hangleAddEnergy}
-                        >ADD</PrimaryButton>
+                        >{t('abc-add')}</PrimaryButton>
                     </Grid>
                 </Grid>
                 <Grid container>
@@ -305,7 +275,7 @@ export const Form = ({username, data, category, description, options, titleSelec
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                 >
                                     <TableCell component="th" scope="row">
-                                        {row.type}
+                                        {prepareValueForTranslation(row.type)}
                                     </TableCell>
                                     <TableCell align="right">{row.value}</TableCell>
                                     <TableCell align="right">{row.emission}</TableCell>
@@ -331,7 +301,7 @@ export const Form = ({username, data, category, description, options, titleSelec
                             ))}
                             {data.length > 0 ?(
                                 <TableRow >
-                                    <TableCell><strong>total value</strong></TableCell>
+                                    <TableCell><strong>{t('abc-total-value')}</strong></TableCell>
                                     <TableCell align="right"><strong>{totalValues}</strong></TableCell>
                                     <TableCell align="right"></TableCell>
                                     <TableCell align="right"><strong>{totalUncertainty}</strong></TableCell>
@@ -351,10 +321,10 @@ export const Form = ({username, data, category, description, options, titleSelec
                                 width: "100%",
                                 marginBottom: theme.spacing(1)
                             }}>
-                                <LabelInput>Comments and Notes</LabelInput>
+                                <LabelInput>{t('abc-comments-notes')}</LabelInput>
                                 <OutlinedInput
                                         type='text'
-                                        placeholder="Type your comment here"
+                                        placeholder={t('abc-type-your-comments-here')}
                                         value={textComment}
                                         onChange={(text) => setComment(text.target.value)}
                                 />
@@ -362,7 +332,7 @@ export const Form = ({username, data, category, description, options, titleSelec
                     </Grid>
                     
                     <Grid container xs={12} sm={4} paddingLeft={2} paddingRight={2} alignItems={'self-start'} justifyContent={'center'}>
-                        <PrimaryButton disabled={savingComment} onClick={addComment}>ADD NOTES</PrimaryButton>
+                        <PrimaryButton disabled={savingComment} onClick={addComment}>{t('abc-add-notes')}</PrimaryButton>
                     </Grid>
                 </Grid>
                 {
