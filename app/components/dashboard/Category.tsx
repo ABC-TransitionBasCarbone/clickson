@@ -7,6 +7,7 @@ import { styled } from "@mui/system";
 import { useRouter } from 'next/navigation'
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import { Download } from '@mui/icons-material';
+import {useTranslation} from "react-i18next";
 
 
 const CustomH3 = styled('h3')(({theme}) => ({
@@ -78,6 +79,7 @@ export const CategoryItem = ({category, borderColor}: Props) => {
 
     const theme = useTheme();
     const router = useRouter();
+    const {t} = useTranslation();
 
     const conatinerStyle = {
         justifyContent: "center",
@@ -95,11 +97,11 @@ export const CategoryItem = ({category, borderColor}: Props) => {
     }
 
     return (<Grid container xs={12} sm={2} sx={conatinerStyle}>
-        <CustomH3>{category.label}</CustomH3>
+        <CustomH3>{t(category.label)}</CustomH3>
         <Paragraph>
-            {category.details}
+            {t(category.details)}
         </Paragraph>
-        <OngoingButton onClick={() => handleOnGoing(category)}>On going</OngoingButton>
-        <DownloadButton onClick={() => {}}>Télécharger <Download sx={{cursor: 'pointer'}} onClick={()=>{}}/></DownloadButton>
+        <OngoingButton onClick={() => handleOnGoing(category)}>{t('abc-on-going')}</OngoingButton>
+        <DownloadButton onClick={() => {}}>{t('abc-download')} <Download sx={{cursor: 'pointer'}} onClick={()=>{}}/></DownloadButton>
     </Grid>);
 }
