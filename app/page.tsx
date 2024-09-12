@@ -1,6 +1,6 @@
 'use client'
 
-import {getSession, login, logout} from "@/lib";
+import {getSession, login, logout} from "@/api/lib";
 import {FormEvent, useEffect, useState} from "react";
 import {useRouter} from 'next/navigation'
 import {Grid, useMediaQuery} from "@mui/material";

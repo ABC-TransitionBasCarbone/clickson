@@ -2,7 +2,7 @@ import {Grid, Box} from "@mui/material";
 
 import {styled} from "@mui/system";
 import {MouseEvent, useEffect, useState} from "react";
-import {getSession, logout} from "@/lib";
+import {getSession, logout} from "@/api/lib";
 import {useRouter} from "next/navigation";
 import LanguageSwitcher from "@/app/components/LanguageSwitcher/LanguageSwitcher";
 import {useTranslation} from "react-i18next";

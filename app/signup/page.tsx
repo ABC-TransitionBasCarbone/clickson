@@ -7,7 +7,7 @@ import {styled} from "@mui/system";
 import {Grid, Link, useMediaQuery} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {FormEvent, ReactElement, useEffect, useState} from "react";
-import {getCountries, login, signUp} from "@/lib";
+import {getCountries, login, signUp} from "@/api/lib";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Divider from "@mui/material/Divider";
 import {useRouter} from "next/navigation";

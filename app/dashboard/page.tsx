@@ -11,11 +11,12 @@ import {Stats} from "@/app/components/dashboard/stats";
 import {useTheme} from "@mui/material/styles";
 import {styled} from "@mui/system";
 import { useEffect, useState } from 'react';
-import {getCategories, getSession} from '@/lib';
+import {getSession} from '@/api/lib';
 import { Category } from '../models/Category/Category';
 import { CategoryItem } from '../components/dashboard/Category';
 import CircularProgress from '@mui/material/CircularProgress';
 import {useTranslation} from "react-i18next";
+import { getCategories } from '@/api/postgres';
 
 const CustomContainer = styled('div')`
     position: fixed;
