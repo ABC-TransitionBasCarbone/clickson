@@ -11,11 +11,12 @@ import {Stats} from "@/app/components/dashboard/stats";
 import {useTheme} from "@mui/material/styles";
 import {styled} from "@mui/system";
 import { useEffect, useState } from 'react';
-import {getCategories, getSession} from '@/lib';
+import {getAuthenticatedUserData, getCategories, getSession} from '@/lib';
 import { Category } from '../models/Category/Category';
 import { CategoryItem } from '../components/dashboard/Category';
 import CircularProgress from '@mui/material/CircularProgress';
 import {useTranslation} from "react-i18next";
+import {UserAdditionalInfos} from "@/app/types/UserAdditionalInfos";
 
 const CustomContainer = styled('div')`
     position: fixed;
@@ -106,6 +107,16 @@ export default function Dashboard() {
         }
         setUser(cookies);
     }
+    const [userData, setUserData] = useState<UserAdditionalInfos | null>({
+        city: "",
+        construction_year: "",
+        number_of_staff: "",
+        number_of_student: "",
+        school: "",
+        school_address: "",
+        state: "",
+        zip_code: ""
+    });
     useEffect(()=> {
         fetchCookies()
         fetchCategories();

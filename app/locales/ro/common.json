@@ -117,5 +117,9 @@
   "abc-column-menu-hide-column": "Ascunde coloana",
   "abc-column-menu-show-columns": "Afișează coloanele",
   "abc-column-menu-manage-columns": "Gestionați coloanele",
-  "abc-column-menu-show-hide": "Afișați/Ascundeți toate"
+  "abc-column-menu-show-hide": "Afișați/Ascundeți toate",
+  "abc-school-address": "Adresa școlii",
+  "abc-update-school": "Editați informațiile despre școală",
+  "abc-school-update-successfully": "Informațiile școlii au fost actualizate cu succes",
+  "abc-school-update-error": "Actualizarea informațiilor școlii nu a reușit"
 }

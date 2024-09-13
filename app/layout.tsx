@@ -9,24 +9,24 @@ import './i18n';
 import React from 'react';
 
 export const metadata = {
-  title: "Next.js Authentication",
-  description: "Example using NextAuth.js",
+    title: "Next.js Authentication",
+    description: "Example using NextAuth.js",
 };
 
 export default function RootLayout({children, params}: { children: ReactNode, params: { locale: string } }) {
 
-  return (
+    return (
 
-      <html lang={params.locale}>
-      <body>
-      <ThemeProvider theme={theme}>
-          <CssBaseline />
-              <I18nProvider locale={params.locale}>
-                  {children}
-              </I18nProvider>
-      </ThemeProvider>
-      </body>
-      </html>
+        <html lang={params.locale}>
+        <body>
+        <ThemeProvider theme={theme}>
+            <CssBaseline/>
+            <I18nProvider locale={params.locale}>
+                {children}
+            </I18nProvider>
+        </ThemeProvider>
+        </body>
+        </html>
 
 
     );
