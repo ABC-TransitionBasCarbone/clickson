@@ -4,6 +4,7 @@
 import {SignJWT, jwtVerify} from "jose";
 import {cookies} from "next/headers";
 import {NextRequest, NextResponse} from "next/server";
+import {User} from "@/app/types/User";
 
 const secretKey = "secret";
 const key = new TextEncoder().encode(secretKey);
@@ -80,11 +81,22 @@ export async function decrypt(input: string): Promise<any> {
     return payload;
 }
 
-export async function getSession() {
+export async function getSession(): Promise<User | null> {
     const session = cookies().get("user")?.value;
-    if (!session) return null;
-    return JSON.parse(session!);
+
+    if (!session) {
+        return null; // Return null if no session is found
+    }
+
+    try {
+        return JSON.parse(session); // Parse the JSON string into an object
+    } catch (error) {
+        console.error('Error parsing cookies:', error);
+        return null; // Handle parse error and return null
+    }
 }
+
+
 
 export async function updateSession(request: NextRequest) {
     const session = request.cookies.get("session")?.value;
@@ -296,4 +308,63 @@ export async function getComments(id: number) {
         return {"error" : error}
     }
 }
+
+export const editSchool = async (formData: FormData, username: string | undefined) => {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const data = JSON.stringify({
+        "username": username,
+        "acf": {
+            "school": formData.get("school")?.toString() || "",
+            "number_of_students": formData.get("number_of_students")?.toString() || "",
+            "number_of_staff": formData.get("number_of_staff")?.toString() || "",
+            "construction_year": formData.get("construction_year")?.toString() || "",
+            "school_address": formData.get("school_address")?.toString() || ""
+        }
+    })
+    const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: data,
+        redirect: "follow"
+    } as RequestInit;
+
+    try {
+        const result = await fetch(urlApi + "/auth/modify-user", requestOptions)
+        return await result.json();
+    } catch (error) {
+        console.error(error);
+        return {"error" : error}
+    }
+}
+
+export async function getAuthenticatedUserData(username: string | undefined) {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const data = JSON.stringify({
+        "username": username
+    })
+    const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: data,
+        redirect: "follow"
+    } as RequestInit;
+
+    try {
+        const result = await fetch(urlApi + "/auth/current", requestOptions)
+        const response = await result.json();
+        if (response) {
+            return response
+        }
+        console.error("Failed to fetch API");
+        return [];
+    } catch (error) {
+        return error;
+    }
+}
+
+
 

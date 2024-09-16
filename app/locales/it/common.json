@@ -117,5 +117,9 @@
   "abc-column-menu-hide-column": "Nascondi colonna",
   "abc-column-menu-show-columns": "Mostra colonne",
   "abc-column-menu-manage-columns": "Gestisci colonne",
-  "abc-column-menu-show-hide": "Mostra/Nascondi tutto"
+  "abc-column-menu-show-hide": "Mostra/Nascondi tutto",
+  "abc-school-address": "Indirizzo della scuola",
+  "abc-update-school": "Modifica informazioni sulla scuola",
+  "abc-school-update-successfully": "Informazioni sulla scuola aggiornate con successo",
+  "abc-school-update-error": "Impossibile aggiornare le informazioni sulla scuola"
 }

@@ -116,5 +116,9 @@
   "abc-column-menu-hide-column": "Sakrij stupac",
   "abc-column-menu-show-columns": "Prikaži stupce",
   "abc-column-menu-manage-columns": "Upravljaj stupcima",
-  "abc-column-menu-show-hide": "Prikaži/sakrij sve"
+  "abc-column-menu-show-hide": "Prikaži/sakrij sve",
+  "abc-school-address": "adresa škole",
+  "abc-update-school": "Iskolai információk szerkesztése",
+  "abc-school-update-successfully": "Podaci o školi uspješno ažurirani",
+  "abc-school-update-error": "Neuspješno ažuriranje informacija o školi"
 }

@@ -4,7 +4,7 @@
 import '../i18n';
 import {Header} from "@/app/components/dashboard/header";
 import Container from '@mui/material/Container';
-import {Box, Button} from "@mui/material";
+import {Alert, Backdrop, Box, Button, Fade, FormControl, Modal, Snackbar, TextField} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {styled} from "@mui/system";
 import {Grid} from "@mui/material";
@@ -13,11 +13,29 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
 import {DataGrid} from '@mui/x-data-grid';
 
-import { useEffect, useState } from 'react';
-import { Session } from '../models/Session/Session';
+import React, {FormEvent, useEffect, useState} from 'react';
+import {Session} from '../models/Session/Session';
 import ConfirmationDialog from '../components/ConfirmationDialog';
-import { useRouter } from 'next/navigation'
+import {useRouter} from 'next/navigation'
 import {useTranslation} from "react-i18next";
+import EditIcon from '@mui/icons-material/Edit';
+import LoadingButton from "@mui/lab/LoadingButton";
+import {editSchool, getAuthenticatedUserData, getSession} from "@/lib";
+import {User} from "@/app/types/User";
+import {UserAdditionalInfos} from "@/app/types/UserAdditionalInfos";
+
+const style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    boxShadow: 24,
+    border: 'none',
+    borderRadius: '5px',
+    p: 4,
+};
 
 const CustomContainer = styled('div')`
     position: fixed;
@@ -29,11 +47,7 @@ const CustomContainer = styled('div')`
 `
 
 const AccueilWrapper = styled(Box)`
-    max-width: 100%;
-    margin-top: 60px;
-    min-height: calc(100vh - 290px);
-    padding-top: 60px;
-    padding-bottom: 80px;
+    margin-top: 150px;
 
     a {
         color: #6d6d6d;
@@ -47,26 +61,34 @@ const AccueilWrapper = styled(Box)`
 const Link = styled('a')`
     text-decoration: none;
 `
+const StyledLoadingButton = styled(LoadingButton)(({theme}) => ({
+    '&:hover': {
+        backgroundColor: theme.palette.secondary.main,
+        color: 'white'
+    },
+}));
+
 
 export default function Accueil() {
     const theme = useTheme();
-
     const router = useRouter();
 
     const [currentSession, setCurrentSession] = useState<Session[]>([]);
     const [sessions, setSessions] = useState<Session[]>([]);
+    const [loading, setLoading] = useState(false);
     const {t} = useTranslation();
     const handleDeleteCurrentSession = (s: Session) => {
-        setCurrentSession(currentSession.filter((e:Session) => s.id != e.id));
+        setCurrentSession(currentSession.filter((e: Session) => s.id != e.id));
     }
 
     const handleDeleteSession = (s: Session) => {
-        setSessions(sessions.filter((e:Session) => s.id != e.id));
+        setSessions(sessions.filter((e: Session) => s.id != e.id));
     }
 
     const handleEdit = () => {
         router.push(`/dashboard`)
     }
+
 
     const columnsCurrent = [
         {field: 'id', headerName: t('abc-id'), width: 90},
@@ -124,9 +146,9 @@ export default function Accueil() {
                             title={t('abc-confirm-title')}
                             description={t('abc-confirm-delete')}
                             response={onDelete}
-                            >
-                            {(showDialog:any) => (
-                                <Button type='button' color='error' onClick={showDialog} >{t('abc-delete')}</Button>
+                        >
+                            {(showDialog: any) => (
+                                <Button type='button' color='error' onClick={showDialog}>{t('abc-delete')}</Button>
                             )}
                         </ConfirmationDialog>
                     </Box>
@@ -187,17 +209,18 @@ export default function Accueil() {
 
                 return (
                     <Box>
-                        <Button type='button' color='primary' onClick={()=>{}}>{t('abc-enter')}</Button>
+                        <Button type='button' color='primary' onClick={() => {
+                        }}>{t('abc-enter')}</Button>
                         <ConfirmationDialog
                             title={t('abc-confirm-title')}
                             description={t('abc-confirm-delete')}
                             response={onDelete}
-                            >
-                            {(showDialog:any) => (
-                                <Button type='button' color='error' onClick={showDialog} >{t('abc-delete')}</Button>
+                        >
+                            {(showDialog: any) => (
+                                <Button type='button' color='error' onClick={showDialog}>{t('abc-delete')}</Button>
                             )}
                         </ConfirmationDialog>
-                        
+
                     </Box>
                 );
             },
@@ -227,11 +250,88 @@ export default function Accueil() {
         columnMenuShowHideAll: t('abc-column-menu-show-hide-all'),
 
     };
-    useEffect(()=> {
+
+    const [userData, setUserData] = useState<UserAdditionalInfos | null>({
+        city: "",
+        construction_year: "",
+        number_of_staff: "",
+        number_of_student: "",
+        school: "",
+        school_address: "",
+        state: "",
+        zip_code: ""
+    });
+
+    const [showSuccess, setShowSuccess] = useState(false);
+    const [showError, setShowError] = useState(false);
+    const fetchUserData = async () => {
+        setLoading(true);
+        let userEmail: string | undefined = "";
+        await getSession().then(user => {
+            userEmail = user?.user_email
+        });
+
+        await getAuthenticatedUserData(userEmail).then(data => {
+
+            setUserData({
+                city: data.users[0].acf.city,
+                construction_year: data.users[0].acf.construction_year,
+                number_of_staff: data.users[0].acf.number_of_staff,
+                number_of_student: data.users[0].acf.number_of_students,
+                school: data.users[0].acf.school,
+                school_address: data.users[0].acf.school_address,
+                state: data.users[0].acf.state,
+                zip_code: data.users[0].acf.zip_code
+            })
+            setLoading(false);
+        });
+
+    }
+    const updateSchool = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
+        const formData = new FormData(event.currentTarget)
+        editSchool(formData, user?.user_email).then((response) => {
+            if (response) {
+                setShowSuccess(true);
+                const timer = setTimeout(() => {
+                    handleClose()
+                    fetchUserData()
+                }, 3000)
+                return () => clearTimeout(timer)
+            } else {
+                setShowError(true);
+            }
+        })
+
+    }
+    const [user, setUser] = useState<User>({
+        city: "",
+        role: "",
+        school: "",
+        state: "",
+        user_display_name: "",
+        user_email: "",
+        zip_code: ""
+    });
+    const fetchCookies = async () => {
+        const cookies = await getSession();
+        if (!cookies) {
+            return
+        }
+        setUser(cookies);
+    }
+    useEffect(() => {
+        fetchCookies();
         setCurrentSession(data1.map((e) => new Session(e.id, e.name, e.progress)));
         setSessions(data2.map((e) => new Session(e.id, e.name, e.progress)));
-    }, []);
-
+        fetchUserData()
+    }, [setUserData]);
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => {
+        setOpen(false);
+        setShowSuccess(false);
+    }
 
     return (
         <>
@@ -241,20 +341,146 @@ export default function Accueil() {
 
             <Container maxWidth="xl">
                 <AccueilWrapper>
-                    <h2>{t('abc-my-school')}</h2>
-                    <Grid container spacing={3}>
-                        <Grid item xs={12} sm={3}>
 
-                            <p>Collège Victor Hugo</p>
-                            <p>1 rue Beauregard</p>
-                            <p>75002 Paris</p>
+                    <Grid container spacing={3}>
+                        <Grid item xs={12} sm={3} sx={{display: 'flex', alignItems: 'center'}}>
+                            <h2>{t('abc-my-school')}</h2>
                         </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <p>{t('abc-number-students')}: 1400</p>
-                            <p>{t('abc-number-staff')}: 50</p>
-                            <p>{t('abc-year-of-construction')}: 1950</p>
+                        <Grid item xs={12} sm={9} sx={{display: 'flex', alignItems: 'center'}}>
+                            <Link sx={{cursor: "pointer"}} onClick={handleOpen}>
+                                {user?.role == "teacher" ? <EditIcon/> : <span></span>}
+                            </Link>
                         </Grid>
                     </Grid>
+                    {loading ? <CircularProgress/> : <>
+                        <Grid container spacing={3}>
+                            <Grid item xs={12} sm={3}>
+
+                                <p>{userData?.school}</p>
+                                <p>{userData?.school_address}</p>
+                                <p>{userData?.zip_code} {userData?.city}</p>
+                            </Grid>
+                            <Grid item xs={12} sm={3}>
+                                <p>{t('abc-number-students')}: {userData?.number_of_student}</p>
+                                <p>{t('abc-number-staff')}: {userData?.number_of_staff}</p>
+                                <p>{t('abc-year-of-construction')}: {userData?.construction_year}</p>
+                            </Grid>
+                        </Grid>
+                    </>
+                    }
+                    <Modal
+                        aria-labelledby="transition-modal-title"
+                        aria-describedby="transition-modal-description"
+                        open={open}
+                        onClose={handleClose}
+                        closeAfterTransition
+                        slots={{backdrop: Backdrop}}
+                        slotProps={{
+                            backdrop: {
+                                timeout: 500,
+                            },
+                        }}
+                    >
+                        <Fade in={open}>
+                            <Box sx={style}>
+                                <Typography id="transition-modal-title" variant="h6" component="h2">
+                                    {t('abc-update-school')}
+                                </Typography>
+                                {showSuccess ? <><Alert severity="success" sx={{marginTop: theme.spacing(2)}}>
+                                    {t('abc-school-update-successfully')}</Alert> </> : <span></span>
+                                }
+                                {showError ? <Alert severity="error" sx={{marginTop: theme.spacing(2)}}>
+                                    {t('abc-school-update-error')}</Alert> : <span></span>
+                                }
+                                <form onSubmit={updateSchool}>
+                                    <FormControl
+                                        sx={{
+                                            width: '100%',
+                                            marginTop: theme.spacing(3),
+                                            marginBottom: theme.spacing(1)
+                                        }}>
+                                        <TextField placeholder={t('abc-my-school')}
+                                                   type="text"
+                                                   name="school"
+                                                   defaultValue={userData?.school}
+                                                   label={t('abc-my-school')}
+                                        />
+                                    </FormControl>
+                                    <FormControl
+                                        sx={{
+                                            width: '100%',
+                                            marginTop: theme.spacing(1),
+                                            marginBottom: theme.spacing(1)
+                                        }}>
+                                        <TextField placeholder={t('abc-school-address')}
+                                                   type="text"
+                                                   name="school_address"
+                                                   defaultValue={userData?.school_address}
+                                                   label={t('abc-school-address')}
+                                        />
+                                    </FormControl>
+                                    <FormControl
+                                        sx={{
+                                            width: '100%',
+                                            marginTop: theme.spacing(1),
+                                            marginBottom: theme.spacing(1)
+                                        }}>
+                                        <TextField placeholder={t('abc-number-students')}
+                                                   name="number_of_students"
+                                                   type="number"
+                                                   defaultValue={userData?.number_of_student}
+                                                   label={t('abc-number-students')}
+                                        />
+                                    </FormControl>
+                                    <FormControl
+                                        sx={{
+                                            width: '100%',
+                                            marginTop: theme.spacing(1),
+                                            marginBottom: theme.spacing(1)
+                                        }}>
+                                        <TextField placeholder={t('abc-number-staff')}
+                                                   type="number"
+                                                   name="number_of_staff"
+                                                   defaultValue={userData?.number_of_staff}
+                                                   label={t('abc-number-staff')}
+                                        />
+                                    </FormControl>
+                                    <FormControl
+                                        sx={{
+                                            width: '100%',
+                                            marginTop: theme.spacing(1),
+                                            marginBottom: theme.spacing(1)
+                                        }}>
+                                        <TextField placeholder={t('abc-year-of-construction')}
+                                                   type="number"
+                                                   name="construction_year"
+                                                   defaultValue={userData?.construction_year}
+                                                   label={t('abc-year-of-construction')}
+                                        />
+                                    </FormControl>
+                                    <FormControl
+                                        sx={{
+                                            width: '100%',
+                                            marginTop: theme.spacing(1),
+                                            marginBottom: theme.spacing(1)
+                                        }}>
+                                        <StyledLoadingButton
+                                            size="large"
+                                            color="primary"
+                                            loading={false}
+                                            loadingPosition="start"
+                                            variant="contained"
+                                            type="submit"
+                                        >
+                                            <span>{t('abc-update')}</span>
+                                        </StyledLoadingButton>
+                                    </FormControl>
+                                </form>
+                            </Box>
+                        </Fade>
+                    </Modal>
+
+
                     <Box marginTop={8}>
                         <h2>{t('abc-my-current-session')}</h2>
                         <Box>
@@ -297,8 +523,6 @@ export default function Accueil() {
                             />
                         </Box>
                     </Box>
-
-
                 </AccueilWrapper>
             </Container>
 

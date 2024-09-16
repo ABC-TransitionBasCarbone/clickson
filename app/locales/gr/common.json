@@ -117,5 +117,9 @@
   "abc-column-menu-hide-column": "Απόκρυψη στήλης",
   "abc-column-menu-show-columns": "Εμφάνιση στηλών",
   "abc-column-menu-manage-columns": "Διαχείριση στηλών",
-  "abc-column-menu-show-hide": "Εμφάνιση/Απόκρυψη όλων"
+  "abc-column-menu-show-hide": "Εμφάνιση/Απόκρυψη όλων",
+  "abc-school-address": "Διεύθυνση σχολείου",
+  "abc-update-school": "Επεξεργασία πληροφοριών σχολείου",
+  "abc-school-update-successfully": "Οι πληροφορίες του σχολείου ενημερώθηκαν με επιτυχία",
+  "abc-school-update-error": "Απέτυχε η ενημέρωση των σχολικών πληροφοριών"
 }
