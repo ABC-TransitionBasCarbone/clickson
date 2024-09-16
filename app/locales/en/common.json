@@ -118,5 +118,9 @@
   "abc-column-menu-hide-column": "Hide Column",
   "abc-column-menu-show-columns": "Show Columns",
   "abc-column-menu-manage-columns": "Manage columns",
-  "abc-column-menu-show-hide": "Show/Hide All"
+  "abc-column-menu-show-hide": "Show/Hide All",
+  "abc-school-address": "School address",
+  "abc-update-school": "Edit School informations",
+  "abc-school-update-successfully": "School informations updated successfully",
+  "abc-school-update-error": "Failed to update school informations"
 }

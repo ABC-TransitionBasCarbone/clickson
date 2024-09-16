@@ -95,8 +95,8 @@
   "abc-nf3": "NF3 (trifluorure d'azote)",
   "abc-total-value": "Valeur totale",
   "abc-my-school": "Mon établissement",
-  "abc-number-students": "Nombre élèves",
-  "abc-number-staff": "Nombre personnels",
+  "abc-number-students": "Nombre d'élèves",
+  "abc-number-staff": "Nombre de personnels",
   "abc-year-of-construction": "Année de construction",
   "abc-my-current-session": "Ma session en cours",
   "abc-create-session": "Créer une session",
@@ -118,5 +118,9 @@
   "abc-column-menu-hide-column": "Masquer la colonne",
   "abc-column-menu-show-columns": "Afficher les colonnes",
   "abc-column-menu-manage-columns": "Gérer les colonnes",
-  "abc-column-menu-show-hide": "Afficher/Masquer tout"
+  "abc-column-menu-show-hide": "Afficher/Masquer tout",
+  "abc-school-address": "Adresse d'établissement",
+  "abc-update-school": "Modifier les informations de l'établissement",
+  "abc-school-update-successfully": "Les informations sur l'établissement ont été mises à jour avec succès",
+  "abc-school-update-error": "Échec de la mise à jour des informations sur l'établissement"
 }

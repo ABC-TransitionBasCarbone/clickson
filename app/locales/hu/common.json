@@ -117,5 +117,9 @@
   "abc-column-menu-hide-column": "Oszlop elrejtése",
   "abc-column-menu-show-columns": "Oszlopok megjelenítése",
   "abc-column-menu-manage-columns": "Oszlopok kezelése",
-  "abc-column-menu-show-hide": "Összes megjelenítése/elrejtése"
+  "abc-column-menu-show-hide": "Összes megjelenítése/elrejtése",
+  "abc-school-address": "Iskola címe",
+  "abc-update-school": "Iskolai információk szerkesztése",
+  "abc-school-update-succesfully": "Az iskolai információk sikeresen frissítve",
+  "abc-school-update-error": "Nem sikerült frissíteni az iskolai információkat"
 }
