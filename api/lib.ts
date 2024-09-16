@@ -1,6 +1,5 @@
 'use server'
 
-
 import {SignJWT, jwtVerify} from "jose";
 import {cookies} from "next/headers";
 import {NextRequest, NextResponse} from "next/server";
@@ -104,14 +103,6 @@ export async function updateSession(request: NextRequest) {
     return res;
 }
 
-export async function getCountries() {
-    try {
-        const response = await fetch(urlApi + "/countries")
-        return await response.json();
-    } catch (error) {
-        console.error(error);
-    }
-}
 
 export async function signUp(formData: FormData) {
     const myHeaders = new Headers();

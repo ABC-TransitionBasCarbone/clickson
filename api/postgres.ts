@@ -1,7 +1,6 @@
 'use server';
 import { urlApi } from "./lib";
 
-
 export async function getCategories() {
     try {
         const result = await fetch(urlApi + "/emission/categories");
@@ -152,5 +151,14 @@ export async function getComments(id: number) {
     } catch (error) {
         console.error(error);
         return { "error": error };
+    }
+}
+
+export async function getCountries() {
+    try {
+        const response = await fetch(urlApi + "/countries")
+        return await response.json();
+    } catch (error) {
+        console.error(error);
     }
 }
