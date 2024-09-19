@@ -1,22 +1,12 @@
-import {Box, Grid, useMediaQuery} from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
 import waveBG from "@/public/waveBG.png";
-import {useTheme} from "@mui/material/styles";
-import {styled} from "@mui/system";
+import { useTheme } from "@mui/material/styles";
 
 export const Footer = () => {
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
 
-    const CustomContainer = styled(Grid)(({theme}) => ({
-        position: isSmallScreen ? 'relative' : 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 1030,
-        backgroundColor: 'white'
-
-    }));
     return (
         <Box component="footer" sx={{
             width: "100%",
@@ -35,7 +25,7 @@ export const Footer = () => {
                 maxWidth: '100%',
                 height: 'auto',
 
-            }}/>
+            }} />
 
         </Box>
     )

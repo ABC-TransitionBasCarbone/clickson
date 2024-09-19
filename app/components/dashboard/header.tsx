@@ -19,15 +19,6 @@ const Link = styled('a')`
     text-decoration: none;
 `;
 
-const LanguageMenu = styled('ul')`
-    li {
-        display: inline-block;
-        padding-left: 10px;
-        margin-top: 10px;
-        margin-bottom: 14px;
-    }
-`;
-
 const UsernameBox = styled('div')(({theme}) => ({
     a: {
         color: theme.palette.primary.main,

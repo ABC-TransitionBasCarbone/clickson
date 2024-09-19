@@ -1,19 +1,19 @@
 'use client'
 
 
-import '../../i18n';
+import '../i18n';
 import {Header} from "@/app/components/dashboard/header";
 import Container from '@mui/material/Container';
 import {Box, Button, Grid} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {styled} from "@mui/system";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import { Form } from '../../components/energy/Form';
+import { Form } from '../components/energy/Form';
 import { useEffect, useState } from 'react';
 
-import { Energy } from '../../models/Energy/Energy';
-import { Option } from '../../models/Select/Option';
-import { Comment } from '../../models/Energy/Comment';
+import { Energy } from '../models/Energy/Energy';
+import { Option } from '../models/Select/Option';
+import { Comment } from '../models/Energy/Comment';
 import { getSession } from '@/api/auth';
 import { useTranslation } from "react-i18next";
 import CircularProgress from '@mui/material/CircularProgress';

@@ -1,27 +1,26 @@
 'use client'
 
-
-import '../../i18n';
-import {Header} from "@/app/components/dashboard/header";
+import '../i18n';
+import { Header } from "@/app/components/dashboard/header";
 import Container from '@mui/material/Container';
-import {Alert, Backdrop, Box, Button, Fade, FormControl, Modal, Snackbar, TextField} from "@mui/material";
-import {useTheme} from "@mui/material/styles";
-import {styled} from "@mui/system";
-import {Grid} from "@mui/material";
+import { Alert, Backdrop, Box, Button, Fade, FormControl, Modal, TextField } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import { styled } from "@mui/system";
+import { Grid } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
-import {DataGrid} from '@mui/x-data-grid';
+import { DataGrid } from '@mui/x-data-grid';
 
-import React, {FormEvent, useEffect, useState} from 'react';
-import {Session} from '../../models/Session/Session';
-import ConfirmationDialog from '../../components/ConfirmationDialog';
-import {useRouter} from 'next/navigation'
-import {useTranslation} from "react-i18next";
+import React, { FormEvent, useEffect, useState } from 'react';
+import { Session } from '../models/Session/Session';
+import ConfirmationDialog from '../components/ConfirmationDialog';
+import { useRouter } from 'next/navigation'
+import { useTranslation } from "react-i18next";
 import EditIcon from '@mui/icons-material/Edit';
 import LoadingButton from "@mui/lab/LoadingButton";
-import {User} from "@/app/types/User";
-import {UserAdditionalInfos} from "@/app/types/UserAdditionalInfos";
+import { User } from "@/app/types/User";
+import { UserAdditionalInfos } from "@/app/types/UserAdditionalInfos";
 import { editSchool, getAuthenticatedUserData, getSession } from '@/api/auth';
 
 const style = {
@@ -61,7 +60,7 @@ const AccueilWrapper = styled(Box)`
 const Link = styled('a')`
     text-decoration: none;
 `
-const StyledLoadingButton = styled(LoadingButton)(({theme}) => ({
+const StyledLoadingButton = styled(LoadingButton)(({ theme }) => ({
     '&:hover': {
         backgroundColor: theme.palette.secondary.main,
         color: 'white'
@@ -76,7 +75,7 @@ export default function Accueil() {
     const [currentSession, setCurrentSession] = useState<Session[]>([]);
     const [sessions, setSessions] = useState<Session[]>([]);
     const [loading, setLoading] = useState(false);
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     const handleDeleteCurrentSession = (s: Session) => {
         setCurrentSession(currentSession.filter((e: Session) => s.id != e.id));
     }
@@ -89,10 +88,9 @@ export default function Accueil() {
         router.push(`/dashboard`)
     }
 
-
     const columnsCurrent = [
-        {field: 'id', headerName: t('abc-id'), width: 90},
-        {field: 'name', headerName: t('abc-session-name'), flex: 1,},
+        { field: 'id', headerName: t('abc-id'), width: 90 },
+        { field: 'name', headerName: t('abc-session-name'), flex: 1, },
         {
             field: 'progress',
             headerName: t('abc-progression'),
@@ -103,8 +101,8 @@ export default function Accueil() {
             renderCell: (params: any) => {
                 const value = params.row.progress
                 return (
-                    <Box sx={{position: 'relative', display: 'inline-flex'}}>
-                        <CircularProgress variant="determinate" value={value}/>
+                    <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+                        <CircularProgress variant="determinate" value={value} />
                         <Box
                             sx={{
                                 top: 0,
@@ -155,12 +153,11 @@ export default function Accueil() {
                 );
             },
         }
-
     ];
 
     const columns = [
-        {field: 'id', headerName: t('abc-id'), width: 90},
-        {field: 'name', headerName: t('abc-session-name'), flex: 1,},
+        { field: 'id', headerName: t('abc-id'), width: 90 },
+        { field: 'name', headerName: t('abc-session-name'), flex: 1, },
         {
             field: 'progress',
             headerName: t('abc-progression'),
@@ -171,8 +168,8 @@ export default function Accueil() {
             renderCell: (params: any) => {
                 const value = params.row.progress
                 return (
-                    <Box sx={{position: 'relative', display: 'inline-flex'}}>
-                        <CircularProgress variant="determinate" value={value}/>
+                    <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+                        <CircularProgress variant="determinate" value={value} />
                         <Box
                             sx={{
                                 top: 0,
@@ -228,15 +225,15 @@ export default function Accueil() {
 
     ];
 
-    const data1 = [
-        {id: 1, name: 'Collecte 2023-2024_Collège VictorHugo', progress: 75.5},
+    const currentSessions = [
+        { id: 1, name: 'Collecte 2023-2024_Collège VictorHugo', progress: 75.5 },
     ];
 
-    const data2 = [
-        {id: 2, name: 'Collecte 2022-2023_Collège VictorHugo', progress: 70},
-        {id: 3, name: 'Collecte 2021-2022_Collège VictorHugo', progress: 80},
-        {id: 4, name: 'Collecte 2020-2021_Collège VictorHugo', progress: 88},
-        {id: 5, name: 'Collecte 2029-2020_Collège VictorHugo', progress: 90},
+    const archivedSessions = [
+        { id: 2, name: 'Collecte 2022-2023_Collège VictorHugo', progress: 70 },
+        { id: 3, name: 'Collecte 2021-2022_Collège VictorHugo', progress: 80 },
+        { id: 4, name: 'Collecte 2020-2021_Collège VictorHugo', progress: 88 },
+        { id: 5, name: 'Collecte 2029-2020_Collège VictorHugo', progress: 90 },
     ];
 
     const localeText = {
@@ -266,12 +263,13 @@ export default function Accueil() {
     const [showError, setShowError] = useState(false);
     const fetchUserData = async () => {
         setLoading(true);
-        let userEmail: string | undefined = "";
-        await getSession().then(user => {
-            userEmail = user?.user_email
-        });
+        const user = await getSession()
 
-        await getAuthenticatedUserData(userEmail).then(data => {
+        let userEmail = user.user_email;
+        // TOFIX l'application plante à ce niveau
+
+        const test = await getAuthenticatedUserData(userEmail).then(data => {
+            console.log("🚀 ~ awaitgetAuthenticatedUserData ~ data:", data)
 
             setUserData({
                 city: data.users[0].acf.city,
@@ -284,7 +282,9 @@ export default function Accueil() {
                 zip_code: data.users[0].acf.zip_code
             })
             setLoading(false);
+            return data;
         });
+        console.log("🚀 ~ test ~ test:", test)
 
     }
     const updateSchool = (event: FormEvent<HTMLFormElement>) => {
@@ -315,6 +315,7 @@ export default function Accueil() {
     });
     const fetchCookies = async () => {
         const cookies = await getSession();
+        console.log("🚀 ~ fetchCookies ~ cookies:", cookies)
         if (!cookies) {
             return
         }
@@ -322,8 +323,8 @@ export default function Accueil() {
     }
     useEffect(() => {
         fetchCookies();
-        setCurrentSession(data1.map((e) => new Session(e.id, e.name, e.progress)));
-        setSessions(data2.map((e) => new Session(e.id, e.name, e.progress)));
+        setCurrentSession(currentSessions.map((e) => new Session(e.id, e.name, e.progress)));
+        setSessions(archivedSessions.map((e) => new Session(e.id, e.name, e.progress)));
         fetchUserData()
     }, [setUserData]);
     const [open, setOpen] = useState(false);
@@ -336,23 +337,23 @@ export default function Accueil() {
     return (
         <>
             <CustomContainer>
-                <Header/>
+                <Header />
             </CustomContainer>
 
             <Container maxWidth="xl">
                 <AccueilWrapper>
 
                     <Grid container spacing={3}>
-                        <Grid item xs={12} sm={3} sx={{display: 'flex', alignItems: 'center'}}>
+                        <Grid item xs={12} sm={3} sx={{ display: 'flex', alignItems: 'center' }}>
                             <h2>{t('abc-my-school')}</h2>
                         </Grid>
-                        <Grid item xs={12} sm={9} sx={{display: 'flex', alignItems: 'center'}}>
-                            <Link sx={{cursor: "pointer"}} onClick={handleOpen}>
-                                {user?.role == "teacher" ? <EditIcon/> : <span></span>}
+                        <Grid item xs={12} sm={9} sx={{ display: 'flex', alignItems: 'center' }}>
+                            <Link sx={{ cursor: "pointer" }} onClick={handleOpen}>
+                                {user?.role == "teacher" ? <EditIcon /> : <span></span>}
                             </Link>
                         </Grid>
                     </Grid>
-                    {loading ? <CircularProgress/> : <>
+                    {loading ? <CircularProgress /> : <>
                         <Grid container spacing={3}>
                             <Grid item xs={12} sm={3}>
 
@@ -374,7 +375,7 @@ export default function Accueil() {
                         open={open}
                         onClose={handleClose}
                         closeAfterTransition
-                        slots={{backdrop: Backdrop}}
+                        slots={{ backdrop: Backdrop }}
                         slotProps={{
                             backdrop: {
                                 timeout: 500,
@@ -386,10 +387,10 @@ export default function Accueil() {
                                 <Typography id="transition-modal-title" variant="h6" component="h2">
                                     {t('abc-update-school')}
                                 </Typography>
-                                {showSuccess ? <><Alert severity="success" sx={{marginTop: theme.spacing(2)}}>
+                                {showSuccess ? <><Alert severity="success" sx={{ marginTop: theme.spacing(2) }}>
                                     {t('abc-school-update-successfully')}</Alert> </> : <span></span>
                                 }
-                                {showError ? <Alert severity="error" sx={{marginTop: theme.spacing(2)}}>
+                                {showError ? <Alert severity="error" sx={{ marginTop: theme.spacing(2) }}>
                                     {t('abc-school-update-error')}</Alert> : <span></span>
                                 }
                                 <form onSubmit={updateSchool}>
@@ -400,10 +401,10 @@ export default function Accueil() {
                                             marginBottom: theme.spacing(1)
                                         }}>
                                         <TextField placeholder={t('abc-my-school')}
-                                                   type="text"
-                                                   name="school"
-                                                   defaultValue={userData?.school}
-                                                   label={t('abc-my-school')}
+                                            type="text"
+                                            name="school"
+                                            defaultValue={userData?.school}
+                                            label={t('abc-my-school')}
                                         />
                                     </FormControl>
                                     <FormControl
@@ -413,10 +414,10 @@ export default function Accueil() {
                                             marginBottom: theme.spacing(1)
                                         }}>
                                         <TextField placeholder={t('abc-school-address')}
-                                                   type="text"
-                                                   name="school_address"
-                                                   defaultValue={userData?.school_address}
-                                                   label={t('abc-school-address')}
+                                            type="text"
+                                            name="school_address"
+                                            defaultValue={userData?.school_address}
+                                            label={t('abc-school-address')}
                                         />
                                     </FormControl>
                                     <FormControl
@@ -426,10 +427,10 @@ export default function Accueil() {
                                             marginBottom: theme.spacing(1)
                                         }}>
                                         <TextField placeholder={t('abc-number-students')}
-                                                   name="number_of_students"
-                                                   type="number"
-                                                   defaultValue={userData?.number_of_student}
-                                                   label={t('abc-number-students')}
+                                            name="number_of_students"
+                                            type="number"
+                                            defaultValue={userData?.number_of_student}
+                                            label={t('abc-number-students')}
                                         />
                                     </FormControl>
                                     <FormControl
@@ -439,10 +440,10 @@ export default function Accueil() {
                                             marginBottom: theme.spacing(1)
                                         }}>
                                         <TextField placeholder={t('abc-number-staff')}
-                                                   type="number"
-                                                   name="number_of_staff"
-                                                   defaultValue={userData?.number_of_staff}
-                                                   label={t('abc-number-staff')}
+                                            type="number"
+                                            name="number_of_staff"
+                                            defaultValue={userData?.number_of_staff}
+                                            label={t('abc-number-staff')}
                                         />
                                     </FormControl>
                                     <FormControl
@@ -452,10 +453,10 @@ export default function Accueil() {
                                             marginBottom: theme.spacing(1)
                                         }}>
                                         <TextField placeholder={t('abc-year-of-construction')}
-                                                   type="number"
-                                                   name="construction_year"
-                                                   defaultValue={userData?.construction_year}
-                                                   label={t('abc-year-of-construction')}
+                                            type="number"
+                                            name="construction_year"
+                                            defaultValue={userData?.construction_year}
+                                            label={t('abc-year-of-construction')}
                                         />
                                     </FormControl>
                                     <FormControl
@@ -485,9 +486,9 @@ export default function Accueil() {
                         <h2>{t('abc-my-current-session')}</h2>
                         <Box>
                             <Link href='#'>
-                                <AddIcon color='primary'/>{t('abc-create-session')}</Link>
+                                <AddIcon color='primary' />{t('abc-create-session')}</Link>
                         </Box>
-                        <Box sx={{height: 180, width: '100%', marginTop: 3}}>
+                        <Box sx={{ height: 180, width: '100%', marginTop: 3 }}>
                             <DataGrid
                                 rows={currentSession}
                                 columns={columnsCurrent}
@@ -506,7 +507,7 @@ export default function Accueil() {
                     </Box>
                     <Box marginTop={8} height={400}>
                         <h2>{t('abc-previous-session')}</h2>
-                        <Box sx={{height: 375, width: '100%', marginTop: 3}}>
+                        <Box sx={{ height: 375, width: '100%', marginTop: 3 }}>
                             <DataGrid
                                 rows={sessions}
                                 columns={columns}
