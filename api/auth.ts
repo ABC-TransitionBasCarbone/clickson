@@ -3,8 +3,8 @@
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
+const secretKey = process.env.SECRET_KEY;
 
-const secretKey = "secret";
 const key = new TextEncoder().encode(secretKey);
 
 const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
