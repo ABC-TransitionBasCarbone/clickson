@@ -1,7 +1,7 @@
 'use client'
 
 
-import '../i18n';
+import '../../i18n';
 import {Header} from "@/app/components/dashboard/header";
 import Container from '@mui/material/Container';
 import {Alert, Backdrop, Box, Button, Fade, FormControl, Modal, Snackbar, TextField} from "@mui/material";
@@ -14,8 +14,8 @@ import Typography from '@mui/material/Typography';
 import {DataGrid} from '@mui/x-data-grid';
 
 import React, {FormEvent, useEffect, useState} from 'react';
-import {Session} from '../models/Session/Session';
-import ConfirmationDialog from '../components/ConfirmationDialog';
+import {Session} from '../../models/Session/Session';
+import ConfirmationDialog from '../../components/ConfirmationDialog';
 import {useRouter} from 'next/navigation'
 import {useTranslation} from "react-i18next";
 import EditIcon from '@mui/icons-material/Edit';
