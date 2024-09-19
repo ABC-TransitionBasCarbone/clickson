@@ -3,31 +3,6 @@
 
 const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
 
-export async function getCategories() {
-    try {
-        const result = await fetch(urlApi + "/emission/categories");
-        return await result.json();
-    } catch (error) {
-        console.error(error);
-        return { "error": error };
-    }
-}
-
-export async function getSubCategories(id: number) {
-    try {
-        const result = await fetch(urlApi + "/emission/sub-categories/" + id);
-        const response = await result.json();
-
-        if (response.data) {
-            return response.data;
-        }
-        console.error("Failed to fetch API");
-        return [];
-    } catch (error) {
-        return error;
-    }
-}
-
 export async function getEmissions(id: number) {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -124,43 +99,5 @@ export async function addEnergyComment(formData: FormData) {
     } catch (error) {
         console.error(error);
         return { "error": error };
-    }
-}
-/**
- * Fetch Comments for energy by sub_category_id
- * @param id
- * @returns
- */
-
-
-export async function getComments(id: number) {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    const data = JSON.stringify({
-        "sub_category_id": id,
-    });
-
-    const requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: data,
-        redirect: "follow"
-    } as RequestInit;
-    try {
-        const result = await fetch(urlApi + "/energy/comments", requestOptions);
-        return await result.json();
-    } catch (error) {
-        console.error(error);
-        return { "error": error };
-    }
-}
-
-export async function getCountries() {
-    try {
-        const response = await fetch(urlApi + "/countries")
-        return await response.json();
-    } catch (error) {
-        console.error(error);
     }
 }

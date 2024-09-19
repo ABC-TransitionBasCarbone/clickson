@@ -20,9 +20,9 @@ import {useRouter} from 'next/navigation'
 import {useTranslation} from "react-i18next";
 import EditIcon from '@mui/icons-material/Edit';
 import LoadingButton from "@mui/lab/LoadingButton";
-import {editSchool, getAuthenticatedUserData, getSession} from "@/lib";
 import {User} from "@/app/types/User";
 import {UserAdditionalInfos} from "@/app/types/UserAdditionalInfos";
+import { editSchool, getAuthenticatedUserData, getSession } from '@/api/auth';
 
 const style = {
     position: 'absolute' as 'absolute',

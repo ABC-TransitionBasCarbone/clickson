@@ -14,11 +14,13 @@ import { useEffect, useState } from 'react';
 import { Energy } from '../../models/Energy/Energy';
 import { Option } from '../../models/Select/Option';
 import { Comment } from '../../models/Energy/Comment';
-import { getSession } from '@/api/lib';
+import { getSession } from '@/api/auth';
 import { useTranslation } from "react-i18next";
 import CircularProgress from '@mui/material/CircularProgress';
 import { useSearchParams } from 'next/navigation';
-import { addEnergy, addEnergyComment, deleteEnergy, getComments, getEmissions, getSubCategories } from '@/api/postgres';
+import { getSubCategories } from '@/api/categories';
+import { getComments } from '@/api/comments';
+import { addEnergy, addEnergyComment, deleteEnergy, getEmissions } from '@/api/emissions';
 
 const CustomContainer = styled('div')`
     z-index: 1030;
@@ -196,7 +198,7 @@ export default function EnergyPage() {
         const res = await deleteEnergy(eng.id);
 
         if(res.error){
-            console.log(res.error);
+            console.error(res.error);
             return;
         }
 
@@ -415,9 +417,7 @@ export default function EnergyPage() {
                             <CustomH4>{t('abc-energy')}</CustomH4>
                         </Grid>
                         <Grid container md={3} justifyContent={"flex-end"}>
-                            <OrangeButton onClick={()=> {
-                                console.log("click submit");
-                                
+                            <OrangeButton onClick={()=> {                                
                             }}>{t('abc-submit')}</OrangeButton>
                         </Grid>
                     </Grid>
@@ -427,15 +427,11 @@ export default function EnergyPage() {
                     </>) : <></>)}
                    <Grid container spacing={2} alignItems={"center"}  justifyContent={"center"} marginBottom={5}>
                             <Grid item md={3} justifyContent={"flex-end"}>
-                                <PrimaryButton onClick={()=> {
-                                    console.log("click submit");
-                                    
+                                <PrimaryButton onClick={()=> {                                    
                                 }}>{t('abc-save')}</PrimaryButton>
                             </Grid>
                             <Grid item md={3} justifyContent={"flex-start"}>
-                                <PrimaryButton style={{backgroundColor: theme.palette.secondary.main}} onClick={()=> {
-                                    console.log("click submit");
-                                    
+                                <PrimaryButton style={{backgroundColor: theme.palette.secondary.main}} onClick={()=> {                                    
                                 }}>{t('abc-submit')}</PrimaryButton>
                             </Grid>
                     </Grid>

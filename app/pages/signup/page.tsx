@@ -7,12 +7,12 @@ import {styled} from "@mui/system";
 import {Grid, Link, useMediaQuery} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import {FormEvent, ReactElement, useEffect, useState} from "react";
-import { login, signUp} from "@/api/lib";
+import { login, signUp} from "@/api/auth";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Divider from "@mui/material/Divider";
 import {useRouter} from "next/navigation";
 import {useTranslation} from "react-i18next";
-import { getCountries } from "@/api/postgres";
+import { getCountries } from "@/api/countries";
 
 /**
  * Page de création de compte

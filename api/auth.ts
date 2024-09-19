@@ -1,8 +1,8 @@
 'use server'
 
-import {SignJWT, jwtVerify} from "jose";
-import {cookies} from "next/headers";
-import {NextRequest, NextResponse} from "next/server";
+import { SignJWT, jwtVerify } from "jose";
+import { cookies } from "next/headers";
+import { NextRequest, NextResponse } from "next/server";
 
 const secretKey = "secret";
 const key = new TextEncoder().encode(secretKey);
@@ -13,13 +13,10 @@ export async function login(formData: FormData) {
     // Verify credentials && get the user
     const rememberMe = formData.get("rememberMe") !== null;
     const email = formData.get('username') == null ? formData.get("email") : formData.get("username");
-    if(email == null || formData.get("password") == null) {
-        console.log("invalid credential");
-        return {"error": "invalid credential"};
+    if (email == null || formData.get("password") == null) {
+        return { "error": "invalid credential" };
     }
-    return await getCurrentUser(
-        `${email}`, `${formData.get("password")}`, rememberMe
-    );
+    return getCurrentUser(`${email}`, `${formData.get("password")}`, rememberMe);
 }
 
 
@@ -33,7 +30,6 @@ export async function getCurrentUser(username: string, password: string, remembe
         rememberMe: rememberMe,
     });
 
-    console.log("raw: ",raw);
     const requestOptions = {
         headers: myHeaders,
         method: "POST",
@@ -41,11 +37,9 @@ export async function getCurrentUser(username: string, password: string, remembe
         redirect: "follow"
     } as RequestInit;
 
-    console.log(requestOptions)
     try {
         const result = await fetch(urlApi + "/auth/login", requestOptions)
         const login = await result.json();
-        console.log("login: ",login);
         if (login.errors) {
             console.error("Failed to fetch API");
             return login;
@@ -66,14 +60,14 @@ export async function logout() {
 
 export async function encrypt(payload: any) {
     return await new SignJWT(payload)
-        .setProtectedHeader({alg: "HS256"})
+        .setProtectedHeader({ alg: "HS256" })
         .setIssuedAt()
         .setExpirationTime("1 hour")
         .sign(key);
 }
 
 export async function decrypt(input: string): Promise<any> {
-    const {payload} = await jwtVerify(input, key, {
+    const { payload } = await jwtVerify(input, key, {
         algorithms: ["HS256"],
     });
     return payload;
@@ -105,7 +99,6 @@ export async function updateSession(request: NextRequest) {
 
 
 export async function signUp(formData: FormData) {
-    console.log("🚀 ~ signUp ~ formData:", formData)
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -130,10 +123,65 @@ export async function signUp(formData: FormData) {
     } as RequestInit;
     try {
         const result = await fetch(urlApi + "/auth/sign-up", requestOptions)
-        console.log("🚀 ~ signUp ~ result:", result)
         return await result.json();
     } catch (error) {
         console.error(error);
     }
 }
 
+export async function getAuthenticatedUserData(username: string | undefined) {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const data = JSON.stringify({
+        "username": username
+    })
+    const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: data,
+        redirect: "follow"
+    } as RequestInit;
+
+    try {
+        const result = await fetch(urlApi + "/auth/current", requestOptions)
+        const response = await result.json();
+        if (response) {
+            return response
+        }
+        console.error("Failed to fetch API");
+        return [];
+    } catch (error) {
+        return error;
+    }
+}
+
+export const editSchool = async (formData: FormData, username: string | undefined) => {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const data = JSON.stringify({
+        "username": username,
+        "acf": {
+            "school": formData.get("school")?.toString() || "",
+            "number_of_students": formData.get("number_of_students")?.toString() || "",
+            "number_of_staff": formData.get("number_of_staff")?.toString() || "",
+            "construction_year": formData.get("construction_year")?.toString() || "",
+            "school_address": formData.get("school_address")?.toString() || ""
+        }
+    })
+    const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: data,
+        redirect: "follow"
+    } as RequestInit;
+
+    try {
+        const result = await fetch(urlApi + "/auth/modify-user", requestOptions)
+        return await result.json();
+    } catch (error) {
+        console.error(error);
+        return { "error": error }
+    }
+}
