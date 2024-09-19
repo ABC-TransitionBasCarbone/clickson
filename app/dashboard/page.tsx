@@ -128,7 +128,7 @@ export default function Dashboard() {
         try {
             const res = await getCategories();
 
-            setCategories(res.data.map((c:any) => new Category(c.id, c.label, c.details)));
+            setCategories(res.map((c:any) => new Category(c.id, c.label, c.detail)));
             setLoadingCategories(false);
         } catch (error) {
             console.error(error);
