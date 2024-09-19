@@ -7,7 +7,7 @@ import {NextRequest, NextResponse} from "next/server";
 const secretKey = "secret";
 const key = new TextEncoder().encode(secretKey);
 
-export const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
+const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
 
 export async function login(formData: FormData) {
     // Verify credentials && get the user
@@ -105,6 +105,7 @@ export async function updateSession(request: NextRequest) {
 
 
 export async function signUp(formData: FormData) {
+    console.log("🚀 ~ signUp ~ formData:", formData)
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -129,6 +130,7 @@ export async function signUp(formData: FormData) {
     } as RequestInit;
     try {
         const result = await fetch(urlApi + "/auth/sign-up", requestOptions)
+        console.log("🚀 ~ signUp ~ result:", result)
         return await result.json();
     } catch (error) {
         console.error(error);

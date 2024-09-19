@@ -1,5 +1,7 @@
 'use server';
-import { urlApi } from "./lib";
+
+
+const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
 
 export async function getCategories() {
     try {
