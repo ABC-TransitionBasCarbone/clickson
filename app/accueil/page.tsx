@@ -266,9 +266,8 @@ export default function Accueil() {
         const user = await getSession()
 
         let userEmail = user.user_email;
-        // TOFIX l'application plante à ce niveau
 
-        const test = await getAuthenticatedUserData(userEmail).then(data => {
+        await getAuthenticatedUserData(userEmail).then(data => {
             setUserData({
                 city: data.users[0].acf.city,
                 construction_year: data.users[0].acf.construction_year,
