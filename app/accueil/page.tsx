@@ -269,8 +269,6 @@ export default function Accueil() {
         // TOFIX l'application plante à ce niveau
 
         const test = await getAuthenticatedUserData(userEmail).then(data => {
-            console.log("🚀 ~ awaitgetAuthenticatedUserData ~ data:", data)
-
             setUserData({
                 city: data.users[0].acf.city,
                 construction_year: data.users[0].acf.construction_year,
@@ -284,8 +282,6 @@ export default function Accueil() {
             setLoading(false);
             return data;
         });
-        console.log("🚀 ~ test ~ test:", test)
-
     }
     const updateSchool = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
@@ -315,7 +311,6 @@ export default function Accueil() {
     });
     const fetchCookies = async () => {
         const cookies = await getSession();
-        console.log("🚀 ~ fetchCookies ~ cookies:", cookies)
         if (!cookies) {
             return
         }

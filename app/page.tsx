@@ -45,7 +45,6 @@ export default function Page() {
         const formData = new FormData(event.currentTarget)
         login(formData).then(result => {
             if (!result.errors) {
-                console.log("🚀 ~ login ~ result.errors:", result.errors)
                 router.push("/accueil")
             } else {
                 setLoading(false);

@@ -74,21 +74,13 @@ export async function decrypt(input: string): Promise<any> {
 }
 
 export async function getSession() {
-    console.log("🚀 ~ getSession ~ user:", "user")
-
-
     const session = cookies().get("user")?.value;
     if (!session) return {};
-    console.log("🚀 ~ getSession ~ session:", session)
-
     return JSON.parse(session);
 }
 
 export async function updateSession(request: NextRequest) {
-    console.log("🚀 ~ updateSession ~ user:", "user")
-
     const session = request.cookies.get("session")?.value;
-    console.log("🚀 ~ updateSession ~ session:", session)
     if (!session) return {};
 
     // Refresh the session so it doesn't expire
@@ -154,7 +146,6 @@ export async function getAuthenticatedUserData(username: string | undefined) {
     try {
         const result = await fetch(urlApi + "/auth/current", requestOptions)
         const response = await result.json();
-        console.log("🚀 ~ getAuthenticatedUserData ~ response:", response)
         if (response) {
             return response
         }
