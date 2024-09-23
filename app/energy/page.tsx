@@ -14,10 +14,13 @@ import { useEffect, useState } from 'react';
 import { Energy } from '../models/Energy/Energy';
 import { Option } from '../models/Select/Option';
 import { Comment } from '../models/Energy/Comment';
-import { AddEnergy, AddEnergyComment, DeleteEnergy, getComments, getEmissions, getSession, getSubCategories } from '@/lib';
 import { useTranslation } from "react-i18next";
 import CircularProgress from '@mui/material/CircularProgress';
 import { useSearchParams } from 'next/navigation';
+import { getSession } from '@/api/auth';
+import { getSubCategories } from '@/api/categories';
+import { getComments } from '@/api/comments';
+import { addEnergy, addEnergyComment, deleteEnergy, getEmissions } from '@/api/emissions';
 
 const CustomContainer = styled('div')`
     z-index: 1030;
@@ -126,7 +129,7 @@ export default function EnergyPage() {
             formData.append("type", `${eng.type}`);
             formData.append("value", `${eng.value}`);
 
-            const res = await AddEnergy(formData);
+            const res = await addEnergy(formData);
 
             if(res.error){
                 console.error(res.error);
@@ -164,7 +167,7 @@ export default function EnergyPage() {
             formData.append("created_at", `${comment.created_at.toISOString()}`);
             formData.append("craeted_by", comment.created_by);
 
-            const res = await AddEnergyComment(formData);
+            const res = await addEnergyComment(formData);
 
             if(res.error){
                 console.error(res.error);
@@ -192,7 +195,7 @@ export default function EnergyPage() {
 
     const handleDelete = async (eng:Energy) => {
         
-        const res = await DeleteEnergy(eng.id);
+        const res = await deleteEnergy(eng.id);
 
         if(res.error){
             console.log(res.error);

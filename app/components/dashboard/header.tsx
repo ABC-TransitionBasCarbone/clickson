@@ -2,7 +2,7 @@ import {Grid, Box} from "@mui/material";
 
 import {styled} from "@mui/system";
 import {MouseEvent, useEffect, useState} from "react";
-import {getSession, logout} from "@/lib";
+import {getSession, logout} from "@/api/auth";
 import {useRouter} from "next/navigation";
 import LanguageSwitcher from "@/app/components/LanguageSwitcher/LanguageSwitcher";
 import {useTranslation} from "react-i18next";
@@ -17,15 +17,6 @@ const BoxHeader = styled(Box)`
 
 const Link = styled('a')`
     text-decoration: none;
-`;
-
-const LanguageMenu = styled('ul')`
-    li {
-        display: inline-block;
-        padding-left: 10px;
-        margin-top: 10px;
-        margin-bottom: 14px;
-    }
 `;
 
 const UsernameBox = styled('div')(({theme}) => ({

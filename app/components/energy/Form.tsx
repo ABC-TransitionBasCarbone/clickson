@@ -286,7 +286,6 @@ export const Form = ({username, data, category, description, options, titleSelec
                                             title="Confirmation"
                                             description="Souhaitez-vous supprimer définitivement cette donnée ?"
                                             response={()=> {
-                                                console.log('Confirmed!', row.id);
                                                 handleDelete(row)
                                             }}
                                             >

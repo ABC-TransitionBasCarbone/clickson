@@ -5,7 +5,6 @@ import { Grid } from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import { styled } from "@mui/system";
 import { useRouter } from 'next/navigation'
-import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import { Download } from '@mui/icons-material';
 import {useTranslation} from "react-i18next";
 
@@ -76,8 +75,6 @@ interface Props {
 }
 
 export const CategoryItem = ({category, borderColor}: Props) => {
-
-    const theme = useTheme();
     const router = useRouter();
     const {t} = useTranslation();
 

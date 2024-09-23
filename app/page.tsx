@@ -1,6 +1,6 @@
 'use client'
 
-import {getSession, login, logout} from "@/lib";
+import {getSession, login, logout} from "@/api/auth";
 import {FormEvent, useEffect, useState} from "react";
 import {useRouter} from 'next/navigation'
 import {Grid, useMediaQuery} from "@mui/material";
@@ -56,7 +56,7 @@ export default function Page() {
     }
 
     const goToSignUp = () => {
-        router.push("/signup");
+        router.push("/sign-up");
     }
 
     const onResetPassword = (event: FormEvent<HTMLFormElement>) => {
