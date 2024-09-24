@@ -15,13 +15,7 @@ export async function getCategories() {
 export async function getSubCategories(id: number) {
     try {
         const result = await fetch(urlApi + "/emission/sub-categories/" + id);
-        const response = await result.json();
-
-        if (response.data) {
-            return response.data;
-        }
-        console.error("Failed to fetch API");
-        return [];
+        return await result.json();
     } catch (error) {
         return error;
     }
