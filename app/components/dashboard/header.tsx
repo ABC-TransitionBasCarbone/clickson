@@ -1,3 +1,5 @@
+'use client'
+
 import {Grid, Box} from "@mui/material";
 
 import {styled} from "@mui/system";
@@ -75,33 +77,35 @@ export const Header = () => {
         })
     }
     return (
-        <Box sx={{width: '100%'}}>
-            <Grid
-                container
-                direction="row"
-                justifyContent="space-between"
-                alignItems="center"
-            >
-                <Grid item sm={3}>
-                    <BoxHeader>
-                        <img
-                            src="https://calculator.clickson.eu/wp-content/themes/co2calc-child/images/logo.png"
-                            alt="logo"
-                        />
-                    </BoxHeader>
+        <div style={{ zIndex: 1030, backgroundColor: "white" }}>
+            <Box sx={{width: '100%'}}>
+                <Grid
+                    container
+                    direction="row"
+                    justifyContent="space-between"
+                    alignItems="center"
+                >
+                    <Grid item sm={3}>
+                        <BoxHeader>
+                            <img
+                                src="https://calculator.clickson.eu/wp-content/themes/co2calc-child/images/logo.png"
+                                alt="logo"
+                            />
+                        </BoxHeader>
+                    </Grid>
+                    <Grid item sm={6}>
+                        <Box sx={{border: 'none'}}></Box>
+                    </Grid>
+                    <Grid item sm={3}>
+                        <UsernameBox sx={{border: 'none'}}>
+                            <LanguageSwitcher />
+                            <p>{user?.user_email}</p>
+                            <p>{t('abc-connected-as')}: <strong>{user?.role}</strong></p>
+                            <Link href="" onClick={onLogout}>{t('abc-logout')}</Link>
+                        </UsernameBox>
+                    </Grid>
                 </Grid>
-                <Grid item sm={6}>
-                    <Box sx={{border: 'none'}}></Box>
-                </Grid>
-                <Grid item sm={3}>
-                    <UsernameBox sx={{border: 'none'}}>
-                        <LanguageSwitcher />
-                        <p>{user?.user_email}</p>
-                        <p>{t('abc-connected-as')}: <strong>{user?.role}</strong></p>
-                        <Link href="" onClick={onLogout}>{t('abc-logout')}</Link>
-                    </UsernameBox>
-                </Grid>
-            </Grid>
-        </Box>
+            </Box>
+        </div>
     )
 }

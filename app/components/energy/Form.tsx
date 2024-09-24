@@ -1,3 +1,5 @@
+'use client';
+
 import {Alert, AlertTitle, Box, Button, FormControl, Grid, IconButton, MenuItem, OutlinedInput, Select, Stack, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow} from "@mui/material";
 import Divider from '@mui/material/Divider';
 import {useTheme} from "@mui/material/styles";
@@ -11,12 +13,8 @@ import { Comment } from "@/app/models/Energy/Comment";
 import CircularProgress from '@mui/material/CircularProgress';
 import ConfirmationDialog from "../ConfirmationDialog";
 
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 import {useTranslation} from "react-i18next";
+import { CustomDialog } from "../customDialog";
 
 
 const PrimaryButton = styled(Button)(({theme}) => ({
@@ -176,43 +174,30 @@ export const Form = ({username, data, category, description, options, titleSelec
                 .replace(/-\([^)]*\)$/, "");
 
         return t('abc-'+newValue);
-
     }
 
     return <>
-        <Dialog
+        <CustomDialog
             open={open}
-            keepMounted={true}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-        >
-            <DialogTitle id="alert-dialog-title">
-                {"Confirmation"}
-            </DialogTitle>
-            <DialogContent>
-                <DialogContentText id="alert-dialog-description">
-                {`Une donnée d'activité existe déjà pour ${type} , voulez-vous quand même enregistrer une nouvelle donnée ? `}
-                </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={handleClose} autoFocus color="primary">
-                    Non
-                </Button>
-                <Button onClick={addEnergy} color="secondary">Oui</Button>
-            </DialogActions>
-        </Dialog>
-        <h4>{t('abc-energy').toUpperCase()} - {t('abc-'+category).toUpperCase()}</h4>
+            titleLabel="abc-confirm-title"
+            contentLabel="abc-confirm-duplicate"
+            contentParams={{ type }}
+            closeLabel="abc-yes"
+            confirmLabel="abc-no"
+            handleClose={handleClose}
+            handleConfirm={addEnergy}
+        />
+        <h4>{t('abc-energy').toUpperCase()} - {t('abc-'+ category).toUpperCase()}</h4>
         <Divider aria-hidden="true" sx={{ marginTop: theme.spacing(5) }} />
         <Grid container spacing={2} marginTop={2}>
             <Grid container xs={12} sm={2} height={"fit-content"} alignItems={"flex-start"} justifyContent={"flex-end"}>
-
                 <Paragraph>
                     {isExpanded ? description : description.slice(0, Number(description.length*0.50))}
                 </Paragraph>
                 <Button onClick={toggleText} sx={{ marginTop: 2}}>{isExpanded ? t('abc-read-less') : t('abc-read-more')}</Button>
             </Grid>
             <Grid container xs={12} sm={10} paddingLeft={2}>
-                <Grid container >
+                <Grid container>
                     <Grid container xs={12} sm={4} paddingLeft={2} paddingRight={2}>
                         <FormControl
                             sx={{
