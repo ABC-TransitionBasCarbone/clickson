@@ -10,6 +10,7 @@ export const useDataToFill = () => {
         {
             key: 'fuel',
             category: 'fuel',
+            type: "table",
             options: [
                 { title: t('abc-heating-oil'), value: "Heating oil" },
                 { title: t('abc-heavy-fuel-oil'), value: "Heavy fuel oil" },
@@ -30,6 +31,7 @@ export const useDataToFill = () => {
         {
             key:'electricity',
             category: 'electricity',
+            type: "table",
             options: [
                 { title: t('abc-january'), value: "January" },
                 { title: t('abc-february'), value: "February" },
@@ -52,6 +54,7 @@ export const useDataToFill = () => {
         {
             key:'advances',
             category: 'advanced',
+            type: "table",
             options: [
                 { title: t('abc-ch4'), value: "CH4" },
                 { title: t('abc-c3h8'), value: "C3H8" },
