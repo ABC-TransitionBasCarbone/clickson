@@ -12,13 +12,11 @@ import { ActivityDataForm } from "../Form";
 
 interface ActivityDataPageProps {
     domain: string;
-    category: string;
-    description: string;
     dataToFill: DataToFill[];
     handleConfirm: (type: string, value: string) => void;
 };
 
-export const ActivityDataPage = ({ domain, category, description, dataToFill, handleConfirm }: ActivityDataPageProps) => {
+export const ActivityDataPage = ({ domain, dataToFill, handleConfirm }: ActivityDataPageProps) => {
     const [loading, setLoading] = useState<boolean>(false);
 
     return <>
@@ -30,8 +28,6 @@ export const ActivityDataPage = ({ domain, category, description, dataToFill, ha
                 </Box>
                 : <ActivityDataForm
                     domain={domain}
-                    category={category}
-                    description={description}
                     dataToFill={dataToFill}
                     handleConfirm={handleConfirm} />
             }

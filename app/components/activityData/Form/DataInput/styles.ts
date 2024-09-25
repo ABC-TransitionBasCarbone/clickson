@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Stack } from "@mui/material";
 import { styled } from "@mui/system";
 
 const classesLabel = "InputDataForm";
@@ -8,14 +8,18 @@ export const classes = {
     label: `${classesLabel}Label`,
 }
 
-export const StyledInputData = styled(Grid)(({ theme }) => ({
+export const StyledInputData = styled(Stack)(({ theme }) => ({
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignContent: "center",
+    marginBottom: theme.spacing(2),
     [`.${classes.form}`]: {
-        width: {xs: '100%', sm: '100%', md: '35ch', lg: '35ch'},
-        marginBottom: theme.spacing(1),
+        flex: 1,
     },
     [`.${classes.label}`]: {
         fontWeight: "bold",
-        fontSize: "18px",
+        fontSize: "14px",
         marginBottom: "5px",
     },
 }));

@@ -8,8 +8,6 @@ export default function EnergyPage() {
 
     return <ActivityDataPage
         domain="energy"
-        category="energy"
-        description="this is the energy"
         dataToFill={dataToFill}
         handleConfirm={() => {}} />
 };

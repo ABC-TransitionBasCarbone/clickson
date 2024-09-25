@@ -13,7 +13,7 @@ export const StyledContainer = styled('div')(({ theme }) => ({
         marginTop: theme.spacing(5),
     },
     [`.${classes.paragraph}`]: {
-        textAlign: "left",
+        textAlign: "right",
         fontSize: "14px",
     },
     [`.${classes.button}`]: {

@@ -1,8 +1,8 @@
 'use client'
 
-import { FormControl, Grid, MenuItem, OutlinedInput, Select } from "@mui/material";
+import { FormControl, Stack, MenuItem, OutlinedInput, Select, Typography } from "@mui/material";
 import { StyledInputData } from "./styles";
-import { KeyboardArrowDown, Label } from "@mui/icons-material";
+import { Label, KeyboardArrowDown } from "@mui/icons-material";
 import { classes } from "./styles";
 import { useTranslation } from "react-i18next";
 import { Option } from "@/app/models/Select/Option";
@@ -34,28 +34,27 @@ export const DataInput = ({
 }: DataInputProps) => {
     const { t } = useTranslation();
 
-   return <StyledInputData container>
-    <Grid container xs={12} sm={4} paddingLeft={2} paddingRight={2}>
+    return <StyledInputData>
+    <Stack sx={{ flex: 2, justifyContent: "flex-end", marginRight: 2 }}>
         <FormControl className={classes.form}>
-                <Label className={classes.label} >{t(titleSelectInput)}</Label>
-                <Select
-                    IconComponent={KeyboardArrowDown}
-                    value={type}
-                    onChange={(text)=> setType(text.target.value)}
-                >
-                    {options.map((option, _index) => (
-                        <MenuItem key={_index} value={option.value}>{option.title}</MenuItem>
-                    ))}
-                </Select>
+            <Typography className={classes.label}>{t(titleSelectInput)}</Typography>
+            <Select
+                IconComponent={KeyboardArrowDown}
+                value={type}
+                onChange={(text)=> setType(text.target.value)}
+            >
+                {options.map((option, _index) => (
+                    <MenuItem key={_index} value={option.value}>{option.title}</MenuItem>
+                ))}
+            </Select>
         </FormControl>
-    </Grid>
-    <Grid container xs={12} sm={4} paddingLeft={2} paddingRight={2}>
+    </Stack>
+    <Stack sx={{ flex: 2, justifyContent: "flex-end", marginRight: 2 }}>
         <FormControl className={classes.form}>
-                <Label className={classes.label}>
+                <Typography className={classes.label}>
                     {!units ? t(annualConsumptionText) : `${t(annualConsumptionText)} ${units ? type.length > 0 ? "("+units.get(type)+")" : "" : ""}`}
-                    titleSelectInput
-                </Label>
-                <OutlinedInput 
+                </Typography>
+                <OutlinedInput
                     placeholder=""
                     type='text'
                     name="annual_consumption"
@@ -63,11 +62,11 @@ export const DataInput = ({
                     onChange={(text) => setValue(text.target.value)}
                 />
         </FormControl>
-    </Grid>
-    <Grid container xs={12} sm={4} paddingLeft={2} paddingRight={2} alignItems={'self-start'} justifyContent={'center'}>
+    </Stack>
+    <Stack style={{ justifyContent: "flex-end", flex: 1 }}>
         <PrimaryButton disabled={saving} onClick={handleAddData}>
             {t('abc-add')}
         </PrimaryButton>
-    </Grid>
+    </Stack>
 </StyledInputData>
 };
