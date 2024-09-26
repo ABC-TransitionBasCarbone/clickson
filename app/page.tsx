@@ -45,7 +45,7 @@ export default function Page() {
         const formData = new FormData(event.currentTarget)
         login(formData).then(result => {
             if (!result.errors) {
-                router.push("/accueil")
+                router.push("/groups")
             } else {
                 setLoading(false);
                 setButtonValue(t('abc-login'))
