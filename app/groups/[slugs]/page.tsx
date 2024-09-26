@@ -15,8 +15,13 @@ import { useTranslation } from "react-i18next";
 import Establishment from '@/app/components/establishment/Establishment';
 import { Session } from '@/app/types/Session';
 import { styled } from "@mui/system";
+<<<<<<< HEAD
 import { archiveStudentSession, createSession, getSessionsStudents } from '@/api/sessions';
 import { getUserCookies } from '@/api/auth';
+=======
+import { getSession } from '@/api/auth';
+import { createSession, getSessions } from '@/api/sessions';
+>>>>>>> 06f5434 (Change in structure and how to deal with groups and sessions)
 
 export const CustomContainer = styled('div')`
     position: fixed;
@@ -32,7 +37,11 @@ export const AccueilWrapper = styled(Box)`
     a { color: #6d6d6d; }
     a:hover { color: black; }
 `
+<<<<<<< HEAD
 export default function Accueil({ params }: { params: { slug: string } }) {
+=======
+export default function Accueil(searchParams: any) {
+>>>>>>> 06f5434 (Change in structure and how to deal with groups and sessions)
     const theme = useTheme();
 
     const [currentSession, setCurrentSessions] = useState<Session[]>([]);
@@ -41,7 +50,10 @@ export default function Accueil({ params }: { params: { slug: string } }) {
     const { t } = useTranslation();
 
     const deleteCurrentSession = (s: Session) => {
+<<<<<<< HEAD
         archiveStudentSession(s)
+=======
+>>>>>>> 06f5434 (Change in structure and how to deal with groups and sessions)
         setCurrentSessions(currentSession.filter((e: Session) => s.id != e.id));
     }
 
@@ -52,11 +64,19 @@ export default function Accueil({ params }: { params: { slug: string } }) {
     const handleCreateSession = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         const formData = new FormData(event.currentTarget)
+<<<<<<< HEAD
         if (formData.get("sessionName")?.toString() === null) {
             return
         }
         const user = await getUserCookies()
         const session = await createSession(formData.get("sessionName")?.toString() || "", user, params.slug)
+=======
+        if(formData.get("groupName")?.toString() === null) {
+            return
+        }
+        const userSession = await getSession()
+        const session = await createSession(formData.get("groupName")?.toString() || "", userSession.user_email)
+>>>>>>> 06f5434 (Change in structure and how to deal with groups and sessions)
         setCurrentSessions(currentSession.concat(session))
     }
 
@@ -111,7 +131,11 @@ export default function Accueil({ params }: { params: { slug: string } }) {
 
                 return (
                     <Box>
+<<<<<<< HEAD
                         <Button type='button' color='primary' href={'/dashboard/' + session.row.id}>Accès Session</Button>
+=======
+                        <Button type='button' color='primary' href={'dashboard/' + session.row}>Accès Session</Button>
+>>>>>>> 06f5434 (Change in structure and how to deal with groups and sessions)
                         <ConfirmationDialog
                             title={t('abc-confirm-title')}
                             description={t('abc-confirm-delete')}
@@ -142,7 +166,22 @@ export default function Accueil({ params }: { params: { slug: string } }) {
                 return (
                     <Box sx={{ position: 'relative', display: 'inline-flex' }}>
                         <CircularProgress variant="determinate" value={value} />
+<<<<<<< HEAD
                         <Box>
+=======
+                        <Box
+                            sx={{
+                                top: 0,
+                                left: 0,
+                                bottom: 0,
+                                right: 0,
+                                position: 'absolute',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}
+                        >
+>>>>>>> 06f5434 (Change in structure and how to deal with groups and sessions)
                             <Typography
                                 variant="caption"
                                 component="div"
@@ -156,7 +195,11 @@ export default function Accueil({ params }: { params: { slug: string } }) {
         {
             field: 'action',
             headerName: t('abc-actions'),
+<<<<<<< HEAD
             minWidth: 350,
+=======
+            minWidth: 230,
+>>>>>>> 06f5434 (Change in structure and how to deal with groups and sessions)
             sortable: false,
             disableClickEventBubbling: true,
 
@@ -198,9 +241,19 @@ export default function Accueil({ params }: { params: { slug: string } }) {
 
     const fetchSessions = async () => {
         setLoading(true);
+<<<<<<< HEAD
         const sessions = await getSessionsStudents(params.slug)
         setCurrentSessions(sessions.filter(g => !g.archived && !g.deleted));
         setSessions(sessions.filter(g => g.archived && !g.deleted));
+=======
+        const idGroup = await searchParams.params.slugs
+        console.log("🚀 ~ fetchSessions ~ idGroup:", idGroup)
+        const sessions = await getSessions(idGroup)
+        console.log("🚀 ~ fetchSessions ~ sessions:", sessions)
+
+        setCurrentSessions(sessions.filter(g => !g.archived));
+        setSessions(sessions.filter(g => g.archived));
+>>>>>>> 06f5434 (Change in structure and how to deal with groups and sessions)
         setLoading(false);
     }
 
@@ -230,13 +283,21 @@ export default function Accueil({ params }: { params: { slug: string } }) {
                                         },
                                     },
                                 }}
+<<<<<<< HEAD
                                 pageSizeOptions={[1, 5]}
+=======
+                                pageSizeOptions={[1]}
+>>>>>>> 06f5434 (Change in structure and how to deal with groups and sessions)
                                 disableRowSelectionOnClick
                                 localeText={localeText}
                             />
                         </Box>
                     </Box>
+<<<<<<< HEAD
                     {loading ? <CircularProgress /> : (currentSession.length < 1 && <form onSubmit={handleCreateSession}>
+=======
+                    {loading ? <CircularProgress /> : <form onSubmit={handleCreateSession}>
+>>>>>>> 06f5434 (Change in structure and how to deal with groups and sessions)
                         <FormControl
                             sx={{
                                 marginTop: theme.spacing(1),
@@ -251,7 +312,11 @@ export default function Accueil({ params }: { params: { slug: string } }) {
                             </div>
                         </FormControl>
 
+<<<<<<< HEAD
                     </form>)}
+=======
+                    </form>}
+>>>>>>> 06f5434 (Change in structure and how to deal with groups and sessions)
 
                     <Box marginTop={8} height={400}>
                         <h2>{t('abc-previous-session')}</h2>
