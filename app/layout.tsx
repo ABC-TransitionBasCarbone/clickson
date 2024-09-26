@@ -1,7 +1,6 @@
-import {CssBaseline, Stack, ThemeProvider} from '@mui/material';
-import './global.css';
+import {CssBaseline, ThemeProvider} from '@mui/material';
 import theme from "@/app/theme";
-import {ReactNode, Suspense} from "react";
+import {ReactNode} from "react";
 import I18nProvider from './i18nProvider';
 
 import './global.css';
@@ -9,14 +8,13 @@ import './i18n';
 import React from 'react';
 
 export const metadata = {
-    title: "Next.js Authentication",
-    description: "Example using NextAuth.js",
+    title: "Clickson PEBC",
+    description: "Calculate",
 };
 
 export default function RootLayout({children, params}: { children: ReactNode, params: { locale: string } }) {
 
     return (
-
         <html lang={params.locale}>
         <body>
         <ThemeProvider theme={theme}>
@@ -27,7 +25,5 @@ export default function RootLayout({children, params}: { children: ReactNode, pa
         </ThemeProvider>
         </body>
         </html>
-
-
     );
 }

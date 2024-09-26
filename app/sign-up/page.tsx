@@ -64,7 +64,7 @@ export default function SignUp() {
             }, intervalTime);
 
             setTimeout(() => {
-                router.push('/accueil');
+                router.push('/groups');
             }, totalTime);
 
             return () => clearInterval(interval);

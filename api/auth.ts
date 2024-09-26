@@ -1,5 +1,8 @@
 'use server'
 
+import { Group } from "@/app/types/Group";
+import { School } from "@/app/types/School";
+import { Session } from "@/app/types/Session";
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
@@ -8,6 +11,9 @@ const secretKey = process.env.SECRET_KEY;
 const key = new TextEncoder().encode(secretKey);
 
 const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
+
+const myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
 
 export async function login(formData: FormData) {
     // Verify credentials && get the user
@@ -19,11 +25,7 @@ export async function login(formData: FormData) {
     return getCurrentUser(`${email}`, `${formData.get("password")}`, rememberMe);
 }
 
-
 export async function getCurrentUser(username: string, password: string, rememberMe: boolean) {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
     const raw = JSON.stringify({
         username: username,
         password: password,
@@ -33,8 +35,7 @@ export async function getCurrentUser(username: string, password: string, remembe
     const requestOptions = {
         headers: myHeaders,
         method: "POST",
-        body: raw,
-        redirect: "follow"
+        body: raw
     } as RequestInit;
 
     try {
@@ -44,7 +45,7 @@ export async function getCurrentUser(username: string, password: string, remembe
             console.error("Failed to fetch API");
             return login;
         }
-        cookies().set('user', JSON.stringify(login))
+        cookies().set('user', JSON.stringify({ ...login, role: "teacher" }))
         return login;
     } catch (error) {
         return error;
@@ -56,7 +57,6 @@ export async function logout() {
     // Destroy the session
     cookies().delete('user');
 }
-
 
 export async function encrypt(payload: any) {
     return await new SignJWT(payload)
@@ -79,6 +79,7 @@ export async function getSession() {
     return JSON.parse(session);
 }
 
+
 export async function updateSession(request: NextRequest) {
     const session = request.cookies.get("session")?.value;
     if (!session) return {};
@@ -91,17 +92,12 @@ export async function updateSession(request: NextRequest) {
         name: "session",
         value: await encrypt(parsed),
         httpOnly: true,
-
         expires: parsed.expires,
     });
     return res;
 }
 
-
 export async function signUp(formData: FormData) {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
     const raw = JSON.stringify({
         "email": formData.get("email")?.toString() || "",
         "username": formData.get("email")?.toString() || "",
@@ -130,17 +126,13 @@ export async function signUp(formData: FormData) {
 }
 
 export async function getAuthenticatedUserData(username: string | undefined) {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
     const data = JSON.stringify({
         "username": username
     })
     const requestOptions = {
         method: "POST",
         headers: myHeaders,
-        body: data,
-        redirect: "follow"
+        body: data
     } as RequestInit;
 
     try {
@@ -153,35 +145,5 @@ export async function getAuthenticatedUserData(username: string | undefined) {
         return [];
     } catch (error) {
         return error;
-    }
-}
-
-export async function editSchool(formData: FormData, username: string | undefined) {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    const data = JSON.stringify({
-        "username": username,
-        "acf": {
-            "school": formData.get("school")?.toString() || "",
-            "number_of_students": formData.get("number_of_students")?.toString() || "",
-            "number_of_staff": formData.get("number_of_staff")?.toString() || "",
-            "construction_year": formData.get("construction_year")?.toString() || "",
-            "school_address": formData.get("school_address")?.toString() || ""
-        }
-    })
-    const requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: data,
-        redirect: "follow"
-    } as RequestInit;
-
-    try {
-        const result = await fetch(urlApi + "/auth/modify-user", requestOptions)
-        return await result.json();
-    } catch (error) {
-        console.error(error);
-        return { "error": error }
     }
 }

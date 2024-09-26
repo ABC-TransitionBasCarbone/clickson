@@ -6,8 +6,9 @@ import {styled} from "@mui/system";
 import {MouseEvent, useEffect, useState} from "react";
 import {getSession, logout} from "@/api/auth";
 import {useRouter} from "next/navigation";
-import LanguageSwitcher from "@/app/components/LanguageSwitcher/LanguageSwitcher";
+import LanguageSwitcher from "@/app/components/language-switcher/LanguageSwitcher";
 import {useTranslation} from "react-i18next";
+import { User } from "@/app/types/User";
 
 
 const BoxHeader = styled(Box)`
@@ -38,26 +39,9 @@ const UsernameBox = styled('div')(({theme}) => ({
     }
 }));
 
-interface User {
-    user_display_name: string,
-    user_email: string,
-    role: string,
-    state: string,
-    school: string,
-    city: string,
-    zip_code: string
-}
 export const Header = () => {
     const router = useRouter();
-    const [user, setUser] = useState<User>({
-        city: "",
-        role: "",
-        school: "",
-        state: "",
-        user_display_name: "",
-        user_email: "",
-        zip_code: ""
-    });
+    const [user, setUser] = useState<User>({} as User);
     const {t} = useTranslation();
     useEffect(() => {
         fetchCookies();

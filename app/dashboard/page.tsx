@@ -17,7 +17,7 @@ import { CategoryItem } from '../components/dashboard/Category';
 import CircularProgress from '@mui/material/CircularProgress';
 import {useTranslation} from "react-i18next";
 import { getCategories } from '@/api/categories';
-import {UserAdditionalInfos} from "@/app/types/UserAdditionalInfos";
+import { School } from '../types/School';
 
 const CustomContainer = styled('div')`
     position: fixed;
@@ -108,16 +108,6 @@ export default function Dashboard() {
         }
         setUser(cookies);
     }
-    const [userData, setUserData] = useState<UserAdditionalInfos | null>({
-        city: "",
-        construction_year: "",
-        number_of_staff: "",
-        number_of_student: "",
-        school: "",
-        school_address: "",
-        state: "",
-        zip_code: ""
-    });
     useEffect(()=> {
         fetchCookies()
         fetchCategories();
@@ -152,7 +142,7 @@ export default function Dashboard() {
             </CustomContainer>
             <Container maxWidth="xl">
                 <DashboardWrapper>
-                    <Link href="/accueil">
+                    <Link href="/groups">
                         <HomeIcon fontSize="large"/>
                     </Link>
                     <CustomH6>
