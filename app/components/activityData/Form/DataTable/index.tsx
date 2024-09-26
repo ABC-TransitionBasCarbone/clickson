@@ -14,7 +14,7 @@ interface DataTableProps {
     handleDelete: (row: DataType) => void;
 }
 
-export const DataTable = ({ tableHeader, data,handleDelete }: DataTableProps) => {
+export const DataTable = ({ tableHeader, data, handleDelete }: DataTableProps) => {
     const { t } = useTranslation();
     const [totalValues, setTotalValues] = useState<number>(0);
     const [totalUncertainty, setTotalUncertainty] = useState<number>(0);
