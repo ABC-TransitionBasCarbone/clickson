@@ -11,7 +11,7 @@ export const ActivityDataFormDescription = ({ description }: ActivityDataFormDes
     const { t } = useTranslation();
     const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
-    return <StyledContainer sx={{ height: "fit-content", alignItems: "flex-end", justifyContent: "flex-end", width: "200px" }}>
+    return <StyledContainer>
         <p className={classes.paragraph}>
             {isExpanded ? description : description.slice(0, Number(description.length*0.50))}
         </p>

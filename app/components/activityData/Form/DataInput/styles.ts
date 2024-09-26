@@ -6,6 +6,8 @@ const classesLabel = "InputDataForm";
 export const classes = {
     form: `${classesLabel}Form`,
     label: `${classesLabel}Label`,
+    input: `${classesLabel}Input`,
+    button: `${classesLabel}Button`,
 }
 
 export const StyledInputData = styled(Stack)(({ theme }) => ({
@@ -21,5 +23,14 @@ export const StyledInputData = styled(Stack)(({ theme }) => ({
         fontWeight: "bold",
         fontSize: "14px",
         marginBottom: "5px",
+    },
+    [`.${classes.input}`]: {
+        flex: 2,
+        justifyContent: "flex-end",
+        marginRight: theme.spacing(2),
+    },
+    [`.${classes.button}`]: {
+        flex: 1,
+        justifyContent: "flex-end",
     },
 }));

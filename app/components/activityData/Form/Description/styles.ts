@@ -8,6 +8,10 @@ export const classes = {
 }
 
 export const StyledContainer = styled('div')(({ theme }) => ({
+    height: "fit-content",
+    alignItems: "flex-end",
+    justifyContent: "flex-end",
+    width: "200px",
     [`.${classes.paragraph}`]: {
         textAlign: "right",
         fontSize: "14px",

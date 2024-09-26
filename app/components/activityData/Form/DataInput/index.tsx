@@ -35,7 +35,7 @@ export const DataInput = ({
     const { t } = useTranslation();
 
     return <StyledInputData>
-    <Stack sx={{ flex: 2, justifyContent: "flex-end", marginRight: 2 }}>
+    <Stack className={classes.input}>
         <FormControl className={classes.form}>
             <Typography className={classes.label}>{t(titleSelectInput)}</Typography>
             <Select
@@ -49,7 +49,7 @@ export const DataInput = ({
             </Select>
         </FormControl>
     </Stack>
-    <Stack sx={{ flex: 2, justifyContent: "flex-end", marginRight: 2 }}>
+    <Stack className={classes.input}>
         <FormControl className={classes.form}>
                 <Typography className={classes.label}>
                     {!units ? t(annualConsumptionText) : `${t(annualConsumptionText)} ${units ? type.length > 0 ? "("+units.get(type)+")" : "" : ""}`}
@@ -63,7 +63,7 @@ export const DataInput = ({
                 />
         </FormControl>
     </Stack>
-    <Stack style={{ justifyContent: "flex-end", flex: 1 }}>
+    <Stack className={classes.button}>
         <PrimaryButton disabled={saving} onClick={handleAddData}>
             {t('abc-add')}
         </PrimaryButton>
