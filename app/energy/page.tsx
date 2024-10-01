@@ -17,7 +17,7 @@ import { Comment } from '../models/Energy/Comment';
 import { useTranslation } from "react-i18next";
 import CircularProgress from '@mui/material/CircularProgress';
 import { useSearchParams } from 'next/navigation';
-import { getSession } from '@/api/auth';
+import { getUserCookies } from '@/api/auth';
 import { getSubCategories } from '@/api/categories';
 import { getComments } from '@/api/comments';
 import { addEnergy, addEnergyComment, deleteEnergy, getEmissions } from '@/api/emissions';
@@ -219,7 +219,7 @@ export default function EnergyPage() {
 
     useEffect(() => {
         const fetchSession = async () => {
-            const cookies = await getSession();
+            const cookies = await getUserCookies();
 
             if(cookies){
                 if(cookies.user_email){

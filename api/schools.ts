@@ -8,13 +8,17 @@ const myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 
 export async function getSchool(adminEmail: string) {
-    const result = await fetch(urlApi + "/school/" + adminEmail)
-    const school = await result.json();
-    if (school.errors) {
-        console.error("Failed to fetch API");
-    }
-    return school[0] as School;
+    try {
+        const result = await fetch(urlApi + "/school/" + adminEmail)
+        const school = await result.json();
+        if (school.errors) {
+            console.error("Failed to getSchool" + school.errors);
+        }
+        return school[0] as School;
+    } catch (error) {
+        console.error("Failed to getSchool" + error);
 
+    }
 }
 
 export async function editSchool(formData: FormData, school: School | undefined | null) {

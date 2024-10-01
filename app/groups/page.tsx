@@ -14,7 +14,7 @@ import { Group } from '../types/Group';
 import { User } from '../types/User';
 import Establishment from '../components/establishment/Establishment';
 import { styled } from "@mui/system";
-import {  getSession, getAuthenticatedUserData } from '@/api/auth';
+import {  getUserCookies, getAuthenticatedUserData } from '@/api/auth';
 import { createGroup, deleteGroup, getGroups } from '@/api/groups';
 
 export const CustomContainer = styled('div')`
@@ -50,7 +50,7 @@ export default function Groups() {
         if(formData.get("groupName") === null) {
             return
         }
-        const group = await createGroup(formData.get("groupName")?.toString() || "", user.user_email)
+        const group = await createGroup(formData.get("groupName")?.toString() || "", user.user_email, "1")
         setCurrentGroups(currentGroup.concat(group))
     }
 
@@ -100,9 +100,9 @@ export default function Groups() {
     const [user, setUser] = useState<User>({} as User)
 
 
-    const fetchSchoolAndGroups = async () => {
+    const fetchSessionAndGroups = async () => {
         setLoading(true);
-        const userSession = await getSession()
+        const userSession = await getUserCookies()
         setUser(userSession)
         await getAuthenticatedUserData(userSession.user_email);
 
@@ -112,7 +112,7 @@ export default function Groups() {
     }
 
     useEffect(() => {
-        fetchSchoolAndGroups()
+        fetchSessionAndGroups()
     }, []);
 
 

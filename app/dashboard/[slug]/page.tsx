@@ -1,23 +1,23 @@
 'use client'
 
 
-import '../i18n';
-import {Header} from "@/app/components/dashboard/header";
+import '../../i18n';
+import { Header } from "@/app/components/dashboard/header";
 import HomeIcon from '@mui/icons-material/Home';
 import Container from '@mui/material/Container';
-import {Box, Grid} from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import Divider from '@mui/material/Divider';
-import {Stats} from "@/app/components/dashboard/stats";
-import {useTheme} from "@mui/material/styles";
-import {styled} from "@mui/system";
+import { Stats } from "@/app/components/dashboard/stats";
+import { useTheme } from "@mui/material/styles";
+import { styled } from "@mui/system";
 import { useEffect, useState } from 'react';
-import {getSession} from '@/api/auth';
-import { Category } from '../models/Category/Category';
-import { CategoryItem } from '../components/dashboard/Category';
+import { getUserCookies } from '@/api/auth';
+import { Category } from '../../models/Category/Category';
+import { CategoryItem } from '../../components/dashboard/Category';
 import CircularProgress from '@mui/material/CircularProgress';
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { getCategories } from '@/api/categories';
-import { School } from '../types/School';
+import { getLanguages } from '@/api/languages';
 
 const CustomContainer = styled('div')`
     position: fixed;
@@ -88,8 +88,8 @@ interface User {
 }
 
 export default function Dashboard() {
-     // Default language
-    const { t } = useTranslation();
+    // Default language
+    const { t, i18n } = useTranslation();
 
     const theme = useTheme();
 
@@ -102,24 +102,24 @@ export default function Dashboard() {
         zip_code: ""
     });
     const fetchCookies = async () => {
-        const cookies = await getSession();
+        const cookies = await getUserCookies();
+        console.log("🚀 ~ fetchCookies ~ cookies:", cookies)
         if (!cookies) {
             return
         }
         setUser(cookies);
     }
-    useEffect(()=> {
-        fetchCookies()
+    useEffect(() => {
+        // fetchCookies()
         fetchCategories();
     }, [setUser]);
 
     const fetchCategories = async () => {
         setLoadingCategories(true);
         try {
-            // TODO add language https://stackoverflow.com/questions/62242963/get-current-language-next-i18next
-            const res = await getCategories();
+            const res = await getCategories(await getLanguages(i18n.language));
 
-            setCategories(res.map((c:any) => new Category(c.id, c.label, c.detail)));
+            setCategories(res.map((c: any) => new Category(c.id, c.label, c.detail)));
             setLoadingCategories(false);
         } catch (error) {
             console.error(error);
@@ -138,32 +138,32 @@ export default function Dashboard() {
     return (
         <>
             <CustomContainer>
-                <Header/>
+                <Header />
             </CustomContainer>
             <Container maxWidth="xl">
                 <DashboardWrapper>
                     <Link href="/groups">
-                        <HomeIcon fontSize="large"/>
+                        <HomeIcon fontSize="large" />
                     </Link>
                     <CustomH6>
                         <strong>{t('abc-emission-profile')} (kgCO2e)</strong> | {user.school} {user.city ? " - " + user.city : ""}
                     </CustomH6>
 
-                    <Divider aria-hidden="true" sx={{marginTop: theme.spacing(1.25)}}/>
-                    <Stats/>
-                    <Grid container marginTop={4} marginBottom={6} sx={{alignItems: "center", flexDirection: "column"}}>
+                    <Divider aria-hidden="true" sx={{ marginTop: theme.spacing(1.25) }} />
+                    <Stats />
+                    <Grid container marginTop={4} marginBottom={6} sx={{ alignItems: "center", flexDirection: "column" }}>
                         <CustomH3>
                             {t("abc-calculators-markers")}
                         </CustomH3>
-                        <DividerSmall/>
+                        <DividerSmall />
                         <Paragraph>
                             {t("abc-click-marker-start")} <strong>{t("abc-data-gathering")}</strong>
                         </Paragraph>
                     </Grid>
                     {loadingCategories ? (
-                            <Box sx={{display: 'flex', justifyContent: "center", alignItems: "center", height: "20"}}>
-                                <CircularProgress/>
-                            </Box>) :
+                        <Box sx={{ display: 'flex', justifyContent: "center", alignItems: "center", height: "20" }}>
+                            <CircularProgress />
+                        </Box>) :
                         (
                             <Grid container marginTop={2}>
                                 {categories.map((c, _index) => (

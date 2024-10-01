@@ -15,8 +15,8 @@ import { useTranslation } from "react-i18next";
 import Establishment from '@/app/components/establishment/Establishment';
 import { Session } from '@/app/types/Session';
 import { styled } from "@mui/system";
-import { getSession } from '@/api/auth';
-import { createSession, getSessions } from '@/api/sessions';
+import { archiveStudentSession, createSession, getSessionsStudents } from '@/api/sessions';
+import { getUserCookies } from '@/api/auth';
 
 export const CustomContainer = styled('div')`
     position: fixed;
@@ -41,6 +41,7 @@ export default function Accueil(searchParams: any) {
     const { t } = useTranslation();
 
     const deleteCurrentSession = (s: Session) => {
+        archiveStudentSession(s)
         setCurrentSessions(currentSession.filter((e: Session) => s.id != e.id));
     }
 
@@ -51,11 +52,11 @@ export default function Accueil(searchParams: any) {
     const handleCreateSession = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         const formData = new FormData(event.currentTarget)
-        if(formData.get("groupName")?.toString() === null) {
+        if (formData.get("sessionName")?.toString() === null) {
             return
         }
-        const userSession = await getSession()
-        const session = await createSession(formData.get("groupName")?.toString() || "", userSession.user_email)
+        const user = await getUserCookies()
+        const session = await createSession(formData.get("sessionName")?.toString() || "", user, searchParams.params.slugs)
         setCurrentSessions(currentSession.concat(session))
     }
 
@@ -110,7 +111,7 @@ export default function Accueil(searchParams: any) {
 
                 return (
                     <Box>
-                        <Button type='button' color='primary' href={'dashboard/' + session.row}>Accès Session</Button>
+                        <Button type='button' color='primary' href={'/dashboard/' + session.row.id}>Accès Session</Button>
                         <ConfirmationDialog
                             title={t('abc-confirm-title')}
                             description={t('abc-confirm-delete')}
@@ -141,18 +142,7 @@ export default function Accueil(searchParams: any) {
                 return (
                     <Box sx={{ position: 'relative', display: 'inline-flex' }}>
                         <CircularProgress variant="determinate" value={value} />
-                        <Box
-                            sx={{
-                                top: 0,
-                                left: 0,
-                                bottom: 0,
-                                right: 0,
-                                position: 'absolute',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                            }}
-                        >
+                        <Box>
                             <Typography
                                 variant="caption"
                                 component="div"
@@ -166,7 +156,7 @@ export default function Accueil(searchParams: any) {
         {
             field: 'action',
             headerName: t('abc-actions'),
-            minWidth: 230,
+            minWidth: 350,
             sortable: false,
             disableClickEventBubbling: true,
 
@@ -208,13 +198,9 @@ export default function Accueil(searchParams: any) {
 
     const fetchSessions = async () => {
         setLoading(true);
-        const idGroup = await searchParams.params.slugs
-        console.log("🚀 ~ fetchSessions ~ idGroup:", idGroup)
-        const sessions = await getSessions(idGroup)
-        console.log("🚀 ~ fetchSessions ~ sessions:", sessions)
-
-        setCurrentSessions(sessions.filter(g => !g.archived));
-        setSessions(sessions.filter(g => g.archived));
+        const sessions = await getSessionsStudents(searchParams.params.slugs)
+        setCurrentSessions(sessions.filter(g => !g.archived && !g.deleted));
+        setSessions(sessions.filter(g => g.archived && !g.deleted));
         setLoading(false);
     }
 
@@ -250,7 +236,7 @@ export default function Accueil(searchParams: any) {
                             />
                         </Box>
                     </Box>
-                    {loading ? <CircularProgress /> : <form onSubmit={handleCreateSession}>
+                    {loading ? <CircularProgress /> : (currentSession.length < 1 && <form onSubmit={handleCreateSession}>
                         <FormControl
                             sx={{
                                 marginTop: theme.spacing(1),
@@ -265,7 +251,7 @@ export default function Accueil(searchParams: any) {
                             </div>
                         </FormControl>
 
-                    </form>}
+                    </form>)}
 
                     <Box marginTop={8} height={400}>
                         <h2>{t('abc-previous-session')}</h2>

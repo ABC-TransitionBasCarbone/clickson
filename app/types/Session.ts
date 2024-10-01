@@ -4,6 +4,7 @@ export interface Session {
     id_group?: string,
     name?: string,
     year?: number,
+    progress?: number,
     archived?: boolean,
     deleted?: boolean
 }
