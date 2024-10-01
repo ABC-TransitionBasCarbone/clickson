@@ -4,7 +4,7 @@ import {Grid, Box} from "@mui/material";
 
 import {styled} from "@mui/system";
 import {MouseEvent, useEffect, useState} from "react";
-import {getSession, logout} from "@/api/auth";
+import {getUserCookies, logout} from "@/api/auth";
 import {useRouter} from "next/navigation";
 import LanguageSwitcher from "@/app/components/language-switcher/LanguageSwitcher";
 import {useTranslation} from "react-i18next";
@@ -48,7 +48,7 @@ export const Header = () => {
     }, [setUser]);
 
     const fetchCookies = async () => {
-        const cookies = await getSession();
+        const cookies = await getUserCookies();
         if (!cookies) {
             return
         }

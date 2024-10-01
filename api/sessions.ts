@@ -1,29 +1,55 @@
 'use server'
 
 import { Session } from "@/app/types/Session";
+import { User } from "@/app/types/User";
 
 const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
 
 const myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 
-
-export async function getSessions(idGroup: number) {
-    console.log("🚀 ~ getSessions ~ idGroup:", idGroup)
-    const result = await fetch(urlApi + "/sessions/" + idGroup)
-    const sessions = await result.json()
-    console.log("🚀 ~ getSessions ~ sessions:", sessions)
-    if (sessions.errors) {
-        console.error("Failed to fetch API");
+export async function getSessionsStudents(idGroup: number) {
+    try {
+        const result = await fetch(urlApi + "/sessions/" + idGroup)
+        const sessions = await result.json()
+        if (sessions.errors) {
+            console.error("Failed to getSessions" + sessions.errors);
+        }
+        return sessions as Session[];
+    } catch (error) {
+        console.error("Failed to getSessions" + error);
+        return [];
     }
-    return sessions as Session[];
 }
 
-export async function createSession(sessionName: string, userEmail: string) {
+
+export async function archiveStudentSession(session: Session) {
+    session = {
+        ...session,
+        "archived": true
+    }
+    const data = JSON.stringify(session)
+    const requestOptions = {
+        method: "PUT",
+        headers: myHeaders,
+        body: data
+    } as RequestInit;
+
+    const result = await fetch(urlApi + "/sessions", requestOptions)
+    const groups = await result.json()
+    if (groups.errors) {
+        throw ("Failed to delete group")
+    }
+    return session.id
+}
+
+export async function createSession(sessionName: string, user: User, idGroup: string) {
     const data = JSON.stringify({
         "name": sessionName,
         "year": new Date().getFullYear(),
-        "teacher_username": userEmail
+        "id_school": user.school.id,
+        "id_group": idGroup,
+        "progress": 0
     })
     const requestOptions = {
         method: "POST",
@@ -31,11 +57,16 @@ export async function createSession(sessionName: string, userEmail: string) {
         body: data
     } as RequestInit;
 
-    const result = await fetch(urlApi + "/sessions", requestOptions)
-    const sessions = await result.json()
-    if (sessions.errors) {
-        console.error("Failed to fetch API");
+    try {
+        const result = await fetch(urlApi + "/sessions", requestOptions)
+        const sessions = await result.json()
+        if (sessions.errors) {
+            console.error("Failed to createSession" + sessions.errors);
+        }
+        return sessions
+    } catch (error) {
+        console.error("Failed to createSession" + error);
+        return []
     }
-    return sessions
 }
 

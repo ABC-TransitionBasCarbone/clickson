@@ -1,4 +1,4 @@
-import { getSession } from "@/api/auth";
+import { getUserCookies } from "@/api/auth";
 import theme from "@/app/theme";
 import { School } from "@/app/types/School";
 import { LoadingButton } from "@mui/lab";
@@ -54,10 +54,8 @@ export default function Establishment() {
 
     const fetchSchool = async () => {
         setLoading(true);
-        const userSession = await getSession()
-
-        const schoolToReturn = await getSchool(userSession.user_email)
-        setSchool(schoolToReturn);
+        const userSession = await getUserCookies()
+        setSchool(userSession.school);
         setLoading(false);
     }
 

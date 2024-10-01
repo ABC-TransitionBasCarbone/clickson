@@ -1,17 +1,17 @@
 'use client'
 
-import {Header} from "@/app/components/login/header";
+import { Header } from "@/app/components/login/header";
 import Container from "@mui/material/Container";
-import {SignUpForm} from "@/app/components/signup/signupform";
-import {styled} from "@mui/system";
-import {Grid, Link, useMediaQuery} from "@mui/material";
-import {useTheme} from "@mui/material/styles";
-import {FormEvent, ReactElement, useEffect, useState} from "react";
-import { login, signUp} from "@/api/auth";
+import { SignUpForm } from "@/app/components/signup/signupform";
+import { styled } from "@mui/system";
+import { Grid, Link, useMediaQuery } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import { FormEvent, ReactElement, useEffect, useState } from "react";
+import { login, signUp } from "@/api/auth";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Divider from "@mui/material/Divider";
-import {useRouter} from "next/navigation";
-import {useTranslation} from "react-i18next";
+import { useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
 import { getCountries } from "@/api/countries";
 
 /**
@@ -22,7 +22,7 @@ export default function SignUp() {
     const theme = useTheme();
     const router = useRouter();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-    const CustomContainer = styled(Grid)(({theme}) => ({
+    const CustomContainer = styled(Grid)(({ theme }) => ({
         position: isSmallScreen ? 'relative' : 'fixed',
         top: 0,
         left: 0,
@@ -45,7 +45,7 @@ export default function SignUp() {
     const [showError, setShowError] = useState(false);
     const [message, setMessage] = useState<ReactElement | null>(null);
     const [progress, setProgress] = useState(0);
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
     const redirectToLogin = (showSuccess: boolean, message: ReactElement | null, showError: boolean) => {
         if (showSuccess && message && !showError) {
@@ -96,7 +96,7 @@ export default function SignUp() {
                 )
             } else {
                 login(formData).then(result => {
-                    if(!result.errors) {
+                    if (!result.errors) {
                         setShowError(false)
                         setShowSuccess(true)
                         setMessage(
@@ -114,9 +114,11 @@ export default function SignUp() {
     }, [message]);
     return (
         <>
-            <CustomContainer>
-                <Header logoPosition="flex-start"/>
-            </CustomContainer>
+            <div>
+                <CustomContainer>
+                    <Header logoPosition="flex-start" />
+                </CustomContainer>
+            </div>
             <Container maxWidth="xl" sx={{
                 marginTop: {
                     lg: theme.spacing(15),
@@ -128,12 +130,12 @@ export default function SignUp() {
                     router.back()
                 }} sx={{
                     cursor: 'pointer'
-                }}/>
-                <Divider sx={{marginTop: theme.spacing(2)}}/>
+                }} />
+                <Divider sx={{ marginTop: theme.spacing(2) }} />
             </Container>
             <Container>
                 <SignUpForm onSignUp={onSignUp} countries={countries} showSuccess={showSuccess} showError={showError}
-                            message={message} progress={progress}/>
+                    message={message} progress={progress} />
             </Container>
         </>
     );

@@ -2,9 +2,9 @@
 
 const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
 
-export async function getCategories() {
+export async function getCategories(id_language: number) {
     try {
-        const result = await fetch(urlApi + "/emission/categories");
+        const result = await fetch(urlApi + "/emission/categories/" + id_language);
         return await result.json();
     } catch (error) {
         console.error(error);
