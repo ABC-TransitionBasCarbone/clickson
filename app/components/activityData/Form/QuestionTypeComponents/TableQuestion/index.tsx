@@ -4,21 +4,37 @@ import { DataTable } from "../../DataTable";
 import { Box } from "@mui/system";
 import { CircularProgress } from "@mui/material";
 import { useState } from "react";
+import { CustomDialog } from "@/app/components/customDialog";
 
 interface QuestionTypeComponentProps {
     data: DataToFill;
-    type: string;
-    value: string;
-    setValue: (value: string) => void;
-    setType: (type: string) => void;
+    handleConfirm: (type: string, value: string) => void;
 }
-export const QuestionTypeComponent = ({ data, value, type, setValue, setType }: QuestionTypeComponentProps) => {
+export const QuestionTypeComponent = ({ data, handleConfirm }: QuestionTypeComponentProps) => {
     const [saving, setSaving] = useState<boolean>(false)
     const [loadingData, setLoadingData] = useState<boolean>(false)
+    const [open, setOpen] = useState<boolean>(false);
+    const [type, setType] = useState<string>("")
+    const [value, setValue] = useState<string>("");
+
+    const handleClose = () => {
+        setType("");
+        setValue("");
+        setOpen(false);
+    };
 
     const handleAddData = () => {}
-
     return <>
+        <CustomDialog
+            open={open}
+            titleLabel="abc-confirm-title"
+            contentLabel="abc-confirm-duplicate"
+            contentParams={{ type }}
+            closeLabel="abc-yes"
+            confirmLabel="abc-no"
+            handleClose={handleClose}
+            handleConfirm={() => handleConfirm(type, value)}
+        />
         <DataInput
             titleSelectInput={data.titleSelectInput}
             type={type}
@@ -26,7 +42,7 @@ export const QuestionTypeComponent = ({ data, value, type, setValue, setType }: 
             saving={saving}
             value={value}
             annualConsumptionText={data.titleAnnualConsumptionInput}
-            units={data.units}
+            {...(data.units && { units: data.units })}
             setValue={setValue}
             setType={setType}
             handleAddData={handleAddData}

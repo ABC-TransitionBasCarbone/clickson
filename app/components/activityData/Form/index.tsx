@@ -19,34 +19,14 @@ interface ActivityDataFormProps {
 export const ActivityDataForm = ({ domain, dataToFill, handleConfirm }: ActivityDataFormProps) => {
     const { t } = useTranslation();
 
-    const [open, setOpen] = useState<boolean>(false);
-    const [type, setType] = useState<string>("")
-    const [value, setValue] = useState<string>("");
-
-    const handleClose = () => {
-        setType("");
-        setValue("");
-        setOpen(false);
-    };
-
     const getQuestionComponent = (data: DataToFill) => {
-        if (data.type === "table") return <QuestionTypeComponent data={data} value={value} type={type} setValue={setValue} setType={setType} />;
+        if (data.type === "table") return <QuestionTypeComponent data={data} handleConfirm={handleConfirm} />;
         return <></>;
     }
 
     return <StyledContainer>
-        <CustomDialog
-            open={open}
-            titleLabel="abc-confirm-title"
-            contentLabel="abc-confirm-duplicate"
-            contentParams={{ type }}
-            closeLabel="abc-yes"
-            confirmLabel="abc-no"
-            handleClose={handleClose}
-            handleConfirm={() => handleConfirm(type, value)}
-        />
         {dataToFill.map((data) => 
-            <>
+            <Stack key={data.key}>
                 <ActivityDataFormHeader domain={domain} category={data.category} />
                 <Stack spacing={2} marginTop={2} marginBottom={2} sx={{ flexDirection: "row" }}>
                     <ActivityDataFormDescription description={data.description} />
@@ -54,7 +34,7 @@ export const ActivityDataForm = ({ domain, dataToFill, handleConfirm }: Activity
                         {getQuestionComponent(data)}
                     </Stack>
                 </Stack>
-            </>
+            </Stack>
         )}
     </StyledContainer>;
 };

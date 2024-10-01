@@ -52,10 +52,9 @@ export const DataInput = ({
     <Stack className={classes.input}>
         <FormControl className={classes.form}>
                 <Typography className={classes.label}>
-                    {!units ? t(annualConsumptionText) : `${t(annualConsumptionText)} ${units ? type.length > 0 ? "("+units.get(type)+")" : "" : ""}`}
+                    {units ? `${t(annualConsumptionText)} ${units ? type.length > 0 ? "("+units.get(type)+")" : "" : ""}` : t(annualConsumptionText)}
                 </Typography>
                 <OutlinedInput
-                    placeholder=""
                     type='text'
                     name="annual_consumption"
                     value={value}
