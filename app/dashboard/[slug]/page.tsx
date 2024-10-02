@@ -18,7 +18,7 @@ import { getLanguages } from '@/api/languages';
 import Establishment from '@/app/components/establishment/Establishment';
 import { Category } from '@/app/types/Category';
 
-export const CustomContainer = styled('div')`
+const CustomContainer = styled('div')`
     position: fixed;
     top: 0;
     left: 0;
@@ -121,9 +121,11 @@ export default function Dashboard({ params }: { params: { slug: string } }) {
 
     return (
         <>
-            <CustomContainer>
-                <Header />
-            </CustomContainer>
+            <div>
+                <CustomContainer>
+                    <Header />
+                </CustomContainer>
+            </div>
             <Container maxWidth="xl">
                 <DashboardWrapper>
 
