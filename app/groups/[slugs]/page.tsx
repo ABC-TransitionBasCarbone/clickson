@@ -18,7 +18,7 @@ import { styled } from "@mui/system";
 import { archiveStudentSession, createSession, getSessionsStudents } from '@/api/sessions';
 import { getUserCookies } from '@/api/auth';
 
-export const CustomContainer = styled('div')`
+ const CustomContainer = styled('div')`
     position: fixed;
     top: 0;
     left: 0;
@@ -27,7 +27,7 @@ export const CustomContainer = styled('div')`
     background-color: white;
 `
 
-export const AccueilWrapper = styled(Box)`
+const AccueilWrapper = styled(Box)`
     margin-top: 150px;
     a { color: #6d6d6d; }
     a:hover { color: black; }
