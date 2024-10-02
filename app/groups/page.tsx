@@ -14,7 +14,7 @@ import { Group } from '../types/Group';
 import { User } from '../types/User';
 import Establishment from '../components/establishment/Establishment';
 import { styled } from "@mui/system";
-import {  getUserCookies, getAuthenticatedUserData } from '@/api/auth';
+import { getUserCookies, getAuthenticatedUserData } from '@/api/auth';
 import { createGroup, deleteGroup, getGroups } from '@/api/groups';
 
 export const CustomContainer = styled('div')`
@@ -47,7 +47,7 @@ export default function Groups() {
     const handleCreateGroup = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         const formData = new FormData(event.currentTarget)
-        if(formData.get("groupName") === null) {
+        if (formData.get("groupName") === null) {
             return
         }
         const group = await createGroup(formData.get("groupName")?.toString() || "", user.user_email, "1")
@@ -118,9 +118,11 @@ export default function Groups() {
 
     return (
         <>
-            <CustomContainer>
-                <Header />
-            </CustomContainer>
+            <div>
+                <CustomContainer>
+                    <Header />
+                </CustomContainer>
+            </div>
 
             <Container maxWidth="xl">
                 <AccueilWrapper>

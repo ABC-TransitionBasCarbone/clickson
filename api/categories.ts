@@ -10,6 +10,16 @@ export async function getCategories(id_language: number) {
         console.error(error);
         return { "error": error };
     }
+
+}
+export async function getSessionCategories(id_session_student: string) {
+    try {
+        const result = await fetch(urlApi + "/session-categories/" + id_session_student);
+        return await result.json();
+    } catch (error) {
+        console.error(error);
+        return { "error": error };
+    }
 }
 
 export async function getSubCategories(id: number) {

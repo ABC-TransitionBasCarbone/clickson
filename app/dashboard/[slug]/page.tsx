@@ -1,6 +1,5 @@
 'use client'
 
-
 import '../../i18n';
 import { Header } from "@/app/components/dashboard/header";
 import HomeIcon from '@mui/icons-material/Home';
@@ -11,15 +10,15 @@ import { Stats } from "@/app/components/dashboard/stats";
 import { useTheme } from "@mui/material/styles";
 import { styled } from "@mui/system";
 import { useEffect, useState } from 'react';
-import { getUserCookies } from '@/api/auth';
-import { Category } from '../../models/Category/Category';
 import { CategoryItem } from '../../components/dashboard/Category';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useTranslation } from "react-i18next";
-import { getCategories } from '@/api/categories';
+import { getCategories, getSessionCategories } from '@/api/categories';
 import { getLanguages } from '@/api/languages';
+import Establishment from '@/app/components/establishment/Establishment';
+import { Category } from '@/app/types/Category';
 
-const CustomContainer = styled('div')`
+export const CustomContainer = styled('div')`
     position: fixed;
     top: 0;
     left: 0;
@@ -80,46 +79,31 @@ const DividerSmall = styled("hr")`
     border-radius: 5px;
 `;
 
-interface User {
-    state: string,
-    school: string,
-    city: string,
-    zip_code: string
-}
 
-export default function Dashboard() {
-    // Default language
+export default function Dashboard({ params }: { params: { slug: string } }) {
     const { t, i18n } = useTranslation();
 
     const theme = useTheme();
 
     const [loadingCategories, setLoadingCategories] = useState(false);
     const [categories, setCategories] = useState<Category[]>([]);
-    const [user, setUser] = useState<User>({
-        city: "",
-        school: "",
-        state: "",
-        zip_code: ""
-    });
-    const fetchCookies = async () => {
-        const cookies = await getUserCookies();
-        console.log("🚀 ~ fetchCookies ~ cookies:", cookies)
-        if (!cookies) {
-            return
-        }
-        setUser(cookies);
-    }
+
     useEffect(() => {
-        // fetchCookies()
         fetchCategories();
-    }, [setUser]);
+    }, []);
 
     const fetchCategories = async () => {
+
         setLoadingCategories(true);
         try {
-            const res = await getCategories(await getLanguages(i18n.language));
+            const idLanguage = await getLanguages(i18n.language);
+            let categories = (await getCategories(idLanguage)) as Category[];
+            console.log("🚀 ~ fetchCategories ~ categories:", categories)
+            const sessionCategories = (await getSessionCategories(params.slug)) as Category[];
+            console.log("🚀 ~ fetchCategories ~ sessionCategories:", sessionCategories)
+            categories = categories.map(c => ({ ...c, id_session_emission_categorie: sessionCategories.filter(sessionCategorie => sessionCategorie.id_emission_categorie === c.id)[0].id_emission_categorie }))
 
-            setCategories(res.map((c: any) => new Category(c.id, c.label, c.detail)));
+            setCategories(categories);
             setLoadingCategories(false);
         } catch (error) {
             console.error(error);
@@ -142,11 +126,14 @@ export default function Dashboard() {
             </CustomContainer>
             <Container maxWidth="xl">
                 <DashboardWrapper>
-                    <Link href="/groups">
+
+
+                    <Establishment />
+                    <Link href={"/session/" + params.slug}>
                         <HomeIcon fontSize="large" />
                     </Link>
                     <CustomH6>
-                        <strong>{t('abc-emission-profile')} (kgCO2e)</strong> | {user.school} {user.city ? " - " + user.city : ""}
+                        <strong>{t('abc-emission-profile')} (kgCO2e)</strong>
                     </CustomH6>
 
                     <Divider aria-hidden="true" sx={{ marginTop: theme.spacing(1.25) }} />
