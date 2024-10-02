@@ -15,20 +15,10 @@ import { useTranslation } from "react-i18next";
 import Establishment from '@/app/components/establishment/Establishment';
 import { Session } from '@/app/types/Session';
 import { styled } from "@mui/system";
-<<<<<<< HEAD
-<<<<<<< HEAD
 import { archiveStudentSession, createSession, getSessionsStudents } from '@/api/sessions';
 import { getUserCookies } from '@/api/auth';
-=======
-import { getSession } from '@/api/auth';
-import { createSession, getSessions } from '@/api/sessions';
->>>>>>> 06f5434 (Change in structure and how to deal with groups and sessions)
-=======
-import { archiveStudentSession, createSession, getSessionsStudents } from '@/api/sessions';
-import { getUserCookies } from '@/api/auth';
->>>>>>> 0f792c9 (create group ok)
 
-export const CustomContainer = styled('div')`
+ const CustomContainer = styled('div')`
     position: fixed;
     top: 0;
     left: 0;
@@ -37,16 +27,12 @@ export const CustomContainer = styled('div')`
     background-color: white;
 `
 
-export const AccueilWrapper = styled(Box)`
+const AccueilWrapper = styled(Box)`
     margin-top: 150px;
     a { color: #6d6d6d; }
     a:hover { color: black; }
 `
-<<<<<<< HEAD
 export default function Accueil({ params }: { params: { slug: string } }) {
-=======
-export default function Accueil(searchParams: any) {
->>>>>>> 06f5434 (Change in structure and how to deal with groups and sessions)
     const theme = useTheme();
 
     const [currentSession, setCurrentSessions] = useState<Session[]>([]);
@@ -55,14 +41,7 @@ export default function Accueil(searchParams: any) {
     const { t } = useTranslation();
 
     const deleteCurrentSession = (s: Session) => {
-<<<<<<< HEAD
-<<<<<<< HEAD
         archiveStudentSession(s)
-=======
->>>>>>> 06f5434 (Change in structure and how to deal with groups and sessions)
-=======
-        archiveStudentSession(s)
->>>>>>> 0f792c9 (create group ok)
         setCurrentSessions(currentSession.filter((e: Session) => s.id != e.id));
     }
 
@@ -73,27 +52,11 @@ export default function Accueil(searchParams: any) {
     const handleCreateSession = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         const formData = new FormData(event.currentTarget)
-<<<<<<< HEAD
-<<<<<<< HEAD
         if (formData.get("sessionName")?.toString() === null) {
             return
         }
         const user = await getUserCookies()
         const session = await createSession(formData.get("sessionName")?.toString() || "", user, params.slug)
-=======
-        if(formData.get("groupName")?.toString() === null) {
-            return
-        }
-        const userSession = await getSession()
-        const session = await createSession(formData.get("groupName")?.toString() || "", userSession.user_email)
->>>>>>> 06f5434 (Change in structure and how to deal with groups and sessions)
-=======
-        if (formData.get("sessionName")?.toString() === null) {
-            return
-        }
-        const user = await getUserCookies()
-        const session = await createSession(formData.get("sessionName")?.toString() || "", user, searchParams.params.slugs)
->>>>>>> 0f792c9 (create group ok)
         setCurrentSessions(currentSession.concat(session))
     }
 
@@ -148,15 +111,7 @@ export default function Accueil(searchParams: any) {
 
                 return (
                     <Box>
-<<<<<<< HEAD
-<<<<<<< HEAD
                         <Button type='button' color='primary' href={'/dashboard/' + session.row.id}>Accès Session</Button>
-=======
-                        <Button type='button' color='primary' href={'dashboard/' + session.row}>Accès Session</Button>
->>>>>>> 06f5434 (Change in structure and how to deal with groups and sessions)
-=======
-                        <Button type='button' color='primary' href={'/dashboard/' + session.row.id}>Accès Session</Button>
->>>>>>> 0f792c9 (create group ok)
                         <ConfirmationDialog
                             title={t('abc-confirm-title')}
                             description={t('abc-confirm-delete')}
@@ -187,26 +142,7 @@ export default function Accueil(searchParams: any) {
                 return (
                     <Box sx={{ position: 'relative', display: 'inline-flex' }}>
                         <CircularProgress variant="determinate" value={value} />
-<<<<<<< HEAD
-<<<<<<< HEAD
                         <Box>
-=======
-                        <Box
-                            sx={{
-                                top: 0,
-                                left: 0,
-                                bottom: 0,
-                                right: 0,
-                                position: 'absolute',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                            }}
-                        >
->>>>>>> 06f5434 (Change in structure and how to deal with groups and sessions)
-=======
-                        <Box>
->>>>>>> 0f792c9 (create group ok)
                             <Typography
                                 variant="caption"
                                 component="div"
@@ -220,15 +156,7 @@ export default function Accueil(searchParams: any) {
         {
             field: 'action',
             headerName: t('abc-actions'),
-<<<<<<< HEAD
-<<<<<<< HEAD
             minWidth: 350,
-=======
-            minWidth: 230,
->>>>>>> 06f5434 (Change in structure and how to deal with groups and sessions)
-=======
-            minWidth: 350,
->>>>>>> 0f792c9 (create group ok)
             sortable: false,
             disableClickEventBubbling: true,
 
@@ -270,25 +198,9 @@ export default function Accueil(searchParams: any) {
 
     const fetchSessions = async () => {
         setLoading(true);
-<<<<<<< HEAD
-<<<<<<< HEAD
         const sessions = await getSessionsStudents(params.slug)
         setCurrentSessions(sessions.filter(g => !g.archived && !g.deleted));
         setSessions(sessions.filter(g => g.archived && !g.deleted));
-=======
-        const idGroup = await searchParams.params.slugs
-        console.log("🚀 ~ fetchSessions ~ idGroup:", idGroup)
-        const sessions = await getSessions(idGroup)
-        console.log("🚀 ~ fetchSessions ~ sessions:", sessions)
-
-        setCurrentSessions(sessions.filter(g => !g.archived));
-        setSessions(sessions.filter(g => g.archived));
->>>>>>> 06f5434 (Change in structure and how to deal with groups and sessions)
-=======
-        const sessions = await getSessionsStudents(searchParams.params.slugs)
-        setCurrentSessions(sessions.filter(g => !g.archived && !g.deleted));
-        setSessions(sessions.filter(g => g.archived && !g.deleted));
->>>>>>> 0f792c9 (create group ok)
         setLoading(false);
     }
 
@@ -318,25 +230,13 @@ export default function Accueil(searchParams: any) {
                                         },
                                     },
                                 }}
-<<<<<<< HEAD
                                 pageSizeOptions={[1, 5]}
-=======
-                                pageSizeOptions={[1]}
->>>>>>> 06f5434 (Change in structure and how to deal with groups and sessions)
                                 disableRowSelectionOnClick
                                 localeText={localeText}
                             />
                         </Box>
                     </Box>
-<<<<<<< HEAD
-<<<<<<< HEAD
                     {loading ? <CircularProgress /> : (currentSession.length < 1 && <form onSubmit={handleCreateSession}>
-=======
-                    {loading ? <CircularProgress /> : <form onSubmit={handleCreateSession}>
->>>>>>> 06f5434 (Change in structure and how to deal with groups and sessions)
-=======
-                    {loading ? <CircularProgress /> : (currentSession.length < 1 && <form onSubmit={handleCreateSession}>
->>>>>>> 0f792c9 (create group ok)
                         <FormControl
                             sx={{
                                 marginTop: theme.spacing(1),
@@ -351,15 +251,7 @@ export default function Accueil(searchParams: any) {
                             </div>
                         </FormControl>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
                     </form>)}
-=======
-                    </form>}
->>>>>>> 06f5434 (Change in structure and how to deal with groups and sessions)
-=======
-                    </form>)}
->>>>>>> 0f792c9 (create group ok)
 
                     <Box marginTop={8} height={400}>
                         <h2>{t('abc-previous-session')}</h2>
