@@ -8,7 +8,7 @@ const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
 const myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 
-export async function getSessionsStudents(idGroup: number) {
+export async function getSessionsStudents(idGroup: string) {
     try {
         const result = await fetch(urlApi + "/sessions/" + idGroup)
         const sessions = await result.json()

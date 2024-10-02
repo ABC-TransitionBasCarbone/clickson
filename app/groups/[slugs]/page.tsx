@@ -32,7 +32,7 @@ export const AccueilWrapper = styled(Box)`
     a { color: #6d6d6d; }
     a:hover { color: black; }
 `
-export default function Accueil(searchParams: any) {
+export default function Accueil({ params }: { params: { slug: string } }) {
     const theme = useTheme();
 
     const [currentSession, setCurrentSessions] = useState<Session[]>([]);
@@ -56,7 +56,7 @@ export default function Accueil(searchParams: any) {
             return
         }
         const user = await getUserCookies()
-        const session = await createSession(formData.get("sessionName")?.toString() || "", user, searchParams.params.slugs)
+        const session = await createSession(formData.get("sessionName")?.toString() || "", user, params.slug)
         setCurrentSessions(currentSession.concat(session))
     }
 
@@ -198,7 +198,7 @@ export default function Accueil(searchParams: any) {
 
     const fetchSessions = async () => {
         setLoading(true);
-        const sessions = await getSessionsStudents(searchParams.params.slugs)
+        const sessions = await getSessionsStudents(params.slug)
         setCurrentSessions(sessions.filter(g => !g.archived && !g.deleted));
         setSessions(sessions.filter(g => g.archived && !g.deleted));
         setLoading(false);
@@ -230,7 +230,7 @@ export default function Accueil(searchParams: any) {
                                         },
                                     },
                                 }}
-                                pageSizeOptions={[1]}
+                                pageSizeOptions={[5]}
                                 disableRowSelectionOnClick
                                 localeText={localeText}
                             />
