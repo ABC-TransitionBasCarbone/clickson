@@ -74,8 +74,9 @@ interface Props {
     borderColor: string
 }
 
-export const CategoryItem = ({ category, borderColor }: Props) => {
-    const { t } = useTranslation();
+export const CategoryItem = ({category, borderColor}: Props) => {
+    const router = useRouter();
+    const {t} = useTranslation();
 
     const conatinerStyle = {
         justifyContent: "center",
@@ -89,7 +90,7 @@ export const CategoryItem = ({ category, borderColor }: Props) => {
     }
 
     return (<Grid container xs={12} sm={2} sx={conatinerStyle}>
-        <CustomH3>{t(`abc-${category.label.toLocaleLowerCase().replace(" ", "-")}`)}</CustomH3>
+        <CustomH3>{t(category.label)}</CustomH3>
         <Paragraph>
             {t(category.detail)}
         </Paragraph>
