@@ -17,6 +17,7 @@ import { getCategories, getSessionCategories } from '@/api/categories';
 import { getLanguages } from '@/api/languages';
 import Establishment from '@/app/components/establishment/Establishment';
 import { Category } from '@/app/types/Category';
+import { useParams } from 'next/navigation'
 
 const CustomContainer = styled('div')`
     position: fixed;
@@ -80,8 +81,9 @@ const DividerSmall = styled("hr")`
 `;
 
 
-export default function Dashboard({ params }: { params: { slug: string } }) {
+export default function Dashboard() {
     const { t, i18n } = useTranslation();
+    const params = useParams()
 
     const theme = useTheme();
 
@@ -93,14 +95,13 @@ export default function Dashboard({ params }: { params: { slug: string } }) {
     }, []);
 
     const fetchCategories = async () => {
+        console.log("🚀 ~ fetchCategories ~ params.dashboard:", params.dashboard)
 
         setLoadingCategories(true);
         try {
             const idLanguage = await getLanguages(i18n.language);
             let categories = (await getCategories(idLanguage)) as Category[];
-            console.log("🚀 ~ fetchCategories ~ categories:", categories)
-            const sessionCategories = (await getSessionCategories(params.slug)) as Category[];
-            console.log("🚀 ~ fetchCategories ~ sessionCategories:", sessionCategories)
+            const sessionCategories = (await getSessionCategories(params.dashboard)) as Category[];
             categories = categories.map(c => ({ ...c, id_session_emission_categorie: sessionCategories.filter(sessionCategorie => sessionCategorie.id_emission_categorie === c.id)[0].id_emission_categorie }))
 
             setCategories(categories);
@@ -131,7 +132,7 @@ export default function Dashboard({ params }: { params: { slug: string } }) {
 
 
                     <Establishment />
-                    <Link href={"/session/" + params.slug}>
+                    <Link href={"/session/" + params.dashboard}>
                         <HomeIcon fontSize="large" />
                     </Link>
                     <CustomH6>

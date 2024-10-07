@@ -17,8 +17,9 @@ import { Session } from '@/app/types/Session';
 import { styled } from "@mui/system";
 import { archiveStudentSession, createSession, getSessionsStudents } from '@/api/sessions';
 import { getUserCookies } from '@/api/auth';
+import { useParams } from 'next/navigation'
 
- const CustomContainer = styled('div')`
+const CustomContainer = styled('div')`
     position: fixed;
     top: 0;
     left: 0;
@@ -32,7 +33,7 @@ const AccueilWrapper = styled(Box)`
     a { color: #6d6d6d; }
     a:hover { color: black; }
 `
-export default function Accueil({ params }: { params: { slug: string } }) {
+export default function Sessions() {
     const theme = useTheme();
 
     const [currentSession, setCurrentSessions] = useState<Session[]>([]);
@@ -51,12 +52,13 @@ export default function Accueil({ params }: { params: { slug: string } }) {
 
     const handleCreateSession = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
+
         const formData = new FormData(event.currentTarget)
         if (formData.get("sessionName")?.toString() === null) {
             return
         }
         const user = await getUserCookies()
-        const session = await createSession(formData.get("sessionName")?.toString() || "", user, params.slug)
+        const session = await createSession(formData.get("sessionName")?.toString() || "", user, params.session)
         setCurrentSessions(currentSession.concat(session))
     }
 
@@ -195,10 +197,12 @@ export default function Accueil({ params }: { params: { slug: string } }) {
         columnMenuManageColumns: t('abc-column-menu-manage-columns'),
         columnMenuShowHideAll: t('abc-column-menu-show-hide-all'),
     };
+    const params = useParams()
 
     const fetchSessions = async () => {
+    
         setLoading(true);
-        const sessions = await getSessionsStudents(params.slug)
+        const sessions = await getSessionsStudents(params.session)
         setCurrentSessions(sessions.filter(g => !g.archived && !g.deleted));
         setSessions(sessions.filter(g => g.archived && !g.deleted));
         setLoading(false);

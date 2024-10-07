@@ -12,7 +12,8 @@ export async function getCategories(id_language: number) {
     }
 
 }
-export async function getSessionCategories(id_session_student: string) {
+export async function getSessionCategories(id_session_student: string | string[]) {
+    console.log("🚀 ~ getSessionCategories ~ id_session_student:", id_session_student)
     try {
         const result = await fetch(urlApi + "/session-categories/" + id_session_student);
         return await result.json();

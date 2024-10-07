@@ -8,16 +8,16 @@ const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
 const myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 
-export async function getSessionsStudents(idGroup: string) {
+export async function getSessionsStudents(idGroup: string | string[]) {
     try {
         const result = await fetch(urlApi + "/sessions/" + idGroup)
         const sessions = await result.json()
         if (sessions.errors) {
-            console.error("Failed to getSessions" + sessions.errors);
+            console.error("Failed to getSessions " + sessions.errors);
         }
         return sessions as Session[];
     } catch (error) {
-        console.error("Failed to getSessions" + error);
+        console.error("Failed to getSessions " + error);
         return [];
     }
 }
@@ -43,7 +43,7 @@ export async function archiveStudentSession(session: Session) {
     return session.id
 }
 
-export async function createSession(sessionName: string, user: User, idGroup: string) {
+export async function createSession(sessionName: string, user: User, idGroup: string | string[]) {
     const data = JSON.stringify({
         "name": sessionName,
         "year": new Date().getFullYear(),

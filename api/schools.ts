@@ -14,7 +14,7 @@ export async function getSchool(adminEmail: string) {
         if (school.errors) {
             console.error("Failed to getSchool" + school.errors);
         }
-        return school[0] as School;
+        return school as School;
     } catch (error) {
         console.error("Failed to getSchool" + error);
 

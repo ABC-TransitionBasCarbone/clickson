@@ -75,7 +75,6 @@ interface Props {
 }
 
 export const CategoryItem = ({category, borderColor}: Props) => {
-    const router = useRouter();
     const {t} = useTranslation();
 
     const conatinerStyle = {

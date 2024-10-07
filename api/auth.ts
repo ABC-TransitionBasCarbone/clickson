@@ -43,7 +43,6 @@ export async function getCurrentUser(username: string, password: string, remembe
             return login;
         }
         const school = await getSchool(login.user_email)
-
         cookies().set('user', JSON.stringify({ ...login, role: "teacher", school: school }))
         return login;
     } catch (error) {
