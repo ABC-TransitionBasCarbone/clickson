@@ -2,12 +2,12 @@ import { getUserCookies } from "@/api/auth";
 import theme from "@/app/theme";
 import { School } from "@/app/types/School";
 import { LoadingButton } from "@mui/lab";
-import { Grid, CircularProgress, Modal, Backdrop, Fade, Typography, Alert, FormControl, TextField } from "@mui/material";
+import { Grid, CircularProgress, Modal, Backdrop, Fade, Typography, Alert, FormControl, TextField, Button } from "@mui/material";
 import { Box, styled } from "@mui/system";
 import { t } from "i18next";
 import { useState, FormEvent, useEffect } from "react";
 import EditIcon from '@mui/icons-material/Edit';
-import { editSchool, getSchool } from "@/api/schools";
+import { editSchool } from "@/api/schools";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -40,13 +40,11 @@ export default function Establishment() {
     }
 
     const [showSuccess, setShowSuccess] = useState(false);
-    const [showError, setShowError] = useState(false);
     const [school, setSchool] = useState<School | null>();
 
     const updateSchool = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         const formData = new FormData(event.currentTarget)
-
         const schoolReturn = await editSchool(formData, school)
         setSchool(schoolReturn)
         setShowSuccess(true)
@@ -68,8 +66,8 @@ export default function Establishment() {
             <Grid item xs={12} sm={3} sx={{ display: 'flex', alignItems: 'center' }}>
                 <h2>{t('abc-my-school')}</h2>
             </Grid>
-            <Grid item xs={12} sm={9} sx={{ display: 'flex', alignItems: 'center', cursor: "pointer" }} onClick={handleOpen}>
-                {school && <EditIcon />}
+            <Grid item xs={12} sm={9} sx={{ display: 'flex', alignItems: 'center'}} >
+                <Button onClick={handleOpen}> {school && <EditIcon />}</Button>
             </Grid>
         </Grid>
         {
@@ -109,9 +107,6 @@ export default function Establishment() {
                     </Typography>
                     {showSuccess ? <><Alert severity="success" sx={{ marginTop: theme.spacing(2) }}>
                         {t('abc-school-update-successfully')}</Alert> </> : <span></span>
-                    }
-                    {showError ? <Alert severity="error" sx={{ marginTop: theme.spacing(2) }}>
-                        {t('abc-school-update-error')}</Alert> : <span></span>
                     }
                     <form onSubmit={updateSchool}>
                         <FormControl

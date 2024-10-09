@@ -15,12 +15,10 @@ import { useTranslation } from "react-i18next";
 import Establishment from '@/app/components/establishment/Establishment';
 import { Session } from '@/app/types/Session';
 import { styled } from "@mui/system";
-import { archiveStudentSession, createSession, getSessionsStudents } from '@/api/sessions';
+import { archiveStudentSession, createSession, getSessionsStudentsByGroup } from '@/api/sessions';
 import { getUserCookies } from '@/api/auth';
 import { useParams } from 'next/navigation'
-type Params = {
-    session: string;
-}
+import { Params } from '@/app/types/Params';
 
 const CustomContainer = styled('div')`
     position: fixed;
@@ -209,7 +207,7 @@ export default function Sessions() {
     const fetchSessions = async () => {
 
         setLoading(true);
-        const sessions = await getSessionsStudents(params.session)
+        const sessions = await getSessionsStudentsByGroup(params.session)
         setCurrentSessions(sessions.filter(g => !g.archived && !g.deleted));
         setSessions(sessions.filter(g => g.archived && !g.deleted));
         setLoading(false);

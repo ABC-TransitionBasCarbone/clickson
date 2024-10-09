@@ -8,10 +8,9 @@ const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
 const myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 
-export async function getSessionsStudents(idGroup: string) {
-    console.log("🚀 ~ getSessionsStudents ~ idGroup:", idGroup)
+export async function getSessionsStudentsByGroup(idGroup: string) {
     try {
-        const result = await fetch(urlApi + "/sessions/" + idGroup)
+        const result = await fetch(urlApi + "/sessions?id_group=" + idGroup)
         const sessions = await result.json()
         if (sessions.errors) {
             console.error("Failed to getSessions " + sessions.errors);
@@ -23,6 +22,18 @@ export async function getSessionsStudents(idGroup: string) {
     }
 }
 
+export async function getSessionStudent(id: string) {
+    try {
+        const result = await fetch(urlApi + "/sessions/" + id)
+        const sessions = await result.json()
+        if (sessions.errors) {
+            console.error("Failed to getSessions " + sessions.errors);
+        }
+        return sessions[0] as Session;
+    } catch (error) {
+        throw error
+    }
+}
 
 export async function archiveStudentSession(session: Session) {
     session = {

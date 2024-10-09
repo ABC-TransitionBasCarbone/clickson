@@ -17,9 +17,17 @@ import { getCategories, getSessionCategories } from '@/api/categories';
 import Establishment from '@/app/components/establishment/Establishment';
 import { Category } from '@/app/types/Category';
 import { useParams } from 'next/navigation'
-type Params = {
-    dashboard: string;
-}
+import { Params } from '@/app/types/Params';
+import { getSessionStudent } from '@/api/sessions';
+
+const borderColors = [
+    "#1c82b8",
+    "#11990F",
+    "#ff4040",
+    "#ffae42",
+    "#800080"
+]
+
 const CustomContainer = styled('div')`
     position: fixed;
     top: 0;
@@ -83,13 +91,14 @@ const DividerSmall = styled("hr")`
 
 
 export default function Dashboard() {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     const params = useParams<Params>()
 
     const theme = useTheme();
 
     const [loadingCategories, setLoadingCategories] = useState(false);
     const [categories, setCategories] = useState<Category[]>([]);
+    const [idSessionStudent, setIdSessionStudent] = useState("");
 
     useEffect(() => {
         fetchCategories();
@@ -100,19 +109,18 @@ export default function Dashboard() {
         try {
             const sessionCategories = await getSessionCategories(params.dashboard);
 
+            // TODO trouver une manière de gérer la langue de manière uniforme
             const idLanguage = sessionCategories[0]?.id_emission_categorie || 1;
 
+            const studentSession = await getSessionStudent(sessionCategories[0].id_session_student || "")
+            setIdSessionStudent(studentSession.id_group || "");
 
             let categories = await getCategories(idLanguage);
-
-            /**
-             * Error of language
-             */
             categories = categories.map(c =>
             ({
                 ...c,
-                id_session_emission_categorie: sessionCategories.filter(sessionCategorie =>
-                    sessionCategorie.id_emission_categorie === c.id)[0].id_emission_categorie
+                id_session_emission_categorie: (sessionCategories.filter(sessionCategorie =>
+                    sessionCategorie.id_emission_categorie === c.id)[0]?.id_emission_categorie || 0).toString()
             }))
 
             setCategories(categories);
@@ -122,14 +130,6 @@ export default function Dashboard() {
             setLoadingCategories(false);
         }
     }
-
-    const borderColors = [
-        "#1c82b8",
-        "#11990F",
-        "#ff4040",
-        "#ffae42",
-        "#800080"
-    ]
 
     return (
         <>
@@ -143,7 +143,7 @@ export default function Dashboard() {
 
 
                     <Establishment />
-                    <Link href={"/session/" + params.dashboard}>
+                    <Link href={"/groups/" + idSessionStudent}>
                         <HomeIcon fontSize="large" />
                     </Link>
                     <CustomH6>

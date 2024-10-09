@@ -1,6 +1,8 @@
 'use server'
 
 import { School } from "@/app/types/School";
+import { getUserCookies } from "./auth";
+import { cookies } from "next/headers";
 
 const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
 
@@ -37,8 +39,13 @@ export async function editSchool(formData: FormData, school: School | undefined 
         body: data
     } as RequestInit;
 
+
     try {
         await fetch(urlApi + "/school", requestOptions)
+        
+        const userSession = await getUserCookies()
+        cookies().set('user', JSON.stringify({ ...userSession, school: school }))
+
         return school;
     } catch (error) {
         console.error(error);
