@@ -14,7 +14,6 @@ import { CategoryItem } from '../../components/dashboard/Category';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useTranslation } from "react-i18next";
 import { getCategories, getSessionCategories } from '@/api/categories';
-import { getLanguages } from '@/api/languages';
 import Establishment from '@/app/components/establishment/Establishment';
 import { Category } from '@/app/types/Category';
 import { useParams } from 'next/navigation'
@@ -99,10 +98,22 @@ export default function Dashboard() {
     const fetchCategories = async () => {
         setLoadingCategories(true);
         try {
-            const idLanguage = await getLanguages(i18n.language);
-            let categories = (await getCategories(idLanguage)) as Category[];
-            const sessionCategories = (await getSessionCategories(params.dashboard)) as Category[];
-            categories = categories.map(c => ({ ...c, id_session_emission_categorie: sessionCategories.filter(sessionCategorie => sessionCategorie.id_emission_categorie === c.id)[0].id_emission_categorie }))
+            const sessionCategories = await getSessionCategories(params.dashboard);
+
+            const idLanguage = sessionCategories[0]?.id_emission_categorie || 1;
+
+
+            let categories = await getCategories(idLanguage);
+
+            /**
+             * Error of language
+             */
+            categories = categories.map(c =>
+            ({
+                ...c,
+                id_session_emission_categorie: sessionCategories.filter(sessionCategorie =>
+                    sessionCategorie.id_emission_categorie === c.id)[0].id_emission_categorie
+            }))
 
             setCategories(categories);
             setLoadingCategories(false);

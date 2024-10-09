@@ -45,13 +45,17 @@ export default function Groups() {
     }
 
     const handleCreateGroup = async (event: FormEvent<HTMLFormElement>) => {
+        setLoading(true);
+
         event.preventDefault()
         const formData = new FormData(event.currentTarget)
         if (formData.get("groupName") === null) {
             return
         }
-        const group = await createGroup(formData.get("groupName")?.toString() || "", user.user_email, "1")
+        const userSession = await getUserCookies()
+        const group = await createGroup(formData.get("groupName")?.toString() || "", user.user_email, userSession.school.id)
         setCurrentGroups(currentGroup.concat(group))
+        setLoading(false);
     }
 
     const columnsCurrent = [

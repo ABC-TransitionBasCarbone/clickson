@@ -43,19 +43,20 @@ export default function Sessions() {
     const [sessions, setSessions] = useState<Session[]>([]);
     const [loading, setLoading] = useState(false);
     const { t } = useTranslation();
+    const params = useParams<Params>()
 
     const deleteCurrentSession = (s: Session) => {
         archiveStudentSession(s)
-        setCurrentSessions(currentSession.filter((e: Session) => s.id != e.id));
+        setCurrentSessions(currentSession => currentSession.filter((e: Session) => s.id != e.id));
     }
 
     const deleteSession = (session: Session) => {
-        setSessions(sessions.filter((s: Session) => session.id != s.id));
+        setSessions(prevSessions => prevSessions.filter((s: Session) => session.id != s.id));
     }
-    const params = useParams<Params>()
-
 
     const handleCreateSession = async (event: FormEvent<HTMLFormElement>) => {
+        setLoading(true);
+
         event.preventDefault()
 
         const formData = new FormData(event.currentTarget)
@@ -65,6 +66,8 @@ export default function Sessions() {
         const user = await getUserCookies()
         const session = await createSession(formData.get("sessionName")?.toString() || "", user, params.session)
         setCurrentSessions(currentSession.concat(session))
+        setLoading(false);
+
     }
 
     const columnsCurrent = [
