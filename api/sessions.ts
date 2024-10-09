@@ -9,7 +9,6 @@ const myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 
 export async function getSessionsStudents(idGroup: string) {
-    console.log("🚀 ~ getSessionsStudents ~ idGroup:", idGroup)
     try {
         const result = await fetch(urlApi + "/sessions/" + idGroup)
         const sessions = await result.json()
