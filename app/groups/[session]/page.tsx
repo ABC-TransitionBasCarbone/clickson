@@ -18,7 +18,9 @@ import { styled } from "@mui/system";
 import { archiveStudentSession, createSession, getSessionsStudents } from '@/api/sessions';
 import { getUserCookies } from '@/api/auth';
 import { useParams } from 'next/navigation'
-import { Params } from '@/app/types/Params';
+type Params = {
+    session: string;
+}
 
 const CustomContainer = styled('div')`
     position: fixed;
@@ -61,7 +63,7 @@ export default function Sessions() {
             return
         }
         const user = await getUserCookies()
-        const session = await createSession(formData.get("sessionName")?.toString() || "", user, params.id)
+        const session = await createSession(formData.get("sessionName")?.toString() || "", user, params.session)
         setCurrentSessions(currentSession.concat(session))
     }
 
@@ -204,7 +206,7 @@ export default function Sessions() {
     const fetchSessions = async () => {
 
         setLoading(true);
-        const sessions = await getSessionsStudents(params.id)
+        const sessions = await getSessionsStudents(params.session)
         setCurrentSessions(sessions.filter(g => !g.archived && !g.deleted));
         setSessions(sessions.filter(g => g.archived && !g.deleted));
         setLoading(false);

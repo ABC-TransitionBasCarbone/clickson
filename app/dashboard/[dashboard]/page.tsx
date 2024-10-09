@@ -18,8 +18,9 @@ import { getLanguages } from '@/api/languages';
 import Establishment from '@/app/components/establishment/Establishment';
 import { Category } from '@/app/types/Category';
 import { useParams } from 'next/navigation'
-import { Params } from '@/app/types/Params';
-
+type Params = {
+    dashboard: string;
+}
 const CustomContainer = styled('div')`
     position: fixed;
     top: 0;
@@ -100,7 +101,7 @@ export default function Dashboard() {
         try {
             const idLanguage = await getLanguages(i18n.language);
             let categories = (await getCategories(idLanguage)) as Category[];
-            const sessionCategories = (await getSessionCategories(params.id)) as Category[];
+            const sessionCategories = (await getSessionCategories(params.dashboard)) as Category[];
             categories = categories.map(c => ({ ...c, id_session_emission_categorie: sessionCategories.filter(sessionCategorie => sessionCategorie.id_emission_categorie === c.id)[0].id_emission_categorie }))
 
             setCategories(categories);
@@ -131,7 +132,7 @@ export default function Dashboard() {
 
 
                     <Establishment />
-                    <Link href={"/session/" + params.id}>
+                    <Link href={"/session/" + params.dashboard}>
                         <HomeIcon fontSize="large" />
                     </Link>
                     <CustomH6>
