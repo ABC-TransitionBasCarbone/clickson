@@ -18,6 +18,7 @@ import { getLanguages } from '@/api/languages';
 import Establishment from '@/app/components/establishment/Establishment';
 import { Category } from '@/app/types/Category';
 import { useParams } from 'next/navigation'
+import { Params } from '@/app/types/Params';
 
 const CustomContainer = styled('div')`
     position: fixed;
@@ -83,7 +84,7 @@ const DividerSmall = styled("hr")`
 
 export default function Dashboard() {
     const { t, i18n } = useTranslation();
-    const { idSessionStudent } = useParams()
+    const params = useParams<Params>()
 
     const theme = useTheme();
 
@@ -95,13 +96,11 @@ export default function Dashboard() {
     }, []);
 
     const fetchCategories = async () => {
-        console.log("🚀 ~ fetchCategories ~ params.dashboard:", idSessionStudent)
-
         setLoadingCategories(true);
         try {
             const idLanguage = await getLanguages(i18n.language);
             let categories = (await getCategories(idLanguage)) as Category[];
-            const sessionCategories = (await getSessionCategories(idSessionStudent as string )) as Category[];
+            const sessionCategories = (await getSessionCategories(params.id)) as Category[];
             categories = categories.map(c => ({ ...c, id_session_emission_categorie: sessionCategories.filter(sessionCategorie => sessionCategorie.id_emission_categorie === c.id)[0].id_emission_categorie }))
 
             setCategories(categories);
@@ -132,7 +131,7 @@ export default function Dashboard() {
 
 
                     <Establishment />
-                    <Link href={"/session/" + idSessionStudent}>
+                    <Link href={"/session/" + params.id}>
                         <HomeIcon fontSize="large" />
                     </Link>
                     <CustomH6>
