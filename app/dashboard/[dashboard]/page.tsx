@@ -83,7 +83,7 @@ const DividerSmall = styled("hr")`
 
 export default function Dashboard() {
     const { t, i18n } = useTranslation();
-    const params = useParams()
+    const { idSessionStudent } = useParams()
 
     const theme = useTheme();
 
@@ -95,13 +95,13 @@ export default function Dashboard() {
     }, []);
 
     const fetchCategories = async () => {
-        console.log("🚀 ~ fetchCategories ~ params.dashboard:", params.dashboard)
+        console.log("🚀 ~ fetchCategories ~ params.dashboard:", idSessionStudent)
 
         setLoadingCategories(true);
         try {
             const idLanguage = await getLanguages(i18n.language);
             let categories = (await getCategories(idLanguage)) as Category[];
-            const sessionCategories = (await getSessionCategories(params.dashboard)) as Category[];
+            const sessionCategories = (await getSessionCategories(idSessionStudent as string )) as Category[];
             categories = categories.map(c => ({ ...c, id_session_emission_categorie: sessionCategories.filter(sessionCategorie => sessionCategorie.id_emission_categorie === c.id)[0].id_emission_categorie }))
 
             setCategories(categories);
@@ -132,7 +132,7 @@ export default function Dashboard() {
 
 
                     <Establishment />
-                    <Link href={"/session/" + params.dashboard}>
+                    <Link href={"/session/" + idSessionStudent}>
                         <HomeIcon fontSize="large" />
                     </Link>
                     <CustomH6>

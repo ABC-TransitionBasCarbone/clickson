@@ -43,7 +43,7 @@ export async function archiveStudentSession(session: Session) {
     return session.id
 }
 
-export async function createSession(sessionName: string, user: User, idGroup: string | string[]) {
+export async function createSession(sessionName: string, user: User, idGroup: string) {
     const data = JSON.stringify({
         "name": sessionName,
         "year": new Date().getFullYear(),

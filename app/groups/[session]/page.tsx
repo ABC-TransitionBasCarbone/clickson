@@ -49,6 +49,8 @@ export default function Sessions() {
     const deleteSession = (session: Session) => {
         setSessions(sessions.filter((s: Session) => session.id != s.id));
     }
+    const { idGroup } = useParams()
+
 
     const handleCreateSession = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
@@ -58,7 +60,7 @@ export default function Sessions() {
             return
         }
         const user = await getUserCookies()
-        const session = await createSession(formData.get("sessionName")?.toString() || "", user, params.session)
+        const session = await createSession(formData.get("sessionName")?.toString() || "", user, idGroup as string )
         setCurrentSessions(currentSession.concat(session))
     }
 
@@ -197,12 +199,11 @@ export default function Sessions() {
         columnMenuManageColumns: t('abc-column-menu-manage-columns'),
         columnMenuShowHideAll: t('abc-column-menu-show-hide-all'),
     };
-    const params = useParams()
 
     const fetchSessions = async () => {
-    
+
         setLoading(true);
-        const sessions = await getSessionsStudents(params.session)
+        const sessions = await getSessionsStudents(idGroup)
         setCurrentSessions(sessions.filter(g => !g.archived && !g.deleted));
         setSessions(sessions.filter(g => g.archived && !g.deleted));
         setLoading(false);
