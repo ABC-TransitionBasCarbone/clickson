@@ -1,7 +1,7 @@
-import {Grid, Box, Link} from "@mui/material";
+import {Grid, Box} from "@mui/material";
 
 import {styled} from "@mui/system";
-import LanguageSwitcher from "@/app/components/LanguageSwitcher/LanguageSwitcher";
+import LanguageSwitcher from "@/app/components/language-switcher/LanguageSwitcher";
 
 const UsernameBox = styled('div')(({ theme }) => ({
     a: {

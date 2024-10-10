@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function middleware(request: NextRequest) {
   const user = request.cookies.has('user')
   if (user && (request.nextUrl.pathname === "/" || request.nextUrl.pathname === "/sign-up")) {
-   return NextResponse.redirect(new URL('/accueil', request.url))
+   return NextResponse.redirect(new URL('/groups', request.url))
   } else if (!user && (request.nextUrl.pathname !== "/") && (request.nextUrl.pathname !== "/sign-up")) {
     return NextResponse.redirect(new URL('/', request.url))
   }

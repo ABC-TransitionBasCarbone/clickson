@@ -1,6 +1,5 @@
 'use server';
 
-
 const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
 
 export async function getEmissions(id: number) {

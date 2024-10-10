@@ -1,23 +1,23 @@
 'use client'
 
-import {getSession, login, logout} from "@/api/auth";
+import {login, logout} from "@/api/auth";
 import {FormEvent, useEffect, useState} from "react";
 import {useRouter} from 'next/navigation'
 import {Grid, useMediaQuery} from "@mui/material";
 import Container from "@mui/material/Container";
-import { styled} from "@mui/system";
-import {Header} from './components/login/header';
-import {Form} from './components/login/form'
-import {Footer} from './components/login/footer'
-import {useTheme} from "@mui/material/styles";
-import {useTranslation} from "react-i18next";
+import { styled } from "@mui/system";
+import { Header } from './components/login/header';
+import { Form } from './components/login/form'
+import { Footer } from './components/login/footer'
+import { useTheme } from "@mui/material/styles";
+import { useTranslation } from "react-i18next";
 
 export default function Page() {
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
 
-    const CustomContainer = styled(Grid)(({theme}) => ({
+    const CustomContainer = styled(Grid)(({ theme }) => ({
         position: isSmallScreen ? 'relative' : 'fixed',
         top: 0,
         left: 0,
@@ -30,7 +30,7 @@ export default function Page() {
     const [session, setSession] = useState({})
     const [loading, setLoading] = useState(false)
     const [correctUserInfo, setCorrectUserInfo] = useState(true)
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     const [buttonValue, setButtonValue] = useState(t('abc-login-button'))
     const bValue = t('abc-login-button');
 
@@ -45,12 +45,11 @@ export default function Page() {
         const formData = new FormData(event.currentTarget)
         login(formData).then(result => {
             if (!result.errors) {
-                router.push("/accueil")
+                router.push("/groups")
             } else {
                 setLoading(false);
                 setButtonValue(t('abc-login'))
                 setCorrectUserInfo(false);
-
             }
         });
     }
@@ -67,13 +66,15 @@ export default function Page() {
 
     return (
         <>
-            <CustomContainer>
-                <Header logoPosition="flex-end"/>
-            </CustomContainer>
+            <div>
+                <CustomContainer>
+                    <Header logoPosition="flex-end" />
+                </CustomContainer>
+            </div>
             <Container>
-                <Form correctUserInfo={correctUserInfo} onLogin={onLogin} loading={loading} buttonValue={buttonValue} goToSignUp={goToSignUp}/>
+                <Form correctUserInfo={correctUserInfo} onLogin={onLogin} loading={loading} buttonValue={buttonValue} goToSignUp={goToSignUp} />
             </Container>
-            <Footer/>
+            <Footer />
         </>
     );
 }

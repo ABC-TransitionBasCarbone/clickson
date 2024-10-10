@@ -8,26 +8,28 @@ export const Footer = () => {
 
 
     return (
-        <Box component="footer" sx={{
-            width: "100%",
-            display: 'flex',
-            visibility: isSmallScreen ? 'hidden' : 'visible',
-            alignItems: "center",
-            flexDirection: "column",
-            mt: 'auto',
-            position: isSmallScreen ? 'relative' : 'fixed',
-            bottom: 0,
-            mb: isSmallScreen ? 5 : 0,
-        }}
-        >
+        <div>
+            <Box component="footer" sx={{
+                width: "100%",
+                display: 'flex',
+                visibility: isSmallScreen ? 'hidden' : 'visible',
+                alignItems: "center",
+                flexDirection: "column",
+                mt: 'auto',
+                position: isSmallScreen ? 'relative' : 'fixed',
+                bottom: 0,
+                mb: isSmallScreen ? 5 : 0,
+            }}
+            >
 
-            <img src={waveBG.src} alt="logo" style={{
-                maxWidth: '100%',
-                height: 'auto',
+                <img src={waveBG.src} alt="logo" style={{
+                    maxWidth: '100%',
+                    height: 'auto',
 
-            }} />
+                }} />
 
-        </Box>
+            </Box>
+        </div>
     )
 
 }

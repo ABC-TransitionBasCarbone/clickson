@@ -1,7 +1,7 @@
 'use client'
 
 import { useTranslation } from "react-i18next";
-import { DataToFill } from "../types/DataType";
+import { DataToFill } from "../types/DataToFill";
 
 export const useDataToFill = () => {
     const { t } = useTranslation();

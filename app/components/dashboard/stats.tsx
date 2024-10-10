@@ -53,7 +53,7 @@ const DownloadButton = styled(Button)(({theme}) => ({
 
 export const Stats = () => {
     const theme = useTheme();
-    const { t } = useTranslation();
+    const {t} = useTranslation();
 
     const labels = [t("abc-energy"), t("abc-food-service"), t('abc-travel'), t('abc-supplies'), t('abc-fixed-assets')];
     const data = convertToPercentage([54434, 225882, 221, 12339, 6863])
