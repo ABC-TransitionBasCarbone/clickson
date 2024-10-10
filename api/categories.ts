@@ -5,19 +5,24 @@ import { SessionCategory } from "@/app/types/SessionCategory";
 
 const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
 
-export async function getCategories(id_language: number) {
+export async function getCategories(idLanguage: number) {
     try {
-        const result = await fetch(urlApi + "/emission/categories/" + id_language);
+        const result = await fetch(urlApi + "/emission/categories/" + idLanguage);
         return await result.json() as Category[]
     } catch (error) {
         throw error
     }
 
 }
-export async function getSessionCategories(id_session_student: string) {
+export async function getSessionCategories(id_session_student: string, idLanguage: number) {
+    const categories = await getCategories(idLanguage)
+
     try {
         const result = await fetch(urlApi + "/session-categories/" + id_session_student);
-        return  await result.json() as SessionCategory[];        
+        let sessionCategories = await result.json() as SessionCategory[];
+        sessionCategories = sessionCategories.map((sessionCategory, index) => ({ ...sessionCategory, id_emission_categorie: categories[index].id }))
+
+        return sessionCategories
     } catch (error) {
         throw error
     }

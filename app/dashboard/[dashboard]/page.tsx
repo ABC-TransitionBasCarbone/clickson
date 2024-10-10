@@ -19,6 +19,7 @@ import { Category } from '@/app/types/Category';
 import { useParams } from 'next/navigation'
 import { Params } from '@/app/types/Params';
 import { getSessionStudent } from '@/api/sessions';
+import { getLanguages } from '@/api/languages';
 
 const borderColors = [
     "#1c82b8",
@@ -91,7 +92,7 @@ const DividerSmall = styled("hr")`
 
 
 export default function Dashboard() {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const params = useParams<Params>()
 
     const theme = useTheme();
@@ -107,10 +108,9 @@ export default function Dashboard() {
     const fetchCategories = async () => {
         setLoadingCategories(true);
         try {
-            const sessionCategories = await getSessionCategories(params.dashboard);
+            const idLanguage = await getLanguages(i18n.language);
 
-            // TODO trouver une manière de gérer la langue de manière uniforme
-            const idLanguage = sessionCategories[0]?.id_emission_categorie || 1;
+            const sessionCategories = await getSessionCategories(params.dashboard, idLanguage);
 
             const studentSession = await getSessionStudent(sessionCategories[0].id_session_student || "")
             setIdSessionStudent(studentSession.id_group || "");
@@ -119,8 +119,8 @@ export default function Dashboard() {
             categories = categories.map(c =>
             ({
                 ...c,
-                id_session_emission_categorie: (sessionCategories.filter(sessionCategorie =>
-                    sessionCategorie.id_emission_categorie === c.id)[0]?.id_emission_categorie || 0).toString()
+                id_session_emission_categorie: sessionCategories.filter(sessionCategorie =>
+                    sessionCategorie.id_emission_categorie === c.id)[0]?.id
             }))
 
             setCategories(categories);
