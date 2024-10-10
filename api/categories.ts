@@ -14,11 +14,9 @@ export async function getCategories(idLanguage: number) {
     }
 
 }
-export async function getSessionCategories(id_session_student: string, idLanguage: number) {
-    const categories = await getCategories(idLanguage)
-
+export async function getSessionCategories(idSessionStudent: string, categories: Category[]) {
     try {
-        const result = await fetch(urlApi + "/session-categories/" + id_session_student);
+        const result = await fetch(urlApi + "/session-categories/" + idSessionStudent);
         let sessionCategories = await result.json() as SessionCategory[];
         sessionCategories = sessionCategories.map((sessionCategory, index) => ({ ...sessionCategory, id_emission_categorie: categories[index].id }))
 

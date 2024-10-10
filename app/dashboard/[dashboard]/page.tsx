@@ -109,13 +109,12 @@ export default function Dashboard() {
         setLoadingCategories(true);
         try {
             const idLanguage = await getLanguages(i18n.language);
-
-            const sessionCategories = await getSessionCategories(params.dashboard, idLanguage);
+            let categories = await getCategories(idLanguage);
+            const sessionCategories = await getSessionCategories(params.dashboard, categories);
 
             const studentSession = await getSessionStudent(sessionCategories[0].id_session_student || "")
             setIdSessionStudent(studentSession.id_group || "");
 
-            let categories = await getCategories(idLanguage);
             categories = categories.map(c =>
             ({
                 ...c,
