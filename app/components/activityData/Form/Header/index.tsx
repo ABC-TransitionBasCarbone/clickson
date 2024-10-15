@@ -1,6 +1,7 @@
 import { Divider } from "@mui/material"
 import { useTranslation } from "react-i18next";
 import { StyledContainer, classes } from "../styles";
+import { SubCategory } from "@/app/types/SubCategory";
 
 interface ActivityDataFormHeaderProps {
     domain: string;

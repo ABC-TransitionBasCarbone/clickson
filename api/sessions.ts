@@ -1,12 +1,26 @@
 'use server'
 
 import { Session } from "@/app/types/Session";
+import { SessionSubCategory } from "@/app/types/SessionSubCategory";
 import { User } from "@/app/types/User";
 
 const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
 
 const myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
+
+export async function getSessionSubCategoriesWithIdSessionCategory(idsessioncategory: string) {
+    try {
+        const result = await fetch(urlApi + "/session-sub-categories/" + idsessioncategory)
+        const sessionsSubCategories = await result.json()
+        if (sessionsSubCategories.errors) {
+            console.error("Failed to getSessions " + sessionsSubCategories.errors);
+        }
+        return sessionsSubCategories as SessionSubCategory[];
+    } catch (error) {
+        throw (error)
+    }
+}
 
 export async function getSessionsStudentsByGroup(idGroup: string) {
     try {
@@ -17,8 +31,7 @@ export async function getSessionsStudentsByGroup(idGroup: string) {
         }
         return sessions as Session[];
     } catch (error) {
-        console.error("Failed to getSessions " + error);
-        return [];
+        throw (error)
     }
 }
 

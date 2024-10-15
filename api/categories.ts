@@ -2,8 +2,11 @@
 
 import { Category } from "@/app/types/Category";
 import { SessionCategory } from "@/app/types/SessionCategory";
+import { SubCategory } from "@/app/types/SubCategory";
 
 const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
+const myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
 
 export async function getCategories(idLanguage: number) {
     try {
@@ -32,5 +35,19 @@ export async function getSubCategories(id: number) {
         return await result.json();
     } catch (error) {
         return error;
+    }
+}
+
+export async function getSubCategoriesWithIdSessionCategory(id: string[]) {
+    const requestOptions = {
+        headers: myHeaders,
+        method: "POST",
+        body: JSON.stringify([id])
+    } as RequestInit;
+    try {
+        const result = await fetch(urlApi + "/emission/sub-categories", requestOptions);
+        return await result.json() as SubCategory[]
+    } catch (error) {
+        throw (error)
     }
 }

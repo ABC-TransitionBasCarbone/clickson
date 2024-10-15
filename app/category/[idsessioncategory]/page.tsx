@@ -1,13 +1,14 @@
 'use client'
 
-import { ActivityDataPage } from "../components/activityData/page";
+import { ActivityDataPage } from "../../components/activityData/page";
 import { useDataToFill } from "./dataToFill";
 
-export default function EnergyPage() {
+export default function Category() {
     const { dataToFill } = useDataToFill();
-
     return <ActivityDataPage
         domain="energy"
         dataToFill={dataToFill}
-        handleConfirm={() => {}} />
+        handleConfirm={() => { }} />
 };
+
+

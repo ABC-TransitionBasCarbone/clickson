@@ -5,12 +5,13 @@ import { useState } from "react";
 import { CustomDialog } from "@/app/components/customDialog";
 import { DataToFill } from "@/app/types/DataToFill";
 import { DataTable } from "../../DataTable";
+import { SubCategory } from "@/app/types/SubCategory";
 
 interface QuestionTypeComponentProps {
-    data: DataToFill;
+    category: SubCategory;
     handleConfirm: (type: string, value: string) => void;
 }
-export const QuestionTypeComponent = ({ data, handleConfirm }: QuestionTypeComponentProps) => {
+export const QuestionTypeComponent = ({ category, handleConfirm }: QuestionTypeComponentProps) => {
     const [saving, setSaving] = useState<boolean>(false)
     const [loadingData, setLoadingData] = useState<boolean>(false)
     const [open, setOpen] = useState<boolean>(false);
@@ -35,23 +36,23 @@ export const QuestionTypeComponent = ({ data, handleConfirm }: QuestionTypeCompo
             handleClose={handleClose}
             handleConfirm={() => handleConfirm(type, value)}
         />
-        <DataInput
-            titleSelectInput={data.titleSelectInput}
+        {/* <DataInput
+            titleSelectInput={category.label}
             type={type}
-            options={data.options}
+            options={category.options}
             saving={saving}
             value={value}
-            annualConsumptionText={data.titleAnnualConsumptionInput}
-            {...(data.units && { units: data.units })}
+            annualConsumptionText={category.titleAnnualConsumptionInput}
+            {...(category.units && { units: category.units })}
             setValue={setValue}
             setType={setType}
             handleAddData={handleAddData}
-        />
-        {loadingData
+        /> */}
+        {/* {loadingData
             ? <Box sx={{ display: 'flex', justifyContent: "center", alignItems: "center", height: "20" }}>
                     <CircularProgress />
                 </Box>
-            : <DataTable tableHeader={data.tableHeader} data={[]} handleDelete={() => {}} />
-        }
+            : <DataTable tableHeader={category.tableHeader} data={[]} handleDelete={() => {}} />
+        } */}
     </>
 };
