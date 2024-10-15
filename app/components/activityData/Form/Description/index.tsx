@@ -1,7 +1,7 @@
 import { Button } from "@mui/material"
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyledContainer, classes } from "../styles";
+import { StyledContainer, classes } from "./styles";
 
 interface ActivityDataFormDescription {
     description: string;
