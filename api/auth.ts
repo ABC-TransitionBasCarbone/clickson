@@ -91,7 +91,7 @@ export async function signUp(formData: FormData) {
     }
 }
 
-export async function getAuthenticatedUserData(username: string | undefined) {
+export async function getAuthenticatedUserData(username: string) {
     const data = JSON.stringify({
         "username": username
     })
