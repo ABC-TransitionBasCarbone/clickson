@@ -1,6 +1,6 @@
 'use client'
 
-import '../../i18n';
+import '../../../i18n';
 import { Header } from "@/src/components/dashboard/header";
 import HomeIcon from '@mui/icons-material/Home';
 import Container from '@mui/material/Container';
@@ -10,7 +10,7 @@ import { Stats } from "@/src/components/dashboard/stats";
 import { useTheme } from "@mui/material/styles";
 import { styled } from "@mui/system";
 import { useEffect, useState } from 'react';
-import { CategoryItem } from '../../../components/dashboard/Category';
+import { CategoryItem } from '../../../../components/dashboard/Category';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useTranslation } from "react-i18next";
 import { getCategories, getSessionCategories } from '@/api/categories';

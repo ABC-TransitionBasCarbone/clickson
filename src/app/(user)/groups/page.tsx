@@ -1,6 +1,6 @@
 'use client'
 
-import '../i18n';
+import '../../i18n';
 import { Header } from "@/src/components/dashboard/header";
 import Container from '@mui/material/Container';
 import { Box, Button, CircularProgress, FormControl, OutlinedInput } from "@mui/material";
@@ -8,9 +8,9 @@ import { useTheme } from "@mui/material/styles";
 import AddIcon from '@mui/icons-material/Add';
 import { DataGrid } from '@mui/x-data-grid';
 import React, { FormEvent, useEffect, useState } from 'react';
-import ConfirmationDialog from '../../components/ConfirmationDialog';
+import ConfirmationDialog from '../../../components/ConfirmationDialog';
 import { useTranslation } from "react-i18next";
-import Establishment from '../../components/establishment/Establishment';
+import Establishment from '../../../components/establishment/Establishment';
 import { styled } from "@mui/system";
 import { getUserCookies } from '@/api/auth';
 import { createGroup, deleteGroup, getGroups } from '@/api/groups';

@@ -11,7 +11,7 @@ module.exports = {
                 transformHeader: (h) => h.replace(/[^\w\s]|_/g, "").replace(/\s+/g, "").toLowerCase(),
                 skipEmptyLines: true
             }
-        
+
         })
 
         return config

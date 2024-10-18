@@ -1,6 +1,7 @@
 'use client'
 
-import { ActivityDataPage } from "../../../components/activityData/page";
+import { ActivityDataPage } from "@/src/components/activityData/page"
+
 
 export default function Category() {
     return <ActivityDataPage

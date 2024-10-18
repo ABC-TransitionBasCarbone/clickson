@@ -6,9 +6,9 @@ import {useRouter} from 'next/navigation'
 import {Grid, useMediaQuery} from "@mui/material";
 import Container from "@mui/material/Container";
 import { styled } from "@mui/system";
-import { Header } from '../components/login/header';
-import { Form } from '../components/login/form'
-import { Footer } from '../components/login/footer'
+import { Header } from '../../components/login/header';
+import { Form } from '../../components/login/form'
+import { Footer } from '../../components/login/footer'
 import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 
