@@ -3,9 +3,10 @@
 import { FormControl, Stack, MenuItem, OutlinedInput, Select, Typography } from "@mui/material";
 import {  KeyboardArrowDown } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
-import { Option } from "@/src/models/Select/Option";
 import { PrimaryButton } from "@/src/components/buttons/primaryButton";
 import { classes, StyledInputData } from "./styles";
+import { Option } from "@/src/types/Option";
+import { useState, useEffect } from "react";
 
 interface DataInputProps {
     titleSelectInput: string;
@@ -19,6 +20,7 @@ interface DataInputProps {
     setType: (type: string) => void;
     handleAddData: () => void;
 }
+
 export const DataInput = ({
     titleSelectInput,
     type,
@@ -32,6 +34,17 @@ export const DataInput = ({
     handleAddData,
 }: DataInputProps) => {
     const { t } = useTranslation();
+    const [loading, setLoading] = useState<boolean>(false);
+
+    const getEmissionFactors = async () => {
+        setLoading(true)
+        
+        setLoading(false)
+    }
+
+    useEffect(() => {
+        getEmissionFactors()
+    }, []);
 
     return <StyledInputData>
     <Stack className={classes.input}>

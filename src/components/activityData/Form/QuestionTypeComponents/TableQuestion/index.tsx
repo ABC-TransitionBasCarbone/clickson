@@ -1,11 +1,10 @@
-import { DataInput } from "../../DataInput";
-import { Box } from "@mui/system";
-import { CircularProgress } from "@mui/material";
 import { useState } from "react";
 import { CustomDialog } from "@/src/components/customDialog";
-import { DataToFill } from "@/app/types/DataToFill";
+import { SubCategory } from "@/src/types/SubCategory";
+import { CircularProgress } from "@mui/material";
+import { Box } from "@mui/system";
 import { DataTable } from "../../DataTable";
-import { SubCategory } from "@/app/types/SubCategory";
+import { DataInput } from "../../DataInput";
 
 interface QuestionTypeComponentProps {
     category: SubCategory;
@@ -24,7 +23,7 @@ export const QuestionTypeComponent = ({ category, handleConfirm }: QuestionTypeC
         setOpen(false);
     };
 
-    const handleAddData = () => {}
+    const handleAddData = () => { }
     return <>
         <CustomDialog
             open={open}
@@ -36,23 +35,22 @@ export const QuestionTypeComponent = ({ category, handleConfirm }: QuestionTypeC
             handleClose={handleClose}
             handleConfirm={() => handleConfirm(type, value)}
         />
-        {/* <DataInput
+        <DataInput
             titleSelectInput={category.label}
             type={type}
-            options={category.options}
+            options={[{ title: category.label, value: "" }]}
             saving={saving}
             value={value}
-            annualConsumptionText={category.titleAnnualConsumptionInput}
-            {...(category.units && { units: category.units })}
+            annualConsumptionText={category.label}
             setValue={setValue}
             setType={setType}
             handleAddData={handleAddData}
-        /> */}
-        {/* {loadingData
+        />
+        {loadingData
             ? <Box sx={{ display: 'flex', justifyContent: "center", alignItems: "center", height: "20" }}>
-                    <CircularProgress />
-                </Box>
-            : <DataTable tableHeader={category.tableHeader} data={[]} handleDelete={() => {}} />
-        } */}
+                <CircularProgress />
+            </Box>
+            : <DataTable tableHeader={[category.label]} data={[]} handleDelete={() => { }} />
+        }
     </>
 };

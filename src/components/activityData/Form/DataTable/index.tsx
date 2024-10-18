@@ -2,7 +2,7 @@
 
 import ConfirmationDialog from "@/src/components/ConfirmationDialog";
 import { prepareValueForTranslation } from "@/src/helpers/text";
-import { DataType } from "@/app/types/DataType";
+import { DataType } from "@/src/types/DataToFill";
 import { CancelPresentationOutlined } from "@mui/icons-material";
 import { IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { useState } from "react";

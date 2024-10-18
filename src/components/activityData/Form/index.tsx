@@ -1,33 +1,35 @@
 'use client'
 
-import { Stack } from "@mui/system";
+import { Box, Stack } from "@mui/system";
 import { StyledContainer } from "./styles";
-import { DataToFill } from "@/app/types/DataType";
 import { ActivityDataFormDescription } from "./Description";
 import { ActivityDataFormHeader } from "./Header";
 import { QuestionTypeComponent } from "./QuestionTypeComponents/TableQuestion";
 import { getSubCategoriesWithIdSessionCategory } from "@/api/categories";
 import { getSessionSubCategoriesWithIdSessionCategory } from "@/api/sessions";
-import { Params } from "@/app/types/Params";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { SubCategory } from "@/app/types/SubCategory";
+import { Params } from "@/src/types/Params";
+import { SubCategory } from "@/src/types/SubCategory";
+import { CircularProgress } from "@mui/material";
 
 interface ActivityDataFormProps {
-    domain: string;
-    dataToFill: DataToFill[];
     handleConfirm: (type: string, value: string) => void;
 };
 
-export const ActivityDataForm = ({ domain, dataToFill, handleConfirm }: ActivityDataFormProps) => {
+export const ActivityDataForm = ({ handleConfirm }: ActivityDataFormProps) => {
     const params = useParams<Params>()
+    const [loading, setLoading] = useState<boolean>(false);
+
     const [sessionSubCategory, setSessionSubCategory] = useState<SubCategory[]>([]);
 
     const getSubCategories = async () => {
+        setLoading(true)
         const sessionSubCategories = await getSessionSubCategoriesWithIdSessionCategory(params.idsessioncategory)
         const idEmissionSubCategories = sessionSubCategories.map(s => s.id_emission_sub_categorie)
         const sessionSubCategory = await getSubCategoriesWithIdSessionCategory(idEmissionSubCategories)
         setSessionSubCategory(sessionSubCategory)
+        setLoading(false)
     }
 
     useEffect(() => {
@@ -38,16 +40,23 @@ export const ActivityDataForm = ({ domain, dataToFill, handleConfirm }: Activity
         return <QuestionTypeComponent category={category} handleConfirm={handleConfirm} />;
     }
 
-    return <StyledContainer>
-        {sessionSubCategory.map(categorie =>
-            <Stack key={categorie.id}>
-                <ActivityDataFormHeader domain={domain} category={categorie.label} />
-                <Stack spacing={2} marginTop={2} marginBottom={2} sx={{ flexDirection: "row" }}>
-                    <ActivityDataFormDescription description={categorie.detail} />
-                    <Stack sx={{ marginLeft: "24px !important", flex: 1 }}>
-                        {getQuestionComponent(categorie)}
+    return <>
+        {loading ?
+            <Box sx={{ display: 'flex', justifyContent: "center", alignItems: "center", height: "80vh" }}>
+                <CircularProgress />
+            </Box>
+            : <StyledContainer>
+                {sessionSubCategory.map(categorie =>
+                    <Stack key={categorie.id}>
+                        <ActivityDataFormHeader category={categorie.label} />
+                        <Stack spacing={2} marginTop={2} marginBottom={2} sx={{ flexDirection: "row" }}>
+                            <ActivityDataFormDescription description={categorie.detail} />
+                            <Stack sx={{ marginLeft: "24px !important", flex: 1 }}>
+                                {getQuestionComponent(categorie)}
+                            </Stack>
+                        </Stack>
                     </Stack>
-                </Stack>
-            </Stack>)}
-    </StyledContainer>;
+                )}
+            </StyledContainer>}
+    </>
 };

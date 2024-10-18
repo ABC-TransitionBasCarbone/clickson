@@ -1,7 +1,4 @@
-import { Energy } from "../models/Energy/Energy";
-import { Option } from "../models/Select/Option";
 
-export type DataType = Energy;
 type QuestionType = "table";
 export interface DataToFill {
     key: string;

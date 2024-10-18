@@ -10,12 +10,12 @@ import { DataGrid } from '@mui/x-data-grid';
 import React, { FormEvent, useEffect, useState } from 'react';
 import ConfirmationDialog from '../../components/ConfirmationDialog';
 import { useTranslation } from "react-i18next";
-import { Group } from '../types/Group';
-import { User } from '../types/User';
 import Establishment from '../../components/establishment/Establishment';
 import { styled } from "@mui/system";
-import { getUserCookies, getAuthenticatedUserData } from '@/api/auth';
+import { getUserCookies } from '@/api/auth';
 import { createGroup, deleteGroup, getGroups } from '@/api/groups';
+import { User } from '@/src/types/User';
+import { Group } from '@/src/types/Group';
 
 const CustomContainer = styled('div')`
     position: fixed;

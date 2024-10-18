@@ -15,11 +15,11 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useTranslation } from "react-i18next";
 import { getCategories, getSessionCategories } from '@/api/categories';
 import Establishment from '@/src/components/establishment/Establishment';
-import { Category } from '@/app/types/Category';
 import { useParams } from 'next/navigation'
-import { Params } from '@/app/types/Params';
 import { getSessionStudent } from '@/api/sessions';
 import { getLanguages } from '@/api/languages';
+import { Category } from '@/src/types/Category';
+import { Params } from '@/src/types/Params';
 
 const borderColors = [
     "#1c82b8",
