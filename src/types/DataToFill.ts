@@ -1,3 +1,5 @@
+import { Option } from "../types/Option";
+
 type QuestionType = "table";
 export interface DataToFill {
     key: string;

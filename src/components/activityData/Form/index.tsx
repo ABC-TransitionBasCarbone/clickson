@@ -46,13 +46,13 @@ export const ActivityDataForm = ({ handleConfirm }: ActivityDataFormProps) => {
                 <CircularProgress />
             </Box>
             : <StyledContainer>
-                {sessionSubCategory.map(categorie =>
-                    <Stack key={categorie.id}>
-                        <ActivityDataFormHeader category={categorie.label} />
+                {sessionSubCategory.map(category =>
+                    <Stack key={category.id}>
+                        <ActivityDataFormHeader category={category.label} />
                         <Stack spacing={2} marginTop={2} marginBottom={2} sx={{ flexDirection: "row" }}>
-                            <ActivityDataFormDescription description={categorie.detail} />
+                            <ActivityDataFormDescription description={category.detail} />
                             <Stack sx={{ marginLeft: "24px !important", flex: 1 }}>
-                                {getQuestionComponent(categorie)}
+                                {getQuestionComponent(category)}
                             </Stack>
                         </Stack>
                     </Stack>

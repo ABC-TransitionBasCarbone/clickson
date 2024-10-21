@@ -21,6 +21,10 @@ module.exports = {
         defaultLocale: "fr",
     },
     images: {
-        domains: ["flagcdn.com", "flags.fmcdn.net"]
+        remotePatterns: [
+            { hostname: 'flagcdn.com' },
+            { hostname: 'flags.fmcdn.net' }
+        ],
+
     }
 }
