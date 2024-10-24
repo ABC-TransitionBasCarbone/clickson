@@ -12,12 +12,14 @@ import { useEffect, useState } from "react";
 import { Params } from "@/src/types/Params";
 import { SubCategory } from "@/src/types/SubCategory";
 import { CircularProgress } from "@mui/material";
+import { DataToFill } from "@/src/types/DataToFill";
 
 interface ActivityDataFormProps {
     handleConfirm: (type: string, value: string) => void;
+    dataToFill: DataToFill[];
 };
 
-export const ActivityDataForm = ({ handleConfirm }: ActivityDataFormProps) => {
+export const ActivityDataForm = ({ handleConfirm, dataToFill }: ActivityDataFormProps) => {
     const params = useParams<Params>()
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -27,8 +29,13 @@ export const ActivityDataForm = ({ handleConfirm }: ActivityDataFormProps) => {
         setLoading(true)
         const sessionSubCategories = await getSessionSubCategoriesWithIdSessionCategory(params.idsessioncategory)
         const idEmissionSubCategories = sessionSubCategories.map(s => s.id_emission_sub_categorie)
-        const sessionSubCategory = await getSubCategoriesWithIdSessionCategory(idEmissionSubCategories)
-        setSessionSubCategory(sessionSubCategory)
+        let subCategories = await getSubCategoriesWithIdSessionCategory(idEmissionSubCategories)
+        subCategories = subCategories.map(subcategory => ({
+            ...subcategory,
+            dataToFill: dataToFill.find(header => subcategory.id === header.id)
+        }));
+        setSessionSubCategory(subCategories)
+
         setLoading(false)
     }
 

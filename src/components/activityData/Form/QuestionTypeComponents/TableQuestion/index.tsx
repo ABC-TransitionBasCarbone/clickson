@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { CustomDialog } from "@/src/components/customDialog";
 import { SubCategory } from "@/src/types/SubCategory";
-import { CircularProgress } from "@mui/material";
-import { Box } from "@mui/system";
-import { DataTable } from "../../DataTable";
 import { DataInput } from "../../DataInput";
 import { getEmissionFactorsWithUnitsAndTypes } from "@/api/emissions";
 import { EmissionFactor } from "@/src/types/EmissionFactor";
+import { CircularProgress } from "@mui/material";
+import { Box } from "@mui/system";
+import { DataTable } from "../../DataTable";
 
 interface QuestionTypeComponentProps {
     category: SubCategory;
@@ -47,23 +47,21 @@ export const QuestionTypeComponent = ({ category, handleConfirm }: QuestionTypeC
             handleClose={handleClose}
             handleConfirm={() => handleConfirm(type, value)}
         />
-        {emissionFactors[0] &&
-            <DataInput
-                titleSelectInput={category.label}
-                type={emissionFactors[0].value.toString()}
-                emissionFactors={emissionFactors}
-                saving={saving}
-                value={value}
-                annualConsumptionText={category.label}
-                setValue={setValue}
-                setType={setType}
-                handleAddData={handleAddData}
-            />}
+        <DataInput
+            titleSelectInput={category.dataToFill?.titleSelectInput || ""}
+            type={type}
+            emissionFactors={emissionFactors}
+            saving={saving}
+            value={value}
+            annualConsumptionText={category.dataToFill?.titleAnnualConsumptionInput || ""}
+            setValue={setValue}
+            setType={setType}
+            handleAddData={handleAddData} />
         {loadingData
             ? <Box sx={{ display: 'flex', justifyContent: "center", alignItems: "center", height: "20" }}>
                 <CircularProgress />
             </Box>
-            : <DataTable tableHeader={[category.label]} data={[]} handleDelete={() => { }} />
+            : <DataTable tableHeader={category.dataToFill?.tableHeader || []} data={[]} handleDelete={() => { }} />
         }
     </>
 };

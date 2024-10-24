@@ -1,14 +1,9 @@
-import { Option } from "../types/Option";
-
-type QuestionType = "table";
+// type QuestionType = "table";
 export interface DataToFill {
-    key: string;
+    id: number;
     category: string;
-    type: QuestionType;
-    options: Option[];
+    type: string;
     titleSelectInput: string;
     titleAnnualConsumptionInput: string;
     tableHeader: string[];
-    description: string;
-    units?: Map<string, string>;
 }

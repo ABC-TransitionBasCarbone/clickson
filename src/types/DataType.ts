@@ -1,13 +1,11 @@
 
 type QuestionType = "table";
-export interface DataToFill {
+export interface DataType {
     key: string;
     category: string;
     type: QuestionType;
-    options: Option[];
     titleSelectInput: string;
     titleAnnualConsumptionInput: string;
     tableHeader: string[];
     description: string;
-    units?: Map<string, string>;
 }

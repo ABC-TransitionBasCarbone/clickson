@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { PrimaryButton } from "@/src/components/buttons/primaryButton";
 import { classes, StyledInputData } from "./styles";
 import { EmissionFactor } from "@/src/types/EmissionFactor";
+import { useEffect } from "react";
 
 interface DataInputProps {
     titleSelectInput: string;
@@ -14,20 +15,18 @@ interface DataInputProps {
     saving: boolean;
     value: string;
     annualConsumptionText: string;
-    units?: Map<string, string> | null,
     setValue: (value: string) => void;
-    setType: (type: string ) => void;
+    setType: (type: string) => void;
     handleAddData: () => void;
 }
 
 export const DataInput = ({
     titleSelectInput,
-    type,
     emissionFactors: emissionFactors,
     saving,
     value,
     annualConsumptionText,
-    units,
+    type,
     setValue,
     setType,
     handleAddData,
@@ -41,9 +40,9 @@ export const DataInput = ({
                 <Select
                     IconComponent={KeyboardArrowDown}
                     value={type}
-                    onChange={(text) => setType(text.target.value.toString())}
+                    onChange={(text) => setType(text.target.value)}
                 >
-                    {emissionFactors.map((emissionFactor, _index) => (
+                    {emissionFactors[0] && emissionFactors.map((emissionFactor, _index) => (
                         <MenuItem key={_index} value={emissionFactor.value}>{emissionFactor.label}</MenuItem>
                     ))}
                 </Select>
@@ -52,7 +51,7 @@ export const DataInput = ({
         <Stack className={classes.input}>
             <FormControl className={classes.form}>
                 <Typography className={classes.label}>
-                    {units ? `${t(annualConsumptionText)} ${units ? type ? "(" + units.get(type) + ")" : "" : ""}` : t(annualConsumptionText)}
+                    {`${t(annualConsumptionText)} `} {emissionFactors[0] && ('(' + emissionFactors[0]?.unit + ')')}
                 </Typography>
                 <OutlinedInput
                     type='text'
