@@ -6,7 +6,7 @@ import { Header } from "../../dashboard/header";
 import { useDataToFill } from "@/src/app/(student)/category/[idsessioncategory]/dataToFill";
 
 interface ActivityDataPageProps {
-    handleConfirm: (type: string, value: string) => void;
+    handleConfirm: (idEF: number, value: string) => void;
 };
 
 export const ActivityDataPage = ({ handleConfirm }: ActivityDataPageProps) => {

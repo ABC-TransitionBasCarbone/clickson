@@ -4,7 +4,7 @@ import Link from "next/link";
 import {styled} from "@mui/system";
 import Image from "next/image";
 import i18n from "i18next";
-import {Language} from "@/app/types/Language";
+import { Language } from "@/src/types/Language";
 
 const languages: Language[] = [
     {code: 'en', name: 'English', image: "https://flagcdn.com/h20/gb.png"},

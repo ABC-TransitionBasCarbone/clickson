@@ -1,6 +1,6 @@
 'use client';
 
-import { Category } from "@/app/types/Category";
+import { Category } from "@/src/types/Category";
 import { Grid } from "@mui/material";
 import { styled } from "@mui/system";
 import Link from "next/link";

@@ -1,6 +1,5 @@
 import { getUserCookies } from "@/api/auth";
 import theme from "@/src/app/theme";
-import { School } from "@/app/types/School";
 import { LoadingButton } from "@mui/lab";
 import { Grid, CircularProgress, Modal, Backdrop, Fade, Typography, Alert, FormControl, TextField, Button } from "@mui/material";
 import { Box, styled } from "@mui/system";
@@ -8,6 +7,7 @@ import { t } from "i18next";
 import { useState, FormEvent, useEffect } from "react";
 import EditIcon from '@mui/icons-material/Edit';
 import { editSchool } from "@/api/schools";
+import { School } from "@/src/types/School";
 
 const style = {
     position: 'absolute' as 'absolute',
