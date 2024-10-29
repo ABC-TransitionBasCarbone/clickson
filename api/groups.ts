@@ -1,6 +1,7 @@
 'use server'
 
-import { Group } from "@/app/types/Group";
+import { Group } from "@/src/types/Group";
+
 
 const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
 
