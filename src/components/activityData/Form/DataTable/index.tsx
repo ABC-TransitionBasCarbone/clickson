@@ -1,23 +1,30 @@
 'use client'
 
 import ConfirmationDialog from "@/src/components/ConfirmationDialog";
-import { prepareValueForTranslation } from "@/src/helpers/text";
-import { EmissionFactor } from "@/src/types/EmissionFactor";
+import { Emission } from "@/src/types/Emission";
 import { CancelPresentationOutlined } from "@mui/icons-material";
 import { IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 interface DataTableProps {
     tableHeader: string[];
-    data: EmissionFactor[];
-    handleDelete: (row: EmissionFactor) => void;
+    emissions: Emission[];
+    handleDelete: (row: Emission) => void;
 }
 
-export const DataTable = ({ tableHeader, data, handleDelete }: DataTableProps) => {
+export const DataTable = ({ tableHeader, emissions, handleDelete }: DataTableProps) => {
     const { t } = useTranslation();
     const [totalValues, setTotalValues] = useState<number>(0);
     const [totalUncertainty, setTotalUncertainty] = useState<number>(0);
+
+    useEffect(() => {
+        const values = emissions.reduce((acc, emission) => acc + emission.value, 0)
+        console.log("🚀 ~ useEffect ~ emissions:", emissions)
+        console.log("🚀 ~ useEffect ~ values:", values)
+        setTotalValues(emissions.reduce((acc, emission) => acc + emission.value, 0));
+        setTotalUncertainty(emissions.reduce((acc, emission) => acc + (emission.emissionFactor?.uncertainty || 0), 0));
+    }, [emissions]);
 
     return <TableContainer>
         <Table aria-label="simple table">
@@ -30,17 +37,17 @@ export const DataTable = ({ tableHeader, data, handleDelete }: DataTableProps) =
                 </TableRow>
             </TableHead>
             <TableBody>
-                {data.map((row, _index) => (
+                {emissions.map((emission, _index) => (
                     <TableRow key={_index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                        <TableCell component="th" scope="row">{prepareValueForTranslation(row.type || "")}</TableCell>
-                        <TableCell align="right">{row.value}</TableCell>
-                        <TableCell align="right">{row.unit}</TableCell>
-                        <TableCell align="right">{row.uncertainty}</TableCell>
+                        <TableCell component="th" scope="row">{emission.emissionFactor?.type}</TableCell>
+                        <TableCell align="right">{emission.value}</TableCell>
+                        <TableCell align="right">{emission.emissionFactor?.label}</TableCell>
+                        <TableCell align="right">{emission.emissionFactor?.uncertainty}</TableCell>
                         <TableCell align="right">
                             <ConfirmationDialog
                                 title={t("abc-confirm-title")}
                                 description={t("abc-confirm-delete")}
-                                response={() => { handleDelete(row) }}
+                                response={() => { handleDelete(emission) }}
                             >
                                 {(showDialog: any) => (
                                     <IconButton onClick={showDialog} >
@@ -52,7 +59,7 @@ export const DataTable = ({ tableHeader, data, handleDelete }: DataTableProps) =
                         </TableCell>
                     </TableRow>
                 ))}
-                {data.length > 0 ? (
+                {emissions.length > 0 ? (
                     <TableRow >
                         <TableCell><strong>{t('abc-total-value')}</strong></TableCell>
                         <TableCell align="right"><strong>{totalValues}</strong></TableCell>

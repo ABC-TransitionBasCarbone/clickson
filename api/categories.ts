@@ -2,6 +2,7 @@
 
 import { Category } from "@/src/types/Category";
 import { SessionCategory } from "@/src/types/SessionCategory";
+import { SessionSubCategory } from "@/src/types/SessionSubCategory";
 import { SubCategory } from "@/src/types/SubCategory";
 
 const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
@@ -38,15 +39,20 @@ export async function getSubCategories(id: number) {
     }
 }
 
-export async function getSubCategoriesWithIdSessionCategory(id: string[]) {
+export async function getSubCategoriesWithIdSessionCategory(sessionSubCategories: SessionSubCategory[]) {
     const requestOptions = {
         headers: myHeaders,
         method: "POST",
-        body: JSON.stringify([id])
+        body: JSON.stringify([sessionSubCategories.map(s => s.id_emission_sub_categorie)])
     } as RequestInit;
     try {
         const result = await fetch(urlApi + "/emission/sub-categories", requestOptions);
-        return await result.json() as SubCategory[]
+        const subCategoryToReturn = await result.json() as SubCategory[]
+
+        return subCategoryToReturn.map(subCategory => ({
+            ...subCategory,
+            idSessionSubCategorie: sessionSubCategories.find(s => s.id_emission_sub_categorie === subCategory.id)?.id || ""
+        })) as SubCategory[]
     } catch (error) {
         throw (error)
     }

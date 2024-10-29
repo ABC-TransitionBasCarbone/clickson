@@ -7,7 +7,7 @@ interface CustomDialogProps {
     open: boolean;
     titleLabel: string;
     contentLabel: string;
-    contentParams?: { [key: string]: string };
+    contentParams?: { [key: string]: number };
     closeLabel: string;
     confirmLabel: string;
     handleClose: () => void;

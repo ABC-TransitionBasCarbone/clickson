@@ -7,4 +7,5 @@ export interface SubCategory {
     label: string;
     detail: string;
     dataToFill?: DataToFill;
+    idSessionSubCategorie: string;
 }

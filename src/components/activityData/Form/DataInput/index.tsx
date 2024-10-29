@@ -7,17 +7,18 @@ import { PrimaryButton } from "@/src/components/buttons/primaryButton";
 import { classes, StyledInputData } from "./styles";
 import { EmissionFactor } from "@/src/types/EmissionFactor";
 import { useEffect } from "react";
+import test from "node:test";
 
 interface DataInputProps {
     titleSelectInput: string;
-    type: string;
+    idEF: number;
     emissionFactors: EmissionFactor[];
     saving: boolean;
     value: string;
     annualConsumptionText: string;
     setValue: (value: string) => void;
-    setType: (type: string) => void;
-    handleAddData: () => void;
+    setIdEF: (idEF: number) => void;
+    handleAddData: (idEF: number, value: string) => void;
 }
 
 export const DataInput = ({
@@ -26,28 +27,30 @@ export const DataInput = ({
     saving,
     value,
     annualConsumptionText,
-    type,
+    idEF,
     setValue,
-    setType,
+    setIdEF,
     handleAddData,
 }: DataInputProps) => {
     const { t } = useTranslation();
 
+    const getIdEF = (idEF: number) => (idEF === 0 && emissionFactors[0]) ? emissionFactors[0].id : idEF;
+
     return <StyledInputData>
-        <Stack className={classes.input}>
+        {emissionFactors[0] && <Stack className={classes.input}>
             <FormControl className={classes.form}>
                 <Typography className={classes.label}>{t(titleSelectInput)}</Typography>
                 <Select
                     IconComponent={KeyboardArrowDown}
-                    value={type}
-                    onChange={(text) => setType(text.target.value)}
+                    value={getIdEF(idEF)}
+                    onChange={(id) => setIdEF(id.target.value as number)}
                 >
-                    {emissionFactors[0] && emissionFactors.map((emissionFactor, _index) => (
-                        <MenuItem key={_index} value={emissionFactor.value}>{emissionFactor.label}</MenuItem>
+                    {emissionFactors.map((emissionFactor, _index) => (
+                        <MenuItem key={_index} value={emissionFactor.id}>{emissionFactor.label}</MenuItem>
                     ))}
                 </Select>
             </FormControl>
-        </Stack>
+        </Stack>}
         <Stack className={classes.input}>
             <FormControl className={classes.form}>
                 <Typography className={classes.label}>
@@ -62,7 +65,7 @@ export const DataInput = ({
             </FormControl>
         </Stack>
         <Stack className={classes.button}>
-            <PrimaryButton disabled={saving} onClick={handleAddData}>
+            <PrimaryButton disabled={saving} onClick={() => idEF !== 0 && handleAddData(idEF, value)}>
                 {t('abc-add')}
             </PrimaryButton>
         </Stack>

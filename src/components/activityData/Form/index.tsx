@@ -15,7 +15,7 @@ import { CircularProgress } from "@mui/material";
 import { DataToFill } from "@/src/types/DataToFill";
 
 interface ActivityDataFormProps {
-    handleConfirm: (type: string, value: string) => void;
+    handleConfirm: (idEF: number, value: string) => void;
     dataToFill: DataToFill[];
 };
 
@@ -28,8 +28,7 @@ export const ActivityDataForm = ({ handleConfirm, dataToFill }: ActivityDataForm
     const getSubCategories = async () => {
         setLoading(true)
         const sessionSubCategories = await getSessionSubCategoriesWithIdSessionCategory(params.idsessioncategory)
-        const idEmissionSubCategories = sessionSubCategories.map(s => s.id_emission_sub_categorie)
-        let subCategories = await getSubCategoriesWithIdSessionCategory(idEmissionSubCategories)
+        let subCategories = await getSubCategoriesWithIdSessionCategory(sessionSubCategories)
         subCategories = subCategories.map(subcategory => ({
             ...subcategory,
             dataToFill: dataToFill.find(header => subcategory.id === header.id)
