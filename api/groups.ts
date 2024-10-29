@@ -1,6 +1,7 @@
 'use server'
 
-import { Group } from "@/app/types/Group";
+import { Group } from "@/src/types/Group";
+
 
 const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
 
@@ -12,7 +13,7 @@ export async function getGroups(adminEmail: string) {
     const result = await fetch(urlApi + "/groups/" + adminEmail)
     const groups = await result.json()
     if (groups.errors) {
-        console.error("Failed to fetch API");
+        throw("Failed to fetch API");
     }
     return groups as Group[];
 }
@@ -54,12 +55,12 @@ export async function createGroup(groupName: string, userEmail: string, idSchool
         const result = await fetch(urlApi + "/groups", requestOptions)
         const groups = await result.json()
         if (groups.errors) {
-            console.error("Failed to create group" + groups.errors);
+            throw("Failed to create group" + groups.errors);
         }
         return groups
 
     } catch (error) {
-        console.error("Failed to create group" + error);
+        throw("Failed to create group" + error);
 
     }
 }

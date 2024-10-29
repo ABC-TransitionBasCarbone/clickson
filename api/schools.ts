@@ -1,6 +1,6 @@
 'use server'
 
-import { School } from "@/app/types/School";
+import { School } from "@/src/types/School";
 import { getUserCookies } from "./auth";
 import { cookies } from "next/headers";
 
@@ -14,11 +14,11 @@ export async function getSchool(adminEmail: string) {
         const result = await fetch(urlApi + "/school/" + adminEmail)
         const school = await result.json();
         if (school.errors) {
-            console.error("Failed to getSchool" + school.errors);
+            throw("Failed to getSchool" + school.errors);
         }
         return school as School;
     } catch (error) {
-        console.error("Failed to getSchool" + error);
+        throw("Failed to getSchool" + error);
 
     }
 }
@@ -48,7 +48,7 @@ export async function editSchool(formData: FormData, school: School | undefined 
 
         return school;
     } catch (error) {
-        console.error(error);
+        throw(error);
         return school
     }
 }

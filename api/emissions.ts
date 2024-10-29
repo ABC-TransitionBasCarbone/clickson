@@ -1,102 +1,60 @@
 'use server';
 
+import { Emission } from "@/src/types/Emission";
+import { EmissionFactor } from "@/src/types/EmissionFactor";
+
 const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
+const myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
 
-export async function getEmissions(id: number) {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    const data = JSON.stringify({
-        "sub_category_id": id,
-    });
-
-    const requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: data,
-        redirect: "follow"
-    } as RequestInit;
+export async function getEmissionFactorsWithUnitsAndTypes(idEmissionSubCategorie: number) {
     try {
-        const result = await fetch(urlApi + "/energy/", requestOptions);
-        return await result.json();
+        const result = await fetch(urlApi + "/emission-factors/" + idEmissionSubCategorie);
+        if (!result.ok) {
+            throw new Error(`API request failed with status ${result.status}: ${result.statusText}`);
+        }
+        const emissionFactors = await result.json() as EmissionFactor[]
+        return emissionFactors.map(emissionFactor =>
+            ({ ...emissionFactor, uncertainty: parseFloat(emissionFactor.uncertainty?.toString() || "0") }))
     } catch (error) {
-        console.error(error);
-        return { "error": error };
+        throw ('Error fetching emission factors: ' + error);
     }
 }
 
-export async function addEnergy(formData: FormData) {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    const data = JSON.stringify({
-        "category_id": formData.get("category_id")?.toString() || "",
-        "sub_category_id": formData.get("sub_category_id")?.toString() || "",
-        "label": formData.get("label")?.toString() || "",
-        "type": formData.get("type")?.toString() || "",
-        "value": formData.get("value")?.toString() || "",
-    });
-
-    const requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: data,
-        redirect: "follow"
-    } as RequestInit;
+export async function getEmissionByIdSessionSub(idSessionEmissionSubCategorie: string) {
     try {
-        const result = await fetch(urlApi + "/energy/add", requestOptions);
-        return await result.json();
+        const result = await fetch(urlApi + "/session-emission/" + idSessionEmissionSubCategorie);
+        if (!result.ok) {
+            throw new Error(`API request failed with status ${result.status}: ${result.statusText}`);
+        }
+        const emissions = await result.json()
+
+        return emissions.map((emission: any) => ({
+            ...emission,
+            idEmissionFactor: emission.id_emission_factor,
+            idSessionSubCategorie: emission.id_session_emission_sub_categorie,
+            value: parseFloat(emission.value)
+        })) as Emission[]
+
     } catch (error) {
-        console.error(error);
-        return { "error": error };
+        throw ('Error fetching emission factors: ' + error);
     }
 }
 
-export async function deleteEnergy(id: any) {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    const data = JSON.stringify({
-        "id": id
-    });
-
-    const requestOptions = {
-        method: "DELETE",
-        headers: myHeaders,
-        body: data,
-        redirect: "follow"
-    } as RequestInit;
-    try {
-        const result = await fetch(urlApi + "/energy/delete", requestOptions);
-        return await result.json();
-    } catch (error) {
-        console.error(error);
-        return { "error": error };
-    }
-}
-
-export async function addEnergyComment(formData: FormData) {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    const data = JSON.stringify({
-        "sub_category_id": formData.get("sub_category_id")?.toString() || "",
-        "comment": formData.get("comment")?.toString() || "",
-        "created_at": formData.get("created_at")?.toString() || "",
-        "craeted_by": formData.get("craeted_by")?.toString() || "",
-    });
-
+export async function createEmission(emission: Emission) {
     const requestOptions = {
         method: "POST",
         headers: myHeaders,
-        body: data,
-        redirect: "follow"
+        body: JSON.stringify({
+            id_session_emission_sub_categorie: emission.idSessionSubCategorie,
+            id_emission_factor: emission.idEmissionFactor,
+            value: emission.value
+        })
     } as RequestInit;
     try {
-        const result = await fetch(urlApi + "/energy/add/comment", requestOptions);
-        return await result.json();
+        const emissionToReturn = await fetch(urlApi + "/session-emission", requestOptions)
+        return await emissionToReturn.json() as Emission
     } catch (error) {
-        console.error(error);
-        return { "error": error };
+        throw ("Impossible to createEmission : " + error);
     }
 }

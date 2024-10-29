@@ -1,9 +1,13 @@
 'use server';
 
-import { Category } from "@/app/types/Category";
-import { SessionCategory } from "@/app/types/SessionCategory";
+import { Category } from "@/src/types/Category";
+import { SessionCategory } from "@/src/types/SessionCategory";
+import { SessionSubCategory } from "@/src/types/SessionSubCategory";
+import { SubCategory } from "@/src/types/SubCategory";
 
 const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
+const myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
 
 export async function getCategories(idLanguage: number) {
     try {
@@ -12,8 +16,8 @@ export async function getCategories(idLanguage: number) {
     } catch (error) {
         throw error
     }
-
 }
+
 export async function getSessionCategories(idSessionStudent: string, categories: Category[]) {
     try {
         const result = await fetch(urlApi + "/session-categories/" + idSessionStudent);
@@ -32,5 +36,25 @@ export async function getSubCategories(id: number) {
         return await result.json();
     } catch (error) {
         return error;
+    }
+}
+
+export async function getSubCategoriesWithIdSessionCategory(sessionSubCategories: SessionSubCategory[]) {
+    const requestOptions = {
+        headers: myHeaders,
+        method: "POST",
+        body: JSON.stringify(sessionSubCategories.map(s => s.id_emission_sub_categorie))
+    } as RequestInit;
+    console.log("🚀 ~ getSubCategoriesWithIdSessionCategory ~ requestOptions:", requestOptions)
+    try {
+        const result = await fetch(urlApi + "/emission/sub-categories", requestOptions);
+        const subCategoryToReturn = await result.json()
+
+        return subCategoryToReturn.map((subCategory: SubCategory) => ({
+            ...subCategory,
+            idSessionSubCategorie: sessionSubCategories.find(s => s.id_emission_sub_categorie === subCategory.id)?.id || ""
+        })) as SubCategory[]
+    } catch (error) {
+        throw (error)
     }
 }

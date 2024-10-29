@@ -11,7 +11,7 @@ module.exports = {
                 transformHeader: (h) => h.replace(/[^\w\s]|_/g, "").replace(/\s+/g, "").toLowerCase(),
                 skipEmptyLines: true
             }
-        
+
         })
 
         return config
@@ -21,6 +21,10 @@ module.exports = {
         defaultLocale: "fr",
     },
     images: {
-        domains: ["flagcdn.com", "flags.fmcdn.net"]
+        remotePatterns: [
+            { hostname: 'flagcdn.com' },
+            { hostname: 'flags.fmcdn.net' }
+        ],
+
     }
 }

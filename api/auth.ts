@@ -39,7 +39,7 @@ export async function getCurrentUser(username: string, password: string, remembe
         const result = await fetch(urlApi + "/auth/login", requestOptions)
         const login = await result.json();
         if (login.errors) {
-            console.error("Failed to fetch API");
+            throw("Failed to fetch API");
             return login;
         }
         const school = await getSchool(login.user_email)
@@ -87,11 +87,11 @@ export async function signUp(formData: FormData) {
         const result = await fetch(urlApi + "/auth/sign-up", requestOptions)
         return await result.json();
     } catch (error) {
-        console.error(error);
+        throw(error);
     }
 }
 
-export async function getAuthenticatedUserData(username: string | undefined) {
+export async function getAuthenticatedUserData(username: string) {
     const data = JSON.stringify({
         "username": username
     })
@@ -107,7 +107,7 @@ export async function getAuthenticatedUserData(username: string | undefined) {
         if (response) {
             return response
         }
-        console.error("Failed to fetch API");
+        throw("Failed to fetch API");
         return [];
     } catch (error) {
         return error;

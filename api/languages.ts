@@ -6,7 +6,7 @@ export async function getLanguages(language_code: string) {
         const result =  await fetch(urlApi + "/languages/" + language_code)
         return await result.json()
     } catch (error) {
-        console.error(error);
+        throw(error);
         return 1
     }
 }
