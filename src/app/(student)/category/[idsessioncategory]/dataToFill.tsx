@@ -1,5 +1,3 @@
-'use client'
-
 import { DataToFill } from "@/src/types/DataToFill";
 import { useTranslation } from "react-i18next";
 
@@ -33,5 +31,5 @@ export const useDataToFill = () => {
         }
     ];
 
-    return { dataToFill };
+    return dataToFill;
 }

@@ -9,12 +9,12 @@ const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
 const myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 
-export async function getSessionSubCategoriesWithIdSessionCategory(idsessioncategory: string) {
+export async function getSessionSubCategoriesWithIdSessionCategory(idSessionCategory: string) {
     try {
-        const result = await fetch(urlApi + "/session-sub-categories/" + idsessioncategory)
+        const result = await fetch(urlApi + "/session-sub-categories/" + idSessionCategory)
         const sessionsSubCategories = await result.json()
         if (sessionsSubCategories.errors) {
-            console.error("Failed to getSessions " + sessionsSubCategories.errors);
+            throw ("Failed to getSessions " + sessionsSubCategories.errors);
         }
         return sessionsSubCategories as SessionSubCategory[];
     } catch (error) {
@@ -27,11 +27,11 @@ export async function getSessionsStudentsByGroup(idGroup: string) {
         const result = await fetch(urlApi + "/sessions?id_group=" + idGroup)
         const sessions = await result.json()
         if (sessions.errors) {
-            console.error("Failed to getSessions " + sessions.errors);
+            throw ("Failed to getSessionsStudentsByGroup " + sessions.errors);
         }
         return sessions as Session[];
     } catch (error) {
-        throw (error)
+        throw ("Failed to getSessionsStudentsByGroup " + error)
     }
 }
 
@@ -40,11 +40,11 @@ export async function getSessionStudent(id: string) {
         const result = await fetch(urlApi + "/sessions/" + id)
         const sessions = await result.json()
         if (sessions.errors) {
-            console.error("Failed to getSessions " + sessions.errors);
+            throw ("Failed to getSessions " + sessions.errors);
         }
         return sessions[0] as Session;
     } catch (error) {
-        throw error
+        throw ("Failed to getSessions " + error)
     }
 }
 
@@ -63,7 +63,7 @@ export async function archiveStudentSession(session: Session) {
     const result = await fetch(urlApi + "/sessions", requestOptions)
     const groups = await result.json()
     if (groups.errors) {
-        throw ("Failed to delete group")
+        throw ("Failed to delete group " + groups.errors)
     }
     return session.id
 }
@@ -86,12 +86,11 @@ export async function createSession(sessionName: string, user: User, idGroup: st
         const result = await fetch(urlApi + "/sessions", requestOptions)
         const sessions = await result.json()
         if (sessions.errors) {
-            console.error("Failed to createSession" + sessions.errors);
+            throw ("Failed to createSession" + sessions.errors);
         }
         return sessions
     } catch (error) {
-        console.error("Failed to createSession" + error);
-        return []
+        throw ("Failed to createSession " + error)
     }
 }
 

@@ -43,13 +43,14 @@ export async function getSubCategoriesWithIdSessionCategory(sessionSubCategories
     const requestOptions = {
         headers: myHeaders,
         method: "POST",
-        body: JSON.stringify([sessionSubCategories.map(s => s.id_emission_sub_categorie)])
+        body: JSON.stringify(sessionSubCategories.map(s => s.id_emission_sub_categorie))
     } as RequestInit;
+    console.log("🚀 ~ getSubCategoriesWithIdSessionCategory ~ requestOptions:", requestOptions)
     try {
         const result = await fetch(urlApi + "/emission/sub-categories", requestOptions);
-        const subCategoryToReturn = await result.json() as SubCategory[]
+        const subCategoryToReturn = await result.json()
 
-        return subCategoryToReturn.map(subCategory => ({
+        return subCategoryToReturn.map((subCategory: SubCategory) => ({
             ...subCategory,
             idSessionSubCategorie: sessionSubCategories.find(s => s.id_emission_sub_categorie === subCategory.id)?.id || ""
         })) as SubCategory[]

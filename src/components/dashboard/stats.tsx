@@ -101,7 +101,7 @@ export const Stats = () => {
             link.click();
             document.body.removeChild(link);
         } catch (error) {
-            console.error('Error:', error);
+            throw('Error:', error);
         }
     };
 

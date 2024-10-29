@@ -14,10 +14,10 @@ export async function getEmissionFactorsWithUnitsAndTypes(idEmissionSubCategorie
             throw new Error(`API request failed with status ${result.status}: ${result.statusText}`);
         }
         const emissionFactors = await result.json() as EmissionFactor[]
-        return emissionFactors.map(emissionFactor => ({ ...emissionFactor, uncertainty: parseFloat(emissionFactor.uncertainty?.toString() || "0") })) as EmissionFactor[]
+        return emissionFactors.map(emissionFactor =>
+            ({ ...emissionFactor, uncertainty: parseFloat(emissionFactor.uncertainty?.toString() || "0") }))
     } catch (error) {
-        console.error('Error fetching emission factors:', error);
-        throw error
+        throw ('Error fetching emission factors: ' + error);
     }
 }
 
@@ -37,8 +37,7 @@ export async function getEmissionByIdSessionSub(idSessionEmissionSubCategorie: s
         })) as Emission[]
 
     } catch (error) {
-        console.error('Error fetching emission factors:', error);
-        throw error
+        throw ('Error fetching emission factors: ' + error);
     }
 }
 
@@ -53,11 +52,9 @@ export async function createEmission(emission: Emission) {
         })
     } as RequestInit;
     try {
-        const emission = await fetch(urlApi + "/session-emission", requestOptions)
-        return await emission.json()
+        const emissionToReturn = await fetch(urlApi + "/session-emission", requestOptions)
+        return await emissionToReturn.json() as Emission
     } catch (error) {
-        console.error(error);
-        return emission
+        throw ("Impossible to createEmission : " + error);
     }
 }
-

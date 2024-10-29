@@ -15,19 +15,16 @@ interface DataTableProps {
 
 export const DataTable = ({ tableHeader, emissions, handleDelete }: DataTableProps) => {
     const { t } = useTranslation();
-    const [totalValues, setTotalValues] = useState<number>(0);
-    const [totalUncertainty, setTotalUncertainty] = useState<number>(0);
+    const [totalValues, setTotalValues] = useState(0);
+    const [totalUncertainty, setTotalUncertainty] = useState(0);
 
     useEffect(() => {
-        const values = emissions.reduce((acc, emission) => acc + emission.value, 0)
-        console.log("🚀 ~ useEffect ~ emissions:", emissions)
-        console.log("🚀 ~ useEffect ~ values:", values)
         setTotalValues(emissions.reduce((acc, emission) => acc + emission.value, 0));
         setTotalUncertainty(emissions.reduce((acc, emission) => acc + (emission.emissionFactor?.uncertainty || 0), 0));
     }, [emissions]);
 
     return <TableContainer>
-        <Table aria-label="simple table">
+        <Table>
             <TableHead>
                 <TableRow>
                     {tableHeader.map((val, _index) => (
@@ -37,8 +34,8 @@ export const DataTable = ({ tableHeader, emissions, handleDelete }: DataTablePro
                 </TableRow>
             </TableHead>
             <TableBody>
-                {emissions.map((emission, _index) => (
-                    <TableRow key={_index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                {emissions.map((emission) => (
+                    <TableRow key={emission.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                         <TableCell component="th" scope="row">{emission.emissionFactor?.type}</TableCell>
                         <TableCell align="right">{emission.value}</TableCell>
                         <TableCell align="right">{emission.emissionFactor?.label}</TableCell>
@@ -49,7 +46,7 @@ export const DataTable = ({ tableHeader, emissions, handleDelete }: DataTablePro
                                 description={t("abc-confirm-delete")}
                                 response={() => { handleDelete(emission) }}
                             >
-                                {(showDialog: any) => (
+                                {(showDialog: () => void) => (
                                     <IconButton onClick={showDialog} >
                                         <CancelPresentationOutlined sx={{ color: "red" }} />
                                     </IconButton>

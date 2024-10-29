@@ -9,6 +9,6 @@ export async function fetchExportFile() {
         }
         return await response.arrayBuffer()
     } catch (error) {
-        console.error('Error:', error);
+        throw('Error:', error);
     }
 }

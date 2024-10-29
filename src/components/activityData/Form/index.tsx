@@ -15,11 +15,10 @@ import { CircularProgress } from "@mui/material";
 import { DataToFill } from "@/src/types/DataToFill";
 
 interface ActivityDataFormProps {
-    handleConfirm: (idEF: number, value: string) => void;
     dataToFill: DataToFill[];
 };
 
-export const ActivityDataForm = ({ handleConfirm, dataToFill }: ActivityDataFormProps) => {
+export const ActivityDataForm = ({ dataToFill }: ActivityDataFormProps) => {
     const params = useParams<Params>()
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -28,8 +27,7 @@ export const ActivityDataForm = ({ handleConfirm, dataToFill }: ActivityDataForm
     const getSubCategories = async () => {
         setLoading(true)
         const sessionSubCategories = await getSessionSubCategoriesWithIdSessionCategory(params.idsessioncategory)
-        let subCategories = await getSubCategoriesWithIdSessionCategory(sessionSubCategories)
-        subCategories = subCategories.map(subcategory => ({
+        const subCategories = (await getSubCategoriesWithIdSessionCategory(sessionSubCategories)).map(subcategory => ({
             ...subcategory,
             dataToFill: dataToFill.find(header => subcategory.id === header.id)
         }));
@@ -42,27 +40,21 @@ export const ActivityDataForm = ({ handleConfirm, dataToFill }: ActivityDataForm
         getSubCategories()
     }, []);
 
-    const getQuestionComponent = (category: SubCategory) => {
-        return <QuestionTypeComponent category={category} handleConfirm={handleConfirm} />;
-    }
-
-    return <>
-        {loading ?
-            <Box sx={{ display: 'flex', justifyContent: "center", alignItems: "center", height: "80vh" }}>
-                <CircularProgress />
-            </Box>
-            : <StyledContainer>
-                {sessionSubCategory.map(category =>
-                    <Stack key={category.id}>
-                        <ActivityDataFormHeader category={category.label} />
-                        <Stack spacing={2} marginTop={2} marginBottom={2} sx={{ flexDirection: "row" }}>
-                            <ActivityDataFormDescription description={category.detail} />
-                            <Stack sx={{ marginLeft: "24px !important", flex: 1 }}>
-                                {getQuestionComponent(category)}
-                            </Stack>
+    return loading ?
+        <Box sx={{ display: 'flex', justifyContent: "center", alignItems: "center", height: "80vh" }}>
+            <CircularProgress />
+        </Box>
+        : <StyledContainer>
+            {sessionSubCategory.map(category =>
+                <Stack key={category.id}>
+                    <ActivityDataFormHeader category={category.label} />
+                    <Stack spacing={2} marginTop={2} marginBottom={2} sx={{ flexDirection: "row" }}>
+                        <ActivityDataFormDescription description={category.detail} />
+                        <Stack sx={{ marginLeft: "24px !important", flex: 1 }}>
+                            <QuestionTypeComponent category={category} />;
                         </Stack>
                     </Stack>
-                )}
-            </StyledContainer>}
-    </>
+                </Stack>
+            )}
+        </StyledContainer>
 };

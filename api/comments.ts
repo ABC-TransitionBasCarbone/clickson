@@ -27,7 +27,7 @@ export async function getComments(id: number) {
         const result = await fetch(urlApi + "/energy/comments", requestOptions);
         return await result.json();
     } catch (error) {
-        console.error(error);
-        return { "error": error };
+        throw(error);
+        throw error
     }
 }

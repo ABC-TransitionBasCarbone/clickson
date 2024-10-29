@@ -45,8 +45,8 @@ export const DataInput = ({
                     value={getIdEF(idEF)}
                     onChange={(id) => setIdEF(id.target.value as number)}
                 >
-                    {emissionFactors.map((emissionFactor, _index) => (
-                        <MenuItem key={_index} value={emissionFactor.id}>{emissionFactor.label}</MenuItem>
+                    {emissionFactors.map((emissionFactor) => (
+                        <MenuItem key={emissionFactor.id} value={emissionFactor.id}>{emissionFactor.label}</MenuItem>
                     ))}
                 </Select>
             </FormControl>
@@ -54,13 +54,13 @@ export const DataInput = ({
         <Stack className={classes.input}>
             <FormControl className={classes.form}>
                 <Typography className={classes.label}>
-                    {`${t(annualConsumptionText)} `} {emissionFactors[0] && ('(' + emissionFactors[0]?.unit + ')')}
+                    {`${t(annualConsumptionText)} (${ emissionFactors[0]?.unit || ''})`}
                 </Typography>
                 <OutlinedInput
                     type='text'
                     name="annual_consumption"
                     value={value}
-                    onChange={(text) => setValue(text.target.value)}
+                    onChange={(event) => setValue(event.target.value)}
                 />
             </FormControl>
         </Stack>

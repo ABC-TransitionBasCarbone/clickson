@@ -11,7 +11,6 @@ interface CustomDialogProps {
     closeLabel: string;
     confirmLabel: string;
     handleClose: () => void;
-    handleConfirm: () => void;
 };
 
 export const CustomDialog = ({
@@ -22,7 +21,6 @@ export const CustomDialog = ({
     closeLabel,
     confirmLabel,
     handleClose,
-    handleConfirm
 }: CustomDialogProps) => {
     const { t } = useTranslation();
 
@@ -31,18 +29,18 @@ export const CustomDialog = ({
         keepMounted={true}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
-        >
+    >
         <DialogTitle id="alert-dialog-title">
             {t(titleLabel)}
         </DialogTitle>
         <DialogContent>
             <DialogContentText id="alert-dialog-description">
-            {t(contentLabel, contentParams)}
+                {t(contentLabel, contentParams)}
             </DialogContentText>
         </DialogContent>
         <DialogActions>
             <Button onClick={handleClose} autoFocus color="primary">{t(closeLabel)}</Button>
-            <Button onClick={handleConfirm} color="secondary">{t(confirmLabel)}</Button>
+            {/* <Button onClick={handleConfirm} color="secondary">{t(confirmLabel)}</Button> */}
         </DialogActions>
     </Dialog>;
 }

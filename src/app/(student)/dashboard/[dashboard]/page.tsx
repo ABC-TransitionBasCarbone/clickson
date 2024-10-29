@@ -125,7 +125,7 @@ export default function Dashboard() {
             setCategories(categories);
             setLoadingCategories(false);
         } catch (error) {
-            console.error(error);
+            throw(error);
             setLoadingCategories(false);
         }
     }

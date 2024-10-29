@@ -49,7 +49,7 @@ const i18nPromise = i18n
         },
     })
     .catch((error) => {
-        console.error('Error initializing i18n:', error);
+        throw('Error initializing i18n:', error);
     });
 
 export default i18nPromise;

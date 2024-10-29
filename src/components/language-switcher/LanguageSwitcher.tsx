@@ -30,7 +30,7 @@ const changeLanguage = (locale: string) => {
 
     i18n.changeLanguage(locale)
         .catch((error) => {
-            console.error('Failed to change language:', error);
+            throw('Failed to change language: ' + error);
         });
 
 };

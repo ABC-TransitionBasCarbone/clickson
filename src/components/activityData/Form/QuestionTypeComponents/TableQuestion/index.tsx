@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useState } from "react";
 import { CustomDialog } from "@/src/components/customDialog";
 import { SubCategory } from "@/src/types/SubCategory";
@@ -11,16 +13,15 @@ import { Emission } from "@/src/types/Emission";
 
 interface QuestionTypeComponentProps {
     category: SubCategory;
-    handleConfirm: (idEF: number, value: string) => void;
 }
-export const QuestionTypeComponent = ({ category, handleConfirm }: QuestionTypeComponentProps) => {
-    const [saving, setSaving] = useState<boolean>(false)
-    const [loadingData, setLoadingData] = useState<boolean>(false)
-    const [open, setOpen] = useState<boolean>(false);
-    const [idEF, setIdEF] = useState<number>(0)
+export const QuestionTypeComponent = ({ category }: QuestionTypeComponentProps) => {
+    const [saving, setSaving] = useState(false)
+    const [loadingData, setLoadingData] = useState(false)
+    const [open, setOpen] = useState(false);
+    const [idEF, setIdEF] = useState(0)
     const [emissionFactors, setEmissionFactors] = useState<EmissionFactor[]>([])
     const [emissions, setEmissions] = useState<Emission[]>([])
-    const [value, setValue] = useState<string>("");
+    const [value, setValue] = useState("");
 
     const getEmissionFactorsAndEmissions = async () => {
         const emissionFactors = await getEmissionFactorsWithUnitsAndTypes(category.id)
@@ -63,7 +64,6 @@ export const QuestionTypeComponent = ({ category, handleConfirm }: QuestionTypeC
             closeLabel="abc-yes"
             confirmLabel="abc-no"
             handleClose={handleClose}
-            handleConfirm={() => handleConfirm(idEF, value)}
         />
         <DataInput
             titleSelectInput={category.dataToFill?.titleSelectInput || ""}
