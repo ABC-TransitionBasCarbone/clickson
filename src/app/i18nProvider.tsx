@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import i18n from "i18next";
 import { I18nextProvider } from "react-i18next";
-import {Stack} from "@mui/material";
+import { Stack } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import React from "react";
 
@@ -14,13 +14,13 @@ export default function I18nProvider({ children, locale }: { children: React.Rea
         i18n.changeLanguage(locale).then(() => {
             setIsReady(true);
         }).catch((error) => {
-            throw('Failed to initialize i18n:', error);
             setIsReady(true);
+            throw ('Failed to initialize i18n:' + error);
         });
     }, [locale]);
 
     if (!isReady) {
-        return <Stack sx={{ height: "100vh", justifyContent: "center", alignItems: "center"}}>
+        return <Stack sx={{ height: "100vh", justifyContent: "center", alignItems: "center" }}>
             <React.Fragment>
                 <svg width={0} height={0}>
                     <defs>
