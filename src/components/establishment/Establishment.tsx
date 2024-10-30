@@ -61,13 +61,13 @@ export default function Establishment() {
         fetchSchool()
     }, []);
 
-    return (<>
+    return <>
         <Grid container spacing={3}>
             <Grid item xs={12} sm={3} sx={{ display: 'flex', alignItems: 'center' }}>
                 <h2>{t('abc-my-school')}</h2>
             </Grid>
-            <Grid item xs={12} sm={9} sx={{ display: 'flex', alignItems: 'center'}} >
-                <Button onClick={handleOpen}> {school && <EditIcon />}</Button>
+            <Grid item xs={12} sm={9} sx={{ display: 'flex', alignItems: 'center' }} >
+                <Button  variant="contained" onClick={handleOpen}> {school && <EditIcon />}</Button>
             </Grid>
         </Grid>
         {
@@ -195,5 +195,5 @@ export default function Establishment() {
                 </Box>
             </Fade>
         </Modal></>
-    )
+
 };

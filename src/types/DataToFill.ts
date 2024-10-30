@@ -4,6 +4,6 @@ export interface DataToFill {
     category: string;
     type: string;
     titleSelectInput: string;
-    titleAnnualConsumptionInput: string;
-    tableHeader: string[];
+    titleAnnualConsumptionInput?: string;
+    tableHeader?: string[];
 }

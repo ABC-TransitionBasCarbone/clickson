@@ -27,12 +27,15 @@ export const QuestionTypeComponent = ({ category }: QuestionTypeComponentProps) 
         const emissionFactors = await getEmissionFactorsWithUnitsAndTypes(category.id)
         setEmissionFactors(emissionFactors)
 
-        const emissions = await getEmissionByIdSessionSub(category.idSessionSubCategorie)
+        const emissionsData = await getEmissionByIdSessionSub(category.idSessionSubCategorie)
+        console.log("🚀 ~ getEmissionFactorsAndEmissions ~ category:", category)
         setLoadingData(false)
-        setEmissions(emissions.map(emission => ({
+        setEmissions(emissionsData.map(emission => ({
             ...emission,
             emissionFactor: emissionFactors.find(ef => ef.id === emission.idEmissionFactor),
         })))
+        console.log("🚀 ~ QuestionTypeComponent ~ emissions:", emissions)
+
     }
 
     useEffect(() => {
