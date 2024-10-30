@@ -36,9 +36,9 @@ export const DataTable = ({ tableHeader, emissions, handleDelete }: DataTablePro
             <TableBody>
                 {emissions.map((emission) => (
                     <TableRow key={emission.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                        <TableCell component="th" scope="row">{emission.emissionFactor?.type}</TableCell>
+                        <TableCell component="th" scope="row">{emission.emissionFactor?.label}</TableCell>
                         <TableCell align="right">{emission.value}</TableCell>
-                        <TableCell align="right">{emission.emissionFactor?.label}</TableCell>
+                        <TableCell align="right">{emission.emissionFactor?.value}</TableCell>
                         <TableCell align="right">{emission.emissionFactor?.uncertainty}</TableCell>
                         <TableCell align="right">
                             <ConfirmationDialog

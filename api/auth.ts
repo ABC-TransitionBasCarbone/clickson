@@ -65,16 +65,15 @@ export async function getUserCookies() {
 
 export async function signUp(formData: FormData) {
     const raw = JSON.stringify({
+        "role": "teacher",
         "email": formData.get("email")?.toString() || "",
-        "username": formData.get("email")?.toString() || "",
         "first_name": formData.get("first_name")?.toString() || "",
         "last_name": formData.get("last_name")?.toString() || "",
         "password": formData.get("password")?.toString() || "",
-        "confirm-password": formData.get("confirm-password")?.toString() || "",
         "state": formData.get("state")?.toString() || "",
-        "school": formData.get("school")?.toString() || "",
-        "city": formData.get("city")?.toString() || "",
-        "zip_code": formData.get("zip_code")?.toString() || "",
+        "school_name": formData.get("school")?.toString() || "",
+        "town_name": formData.get("city")?.toString() || "",
+        "postal_code": formData.get("zip_code")?.toString() || "",
     });
 
     const requestOptions = {
@@ -83,6 +82,7 @@ export async function signUp(formData: FormData) {
         body: raw,
         redirect: "follow"
     } as RequestInit;
+    console.log("🚀 ~ signUp ~ requestOptions:", requestOptions)
     try {
         const result = await fetch(urlApi + "/auth/sign-up", requestOptions)
         return await result.json();
@@ -108,7 +108,6 @@ export async function getAuthenticatedUserData(username: string) {
             return response
         }
         throw("Failed to fetch API");
-        return [];
     } catch (error) {
         return error;
     }

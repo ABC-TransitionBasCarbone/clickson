@@ -22,16 +22,17 @@ export const ActivityDataForm = ({ dataToFill }: ActivityDataFormProps) => {
     const params = useParams<Params>()
     const [loading, setLoading] = useState<boolean>(false);
 
-    const [sessionSubCategory, setSessionSubCategory] = useState<SubCategory[]>([]);
+    const [sessionSubCategories, setSessionSubCategories] = useState<SubCategory[]>([]);
 
     const getSubCategories = async () => {
         setLoading(true)
-        const sessionSubCategories = await getSessionSubCategoriesWithIdSessionCategory(params.idsessioncategory)
-        const subCategories = (await getSubCategoriesWithIdSessionCategory(sessionSubCategories)).map(subcategory => ({
+        const sessionSubCategoriesData = await getSessionSubCategoriesWithIdSessionCategory(params.idsessioncategory)
+        const subCategories = (await getSubCategoriesWithIdSessionCategory(sessionSubCategoriesData)).map(subcategory => ({
             ...subcategory,
             dataToFill: dataToFill.find(header => subcategory.id === header.id)
         }));
-        setSessionSubCategory(subCategories)
+        setSessionSubCategories(subCategories)
+        console.log("🚀 ~ getSubCategories ~ subCategories:", subCategories)
 
         setLoading(false)
     }
@@ -45,13 +46,13 @@ export const ActivityDataForm = ({ dataToFill }: ActivityDataFormProps) => {
             <CircularProgress />
         </Box>
         : <StyledContainer>
-            {sessionSubCategory.map(category =>
+            {sessionSubCategories.map(category =>
                 <Stack key={category.id}>
                     <ActivityDataFormHeader category={category.label} />
                     <Stack spacing={2} marginTop={2} marginBottom={2} sx={{ flexDirection: "row" }}>
                         <ActivityDataFormDescription description={category.detail} />
                         <Stack sx={{ marginLeft: "24px !important", flex: 1 }}>
-                            <QuestionTypeComponent category={category} />;
+                            <QuestionTypeComponent category={category} />
                         </Stack>
                     </Stack>
                 </Stack>

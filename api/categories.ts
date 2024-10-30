@@ -40,12 +40,12 @@ export async function getSubCategories(id: number) {
 }
 
 export async function getSubCategoriesWithIdSessionCategory(sessionSubCategories: SessionSubCategory[]) {
+    if(sessionSubCategories.length === 0) return []
     const requestOptions = {
         headers: myHeaders,
         method: "POST",
         body: JSON.stringify(sessionSubCategories.map(s => s.id_emission_sub_categorie))
     } as RequestInit;
-    console.log("🚀 ~ getSubCategoriesWithIdSessionCategory ~ requestOptions:", requestOptions)
     try {
         const result = await fetch(urlApi + "/emission/sub-categories", requestOptions);
         const subCategoryToReturn = await result.json()

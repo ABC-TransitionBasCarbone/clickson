@@ -60,6 +60,7 @@ const CustomH6 = styled('h6')`
     font-size: 1rem;
     line-height: 1.2;
     font-weight: 500;
+    margin-top: 1rem;
 `
 
 const CustomH3 = styled('h3')`
@@ -125,8 +126,8 @@ export default function Dashboard() {
             setCategories(categories);
             setLoadingCategories(false);
         } catch (error) {
-            throw(error);
             setLoadingCategories(false);
+            throw (error);
         }
     }
 
@@ -140,11 +141,11 @@ export default function Dashboard() {
             <Container maxWidth="xl">
                 <DashboardWrapper>
 
-
-                    <Establishment />
-                    <Link href={"/groups/" + idSessionStudent}>
+                    <Link  href={"/groups/" + idSessionStudent}>
                         <HomeIcon fontSize="large" />
                     </Link>
+
+                    <Establishment />
                     <CustomH6>
                         <strong>{t('abc-emission-profile')} (kgCO2e)</strong>
                     </CustomH6>

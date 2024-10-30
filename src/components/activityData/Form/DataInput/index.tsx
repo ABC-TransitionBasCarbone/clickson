@@ -6,8 +6,6 @@ import { useTranslation } from "react-i18next";
 import { PrimaryButton } from "@/src/components/buttons/primaryButton";
 import { classes, StyledInputData } from "./styles";
 import { EmissionFactor } from "@/src/types/EmissionFactor";
-import { useEffect } from "react";
-import test from "node:test";
 
 interface DataInputProps {
     titleSelectInput: string;
@@ -35,7 +33,7 @@ export const DataInput = ({
     const { t } = useTranslation();
 
     const getIdEF = (idEF: number) => (idEF === 0 && emissionFactors[0]) ? emissionFactors[0].id : idEF;
-
+    
     return <StyledInputData>
         {emissionFactors[0] && <Stack className={classes.input}>
             <FormControl className={classes.form}>
@@ -54,7 +52,7 @@ export const DataInput = ({
         <Stack className={classes.input}>
             <FormControl className={classes.form}>
                 <Typography className={classes.label}>
-                    {`${t(annualConsumptionText)} (${ emissionFactors[0]?.unit || ''})`}
+                    {emissionFactors[0] && `${t(annualConsumptionText)} (${emissionFactors[0]?.unit || ''})`}
                 </Typography>
                 <OutlinedInput
                     type='text'
