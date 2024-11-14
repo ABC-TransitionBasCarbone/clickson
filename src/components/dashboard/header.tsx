@@ -1,4 +1,4 @@
-import { Grid, Box } from "@mui/material";
+import { Grid, Box, Button } from "@mui/material";
 import { styled } from "@mui/system";
 import { MouseEvent, useEffect, useState } from "react";
 import { getUserCookies, logout } from "@/api/auth";
@@ -79,7 +79,7 @@ export const Header = () => {
                     <LanguageSwitcher />
                     <p>{user?.user_email}</p>
                     <p>{t('abc-connected-as')}: <strong>{user?.role}</strong></p>
-                    <Link href="" onClick={onLogout}>{t('abc-logout')}</Link>
+                    <Link href="" onClick={onLogout}><Button>{t('abc-logout')}</Button></Link>
                 </UsernameBox>
             </Grid>
         </Grid>
