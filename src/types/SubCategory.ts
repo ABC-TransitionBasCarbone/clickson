@@ -1,11 +1,11 @@
-import { DataToFill } from "./DataToFill";
+import { EmissionFactor } from "./EmissionFactor";
 
 export interface SubCategory {
     id: number;
-    id_emission_categorie: number;
-    id_language?: number;
+    idEmissionCategorie: number;
+    idLanguage?: number;
     label: string;
     detail: string;
-    dataToFill?: DataToFill;
     idSessionSubCategorie: string;
+    emissionFactors: EmissionFactor[];
 }

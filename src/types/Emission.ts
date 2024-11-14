@@ -1,9 +1,9 @@
 import { EmissionFactor } from "./EmissionFactor";
 
 export interface Emission {
-    id: string;
+    id?: string;
     value: number;
-    idSessionSubCategorie: string;
-    idEmissionFactor: number;
-    emissionFactor?: EmissionFactor;
+    idSessionSubCategorie?: string;
+    idEmissionFactor?: number;
+    emissionFactor: EmissionFactor;
 }

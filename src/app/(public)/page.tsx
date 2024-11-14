@@ -1,31 +1,15 @@
 'use client'
 
-import {login, logout} from "@/api/auth";
-import {FormEvent, useEffect, useState} from "react";
-import {useRouter} from 'next/navigation'
-import {Grid, useMediaQuery} from "@mui/material";
+import { login, logout } from "@/api/auth";
+import { FormEvent, useEffect, useState } from "react";
+import { useRouter } from 'next/navigation'
 import Container from "@mui/material/Container";
-import { styled } from "@mui/system";
 import { Header } from '../../components/login/header';
 import { Form } from '../../components/login/form'
 import { Footer } from '../../components/login/footer'
-import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 
 export default function Page() {
-    const theme = useTheme();
-    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-
-
-    const CustomContainer = styled(Grid)(({ theme }) => ({
-        position: isSmallScreen ? 'relative' : 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 1030,
-        backgroundColor: 'white'
-
-    }));
     const router = useRouter();
     const [session, setSession] = useState({})
     const [loading, setLoading] = useState(false)
@@ -45,7 +29,7 @@ export default function Page() {
         const formData = new FormData(event.currentTarget)
         login(formData).then(result => {
             if (!result.errors) {
-                router.push("/groups")
+                router.push("/sessions")
             } else {
                 setLoading(false);
                 setButtonValue(t('abc-login'))
@@ -67,9 +51,7 @@ export default function Page() {
     return (
         <>
             <div>
-                <CustomContainer>
-                    <Header logoPosition="flex-end" />
-                </CustomContainer>
+                <Header logoPosition="flex-end" />
             </div>
             <Container>
                 <Form correctUserInfo={correctUserInfo} onLogin={onLogin} loading={loading} buttonValue={buttonValue} goToSignUp={goToSignUp} />

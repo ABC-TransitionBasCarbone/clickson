@@ -71,7 +71,7 @@ export async function signUp(formData: FormData) {
         "password": formData.get("password")?.toString() || "",
         "state": formData.get("state")?.toString() || "",
         "schoolName": formData.get("schoolName")?.toString() || "",
-        "townName": formData.get("city")?.toString() || "",
+        "townName": formData.get("townName")?.toString() || "",
         "postalCode": formData.get("postalCode")?.toString() || "",
     });
 

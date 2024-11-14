@@ -24,9 +24,9 @@ export async function editSchool(formData: FormData, school: School | undefined 
     school = {
         ...school,
         "name": formData.get("name")?.toString(),
-        "student_count": Number(formData.get("student_count")),
-        "staff_count": Number(formData.get("staff_count")),
-        "establishment_year": Number(formData.get("establishment_year")),
+        "studentCount": Number(formData.get("studentCount")),
+        "staffCount": Number(formData.get("staffCount")),
+        "establishmentYear": Number(formData.get("establishmentYear")),
         "adress": formData.get("adress")?.toString()
     }
     const data = JSON.stringify(school)

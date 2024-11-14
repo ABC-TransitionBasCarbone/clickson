@@ -1,10 +1,10 @@
-import {Grid, Box} from "@mui/material";
-import {styled} from "@mui/system";
-import {MouseEvent, useEffect, useState} from "react";
-import {getUserCookies, logout} from "@/api/auth";
-import {useRouter} from "next/navigation";
+import { Grid, Box } from "@mui/material";
+import { styled } from "@mui/system";
+import { MouseEvent, useEffect, useState } from "react";
+import { getUserCookies, logout } from "@/api/auth";
+import { useRouter } from "next/navigation";
 import LanguageSwitcher from "@/src/components/language-switcher/LanguageSwitcher";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { User } from "@/src/types/User";
 
 const BoxHeader = styled(Box)`
@@ -18,7 +18,7 @@ const Link = styled('a')`
     text-decoration: none;
 `;
 
-const UsernameBox = styled('div')(({theme}) => ({
+const UsernameBox = styled('div')(({ theme }) => ({
     a: {
         color: theme.palette.primary.main,
     },
@@ -38,7 +38,7 @@ const UsernameBox = styled('div')(({theme}) => ({
 export const Header = () => {
     const router = useRouter();
     const [user, setUser] = useState<User>({} as User);
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     useEffect(() => {
         fetchCookies();
     }, [setUser]);
@@ -56,34 +56,32 @@ export const Header = () => {
             router.push('/')
         })
     }
-    return (
-        <Box sx={{width: '100%'}}>
-            <Grid
-                container
-                direction="row"
-                justifyContent="space-between"
-                alignItems="center"
-            >
-                <Grid item sm={3}>
-                    <BoxHeader>
-                        <img
-                            src="https://calculator.clickson.eu/wp-content/themes/co2calc-child/images/logo.png"
-                            alt="logo"
-                        />
-                    </BoxHeader>
-                </Grid>
-                <Grid item sm={6}>
-                    <Box sx={{border: 'none'}}></Box>
-                </Grid>
-                <Grid item sm={3}>
-                    <UsernameBox sx={{border: 'none'}}>
-                        <LanguageSwitcher />
-                        <p>{user?.user_email}</p>
-                        <p>{t('abc-connected-as')}: <strong>{user?.role}</strong></p>
-                        <Link href="" onClick={onLogout}>{t('abc-logout')}</Link>
-                    </UsernameBox>
-                </Grid>
+    return <Box sx={{ width: '100%' }}>
+        <Grid
+            container
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+        >
+            <Grid item sm={3}>
+                <BoxHeader>
+                    <img
+                        src="https://calculator.clickson.eu/wp-content/themes/co2calc-child/images/logo.png"
+                        alt="logo"
+                    />
+                </BoxHeader>
             </Grid>
-        </Box>
-    )
+            <Grid item sm={6}>
+                <Box sx={{ border: 'none' }}></Box>
+            </Grid>
+            <Grid item sm={3}>
+                <UsernameBox sx={{ border: 'none' }}>
+                    <LanguageSwitcher />
+                    <p>{user?.user_email}</p>
+                    <p>{t('abc-connected-as')}: <strong>{user?.role}</strong></p>
+                    <Link href="" onClick={onLogout}>{t('abc-logout')}</Link>
+                </UsernameBox>
+            </Grid>
+        </Grid>
+    </Box>
 }

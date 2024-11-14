@@ -74,8 +74,8 @@ interface Props {
     borderColor: string
 }
 
-export const CategoryItem = ({category, borderColor}: Props) => {
-    const {t} = useTranslation();
+export const CategoryItem = ({ category, borderColor }: Props) => {
+    const { t } = useTranslation();
 
     const conatinerStyle = {
         justifyContent: "center",
@@ -93,7 +93,8 @@ export const CategoryItem = ({category, borderColor}: Props) => {
         <Paragraph>
             {t(category.detail)}
         </Paragraph>
-        <Link href={`/category/` + category.id_session_emission_categorie}>        <OngoingButton >{t('abc-on-going')}</OngoingButton>
+        <Link href={`/category/` + category.idSessionEmissionCategorie}>
+            <OngoingButton >{t('abc-on-going')}</OngoingButton>
         </Link>
         {/* <DownloadButton onClick={() => { }}>{t('abc-download')} <Download onClick={() => { }} /></DownloadButton> */}
     </Grid>);

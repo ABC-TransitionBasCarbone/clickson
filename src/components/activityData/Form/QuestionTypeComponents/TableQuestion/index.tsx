@@ -1,61 +1,35 @@
 'use client'
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { CustomDialog } from "@/src/components/customDialog";
-import { SubCategory } from "@/src/types/SubCategory";
 import { DataInput } from "../../DataInput";
-import { createEmission, getEmissionByIdSessionSub, getEmissionFactorsWithUnitsAndTypes } from "@/api/emissions";
-import { EmissionFactor } from "@/src/types/EmissionFactor";
+import { createEmission } from "@/api/emissions";
 import { CircularProgress } from "@mui/material";
 import { Box } from "@mui/system";
 import { DataTable } from "../../DataTable";
 import { Emission } from "@/src/types/Emission";
+import { SessionSubCategory } from "@/src/types/SessionSubCategory";
 
 interface QuestionTypeComponentProps {
-    category: SubCategory;
+    sessionSubCategory: SessionSubCategory;
 }
-export const QuestionTypeComponent = ({ category }: QuestionTypeComponentProps) => {
+
+export const QuestionTypeComponent = ({ sessionSubCategory }: QuestionTypeComponentProps) => {
     const [saving, setSaving] = useState(false)
     const [loadingData, setLoadingData] = useState(false)
     const [open, setOpen] = useState(false);
-    const [idEF, setIdEF] = useState(0)
-    const [emissionFactors, setEmissionFactors] = useState<EmissionFactor[]>([])
-    const [emissions, setEmissions] = useState<Emission[]>([])
-    const [value, setValue] = useState("");
-
-    const getEmissionFactorsAndEmissions = async () => {
-        const emissionFactors = await getEmissionFactorsWithUnitsAndTypes(category.id)
-        setEmissionFactors(emissionFactors)
-
-        const emissionsData = await getEmissionByIdSessionSub(category.idSessionSubCategorie)
-        console.log("🚀 ~ getEmissionFactorsAndEmissions ~ category:", category)
-        setLoadingData(false)
-        setEmissions(emissionsData.map(emission => ({
-            ...emission,
-            emissionFactor: emissionFactors.find(ef => ef.id === emission.idEmissionFactor),
-        })))
-        console.log("🚀 ~ QuestionTypeComponent ~ emissions:", emissions)
-
-    }
-
-    useEffect(() => {
-        setLoadingData(true)
-        getEmissionFactorsAndEmissions()
-    }, []);
 
     const handleClose = () => {
-        setIdEF(0);
-        setValue("");
         setOpen(false);
     };
 
-    const handleAddData = async (idEF: number, value: string) => {
-        const emission = await createEmission({
-            idEmissionFactor: idEF,
-            idSessionSubCategorie: category.idSessionSubCategorie,
-            value: parseFloat(value)
-        } as Emission)
-        setEmissions(emissions.concat(emission))
+    const handleAddData = async (emission: Emission) => {
+        setLoadingData(true)
+        setSaving(true)
+        const emissionData = await createEmission({ ...emission, idSessionSubCategorie: sessionSubCategory.id })
+        sessionSubCategory.sessionEmissions = sessionSubCategory.sessionEmissions.concat({ ...emissionData, ...emission })
+        setSaving(false)
+        setLoadingData(false)
     }
 
     return <>
@@ -63,26 +37,21 @@ export const QuestionTypeComponent = ({ category }: QuestionTypeComponentProps) 
             open={open}
             titleLabel="abc-confirm-title"
             contentLabel="abc-confirm-duplicate"
-            contentParams={{ idEF: idEF }}
             closeLabel="abc-yes"
             confirmLabel="abc-no"
             handleClose={handleClose}
         />
         <DataInput
-            titleSelectInput={category.dataToFill?.titleSelectInput || ""}
-            idEF={idEF}
-            emissionFactors={emissionFactors}
+            titleSelectInput={sessionSubCategory.dataToFill?.titleSelectInput || ""}
+            emissionFactors={sessionSubCategory.emissionSubCategories.emissionFactors}
             saving={saving}
-            value={value}
-            annualConsumptionText={category.dataToFill?.titleAnnualConsumptionInput || ""}
-            setValue={setValue}
-            setIdEF={setIdEF}
+            annualConsumptionText={sessionSubCategory.dataToFill?.titleAnnualConsumptionInput || ""}
             handleAddData={handleAddData} />
         {loadingData
             ? <Box sx={{ display: 'flex', justifyContent: "center", alignItems: "center", height: "20" }}>
                 <CircularProgress />
             </Box>
-            : <DataTable tableHeader={category.dataToFill?.tableHeader || []} emissions={emissions} handleDelete={() => { }} />
+            : <DataTable tableHeader={sessionSubCategory.dataToFill?.tableHeader || []} emissions={sessionSubCategory.sessionEmissions} handleDelete={() => { }} />
         }
     </>
 };

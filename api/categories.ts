@@ -22,7 +22,7 @@ export async function getSessionCategories(idSessionStudent: string, categories:
     try {
         const result = await fetch(urlApi + "/session-categories/" + idSessionStudent);
         let sessionCategories = await result.json() as SessionCategory[];
-        sessionCategories = sessionCategories.map((sessionCategory, index) => ({ ...sessionCategory, id_emission_categorie: categories[index].id }))
+        sessionCategories = sessionCategories.map((sessionCategory, index) => ({ ...sessionCategory, idEmissionCategorie: categories[index].id }))
 
         return sessionCategories
     } catch (error) {

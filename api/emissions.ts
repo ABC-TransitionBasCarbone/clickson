@@ -17,7 +17,7 @@ export async function getEmissionFactorsWithUnitsAndTypes(idEmissionSubCategorie
         return emissionFactors.map(emissionFactor =>
             ({ ...emissionFactor, uncertainty: parseFloat(emissionFactor.uncertainty?.toString() || "0") }))
     } catch (error) {
-        throw ('Error fetching emission factors: ' + error);
+        throw new Error('Error fetching emission factors: ' + error);
     }
 }
 
@@ -37,7 +37,7 @@ export async function getEmissionByIdSessionSub(idSessionEmissionSubCategorie: s
         })) as Emission[]
 
     } catch (error) {
-        throw ('Error fetching emission factors: ' + error);
+        throw new Error('Error fetching emission factors: ' + error);
     }
 }
 
@@ -46,8 +46,8 @@ export async function createEmission(emission: Emission) {
         method: "POST",
         headers: myHeaders,
         body: JSON.stringify({
-            id_session_emission_sub_categorie: emission.idSessionSubCategorie,
-            id_emission_factor: emission.idEmissionFactor,
+            idSessionEmissionSubCategorie: emission.idSessionSubCategorie,
+            idEmissionFactor: emission.emissionFactor.id,
             value: emission.value
         })
     } as RequestInit;
@@ -55,6 +55,6 @@ export async function createEmission(emission: Emission) {
         const emissionToReturn = await fetch(urlApi + "/session-emission", requestOptions)
         return await emissionToReturn.json() as Emission
     } catch (error) {
-        throw ("Impossible to createEmission : " + error);
+        throw new Error("Impossible to createEmission : " + error);
     }
 }

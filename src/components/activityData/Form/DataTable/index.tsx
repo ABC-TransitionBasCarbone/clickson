@@ -19,8 +19,8 @@ export const DataTable = ({ tableHeader, emissions, handleDelete }: DataTablePro
     const [totalUncertainty, setTotalUncertainty] = useState(0);
 
     useEffect(() => {
-        setTotalValues(emissions.reduce((acc, emission) => acc + emission.value, 0));
-        setTotalUncertainty(emissions.reduce((acc, emission) => acc + (emission.emissionFactor?.uncertainty || 0), 0));
+        setTotalValues(emissions.reduce((acc, emission) => acc + Number(emission.value), 0));
+        setTotalUncertainty(emissions.reduce((acc, emission) => acc + (Number(emission.emissionFactor?.uncertainty) || 0), 0))
     }, [emissions]);
 
     return <TableContainer>
@@ -51,7 +51,6 @@ export const DataTable = ({ tableHeader, emissions, handleDelete }: DataTablePro
                                         <CancelPresentationOutlined sx={{ color: "red" }} />
                                     </IconButton>
                                 )}
-                                {/* TODO comprendre le code ci dessus */}
                             </ConfirmationDialog>
                         </TableCell>
                     </TableRow>
