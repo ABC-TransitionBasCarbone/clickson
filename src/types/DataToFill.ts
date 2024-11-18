@@ -1,4 +1,3 @@
-// type QuestionType = "table";
 export interface DataToFill {
     id: number;
     category: string;

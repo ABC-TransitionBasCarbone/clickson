@@ -26,9 +26,10 @@ export const ActivityDataForm = ({ dataToFill }: ActivityDataFormProps) => {
     const getSubCategories = async () => {
         setLoading(true)
         const sessionSubCategoriesData = await getSessionSubCategoriesWithIdSessionCategory(params.idsessioncategory)
+        console.log("🚀 ~ getSubCategories ~ sessionSubCategoriesData:", sessionSubCategoriesData)
         setSessionSubCategories(sessionSubCategoriesData.map(subcategory => ({
             ...subcategory,
-            dataToFill: dataToFill.find(header => subcategory.idEmissionSubCategorie === header.id)
+            dataToFill: dataToFill.find(header => subcategory.idEmissionSubCategory === header.id)
         })))
         setLoading(false)
     }

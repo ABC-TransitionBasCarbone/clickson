@@ -7,9 +7,9 @@ const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
 const myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 
-export async function getEmissionFactorsWithUnitsAndTypes(idEmissionSubCategorie: number) {
+export async function getEmissionFactorsWithUnitsAndTypes(idEmissionSubCategory: number) {
     try {
-        const result = await fetch(urlApi + "/emission-factors/" + idEmissionSubCategorie);
+        const result = await fetch(urlApi + "/emission-factors/" + idEmissionSubCategory);
         if (!result.ok) {
             throw new Error(`API request failed with status ${result.status}: ${result.statusText}`);
         }

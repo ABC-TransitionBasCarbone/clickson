@@ -79,7 +79,9 @@ export const Header = () => {
                     <LanguageSwitcher />
                     <p>{user?.user_email}</p>
                     <p>{t('abc-connected-as')}: <strong>{user?.role}</strong></p>
-                    <Link href="" onClick={onLogout}><Button>{t('abc-logout')}</Button></Link>
+                    <Link href="" onClick={onLogout}>
+                        <Button>{t('abc-logout')}</Button>
+                    </Link>
                 </UsernameBox>
             </Grid>
         </Grid>

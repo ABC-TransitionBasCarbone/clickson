@@ -5,7 +5,7 @@ import { SubCategory } from "./SubCategory"
 export interface SessionSubCategory {
     id: string
     idSessionEmissionCategorie: string
-    idEmissionSubCategorie: number,
+    idEmissionSubCategory: number,
     sessionEmissions: Emission[]
     emissionSubCategories: SubCategory
     dataToFill?: DataToFill

@@ -71,7 +71,7 @@ export const DataInput = ({
         <Stack className={classes.input}>
             <FormControl className={classes.form}>
                 <Typography className={classes.label}>
-                    {emissionFactors[0] && `${t(annualConsumptionText)} (${emissionFactors[0].emissionUnits?.label || ''})`}
+                    {emissionFactors[0] && `${t(annualConsumptionText)} (${emissionFactors[0].unit})`}
                 </Typography>
                 <OutlinedInput
                     type='text'
