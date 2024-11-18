@@ -22,7 +22,7 @@ export async function getSessionCategories(idSessionStudent: string, categories:
     try {
         const result = await fetch(urlApi + "/session-categories/" + idSessionStudent);
         let sessionCategories = await result.json() as SessionCategory[];
-        sessionCategories = sessionCategories.map((sessionCategory, index) => ({ ...sessionCategory, id_emission_categorie: categories[index].id }))
+        sessionCategories = sessionCategories.map((sessionCategory, index) => ({ ...sessionCategory, idEmissionCategorie: categories[index].id }))
 
         return sessionCategories
     } catch (error) {
@@ -40,11 +40,11 @@ export async function getSubCategories(id: number) {
 }
 
 export async function getSubCategoriesWithIdSessionCategory(sessionSubCategories: SessionSubCategory[]) {
-    if(sessionSubCategories.length === 0) return []
+    if (sessionSubCategories.length === 0) return []
     const requestOptions = {
         headers: myHeaders,
         method: "POST",
-        body: JSON.stringify(sessionSubCategories.map(s => s.id_emission_sub_categorie))
+        body: JSON.stringify(sessionSubCategories.map(s => s.idEmissionSubCategory))
     } as RequestInit;
     try {
         const result = await fetch(urlApi + "/emission/sub-categories", requestOptions);
@@ -52,7 +52,7 @@ export async function getSubCategoriesWithIdSessionCategory(sessionSubCategories
 
         return subCategoryToReturn.map((subCategory: SubCategory) => ({
             ...subCategory,
-            idSessionSubCategorie: sessionSubCategories.find(s => s.id_emission_sub_categorie === subCategory.id)?.id || ""
+            idSessionSubCategorie: sessionSubCategories.find(s => s.idEmissionSubCategory === subCategory.id)?.id || ""
         })) as SubCategory[]
     } catch (error) {
         throw (error)

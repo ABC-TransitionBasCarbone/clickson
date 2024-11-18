@@ -77,12 +77,12 @@ export default function Establishment() {
 
                         <p>{school?.name}</p>
                         <p>{school?.adress}</p>
-                        <p>{school?.postal_code} {school?.town_name}</p>
+                        <p>{school?.postalCode} {school?.townName}</p>
                     </Grid>
                     <Grid item xs={12} sm={3}>
-                        <p>{t('abc-number-students')}: {school?.student_count}</p>
-                        <p>{t('abc-number-staff')}: {school?.staff_count}</p>
-                        <p>{t('abc-year-of-construction')}: {school?.establishment_year}</p>
+                        <p>{t('abc-number-students')}: {school?.studentCount}</p>
+                        <p>{t('abc-number-staff')}: {school?.staffCount}</p>
+                        <p>{t('abc-year-of-construction')}: {school?.establishmentYear}</p>
                     </Grid>
                 </Grid>
             </>
@@ -142,9 +142,9 @@ export default function Establishment() {
                                 marginBottom: theme.spacing(1)
                             }}>
                             <TextField placeholder={t('abc-number-students')}
-                                name="student_count"
+                                name="studentCount"
                                 type="number"
-                                defaultValue={school?.student_count}
+                                defaultValue={school?.studentCount}
                                 label={t('abc-number-students')}
                             />
                         </FormControl>
@@ -156,8 +156,8 @@ export default function Establishment() {
                             }}>
                             <TextField placeholder={t('abc-number-staff')}
                                 type="number"
-                                name="staff_count"
-                                defaultValue={school?.staff_count}
+                                name="staffCount"
+                                defaultValue={school?.staffCount}
                                 label={t('abc-number-staff')}
                             />
                         </FormControl>
@@ -169,8 +169,8 @@ export default function Establishment() {
                             }}>
                             <TextField placeholder={t('abc-year-of-construction')}
                                 type="number"
-                                name="establishment_year"
-                                defaultValue={school?.establishment_year}
+                                name="establishmentYear"
+                                defaultValue={school?.establishmentYear}
                                 label={t('abc-year-of-construction')}
                             />
                         </FormControl>

@@ -15,7 +15,7 @@ export default function I18nProvider({ children, locale }: { children: React.Rea
             setIsReady(true);
         }).catch((error) => {
             setIsReady(true);
-            throw ('Failed to initialize i18n:' + error);
+            throw new Error('Failed to initialize i18n:' + error);
         });
     }, [locale]);
 

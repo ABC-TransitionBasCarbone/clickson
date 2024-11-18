@@ -3,8 +3,7 @@
 import { Header } from "@/src/components/login/header";
 import Container from "@mui/material/Container";
 import { SignUpForm } from "@/src/components/signup/signupform";
-import { styled } from "@mui/system";
-import { Grid, Link, useMediaQuery } from "@mui/material";
+import { Link } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { FormEvent, ReactElement, useEffect, useState } from "react";
 import { login, signUp } from "@/api/auth";
@@ -21,30 +20,13 @@ import { getCountries } from "@/api/countries";
 export default function SignUp() {
     const theme = useTheme();
     const router = useRouter();
-    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-    const CustomContainer = styled(Grid)(({ theme }) => ({
-        position: isSmallScreen ? 'relative' : 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 1030,
-        backgroundColor: 'white'
-    }));
-
-
-    interface Country {
-        country: {
-            name_en: string;
-            name_fr: string;
-            flag: string;
-        };
-    }
 
     const [countries, setCountries] = useState<Country[]>([]);
     const [showSuccess, setShowSuccess] = useState(false)
     const [showError, setShowError] = useState(false);
     const [message, setMessage] = useState<ReactElement | null>(null);
     const [progress, setProgress] = useState(0);
+    
     const { t } = useTranslation();
 
     const redirectToLogin = (showSuccess: boolean, message: ReactElement | null, showError: boolean) => {
@@ -64,7 +46,7 @@ export default function SignUp() {
             }, intervalTime);
 
             setTimeout(() => {
-                router.push('/groups');
+                router.push('/sessions');
             }, totalTime);
 
             return () => clearInterval(interval);
@@ -115,9 +97,7 @@ export default function SignUp() {
     return (
         <>
             <div>
-                <CustomContainer>
-                    <Header logoPosition="flex-start" />
-                </CustomContainer>
+                <Header logoPosition="flex-start" />
             </div>
             <Container maxWidth="xl" sx={{
                 marginTop: {

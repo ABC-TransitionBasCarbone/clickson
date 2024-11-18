@@ -2,7 +2,7 @@
 
 import '../../../i18n';
 import { Header } from "@/src/components/dashboard/header";
-import HomeIcon from '@mui/icons-material/Home';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Container from '@mui/material/Container';
 import { Box, Grid } from "@mui/material";
 import Divider from '@mui/material/Divider';
@@ -13,13 +13,11 @@ import { useEffect, useState } from 'react';
 import { CategoryItem } from '../../../../components/dashboard/Category';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useTranslation } from "react-i18next";
-import { getCategories, getSessionCategories } from '@/api/categories';
 import Establishment from '@/src/components/establishment/Establishment';
-import { useParams } from 'next/navigation'
-import { getSessionStudent } from '@/api/sessions';
-import { getLanguages } from '@/api/languages';
+import { useParams, useRouter } from 'next/navigation'
 import { Category } from '@/src/types/Category';
-import { Params } from '@/src/types/Params';
+import { UrlParams } from '@/src/types/UrlParams';
+import { getGroup } from '@/api/groups';
 
 const borderColors = [
     "#1c82b8",
@@ -28,15 +26,6 @@ const borderColors = [
     "#ffae42",
     "#800080"
 ]
-
-const CustomContainer = styled('div')`
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1030;
-    background-color: white;
-`
 
 const DashboardWrapper = styled(Box)`
     max-width: 100%;
@@ -91,16 +80,15 @@ const DividerSmall = styled("hr")`
     border-radius: 5px;
 `;
 
-
 export default function Dashboard() {
-    const { t, i18n } = useTranslation();
-    const params = useParams<Params>()
+    const { t } = useTranslation();
+    const params = useParams<UrlParams>()
+    const router = useRouter();
 
     const theme = useTheme();
 
     const [loadingCategories, setLoadingCategories] = useState(false);
     const [categories, setCategories] = useState<Category[]>([]);
-    const [idSessionStudent, setIdSessionStudent] = useState("");
 
     useEffect(() => {
         fetchCategories();
@@ -108,42 +96,27 @@ export default function Dashboard() {
 
     const fetchCategories = async () => {
         setLoadingCategories(true);
-        try {
-            const idLanguage = await getLanguages(i18n.language);
-            let categories = await getCategories(idLanguage);
-            const sessionCategories = await getSessionCategories(params.dashboard, categories);
-
-            const studentSession = await getSessionStudent(sessionCategories[0].id_session_student || "")
-            setIdSessionStudent(studentSession.id_group || "");
-
-            categories = categories.map(c =>
-            ({
-                ...c,
-                id_session_emission_categorie: sessionCategories.filter(sessionCategorie =>
-                    sessionCategorie.id_emission_categorie === c.id)[0]?.id
-            }))
-
-            setCategories(categories);
-            setLoadingCategories(false);
-        } catch (error) {
-            setLoadingCategories(false);
-            throw (error);
-        }
+        const group = await getGroup(params.idgroup);
+        setCategories(group.sessionStudent.sessionEmissionCategories.map(sc => ({
+            ...sc.emissionCategorie,
+            idSessionEmissionCategorie: sc.id
+        })));
+        setLoadingCategories(false);
     }
 
     return (
         <>
             <div>
-                <CustomContainer>
-                    <Header />
-                </CustomContainer>
+                <Header />
             </div>
             <Container maxWidth="xl">
                 <DashboardWrapper>
 
-                    <Link  href={"/groups/" + idSessionStudent}>
-                        <HomeIcon fontSize="large" />
-                    </Link>
+                    <ArrowBackIosIcon onClick={() => {
+                        router.back()
+                    }} sx={{
+                        cursor: 'pointer'
+                    }} />
 
                     <Establishment />
                     <CustomH6>
@@ -177,7 +150,6 @@ export default function Dashboard() {
                             </Grid>
                         )
                     }
-
                 </DashboardWrapper>
             </Container>
         </>

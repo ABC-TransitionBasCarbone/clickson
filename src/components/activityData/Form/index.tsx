@@ -5,35 +5,32 @@ import { StyledContainer } from "./styles";
 import { ActivityDataFormDescription } from "./Description";
 import { ActivityDataFormHeader } from "./Header";
 import { QuestionTypeComponent } from "./QuestionTypeComponents/TableQuestion";
-import { getSubCategoriesWithIdSessionCategory } from "@/api/categories";
 import { getSessionSubCategoriesWithIdSessionCategory } from "@/api/sessions";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Params } from "@/src/types/Params";
-import { SubCategory } from "@/src/types/SubCategory";
+import { UrlParams } from "@/src/types/UrlParams";
 import { CircularProgress } from "@mui/material";
 import { DataToFill } from "@/src/types/DataToFill";
+import { SessionSubCategory } from "@/src/types/SessionSubCategory";
 
 interface ActivityDataFormProps {
     dataToFill: DataToFill[];
 };
 
 export const ActivityDataForm = ({ dataToFill }: ActivityDataFormProps) => {
-    const params = useParams<Params>()
+    const params = useParams<UrlParams>()
     const [loading, setLoading] = useState<boolean>(false);
 
-    const [sessionSubCategories, setSessionSubCategories] = useState<SubCategory[]>([]);
+    const [sessionSubCategories, setSessionSubCategories] = useState<SessionSubCategory[]>([]);
 
     const getSubCategories = async () => {
         setLoading(true)
         const sessionSubCategoriesData = await getSessionSubCategoriesWithIdSessionCategory(params.idsessioncategory)
-        const subCategories = (await getSubCategoriesWithIdSessionCategory(sessionSubCategoriesData)).map(subcategory => ({
+        console.log("🚀 ~ getSubCategories ~ sessionSubCategoriesData:", sessionSubCategoriesData)
+        setSessionSubCategories(sessionSubCategoriesData.map(subcategory => ({
             ...subcategory,
-            dataToFill: dataToFill.find(header => subcategory.id === header.id)
-        }));
-        setSessionSubCategories(subCategories)
-        console.log("🚀 ~ getSubCategories ~ subCategories:", subCategories)
-
+            dataToFill: dataToFill.find(header => subcategory.idEmissionSubCategory === header.id)
+        })))
         setLoading(false)
     }
 
@@ -48,11 +45,11 @@ export const ActivityDataForm = ({ dataToFill }: ActivityDataFormProps) => {
         : <StyledContainer>
             {sessionSubCategories.map(category =>
                 <Stack key={category.id}>
-                    <ActivityDataFormHeader category={category.label} />
+                    <ActivityDataFormHeader category={category.emissionSubCategories.label} />
                     <Stack spacing={2} marginTop={2} marginBottom={2} sx={{ flexDirection: "row" }}>
-                        <ActivityDataFormDescription description={category.detail} />
+                        <ActivityDataFormDescription description={category.emissionSubCategories.detail} />
                         <Stack sx={{ marginLeft: "24px !important", flex: 1 }}>
-                            <QuestionTypeComponent category={category} />
+                            <QuestionTypeComponent sessionSubCategory={category} />
                         </Stack>
                     </Stack>
                 </Stack>

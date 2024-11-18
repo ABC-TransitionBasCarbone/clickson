@@ -1,10 +1,14 @@
+import { Group } from "./Group";
+import { SessionCategory } from "./SessionCategory";
+
 export interface Session {
-    id?: string,
-    id_school?: string,
-    id_group?: string,
+    id: string,
+    idSchool?: string,
     name?: string,
-    year?: number,
-    progress?: number,
+    year: number,
     archived?: boolean,
-    deleted?: boolean
+    deleted?: boolean,
+    locked?: boolean,
+    groups?: Group[]
+    sessionEmissionCategories: SessionCategory[]
 }

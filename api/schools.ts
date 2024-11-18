@@ -13,12 +13,9 @@ export async function getSchool(adminEmail: string) {
     try {
         const result = await fetch(urlApi + "/school/" + adminEmail)
         const school = await result.json();
-        if (school.errors) {
-            throw("Failed to getSchool" + school.errors);
-        }
         return school as School;
     } catch (error) {
-        throw("Failed to getSchool" + error);
+        throw new Error("Failed to getSchool : " + error);
 
     }
 }
@@ -27,9 +24,9 @@ export async function editSchool(formData: FormData, school: School | undefined 
     school = {
         ...school,
         "name": formData.get("name")?.toString(),
-        "student_count": Number(formData.get("student_count")),
-        "staff_count": Number(formData.get("staff_count")),
-        "establishment_year": Number(formData.get("establishment_year")),
+        "studentCount": Number(formData.get("studentCount")),
+        "staffCount": Number(formData.get("staffCount")),
+        "establishmentYear": Number(formData.get("establishmentYear")),
         "adress": formData.get("adress")?.toString()
     }
     const data = JSON.stringify(school)
@@ -39,17 +36,14 @@ export async function editSchool(formData: FormData, school: School | undefined 
         body: data
     } as RequestInit;
 
-
     try {
         await fetch(urlApi + "/school", requestOptions)
-        
+
         const userSession = await getUserCookies()
         cookies().set('user', JSON.stringify({ ...userSession, school: school }))
-
         return school;
     } catch (error) {
-        throw(error);
-        return school
+        throw new Error("Failed to editSchool : " + error);
     }
 }
 

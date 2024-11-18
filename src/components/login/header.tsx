@@ -1,7 +1,7 @@
-import {Grid, Box} from "@mui/material";
+import { Grid, Box } from "@mui/material";
 
-import {styled} from "@mui/system";
-import LanguageSwitcher from "@/src/components/language-switcher/LanguageSwitcher";
+import { styled } from "@mui/system";
+import LanguageSwitcher from "../language-switcher/LanguageSwitcher";
 
 const UsernameBox = styled('div')(({ theme }) => ({
     a: {
@@ -20,11 +20,20 @@ const UsernameBox = styled('div')(({ theme }) => ({
     }
 }));
 
+const CustomContainer = styled('div')`
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1030;
+    background-color: white;
+`
+
 interface Props {
     logoPosition: string,
 }
 
-export const Header = ({logoPosition}: Props) => {
+export const Header = ({ logoPosition }: Props) => {
     const BoxHeader = styled(Box)(({ theme }) => ({
         display: 'flex',
         justifyContent: logoPosition,
@@ -33,10 +42,9 @@ export const Header = ({logoPosition}: Props) => {
             maxHeight: '60px',
             padding: '5px',
         },
-        margin: theme.spacing(2,1,2,1),
     }));
-    return (
-        <Box sx={{width: '100%'}}>
+    return <CustomContainer>
+        <Box sx={{ width: '100%' }}>
             <Grid
                 container
                 direction="row"
@@ -52,12 +60,10 @@ export const Header = ({logoPosition}: Props) => {
                     </BoxHeader>
                 </Grid>
                 <Grid item sm={3}>
-                    <UsernameBox sx={{border: 'none'}}>
+                    <UsernameBox sx={{ border: 'none' }}>
                         <LanguageSwitcher />
                     </UsernameBox>
                 </Grid>
             </Grid>
-        </Box>
-    )
+        </Box></CustomContainer>
 }
-

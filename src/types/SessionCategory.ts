@@ -1,5 +1,10 @@
+import { Category } from "./Category";
+import { SessionSubCategory } from "./SessionSubCategory";
+
 export interface SessionCategory {
     id: string;
-    id_emission_categorie?: number;
-    id_session_student?: string;
+    idEmissionCategorie?: number;
+    idSessionStudent?: string;
+    sessionSubCategories: SessionSubCategory[]
+    emissionCategorie: Category
 }
