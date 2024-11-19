@@ -1,18 +1,16 @@
 "use client"
 
-import {Box, Grid, Popover, Typography, Button} from "@mui/material";
-import {styled} from "@mui/system";
-
-import {useTheme} from '@mui/material/styles';
+import { Box, Grid, Popover, Typography, Button, Divider } from "@mui/material";
+import { styled } from "@mui/system";
+import { useTheme } from '@mui/material/styles';
 import ExcelJS from "exceljs";
-import {fetchExportFile} from "@/src/helpers/export";
-import React, {useState} from "react";
-import {useTranslation} from "react-i18next";
-
-import {convertToPercentage} from "@/src/helpers/helpers";
+import { fetchExportFile } from "@/src/helpers/export";
+import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { convertToPercentage } from "@/src/helpers/helpers";
 import PieChart from "@/src/components/charts/PieChart";
 import { Download } from '@mui/icons-material';
-
+import { Session } from '@/src/types/Session';
 
 const StatsGrid = styled(Grid)`
     margin-top: 30px;
@@ -36,7 +34,14 @@ const StatsWrapper = styled('div')`
     margin-bottom: 80px;
 `
 
-const DownloadButton = styled(Button)(({theme}) => ({
+const CustomH6 = styled('h6')`
+    font-size: 1rem;
+    line-height: 1.2;
+    font-weight: 500;
+    margin-top: 1rem;
+`
+
+const DownloadButton = styled(Button)(({ theme }) => ({
     border: `1px solid ${theme.palette.secondary.main}`,
     color: theme.palette.secondary.main,
     minWidth: 150,
@@ -51,12 +56,36 @@ const DownloadButton = styled(Button)(({theme}) => ({
     }
 }));
 
-export const Stats = () => {
+interface Props {
+    session: Session,
+}
+
+
+export const Stats = ({ session }: Props) => {
     const theme = useTheme();
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
     const labels = [t("abc-energy"), t("abc-food-service"), t('abc-travel'), t('abc-supplies'), t('abc-fixed-assets')];
-    const data = convertToPercentage([54434, 225882, 221, 12339, 6863])
+    const [data, setData] = useState<number[]>([]);
+    const [total, setTotal] = useState(0);
+
+    useEffect(() => {
+        document.title = `${session.name}`;
+
+        if(data.length > 0) return
+        session.sessionEmissionCategories.forEach((category, index) => {
+            category.sessionEmissionSubCategories.forEach((subCategory) => {
+                const subTotal = subCategory.sessionEmissions.reduce((acc, emission) => {
+                    return acc + Number(emission.value)
+                }, 0)
+                data[index] = (data[index] || 0) + subTotal;
+
+            });
+        });
+        setData(data);
+        setTotal(data.reduce((acc, value) => { return acc + value }))
+
+    }, [data]);
 
 
     const handleExport = async () => {
@@ -76,23 +105,16 @@ export const Stats = () => {
                 throw new Error(`Sheet not found`);
             }
 
-            const energy = 54434;
-            const foodService = 225882;
-            const travel = 221;
-            const supplies = 12339;
-            const fixedAssets = 6893;
-
-            const total = energy + foodService + travel + supplies + fixedAssets;
-            worksheet.getCell('B6').value = energy;
-            worksheet.getCell('B7').value = foodService;
-            worksheet.getCell('B8').value = travel;
-            worksheet.getCell('B9').value = supplies;
-            worksheet.getCell('B10').value = fixedAssets;
+            worksheet.getCell('B6').value = data[0];
+            worksheet.getCell('B7').value = data[1];
+            worksheet.getCell('B8').value = data[2];
+            worksheet.getCell('B9').value = data[3];
+            worksheet.getCell('B10').value = data[4];
 
             worksheet.getCell('B11').value = total;
             const buffer = await workbook.xlsx.writeBuffer();
 
-            const blob = new Blob([buffer], {type: 'application/octet-stream'});
+            const blob = new Blob([buffer], { type: 'application/octet-stream' });
             const url = window.URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = url;
@@ -101,7 +123,7 @@ export const Stats = () => {
             link.click();
             document.body.removeChild(link);
         } catch (error) {
-            throw('Error:' + error);
+            throw ('Error:' + error);
         }
     };
 
@@ -117,8 +139,13 @@ export const Stats = () => {
 
     const open = Boolean(anchorEl);
 
-    return (
+    return (data.length > 0 &&
         <Grid container>
+            <CustomH6>
+                <strong>{t('abc-emission-profile')} (kgCO2e)</strong>
+            </CustomH6>
+
+            <Divider aria-hidden="true" sx={{ marginTop: theme.spacing(1.25) }} />
             <StatsGrid item xs={12} sx={{
                 display: 'flex',
                 justifyContent: 'flex-end',
@@ -126,7 +153,7 @@ export const Stats = () => {
                 <DownloadButton
                     onClick={handleExport}
                 >
-                 {t("abc-download")} <Download sx={{cursor: 'pointer'}} />
+                    {t("abc-download")} <Download sx={{ cursor: 'pointer' }} />
                 </DownloadButton>
                 <Popover
                     id="mouse-over-popover"
@@ -156,7 +183,7 @@ export const Stats = () => {
                         marginTop: theme.spacing(2),
                         fontSize: 32,
                         fontWeight: 'medium'
-                    }}>299739</Box>
+                    }}>{Math.floor(total)}</Box>
                     <Box sx={{
                         color: 'text.primary',
                         marginTop: '30px',
@@ -170,7 +197,7 @@ export const Stats = () => {
 
             </StatsGrid>
             <StatsGrid item xs={12} md={6}>
-                <Grid container spacing={3} columns={12} sx={{paddingLeft: theme.spacing(3.75)}}>
+                <Grid container spacing={3} columns={12} sx={{ paddingLeft: theme.spacing(3.75) }}>
                     <Grid item xs={6}>
                         <div className="stats-wrapper">
                             <span>{t("abc-energy")}</span>
@@ -181,7 +208,7 @@ export const Stats = () => {
                                 fontWeight: 'medium'
                             }}
                             >
-                                54434 (kgCO2e)
+                                {Math.floor(data[0])} (kgCO2e)
                             </Box>
                         </div>
                     </Grid>
@@ -196,7 +223,7 @@ export const Stats = () => {
                                     fontWeight: 'medium'
                                 }}
                             >
-                                225882 (kgCO2e)
+                                {Math.floor(data[1])} (kgCO2e)
                             </Box>
                         </StatsWrapper>
                     </Grid>
@@ -211,7 +238,7 @@ export const Stats = () => {
                                     fontWeight: 'medium'
                                 }}
                             >
-                                221 (kgCO2e)
+                                {Math.floor(data[2])} (kgCO2e)
                             </Box>
                         </StatsWrapper>
                     </Grid>
@@ -225,7 +252,7 @@ export const Stats = () => {
                                 fontWeight: 'medium'
                             }}
                             >
-                                12339 (kgCO2e)
+                                {Math.floor(data[3])} (kgCO2e)
                             </Box>
                         </StatsWrapper>
                     </Grid>
@@ -239,7 +266,7 @@ export const Stats = () => {
                                 fontWeight: 'medium'
                             }}
                             >
-                                6863 (kgCO2e)
+                                {Math.floor(data[4])} (kgCO2e)
                             </Box>
                         </StatsWrapper>
                     </Grid>

@@ -29,32 +29,3 @@ export async function getSessionCategories(idSessionStudent: string, categories:
         throw error
     }
 }
-
-export async function getSubCategories(id: number) {
-    try {
-        const result = await fetch(urlApi + "/emission/sub-categories/" + id);
-        return await result.json();
-    } catch (error) {
-        return error;
-    }
-}
-
-export async function getSubCategoriesWithIdSessionCategory(sessionSubCategories: SessionSubCategory[]) {
-    if (sessionSubCategories.length === 0) return []
-    const requestOptions = {
-        headers: myHeaders,
-        method: "POST",
-        body: JSON.stringify(sessionSubCategories.map(s => s.idEmissionSubCategory))
-    } as RequestInit;
-    try {
-        const result = await fetch(urlApi + "/emission/sub-categories", requestOptions);
-        const subCategoryToReturn = await result.json()
-
-        return subCategoryToReturn.map((subCategory: SubCategory) => ({
-            ...subCategory,
-            idSessionSubCategorie: sessionSubCategories.find(s => s.idEmissionSubCategory === subCategory.id)?.id || ""
-        })) as SubCategory[]
-    } catch (error) {
-        throw (error)
-    }
-}

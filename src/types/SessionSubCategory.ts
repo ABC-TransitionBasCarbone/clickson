@@ -7,6 +7,6 @@ export interface SessionSubCategory {
     idSessionEmissionCategorie: string
     idEmissionSubCategory: number,
     sessionEmissions: Emission[]
-    emissionSubCategories: SubCategory
+    emissionSubCategory: SubCategory
     dataToFill?: DataToFill
 }
