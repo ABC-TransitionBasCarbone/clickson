@@ -26,7 +26,7 @@ export default function SignUp() {
     const [showError, setShowError] = useState(false);
     const [message, setMessage] = useState<ReactElement | null>(null);
     const [progress, setProgress] = useState(0);
-    
+
     const { t } = useTranslation();
 
     const redirectToLogin = (showSuccess: boolean, message: ReactElement | null, showError: boolean) => {
@@ -57,43 +57,44 @@ export default function SignUp() {
         setCountries(data);
     };
 
-    const onSignUp = (event: FormEvent<HTMLFormElement>) => {
+    const onSignUp = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         const formData = new FormData(event.currentTarget)
-        signUp(formData).then(data => {
-            if (data.errors) {
-                setShowError(true)
-                setShowSuccess(false)
-                setMessage(
-                    <span>
-                        {t('abc-already-exists-account-part-one')}&nbsp;
-                        <Link href="/" sx={{
-                            color: 'black',
-                            fontWeight: 'bold',
-                            textDecoration: 'none'
-                        }}>{t('abc-already-exists-account-part-two')}
-                        </Link>
-                        &nbsp;{t('abc-already-exists-account-part-three')}
-                    </span>
-                )
-            } else {
-                login(formData).then(result => {
-                    if (!result.errors) {
-                        setShowError(false)
-                        setShowSuccess(true)
-                        setMessage(
-                            <span>{t('abc-successfully-created-account')}</span>
-                        )
-                    }
+        const signedUser = await signUp(formData)
 
-                })
+        if (signedUser.errors) {
+            setShowError(true)
+            setShowSuccess(false)
+            setMessage(
+                <span>
+                    {t('abc-already-exists-account-part-one')}&nbsp;
+                    <Link href="/" sx={{
+                        color: 'black',
+                        fontWeight: 'bold',
+                        textDecoration: 'none'
+                    }}>{t('abc-already-exists-account-part-two')}
+                    </Link>
+                    &nbsp;{t('abc-already-exists-account-part-three')}
+                </span>
+            )
+        }
+        else {
+            const connectedUser = await login(formData)
+            if (!connectedUser.errors) {
+                setShowError(false)
+                setShowSuccess(true)
+                setMessage(
+                    <span>{t('abc-successfully-created-account')}</span>
+                )
             }
-        });
+        }
     }
+
     useEffect(() => {
         fetchCountries()
         redirectToLogin(showSuccess, message, showError)
     }, [message]);
+
     return (
         <>
             <div>
@@ -115,7 +116,7 @@ export default function SignUp() {
             </Container>
             <Container>
                 <SignUpForm onSignUp={onSignUp} countries={countries} showSuccess={showSuccess} showError={showError}
-                    message={message} progress={progress} />
+                    message={message} progress={progress} loading={showSuccess} />
             </Container>
         </>
     );

@@ -19,14 +19,13 @@ interface ActivityDataFormProps {
 
 export const ActivityDataForm = ({ dataToFill }: ActivityDataFormProps) => {
     const params = useParams<UrlParams>()
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
 
     const [sessionSubCategories, setSessionSubCategories] = useState<SessionSubCategory[]>([]);
 
     const getSubCategories = async () => {
         setLoading(true)
         const sessionSubCategoriesData = await getSessionSubCategoriesWithIdSessionCategory(params.idsessioncategory)
-        console.log("🚀 ~ getSubCategories ~ sessionSubCategoriesData:", sessionSubCategoriesData)
         setSessionSubCategories(sessionSubCategoriesData.map(subcategory => ({
             ...subcategory,
             dataToFill: dataToFill.find(header => subcategory.idEmissionSubCategory === header.id)
@@ -43,11 +42,11 @@ export const ActivityDataForm = ({ dataToFill }: ActivityDataFormProps) => {
             <CircularProgress />
         </Box>
         : <StyledContainer>
-            {sessionSubCategories.map(category =>
+            {  sessionSubCategories.map(category =>
                 <Stack key={category.id}>
-                    <ActivityDataFormHeader category={category.emissionSubCategories.label} />
+                    <ActivityDataFormHeader category={category.emissionSubCategory.label} />
                     <Stack spacing={2} marginTop={2} marginBottom={2} sx={{ flexDirection: "row" }}>
-                        <ActivityDataFormDescription description={category.emissionSubCategories.detail} />
+                        <ActivityDataFormDescription description={category.emissionSubCategory.detail} />
                         <Stack sx={{ marginLeft: "24px !important", flex: 1 }}>
                             <QuestionTypeComponent sessionSubCategory={category} />
                         </Stack>

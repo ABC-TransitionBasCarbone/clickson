@@ -77,7 +77,7 @@ export const Header = () => {
             <Grid item sm={3}>
                 <UsernameBox sx={{ border: 'none' }}>
                     <LanguageSwitcher />
-                    <p>{user?.user_email}</p>
+                    <p>{user?.email}</p>
                     <p>{t('abc-connected-as')}: <strong>{user?.role}</strong></p>
                     <Link href="" onClick={onLogout}>
                         <Button>{t('abc-logout')}</Button>

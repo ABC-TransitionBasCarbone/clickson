@@ -39,7 +39,7 @@ interface Props {
     progress: number | undefined,
 }
 
-export const SignUpForm = ({ onSignUp, countries, showError, showSuccess, message, progress }: Props) => {
+export const SignUpForm = ({ onSignUp, countries, showError, showSuccess, message, progress, loading }: Props) => {
     const { t } = useTranslation();
 
     const [password, setPassword] = useState('');
@@ -241,27 +241,29 @@ export const SignUpForm = ({ onSignUp, countries, showError, showSuccess, messag
                             label={t('abc-school')}
                         />
                     </FormControl>
-                    {(progress && (progress < 50)) ? <CircularProgress /> : <FormControl
-                        sx={{
-                            width: '100%',
-                            marginTop: theme.spacing(1),
-                            marginBottom: theme.spacing(1),
-                            '& .MuiLoadingButton-root.Mui-disabled': {
-                                bgcolor: theme.palette.secondary.main,
-                                color: 'white',
-                            }
-                        }}>
-                        <StyledLoadingButton
-                            size="large"
-                            color="primary"
-                            loading={false}
-                            loadingPosition="start"
-                            variant="contained"
-                            type="submit"
-                        >
-                            <span>{t('abc-signup')}</span>
-                        </StyledLoadingButton>
-                    </FormControl>
+                    {(progress && (progress < 50)) ?
+                        <CircularProgress /> :
+                        <FormControl
+                            sx={{
+                                width: '100%',
+                                marginTop: theme.spacing(1),
+                                marginBottom: theme.spacing(1),
+                                '& .MuiLoadingButton-root.Mui-disabled': {
+                                    bgcolor: theme.palette.secondary.main,
+                                    color: 'white',
+                                }
+                            }}>
+                            <StyledLoadingButton
+                                size="large"
+                                color="primary"
+                                loading={loading}
+                                loadingPosition="start"
+                                variant="contained"
+                                type="submit"
+                            >
+                                <span>{t('abc-signup')}</span>
+                            </StyledLoadingButton>
+                        </FormControl>
                     }
 
                 </form>

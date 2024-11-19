@@ -93,7 +93,7 @@ export const CategoryItem = ({ category, borderColor }: Props) => {
         <Paragraph>
             {t(category.detail)}
         </Paragraph>
-        <Link href={`/category/` + category.idSessionEmissionCategorie}>
+        <Link href={`/category/` + category.idSessionEmissionCategory}>
             <OngoingButton >{t('abc-on-going')}</OngoingButton>
         </Link>
         {/* <DownloadButton onClick={() => { }}>{t('abc-download')} <Download onClick={() => { }} /></DownloadButton> */}
