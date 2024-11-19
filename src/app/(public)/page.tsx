@@ -19,16 +19,16 @@ export default function Page() {
     const [buttonValue, setButtonValue] = useState(t('abc-login-button'))
     const bValue = t('abc-login-button');
 
-    const [languages, setLanguages] = useState<Language[]>([])
-    const test = async () => {
-        const lang = await getLanguages("fr")
-        console.log("🚀 ~ test ~ lang:", lang)
-        setLanguages(lang)
-    }
+    // const [languages, setLanguages] = useState<Language[]>([])
+    // const test = async () => {
+    //     const lang = await getLanguages("fr")
+    //     console.log("🚀 ~ test ~ lang:", lang)
+    //     setLanguages(lang)
+    // }
 
     useEffect(() => {
         setButtonValue(bValue);
-        test()
+        // test()
     }, [bValue]);
 
     const onLogin = (event: FormEvent<HTMLFormElement>) => {
@@ -59,7 +59,7 @@ export default function Page() {
     return (
         <>
             <div>
-                {languages.map((lang) => { return <div key={lang.code}>{lang.name}</div> })}
+                {/* {languages.map((lang) => { return <div key={lang.code}>{lang.name}</div> })} */}
                 <Header logoPosition="flex-end" />
             </div>
             <Container>
