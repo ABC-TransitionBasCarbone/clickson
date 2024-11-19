@@ -41,7 +41,7 @@ export async function getCurrentUser(username: string, password: string, remembe
         if (login.errors) {
             throw new Error("Failed to fetch API to get user");
         }
-        const school = await getSchool(login.user_email)
+        const school = await getSchool(login.email)
         cookies().set('user', JSON.stringify({ ...login, role: "teacher", school: school }))
         return login;
     } catch (error) {

@@ -18,6 +18,7 @@ import { useParams, useRouter } from 'next/navigation'
 import { Category } from '@/src/types/Category';
 import { UrlParams } from '@/src/types/UrlParams';
 import { getGroup } from '@/api/groups';
+import { Session } from '@/src/types/Session';
 
 const borderColors = [
     "#1c82b8",
@@ -29,7 +30,6 @@ const borderColors = [
 
 const DashboardWrapper = styled(Box)`
     max-width: 100%;
-    margin-top: 60px;
     min-height: calc(100vh - 290px);
     padding-top: 60px;
     padding-bottom: 80px;
@@ -41,16 +41,6 @@ const DashboardWrapper = styled(Box)`
     }
 `
 
-const Link = styled('a')`
-    text-decoration: none;
-`
-
-const CustomH6 = styled('h6')`
-    font-size: 1rem;
-    line-height: 1.2;
-    font-weight: 500;
-    margin-top: 1rem;
-`
 
 const CustomH3 = styled('h3')`
     font-family: "Montserrat", sans-serif;
@@ -89,6 +79,7 @@ export default function Dashboard() {
 
     const [loadingCategories, setLoadingCategories] = useState(false);
     const [categories, setCategories] = useState<Category[]>([]);
+    const [session, setSession] = useState<Session>({} as Session);
 
     useEffect(() => {
         fetchCategories();
@@ -98,9 +89,10 @@ export default function Dashboard() {
         setLoadingCategories(true);
         const group = await getGroup(params.idgroup);
         setCategories(group.sessionStudent.sessionEmissionCategories.map(sc => ({
-            ...sc.emissionCategorie,
-            idSessionEmissionCategorie: sc.id
+            ...sc.emissionCategory,
+            idSessionEmissionCategory: sc.id
         })));
+        setSession(group.sessionStudent);
         setLoadingCategories(false);
     }
 
@@ -119,12 +111,8 @@ export default function Dashboard() {
                     }} />
 
                     <Establishment />
-                    <CustomH6>
-                        <strong>{t('abc-emission-profile')} (kgCO2e)</strong>
-                    </CustomH6>
 
-                    <Divider aria-hidden="true" sx={{ marginTop: theme.spacing(1.25) }} />
-                    <Stats />
+                    {session.id && <Stats session={session} />}
                     <Grid container marginTop={4} marginBottom={6} sx={{ alignItems: "center", flexDirection: "column" }}>
                         <CustomH3>
                             {t("abc-calculators-markers")}

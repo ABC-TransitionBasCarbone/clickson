@@ -6,6 +6,6 @@ export interface SubCategory {
     idLanguage?: number;
     label: string;
     detail: string;
-    idSessionSubCategorie: string;
+    idSessionSubCategory: string;
     emissionFactors: EmissionFactor[];
 }

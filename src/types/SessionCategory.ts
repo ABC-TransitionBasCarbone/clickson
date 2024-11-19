@@ -3,8 +3,8 @@ import { SessionSubCategory } from "./SessionSubCategory";
 
 export interface SessionCategory {
     id: string;
-    idEmissionCategorie?: number;
+    idEmissionCategory?: number;
     idSessionStudent?: string;
-    sessionSubCategories: SessionSubCategory[]
-    emissionCategorie: Category
+    sessionEmissionSubCategories: SessionSubCategory[]
+    emissionCategory: Category
 }
