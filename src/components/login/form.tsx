@@ -16,7 +16,7 @@ import {FormEventHandler, MouseEventHandler} from "react";
 import LoadingButton from '@mui/lab/LoadingButton';
 import {useTranslation} from "react-i18next";
 
-const BodyGrid = styled(Grid)(({theme}) => ({
+const BodyGrid = styled(Grid)(() => ({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',

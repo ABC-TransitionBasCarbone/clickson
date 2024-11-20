@@ -17,15 +17,11 @@ export async function login(formData: FormData) {
     const rememberMe = formData.get("rememberMe") !== null;
     const email = formData.get('username') == null ? formData.get("email") : formData.get("username");
     if (email == null || formData.get("password") == null) {
-        throw new Error("Invalid credential");
+        throw new Error("Invalid credential enter a password and email");
     }
-    return getCurrentUser(`${email}`, `${formData.get("password")}`, rememberMe);
-}
-
-export async function getCurrentUser(username: string, password: string, rememberMe: boolean) {
     const raw = JSON.stringify({
-        username: username,
-        password: password,
+        username: email,
+        password: `${formData.get("password")}`,
         rememberMe: rememberMe,
     });
 
@@ -45,7 +41,7 @@ export async function getCurrentUser(username: string, password: string, remembe
         cookies().set('user', JSON.stringify({ ...login, role: "teacher", school: school }))
         return login;
     } catch (error) {
-        return error;
+        throw new Error("Impossible to connect this user : " + error);
     }
 }
 
@@ -85,6 +81,6 @@ export async function signUp(formData: FormData) {
         const result = await fetch(urlApi + "/auth/sign-up", requestOptions)
         return await result.json();
     } catch (error) {
-        throw (error);
+        throw new Error("Impossible to create this user : " + error);
     }
 }
