@@ -26,6 +26,7 @@ export default function Page() {
         setLoading(true)
         setButtonValue(t('abc-login-pending'))
         const formData = new FormData(event.currentTarget)
+        console.log("🚀 ~ onLogin ~ formData:", formData)
         const user = await login(formData)
         console.log("🚀 ~ onLogin ~ user:", user)
 
