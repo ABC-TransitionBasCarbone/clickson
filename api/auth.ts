@@ -24,6 +24,7 @@ export async function login(formData: FormData) {
         password: `${formData.get("password")}`,
         rememberMe: rememberMe,
     });
+    console.log("🚀 ~ login ~ raw:", raw)
 
     const requestOptions = {
         headers: myHeaders,
