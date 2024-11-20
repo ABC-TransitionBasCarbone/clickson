@@ -24,8 +24,6 @@ export async function login(formData: FormData) {
         password: `${formData.get("password")}`,
         rememberMe: rememberMe,
     });
-    console.log("🚀 ~ login ~ raw:", raw)
-
     const requestOptions = {
         headers: myHeaders,
         method: "POST",
@@ -35,12 +33,10 @@ export async function login(formData: FormData) {
     try {
         const result = await fetch(urlApi + "/auth/login", requestOptions)
         const login = await result.json();
-        console.log("🚀 ~ login ~ login:", login)
         if (login.errors) {
             throw new Error("Failed to fetch API to get user");
         }
         const school = await getSchool(login.email)
-        console.log("🚀 ~ login ~ school:", school)
         cookies().set('user', JSON.stringify({ ...login, role: "teacher", school: school }))
         return login;
     } catch (error) {
