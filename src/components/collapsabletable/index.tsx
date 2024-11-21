@@ -21,9 +21,9 @@ import FormCreateGroup from './Form/FormCreateGroup';
 import { createGroup, deleteGroupInDatabase, updateGroup } from '@/api/groups';
 import { Group } from '@/src/types/Group';
 import LinkIcon from '@mui/icons-material/Link';
-import router from 'next/router';
-import { CircularProgress, Switch } from '@mui/material';
+import { CircularProgress, Switch, Tooltip } from '@mui/material';
 import { useRouter } from 'next/navigation'
+import CopyToClipboard from '../copytoclipboard';
 
 interface CollapsibleTableProps {
     currentSession: Session[];
@@ -40,9 +40,9 @@ function Row(props: CollapsibleTableRowProps) {
     const [session, setSession] = useState(props.session);
     const [open, setOpen] = useState(true);
     const [loading, setLoading] = useState(false)
-    const router = useRouter();
+    const navigation = useRouter();
 
-    const [chipData, setChipData] = useState<Rights[]>([
+    const chipData = [
         { key: 0, label: 'abc-energy', advanced: false },
         { key: 1, label: 'abc-travel', advanced: false },
         { key: 2, label: 'abc-food-service', advanced: false },
@@ -55,7 +55,7 @@ function Row(props: CollapsibleTableRowProps) {
         { key: 9, label: 'abc-supplies', advanced: true },
         { key: 10, label: 'abc-fixed-assets', advanced: true },
         { key: 11, label: 'abc-travel', advanced: true },
-    ]);
+    ]
 
     async function handleCreateGroup(event: FormEvent<HTMLFormElement>) {
         setLoading(true)
@@ -89,15 +89,18 @@ function Row(props: CollapsibleTableRowProps) {
                 >
                     {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                 </IconButton>
-                {session.id}
             </TableCell>
             <TableCell >{session.name}</TableCell>
             <TableCell >{session.year + ' - ' + (session.year + 1)}</TableCell>
             <TableCell>
-                <Switch onClick={() => props.lockSession(session)} />
-                <IconButton aria-label="delete" onClick={() => props.deleteSession(session)}>
-                    <DeleteIcon />
-                </IconButton>
+                <Tooltip title="Lock the session">
+                    <Switch checked={session.locked} onClick={() => (props.lockSession(session), setSession({ ...session, locked: !session.locked }))} />
+                </Tooltip>
+                <Tooltip title="Delete the session">
+                    <IconButton aria-label="delete" onClick={() => props.deleteSession(session)}>
+                        <DeleteIcon />
+                    </IconButton>
+                </Tooltip>
             </TableCell>
         </TableRow>
         <TableRow>
@@ -105,14 +108,14 @@ function Row(props: CollapsibleTableRowProps) {
                 <Collapse in={open} timeout="auto" unmountOnExit>
                     <Box sx={{ margin: 1 }}>
                         <Typography variant="h6" gutterBottom component="div">
-                            Group
+                            Groups
                         </Typography>
                         <Table size="small" aria-label="purchases">
                             <TableHead>
                                 <TableRow>
                                     <TableCell>Nom</TableCell>
-                                    <TableCell align="right">Actions</TableCell>
-                                    <TableCell align="right">Affecter à la session</TableCell>
+                                    <TableCell >Actions</TableCell>
+                                    <TableCell >Affecter à la session</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -122,12 +125,18 @@ function Row(props: CollapsibleTableRowProps) {
                                             {group.name}
                                         </TableCell>
                                         <TableCell>
-                                            <IconButton aria-label="dashboard" onClick={() => router.push("dashboard/" + group.id)}>
-                                                <LinkIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="delete" onClick={() => deleteGroup(group)}>
-                                                <DeleteIcon />
-                                            </IconButton>
+
+                                            <Tooltip title="Link to the group">
+                                                <IconButton aria-label="dashboard" onClick={() => navigation.push("dashboard/" + group.id)}>
+                                                    <LinkIcon />
+                                                </IconButton>
+                                            </Tooltip>
+                                            <Tooltip title="Delete the group">
+                                                <IconButton aria-label="delete" onClick={() => deleteGroup(group)}>
+                                                    <DeleteIcon />
+                                                </IconButton>
+                                            </Tooltip>
+                                            <CopyToClipboard shortUrl={group.id} />
                                         </TableCell>
                                         <TableCell align="right" >
                                             <MultipleSelectChip

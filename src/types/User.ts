@@ -4,5 +4,6 @@ export interface User {
     name: string,
     email: string,
     role: string,
-    school: School
+    school: School,
+    token: string,
 }

@@ -13,6 +13,7 @@ import { Session } from '@/src/types/Session';
 import CollapsibleTable from '@/src/components/collapsabletable';
 import { archiveStudentSession, createSession, getSessionsBySchoolId, lockedStudentSession } from '@/api/sessions';
 import FormCreateSession from '@/src/components/collapsabletable/Form/FormCreateSession';
+import { School } from '@/src/types/School';
 
 const AccueilWrapper = styled(Box)`
     a { color: #6d6d6d; }
@@ -21,6 +22,7 @@ const AccueilWrapper = styled(Box)`
 
 export default function SessionsBoard() {
     const [sessions, setSessions] = useState<Session[]>([]);
+    const [school, setSchool] = useState<School>({});
     const [loading, setLoading] = useState(false);
     const { t } = useTranslation();
 
@@ -49,6 +51,7 @@ export default function SessionsBoard() {
     const fetchSessions = async () => {
         setLoading(true);
         const returnedUser = await getUserCookies()
+        setSchool(returnedUser.school)
         const returnedSessions = await getSessionsBySchoolId(returnedUser.school.id || "")
         setSessions(returnedSessions)
         setLoading(false);
@@ -65,7 +68,7 @@ export default function SessionsBoard() {
             </div>
             <Container maxWidth="xl">
                 <AccueilWrapper>
-                    <Establishment />
+                    {school.id && <Establishment school={school} />}
                     <h2>{t('abc-my-current-session')}</h2>
                     {
                         loading ? <CircularProgress /> :

@@ -1,13 +1,15 @@
-import { getUserCookies } from "@/api/auth";
 import theme from "@/src/app/theme";
 import { LoadingButton } from "@mui/lab";
-import { Grid, CircularProgress, Modal, Backdrop, Fade, Typography, Alert, FormControl, TextField, Button } from "@mui/material";
+import { Grid, Modal, Backdrop, Fade, Typography, Alert, FormControl, TextField, Button } from "@mui/material";
 import { Box, styled } from "@mui/system";
 import { t } from "i18next";
 import { useState, FormEvent, useEffect } from "react";
 import EditIcon from '@mui/icons-material/Edit';
 import { editSchool } from "@/api/schools";
 import { School } from "@/src/types/School";
+import { cookies } from "next/headers";
+import { getUserCookies } from "@/api/auth";
+import { User } from "@/src/types/User";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -29,18 +31,19 @@ const StyledLoadingButton = styled(LoadingButton)(({ theme }) => ({
     },
 }));
 
-export default function Establishment() {
-    const [loading, setLoading] = useState(false);
+interface EstablishmentProps {
+    school: School,
+}
+
+export default function Establishment(props: EstablishmentProps) {
 
     const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => {
-        setOpen(false);
-        setShowSuccess(false);
-    }
-
     const [showSuccess, setShowSuccess] = useState(false);
-    const [school, setSchool] = useState<School | null>();
+    const [school, setSchool] = useState<School>(props.school);
+    const [user, setUser] = useState<User>();
+
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => (setOpen(false), setShowSuccess(false))
 
     const updateSchool = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
@@ -49,44 +52,37 @@ export default function Establishment() {
         setSchool(schoolReturn)
         setShowSuccess(true)
     }
-
-    const fetchSchool = async () => {
-        setLoading(true);
-        const userSession = await getUserCookies()
-        setSchool(userSession.school);
-        setLoading(false);
+    const getUser = async () => {
+        const user = await getUserCookies()
+        setUser(user)
     }
 
     useEffect(() => {
-        fetchSchool()
-    }, []);
+        getUser()
+    }, [])
 
     return <>
         <Grid container spacing={3}>
             <Grid item xs={12} sm={3} sx={{ display: 'flex', alignItems: 'center' }}>
-                <h2>{t('abc-my-school')}</h2>
-            </Grid>
-            <Grid item xs={12} sm={9} sx={{ display: 'flex', alignItems: 'center' }} >
-                <Button  variant="contained" onClick={handleOpen}> {school && <EditIcon />}</Button>
+                <h2 >{t('abc-my-school')}</h2>
+                {user?.token && <Button variant="contained" onClick={handleOpen} sx={{ marginLeft: 1 }}>  <EditIcon /></Button>}
+
             </Grid>
         </Grid>
-        {
-            loading ? <CircularProgress /> : <>
-                <Grid container spacing={3}>
-                    <Grid item xs={12} sm={3}>
 
-                        <p>{school?.name}</p>
-                        <p>{school?.adress}</p>
-                        <p>{school?.postalCode} {school?.townName}</p>
-                    </Grid>
-                    <Grid item xs={12} sm={3}>
-                        <p>{t('abc-number-students')}: {school?.studentCount}</p>
-                        <p>{t('abc-number-staff')}: {school?.staffCount}</p>
-                        <p>{t('abc-year-of-construction')}: {school?.establishmentYear}</p>
-                    </Grid>
-                </Grid>
-            </>
-        }
+        <Grid container spacing={3}>
+            <Grid item xs={12} sm={3}>
+
+                <p>{school?.name}</p>
+                <p>{school?.adress}</p>
+                <p>{school?.postalCode} {school?.townName}</p>
+            </Grid>
+            <Grid item xs={12} sm={3}>
+                <p>{t('abc-number-students')}: {school?.studentCount}</p>
+                <p>{t('abc-number-staff')}: {school?.staffCount}</p>
+                <p>{t('abc-year-of-construction')}: {school?.establishmentYear}</p>
+            </Grid>
+        </Grid>
         <Modal
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"

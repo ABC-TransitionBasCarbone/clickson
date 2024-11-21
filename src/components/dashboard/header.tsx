@@ -39,11 +39,12 @@ export const Header = () => {
     const router = useRouter();
     const [user, setUser] = useState<User>({} as User);
     const { t } = useTranslation();
+    
     useEffect(() => {
-        fetchCookies();
+        fetchUser();
     }, [setUser]);
 
-    const fetchCookies = async () => {
+    const fetchUser = async () => {
         const cookies = await getUserCookies();
         if (!cookies) {
             return
@@ -78,10 +79,16 @@ export const Header = () => {
                 <UsernameBox sx={{ border: 'none' }}>
                     <LanguageSwitcher />
                     <p>{user?.email}</p>
-                    <p>{t('abc-connected-as')}: <strong>{user?.role}</strong></p>
-                    <Link href="" onClick={onLogout}>
-                        <Button>{t('abc-logout')}</Button>
-                    </Link>
+                    {
+                        user?.email &&
+                        <>
+                            <p >{t('abc-connected-as')}: <strong>{user?.role}</strong></p>
+                            <Link onClick={onLogout}>
+                                <Button>{t('abc-logout')}</Button>
+                            </Link>
+
+                        </>
+                    }
                 </UsernameBox>
             </Grid>
         </Grid>

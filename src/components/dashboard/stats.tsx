@@ -7,7 +7,6 @@ import ExcelJS from "exceljs";
 import { fetchExportFile } from "@/src/helpers/export";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { convertToPercentage } from "@/src/helpers/helpers";
 import PieChart from "@/src/components/charts/PieChart";
 import { Download } from '@mui/icons-material';
 import { Session } from '@/src/types/Session';
@@ -72,7 +71,7 @@ export const Stats = ({ session }: Props) => {
     useEffect(() => {
         document.title = `${session.name}`;
 
-        if(data.length > 0) return
+        if (data.length > 0) return
         session.sessionEmissionCategories.forEach((category, index) => {
             category.sessionEmissionSubCategories.forEach((subCategory) => {
                 const subTotal = subCategory.sessionEmissions.reduce((acc, emission) => {
@@ -91,6 +90,7 @@ export const Stats = ({ session }: Props) => {
     const handleExport = async () => {
         try {
             const arrayBuffer = await fetchExportFile();
+            console.log("🚀 ~ handleExport ~ arrayBuffer:", arrayBuffer)
 
             if (!arrayBuffer) {
                 throw new Error('Failed to fetch the file');
@@ -128,10 +128,6 @@ export const Stats = ({ session }: Props) => {
     };
 
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-
-    const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
 
     const handlePopoverClose = () => {
         setAnchorEl(null);
