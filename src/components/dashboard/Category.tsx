@@ -1,6 +1,7 @@
 'use client';
 
 import { Category } from "@/src/types/Category";
+import { Download } from "@mui/icons-material";
 import { Grid } from "@mui/material";
 import { styled } from "@mui/system";
 import Link from "next/link";

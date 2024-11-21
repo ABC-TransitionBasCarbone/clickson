@@ -65,5 +65,6 @@ export const Header = ({ logoPosition }: Props) => {
                     </UsernameBox>
                 </Grid>
             </Grid>
-        </Box></CustomContainer>
+        </Box>
+    </CustomContainer>
 }

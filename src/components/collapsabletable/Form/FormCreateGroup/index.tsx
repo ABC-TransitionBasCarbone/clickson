@@ -1,9 +1,10 @@
 import theme from "@/src/app/theme";
 import { FormControl, OutlinedInput, Button } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
+import { FormEvent } from "react";
 
 interface FormCreateGroupProps {
-    handleCreateGroup: (event: React.FormEvent<HTMLFormElement>) => void;
+    handleCreateGroup: (event: FormEvent<HTMLFormElement>) => void;
 };
 
 export default function FormCreateGroup({ handleCreateGroup: handleCreateGroup }: FormCreateGroupProps) {

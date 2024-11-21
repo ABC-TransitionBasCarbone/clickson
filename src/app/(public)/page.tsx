@@ -8,8 +8,6 @@ import { Header } from '../../components/login/header';
 import { Form } from '../../components/login/form'
 import { Footer } from '../../components/login/footer'
 import { useTranslation } from "react-i18next";
-import { getLanguages } from "@/api/languages";
-import { Language } from "@/src/types/Language";
 
 export default function Page() {
     const router = useRouter();
@@ -19,16 +17,8 @@ export default function Page() {
     const [buttonValue, setButtonValue] = useState(t('abc-login-button'))
     const bValue = t('abc-login-button');
 
-    // const [languages, setLanguages] = useState<Language[]>([])
-    // const test = async () => {
-    //     const lang = await getLanguages("fr")
-    //     console.log("🚀 ~ test ~ lang:", lang)
-    //     setLanguages(lang)
-    // }
-
     useEffect(() => {
         setButtonValue(bValue);
-        // test()
     }, [bValue]);
 
     const onLogin = (event: FormEvent<HTMLFormElement>) => {
@@ -59,7 +49,6 @@ export default function Page() {
     return (
         <>
             <div>
-                {/* {languages.map((lang) => { return <div key={lang.code}>{lang.name}</div> })} */}
                 <Header logoPosition="flex-end" />
             </div>
             <Container>

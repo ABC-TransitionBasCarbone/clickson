@@ -60,11 +60,10 @@ export async function archiveStudentSession(session: Session) {
 
 export async function lockedStudentSession(session: Session) {
     session.locked = !session.locked
-    const data = JSON.stringify(session)
     const requestOptions = {
         method: "PUT",
         headers: myHeaders,
-        body: data
+        body: JSON.stringify(session)
     } as RequestInit;
 
     const result = await fetch(urlApi + "/sessions", requestOptions)
@@ -72,7 +71,7 @@ export async function lockedStudentSession(session: Session) {
     if (groups.errors) {
         throw new Error("Failed to delete session " + groups.errors)
     }
-    return session.id
+    return session
 }
 
 export async function createSession(sessionName: string, idSchool: string) {

@@ -4,10 +4,8 @@ import '../../../i18n';
 import { Header } from "@/src/components/dashboard/header";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Container from '@mui/material/Container';
-import { Box, Grid } from "@mui/material";
-import Divider from '@mui/material/Divider';
+import { Box, Button, Grid } from "@mui/material";
 import { Stats } from "@/src/components/dashboard/stats";
-import { useTheme } from "@mui/material/styles";
 import { styled } from "@mui/system";
 import { useEffect, useState } from 'react';
 import { CategoryItem } from '../../../../components/dashboard/Category';
@@ -19,6 +17,7 @@ import { Category } from '@/src/types/Category';
 import { UrlParams } from '@/src/types/UrlParams';
 import { getGroup } from '@/api/groups';
 import { Session } from '@/src/types/Session';
+import { SessionCategory } from '@/src/types/SessionCategory';
 
 const borderColors = [
     "#1c82b8",
@@ -75,54 +74,66 @@ export default function Dashboard() {
     const params = useParams<UrlParams>()
     const router = useRouter();
 
-    const theme = useTheme();
-
     const [loadingCategories, setLoadingCategories] = useState(false);
     const [categories, setCategories] = useState<Category[]>([]);
     const [session, setSession] = useState<Session>({} as Session);
 
     useEffect(() => {
-        fetchCategories();
+        fetchGroup();
     }, []);
 
-    const fetchCategories = async () => {
+
+    function filterWithRights(c: Category, rights: number[]) {
+        console.log("🚀 ~ filterWithRights ~ c:", c)
+        console.log("🚀 ~ filterWithRights ~ rights:", rights)
+
+
+
+
+        return true;
+    }
+
+
+
+    const fetchGroup = async () => {
         setLoadingCategories(true);
         const group = await getGroup(params.idgroup);
-        setCategories(group.sessionStudent.sessionEmissionCategories.map(sc => ({
-            ...sc.emissionCategory,
-            idSessionEmissionCategory: sc.id
-        })));
+        console.log("🚀 ~ fetchGroup ~ group:", group)
+
+        setCategories(
+            group.sessionStudent.sessionEmissionCategories.map(sc => ({
+                ...sc.emissionCategory,
+                idSessionEmissionCategory: sc.id
+            }))
+                .filter(c => filterWithRights(c, group.rights))
+        );
         setSession(group.sessionStudent);
         setLoadingCategories(false);
     }
 
-    return (
+    return (session.id ?
         <>
-            <div>
-                <Header />
-            </div>
+            <Header />
             <Container maxWidth="xl">
                 <DashboardWrapper>
+                    <Button variant="contained" onClick={() => { router.back() }} >
+                        <ArrowBackIosIcon />
+                    </Button>
 
-                    <ArrowBackIosIcon onClick={() => {
-                        router.back()
-                    }} sx={{
-                        cursor: 'pointer'
-                    }} />
+                    <Establishment school={session.school} />
+                    <Stats session={session} />
 
-                    <Establishment />
-
-                    {session.id && <Stats session={session} />}
-                    <Grid container marginTop={4} marginBottom={6} sx={{ alignItems: "center", flexDirection: "column" }}>
-                        <CustomH3>
-                            {t("abc-calculators-markers")}
-                        </CustomH3>
-                        <DividerSmall />
-                        <Paragraph>
-                            {t("abc-click-marker-start")} <strong>{t("abc-data-gathering")}</strong>
-                        </Paragraph>
-                    </Grid>
-                    {loadingCategories ? (
+                    {session.locked ? "The Session is locked by your teacher" :
+                        <Grid container marginTop={4} marginBottom={6} sx={{ alignItems: "center", flexDirection: "column" }}>
+                            <CustomH3>
+                                {t("abc-calculators-markers")}
+                            </CustomH3>
+                            <DividerSmall />
+                            <Paragraph>
+                                {t("abc-click-marker-start")} <strong>{t("abc-data-gathering")}</strong>
+                            </Paragraph>
+                        </Grid>}
+                    {session.locked || loadingCategories ? (
                         <Box sx={{ display: 'flex', justifyContent: "center", alignItems: "center", height: "20" }}>
                             <CircularProgress />
                         </Box>) :
@@ -140,7 +151,6 @@ export default function Dashboard() {
                     }
                 </DashboardWrapper>
             </Container>
-        </>
+        </> : <CircularProgress />
     );
 };
-
