@@ -1,6 +1,6 @@
 'use client'
 
-import '../../i18n';
+import '../../../i18n/i18n';
 import { Header } from "@/src/components/dashboard/header";
 import Container from '@mui/material/Container';
 import { Box, CircularProgress } from "@mui/material";
@@ -69,7 +69,7 @@ export default function SessionsBoard() {
             <Container maxWidth="xl">
                 <AccueilWrapper>
                     {school.id && <Establishment school={school} />}
-                    <h2>{t('abc-my-current-session')}</h2>
+                    <h2>{t('my-current-session')}</h2>
                     {
                         loading ? <CircularProgress /> :
                             sessions.length > 0 ?

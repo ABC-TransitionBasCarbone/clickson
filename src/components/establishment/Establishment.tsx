@@ -1,6 +1,6 @@
 import theme from "@/src/app/theme";
 import { LoadingButton } from "@mui/lab";
-import { Grid, Modal, Backdrop, Fade, Typography, Alert, FormControl, TextField, Button } from "@mui/material";
+import { Grid, Modal, Backdrop, Fade, Typography, Alert, FormControl, TextField, Button, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import { Box, styled } from "@mui/system";
 import { t } from "i18next";
 import { useState, FormEvent, useEffect } from "react";
@@ -35,12 +35,23 @@ interface EstablishmentProps {
     school: School,
 }
 
+const options = [
+    { key: 1, label: 'après 2004', value: 2004 },
+    { key: 2, label: 'entre 1984 et 2004', value: 1990 },
+    { key: 3, label: 'avant 1984', value: 1984 },
+]
+
 export default function Establishment(props: EstablishmentProps) {
 
     const [open, setOpen] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
     const [school, setSchool] = useState<School>(props.school);
     const [user, setUser] = useState<User>();
+
+
+    const handleChange = (event: SelectChangeEvent) => {
+        console.log("🚀 ~ handleChange ~ event:", event)
+    };
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => (setOpen(false), setShowSuccess(false))
@@ -64,7 +75,7 @@ export default function Establishment(props: EstablishmentProps) {
     return <>
         <Grid container spacing={3}>
             <Grid item xs={12} sm={3} sx={{ display: 'flex', alignItems: 'center' }}>
-                <h2 >{t('abc-my-school')}</h2>
+                <h2 >{t('my-school')}</h2>
                 {user?.token && <Button variant="contained" onClick={handleOpen} sx={{ marginLeft: 1 }}>  <EditIcon /></Button>}
 
             </Grid>
@@ -78,9 +89,9 @@ export default function Establishment(props: EstablishmentProps) {
                 <p>{school?.postalCode} {school?.townName}</p>
             </Grid>
             <Grid item xs={12} sm={3}>
-                <p>{t('abc-number-students')}: {school?.studentCount}</p>
-                <p>{t('abc-number-staff')}: {school?.staffCount}</p>
-                <p>{t('abc-year-of-construction')}: {school?.establishmentYear}</p>
+                <p>{t('number-students')}: {school?.studentCount}</p>
+                <p>{t('number-staff')}: {school?.staffCount}</p>
+                <p>{t('year-of-construction')}: {school?.establishmentYear}</p>
             </Grid>
         </Grid>
         <Modal
@@ -99,10 +110,10 @@ export default function Establishment(props: EstablishmentProps) {
             <Fade in={open}>
                 <Box sx={style}>
                     <Typography id="transition-modal-title" variant="h6" component="h2">
-                        {t('abc-update-school')}
+                        {t('update-school')}
                     </Typography>
                     {showSuccess ? <><Alert severity="success" sx={{ marginTop: theme.spacing(2) }}>
-                        {t('abc-school-update-successfully')}</Alert> </> : <span></span>
+                        {t('school-update-successfully')}</Alert> </> : <span></span>
                     }
                     <form onSubmit={updateSchool}>
                         <FormControl
@@ -111,11 +122,11 @@ export default function Establishment(props: EstablishmentProps) {
                                 marginTop: theme.spacing(3),
                                 marginBottom: theme.spacing(1)
                             }}>
-                            <TextField placeholder={t('abc-my-school')}
+                            <TextField placeholder={t('my-school')}
                                 type="text"
                                 name="name"
                                 defaultValue={school?.name}
-                                label={t('abc-my-school')}
+                                label={t('my-school')}
                             />
                         </FormControl>
                         <FormControl
@@ -124,11 +135,11 @@ export default function Establishment(props: EstablishmentProps) {
                                 marginTop: theme.spacing(1),
                                 marginBottom: theme.spacing(1)
                             }}>
-                            <TextField placeholder={t('abc-school-address')}
+                            <TextField placeholder={t('school-address')}
                                 type="text"
                                 name="adress"
                                 defaultValue={school?.adress}
-                                label={t('abc-school-address')}
+                                label={t('school-address')}
                             />
                         </FormControl>
                         <FormControl
@@ -137,11 +148,11 @@ export default function Establishment(props: EstablishmentProps) {
                                 marginTop: theme.spacing(1),
                                 marginBottom: theme.spacing(1)
                             }}>
-                            <TextField placeholder={t('abc-number-students')}
+                            <TextField placeholder={t('number-students')}
                                 name="studentCount"
                                 type="number"
                                 defaultValue={school?.studentCount}
-                                label={t('abc-number-students')}
+                                label={t('number-students')}
                             />
                         </FormControl>
                         <FormControl
@@ -150,11 +161,11 @@ export default function Establishment(props: EstablishmentProps) {
                                 marginTop: theme.spacing(1),
                                 marginBottom: theme.spacing(1)
                             }}>
-                            <TextField placeholder={t('abc-number-staff')}
+                            <TextField placeholder={t('number-staff')}
                                 type="number"
                                 name="staffCount"
                                 defaultValue={school?.staffCount}
-                                label={t('abc-number-staff')}
+                                label={t('number-staff')}
                             />
                         </FormControl>
                         <FormControl
@@ -163,12 +174,19 @@ export default function Establishment(props: EstablishmentProps) {
                                 marginTop: theme.spacing(1),
                                 marginBottom: theme.spacing(1)
                             }}>
-                            <TextField placeholder={t('abc-year-of-construction')}
-                                type="number"
-                                name="establishmentYear"
-                                defaultValue={school?.establishmentYear}
-                                label={t('abc-year-of-construction')}
-                            />
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={school?.establishmentYear?.toString()}
+                                label={t('number-staff')}
+                                onChange={handleChange}
+                            >
+                                {
+                                    options.map((option) => (
+                                        <MenuItem value={option.value} >{option.label}</MenuItem>
+                                    ))
+                                }
+                            </Select>
                         </FormControl>
                         <FormControl
                             sx={{
@@ -184,7 +202,7 @@ export default function Establishment(props: EstablishmentProps) {
                                 variant="contained"
                                 type="submit"
                             >
-                                <span>{t('abc-update')}</span>
+                                <span>{t('update')}</span>
                             </StyledLoadingButton>
                         </FormControl>
                     </form>

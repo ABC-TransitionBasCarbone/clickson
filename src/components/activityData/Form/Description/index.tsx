@@ -15,7 +15,7 @@ export const ActivityDataFormDescription = ({ description }: ActivityDataFormDes
             {isExpanded ? description : description.slice(0, Number(description.length*0.50))}
         </p>
         <Button onClick={() => setIsExpanded((prev) => !prev)} className={classes.button}>
-            {isExpanded ? t('abc-read-less') : t('abc-read-more')}
+            {isExpanded ? t('read-less') : t('read-more')}
         </Button>
     </StyledContainer>
 }

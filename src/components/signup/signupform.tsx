@@ -17,7 +17,7 @@ const BodyGrid = styled(Grid)(() => ({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    minHeight: '80vh',
+    minHeight: '80vh'
 }));
 
 const StyledLoadingButton = styled(LoadingButton)(({ theme }) => ({
@@ -95,9 +95,9 @@ export const SignUpForm = ({ onSignUp, countries, showError, showSuccess, messag
                             marginTop: theme.spacing(3),
                             marginBottom: theme.spacing(1)
                         }}>
-                        <TextField placeholder={t('abc-first-name')}
+                        <TextField placeholder={t('first-name')}
                             name="firstName"
-                            label={t('abc-first-name')}
+                            label={t('first-name')}
                         />
                     </FormControl>
                     <FormControl
@@ -106,10 +106,10 @@ export const SignUpForm = ({ onSignUp, countries, showError, showSuccess, messag
                             marginTop: theme.spacing(1),
                             marginBottom: theme.spacing(1)
                         }}>
-                        <TextField placeholder={t('abc-last-name')}
+                        <TextField placeholder={t('last-name')}
                             type="text"
                             name="lastName"
-                            label={t('abc-last-name')}
+                            label={t('last-name')}
                         />
                     </FormControl>
                     <FormControl
@@ -118,10 +118,10 @@ export const SignUpForm = ({ onSignUp, countries, showError, showSuccess, messag
                             marginTop: theme.spacing(1),
                             marginBottom: theme.spacing(1)
                         }}>
-                        <TextField placeholder={t('abc-email')}
+                        <TextField placeholder={t('email')}
                             type="email"
                             name="email"
-                            label={t('abc-email')}
+                            label={t('email')}
 
                         />
                     </FormControl>
@@ -131,12 +131,12 @@ export const SignUpForm = ({ onSignUp, countries, showError, showSuccess, messag
                             marginTop: theme.spacing(1),
                             marginBottom: theme.spacing(1)
                         }}>
-                        <TextField placeholder={t('abc-password')}
+                        <TextField placeholder={t('password')}
                             type="password"
                             name="password"
                             value={password}
                             onChange={handlePasswordChange}
-                            label={t('abc-password')}
+                            label={t('password')}
                             error={!passwordConfirmPasswordEquals && confirmPassword !== ''}
                         />
                     </FormControl>
@@ -146,19 +146,19 @@ export const SignUpForm = ({ onSignUp, countries, showError, showSuccess, messag
                             marginTop: theme.spacing(1),
                             marginBottom: theme.spacing(1)
                         }}>
-                        <TextField placeholder={t('abc-confirm-password')}
+                        <TextField placeholder={t('confirm-password')}
                             type="password"
                             value={confirmPassword}
                             onChange={handleConfirmPasswordChange}
                             name="confirm-password"
-                            label={t('abc-confirm-password')}
+                            label={t('confirm-password')}
                             error={!passwordConfirmPasswordEquals && confirmPassword !== ''}
                         />
                     </FormControl>
                     <FormControl>
                         {!passwordConfirmPasswordEquals && confirmPassword !== '' && (
                             <Typography color="error">
-                                {t('abc-password-mismatch')}
+                                {t('password-mismatch')}
                             </Typography>
                         )}
                     </FormControl>
@@ -196,7 +196,7 @@ export const SignUpForm = ({ onSignUp, countries, showError, showSuccess, messag
                             renderInput={(params) => (
                                 <TextField
                                     {...params}
-                                    label={t('abc-country')}
+                                    label={t('country')}
                                     name="state"
                                     inputProps={{
                                         ...params.inputProps,
@@ -211,10 +211,10 @@ export const SignUpForm = ({ onSignUp, countries, showError, showSuccess, messag
                             marginTop: theme.spacing(1),
                             marginBottom: theme.spacing(1)
                         }}>
-                        <TextField placeholder={t('abc-city')}
+                        <TextField placeholder={t('city')}
                             type="text"
                             name="townName"
-                            label={t('abc-city')}
+                            label={t('city')}
                         />
                     </FormControl>
                     <FormControl
@@ -223,10 +223,10 @@ export const SignUpForm = ({ onSignUp, countries, showError, showSuccess, messag
                             marginTop: theme.spacing(1),
                             marginBottom: theme.spacing(1)
                         }}>
-                        <TextField placeholder={t('abc-zip-code')}
+                        <TextField placeholder={t('zip-code')}
                             type="text"
                             name="postalCode"
-                            label={t('abc-zip-code')}
+                            label={t('zip-code')}
                         />
                     </FormControl>
                     <FormControl
@@ -235,10 +235,10 @@ export const SignUpForm = ({ onSignUp, countries, showError, showSuccess, messag
                             marginTop: theme.spacing(1),
                             marginBottom: theme.spacing(1)
                         }}>
-                        <TextField placeholder={t('abc-school')}
+                        <TextField placeholder={t('school')}
                             type="text"
                             name="schoolName"
-                            label={t('abc-school')}
+                            label={t('school')}
                         />
                     </FormControl>
                     {(progress && (progress < 50)) ?
@@ -261,7 +261,7 @@ export const SignUpForm = ({ onSignUp, countries, showError, showSuccess, messag
                                 variant="contained"
                                 type="submit"
                             >
-                                <span>{t('abc-signup')}</span>
+                                <span>{t('signup')}</span>
                             </StyledLoadingButton>
                         </FormControl>
                     }

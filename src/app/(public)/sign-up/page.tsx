@@ -67,14 +67,14 @@ export default function SignUp() {
             setShowSuccess(false)
             setMessage(
                 <span>
-                    {t('abc-already-exists-account-part-one')}&nbsp;
+                    {t('already-exists-account-part-one')}&nbsp;
                     <Link href="/" sx={{
                         color: 'black',
                         fontWeight: 'bold',
                         textDecoration: 'none'
-                    }}>{t('abc-already-exists-account-part-two')}
+                    }}>{t('already-exists-account-part-two')}
                     </Link>
-                    &nbsp;{t('abc-already-exists-account-part-three')}
+                    &nbsp;{t('already-exists-account-part-three')}
                 </span>
             )
         }
@@ -84,7 +84,7 @@ export default function SignUp() {
                 setShowError(false)
                 setShowSuccess(true)
                 setMessage(
-                    <span>{t('abc-successfully-created-account')}</span>
+                    <span>{t('successfully-created-account')}</span>
                 )
             }
         }

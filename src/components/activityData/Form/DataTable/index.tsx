@@ -57,7 +57,7 @@ export const DataTable = ({ tableHeader, emissions, handleDelete }: DataTablePro
                 ))}
                 {emissions.length > 0 ? (
                     <TableRow >
-                        <TableCell><strong>{t('abc-total-value')}</strong></TableCell>
+                        <TableCell><strong>{t('total-value')}</strong></TableCell>
                         <TableCell align="right"><strong>{totalValues}</strong></TableCell>
                         <TableCell align="right"></TableCell>
                         <TableCell align="right"><strong>{totalUncertainty}</strong></TableCell>

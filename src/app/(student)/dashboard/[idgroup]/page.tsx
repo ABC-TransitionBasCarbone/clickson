@@ -1,6 +1,6 @@
 'use client'
 
-import '../../../i18n';
+import '../../../../i18n/i18n';
 import { Header } from "@/src/components/dashboard/header";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Container from '@mui/material/Container';
@@ -98,7 +98,6 @@ export default function Dashboard() {
     const fetchGroup = async () => {
         setLoadingCategories(true);
         const group = await getGroup(params.idgroup);
-        console.log("🚀 ~ fetchGroup ~ group:", group)
 
         setCategories(
             group.sessionStudent.sessionEmissionCategories.map(sc => ({

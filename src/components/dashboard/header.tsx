@@ -82,9 +82,9 @@ export const Header = () => {
                     {
                         user?.email &&
                         <>
-                            <p >{t('abc-connected-as')}: <strong>{user?.role}</strong></p>
+                            <p >{t('connected-as')}: <strong>{user?.role}</strong></p>
                             <Link onClick={onLogout}>
-                                <Button>{t('abc-logout')}</Button>
+                                <Button>{t('logout')}</Button>
                             </Link>
 
                         </>

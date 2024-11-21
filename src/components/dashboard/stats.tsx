@@ -64,7 +64,7 @@ export const Stats = ({ session }: Props) => {
     const theme = useTheme();
     const { t } = useTranslation();
 
-    const labels = [t("abc-energy"), t("abc-food-service"), t('abc-travel'), t('abc-supplies'), t('abc-fixed-assets')];
+    const labels = [t("abc-energy"), t("abc-food-service"), t('travel'), t('supplies'), t('fixed-assets')];
     const [data, setData] = useState<number[]>([]);
     const [total, setTotal] = useState(0);
 
@@ -138,7 +138,7 @@ export const Stats = ({ session }: Props) => {
     return (data.length > 0 &&
         <Grid container>
             <CustomH6>
-                <strong>{t('abc-emission-profile')} (kgCO2e)</strong>
+                <strong>{t('emission-profile')} (kgCO2e)</strong>
             </CustomH6>
 
             <Divider aria-hidden="true" sx={{ marginTop: theme.spacing(1.25) }} />
@@ -172,7 +172,7 @@ export const Stats = ({ session }: Props) => {
 
             </StatsGrid>
             <StatsGrid item xs={12} md={6}>
-                <span>{t('abc-total')}</span>
+                <span>{t('total')}</span>
                 <InfoWrapper>
                     <Box sx={{
                         color: 'text.primary',

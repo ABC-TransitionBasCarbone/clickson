@@ -1,10 +1,10 @@
 import {CssBaseline, ThemeProvider} from '@mui/material';
 import theme from "@/src/app/theme";
 import {ReactNode} from "react";
-import I18nProvider from './i18nProvider';
+import I18nProvider from '../i18n/i18nProvider';
 
 import './global.css';
-import './i18n';
+import '../i18n/i18n';
 import React from 'react';
 
 export const metadata = {

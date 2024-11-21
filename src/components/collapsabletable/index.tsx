@@ -43,18 +43,18 @@ function Row(props: CollapsibleTableRowProps) {
     const navigation = useRouter();
 
     const chipData = [
-        { key: 0, label: 'abc-energy', advanced: false },
-        { key: 1, label: 'abc-travel', advanced: false },
-        { key: 2, label: 'abc-food-service', advanced: false },
-        { key: 3, label: 'abc-supplies', advanced: false },
-        { key: 4, label: 'abc-fixed-assets', advanced: false },
-        { key: 5, label: 'abc-travel', advanced: false },
-        { key: 6, label: 'abc-energy', advanced: true },
-        { key: 7, label: 'abc-travel', advanced: true },
-        { key: 8, label: 'abc-food-service', advanced: true },
-        { key: 9, label: 'abc-supplies', advanced: true },
-        { key: 10, label: 'abc-fixed-assets', advanced: true },
-        { key: 11, label: 'abc-travel', advanced: true },
+        { key: 0, label: 'energy', advanced: false },
+        { key: 1, label: 'travel', advanced: false },
+        { key: 2, label: 'food-service', advanced: false },
+        { key: 3, label: 'supplies', advanced: false },
+        { key: 4, label: 'fixed-assets', advanced: false },
+        { key: 5, label: 'travel', advanced: false },
+        { key: 6, label: 'energy', advanced: true },
+        { key: 7, label: 'travel', advanced: true },
+        { key: 8, label: 'food-service', advanced: true },
+        { key: 9, label: 'supplies', advanced: true },
+        { key: 10, label: 'fixed-assets', advanced: true },
+        { key: 11, label: 'travel', advanced: true },
     ]
 
     async function handleCreateGroup(event: FormEvent<HTMLFormElement>) {
@@ -94,7 +94,8 @@ function Row(props: CollapsibleTableRowProps) {
             <TableCell >{session.year + ' - ' + (session.year + 1)}</TableCell>
             <TableCell>
                 <Tooltip title="Lock the session">
-                    <Switch checked={session.locked} onClick={() => (props.lockSession(session), setSession({ ...session, locked: !session.locked }))} />
+                    <Switch color="warning"  checked={session.locked} onClick={() =>
+                        (props.lockSession(session), setSession({ ...session, locked: !session.locked }))} />
                 </Tooltip>
                 <Tooltip title="Delete the session">
                     <IconButton aria-label="delete" onClick={() => props.deleteSession(session)}>

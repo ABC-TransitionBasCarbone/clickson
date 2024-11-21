@@ -46,7 +46,7 @@ export default function MultipleSelectChip({ setRights, rights, groupRights }: M
   };
 
   const getLabel = (label: string, advanced: boolean) => {
-    return t(label) + (advanced ? (' ' + t('abc-advanced')) : '');
+    return t(label) + (advanced ? (' ' + t('advanced')) : '');
   }
 
   function getValue(value: number) {

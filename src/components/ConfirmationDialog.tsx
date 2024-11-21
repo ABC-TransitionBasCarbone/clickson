@@ -44,10 +44,10 @@ export default function ConfirmationDialog(props:any) {
           </DialogContent>
           <DialogActions>
             <Button onClick={hideDialog} color="secondary">
-              {t('abc-no')}
+              {t('no')}
             </Button>
             <Button onClick={confirmRequest} color="primary">
-              {t('abc-yes')}
+              {t('yes')}
             </Button>
 
           </DialogActions>

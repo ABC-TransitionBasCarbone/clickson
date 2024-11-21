@@ -83,7 +83,7 @@ export const DataInput = ({
         </Stack>
         <Stack className={classes.button}>
             <PrimaryButton disabled={saving} onClick={() => handleAddData(emission)}>
-                {t('abc-add')}
+                {t('add')}
             </PrimaryButton>
         </Stack>
     </StyledInputData>

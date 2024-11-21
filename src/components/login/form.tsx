@@ -67,9 +67,7 @@ export const Form = ({correctUserInfo, onLogin, loading, buttonValue, goToSignUp
                     },
                     color: "primary.main"
                 }}>
-                    <strong>
-                        Clicks On
-                    </strong>
+                    <strong>Clicks On </strong> 
                 </Typography>
                 <Typography
                     variant="h1"
@@ -86,7 +84,7 @@ export const Form = ({correctUserInfo, onLogin, loading, buttonValue, goToSignUp
                         textTransform: "Uppercase"
                     }}
                 >
-                    {t('abc-calculator')}
+                    {t('calculator')}
                 </Typography>
                 <Typography variant="h3" sx={{
                     marginBottom: theme.spacing(3),
@@ -97,15 +95,15 @@ export const Form = ({correctUserInfo, onLogin, loading, buttonValue, goToSignUp
                     },
                     fontWeight: 500
                 }}>
-                    {t('abc-calculator-sub-text')}
+                    {t('calculator-sub-text')}
                 </Typography>
                 <p>
-                    {t('abc-calculator-small-text')}
+                    {t('calculator-small-text')}
                 </p>
             </Grid>
             <Grid item md={6}>
                 <Typography variant="h5" sx={{fontWeight: "700"}}>
-                    {t('abc-login')}
+                    {t('login')}
                 </Typography>
                 <form onSubmit={onLogin}>
                     <FormControl
@@ -114,7 +112,7 @@ export const Form = ({correctUserInfo, onLogin, loading, buttonValue, goToSignUp
                             marginTop: theme.spacing(3),
                             marginBottom: theme.spacing(1)
                         }}>
-                        <OutlinedInput placeholder={t('abc-email') + " / " + t('abc-username')}
+                        <OutlinedInput placeholder={t('email') + " / " + t('username')}
                                        name="username"
                         />
                     </FormControl>
@@ -124,7 +122,7 @@ export const Form = ({correctUserInfo, onLogin, loading, buttonValue, goToSignUp
                             marginTop: theme.spacing(1),
                             marginBottom: theme.spacing(1)
                         }}>
-                        <OutlinedInput placeholder={t('abc-password')}
+                        <OutlinedInput placeholder={t('password')}
                                        type="password"
                                        name="password"
                         />
@@ -157,7 +155,7 @@ export const Form = ({correctUserInfo, onLogin, loading, buttonValue, goToSignUp
                             marginTop: theme.spacing(1),
                             marginBottom: theme.spacing(1)
                         }}>
-                        <FormControlLabel control={<Checkbox name="rememberMe"/>} label={t('abc-remember-me')}/>
+                        <FormControlLabel control={<Checkbox name="rememberMe"/>} label={t('remember-me')}/>
                     </FormControl>
                     {!correctUserInfo && (
                         <FormControl sx={{
@@ -176,14 +174,14 @@ export const Form = ({correctUserInfo, onLogin, loading, buttonValue, goToSignUp
                     )}
                 </form>
                 <span>
-                    <p>{t('abc-forgot-password')} <CustomLink href="#" underline="none">{t('abc-restore-password')}</CustomLink></p>
+                    <p>{t('forgot-password')} <CustomLink href="#" underline="none">{t('restore-password')}</CustomLink></p>
                 </span>
                 <FormControl sx={{
                     width: {xs: '100%', sm: '100%', md: '35ch', lg: '35ch'},
                     marginTop: theme.spacing(3),
                     marginBottom: theme.spacing(1)
                 }}>
-                    <StyledButton variant="contained" size="large" onClick={goToSignUp}>{t('abc-signup')}</StyledButton>
+                    <StyledButton variant="contained" size="large" onClick={goToSignUp}>{t('signup')}</StyledButton>
                 </FormControl>
             </Grid>
         </BodyGrid>
