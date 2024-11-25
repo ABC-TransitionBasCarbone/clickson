@@ -5,7 +5,7 @@ import { Emission } from "@/src/types/Emission";
 import { CancelPresentationOutlined } from "@mui/icons-material";
 import { IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from 'next-intl'
 
 interface DataTableProps {
     tableHeader: string[];
@@ -14,7 +14,7 @@ interface DataTableProps {
 }
 
 export const DataTable = ({ tableHeader, emissions, handleDelete }: DataTableProps) => {
-    const { t } = useTranslation();
+    const t = useTranslations();
     const [totalValues, setTotalValues] = useState(0);
     const [totalUncertainty, setTotalUncertainty] = useState(0);
 
@@ -42,8 +42,8 @@ export const DataTable = ({ tableHeader, emissions, handleDelete }: DataTablePro
                         <TableCell align="right">{emission.emissionFactor?.uncertainty}</TableCell>
                         <TableCell align="right">
                             <ConfirmationDialog
-                                title={t("abc-confirm-title")}
-                                description={t("abc-confirm-delete")}
+                                title={t("confirm-title")}
+                                description={t("confirm-delete")}
                                 response={() => { handleDelete(emission) }}
                             >
                                 {(showDialog: () => void) => (
@@ -57,7 +57,7 @@ export const DataTable = ({ tableHeader, emissions, handleDelete }: DataTablePro
                 ))}
                 {emissions.length > 0 ? (
                     <TableRow >
-                        <TableCell><strong>{t('total-value')}</strong></TableCell>
+                        <TableCell><strong>{t('totalValue')}</strong></TableCell>
                         <TableCell align="right"><strong>{totalValues}</strong></TableCell>
                         <TableCell align="right"></TableCell>
                         <TableCell align="right"><strong>{totalUncertainty}</strong></TableCell>

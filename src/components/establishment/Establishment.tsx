@@ -2,26 +2,25 @@ import theme from "@/src/app/theme";
 import { LoadingButton } from "@mui/lab";
 import { Grid, Modal, Backdrop, Fade, Typography, Alert, FormControl, TextField, Button, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import { Box, styled } from "@mui/system";
-import { t } from "i18next";
 import { useState, FormEvent, useEffect } from "react";
 import EditIcon from '@mui/icons-material/Edit';
 import { editSchool } from "@/api/schools";
 import { School } from "@/src/types/School";
-import { cookies } from "next/headers";
 import { getUserCookies } from "@/api/auth";
 import { User } from "@/src/types/User";
+import { useTranslations } from 'next-intl'
 
 const style = {
     position: 'absolute' as 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: 600,
     bgcolor: 'background.paper',
     boxShadow: 24,
     border: 'none',
     borderRadius: '5px',
-    p: 4,
+    p: 5,
 };
 
 const StyledLoadingButton = styled(LoadingButton)(({ theme }) => ({
@@ -42,6 +41,7 @@ const options = [
 ]
 
 export default function Establishment(props: EstablishmentProps) {
+    const t = useTranslations('school');
 
     const [open, setOpen] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
@@ -50,7 +50,7 @@ export default function Establishment(props: EstablishmentProps) {
 
 
     const handleChange = (event: SelectChangeEvent) => {
-        console.log("🚀 ~ handleChange ~ event:", event)
+        setSchool({ ...school, establishmentYear: Number(event.target.value) })
     };
 
     const handleOpen = () => setOpen(true);
@@ -59,23 +59,27 @@ export default function Establishment(props: EstablishmentProps) {
     const updateSchool = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         const formData = new FormData(event.currentTarget)
+        console.log("🚀 ~ updateSchool ~ formData:", formData)
         const schoolReturn = await editSchool(formData, school)
         setSchool(schoolReturn)
         setShowSuccess(true)
     }
     const getUser = async () => {
         const user = await getUserCookies()
+        console.log("🚀 ~ updateSchool ~ school:", school)
+
         setUser(user)
     }
 
     useEffect(() => {
+
         getUser()
     }, [])
 
     return <>
         <Grid container spacing={3}>
             <Grid item xs={12} sm={3} sx={{ display: 'flex', alignItems: 'center' }}>
-                <h2 >{t('my-school')}</h2>
+                <h2 >{t('school')}</h2>
                 {user?.token && <Button variant="contained" onClick={handleOpen} sx={{ marginLeft: 1 }}>  <EditIcon /></Button>}
 
             </Grid>
@@ -89,9 +93,9 @@ export default function Establishment(props: EstablishmentProps) {
                 <p>{school?.postalCode} {school?.townName}</p>
             </Grid>
             <Grid item xs={12} sm={3}>
-                <p>{t('number-students')}: {school?.studentCount}</p>
-                <p>{t('number-staff')}: {school?.staffCount}</p>
-                <p>{t('year-of-construction')}: {school?.establishmentYear}</p>
+                <p>{t('numberStudents')}: {school?.studentCount}</p>
+                <p>{t('numberStaff')}: {school?.staffCount}</p>
+                <p>{t('yearOfConstruction')}: {school?.establishmentYear}</p>
             </Grid>
         </Grid>
         <Modal
@@ -110,10 +114,10 @@ export default function Establishment(props: EstablishmentProps) {
             <Fade in={open}>
                 <Box sx={style}>
                     <Typography id="transition-modal-title" variant="h6" component="h2">
-                        {t('update-school')}
+                        {t('updateSchool')}
                     </Typography>
                     {showSuccess ? <><Alert severity="success" sx={{ marginTop: theme.spacing(2) }}>
-                        {t('school-update-successfully')}</Alert> </> : <span></span>
+                        {t('schoolUpdateSuccessfully')}</Alert> </> : <span></span>
                     }
                     <form onSubmit={updateSchool}>
                         <FormControl
@@ -122,11 +126,11 @@ export default function Establishment(props: EstablishmentProps) {
                                 marginTop: theme.spacing(3),
                                 marginBottom: theme.spacing(1)
                             }}>
-                            <TextField placeholder={t('my-school')}
+                            <TextField placeholder={t('school')}
                                 type="text"
                                 name="name"
                                 defaultValue={school?.name}
-                                label={t('my-school')}
+                                label={t('school')}
                             />
                         </FormControl>
                         <FormControl
@@ -135,11 +139,11 @@ export default function Establishment(props: EstablishmentProps) {
                                 marginTop: theme.spacing(1),
                                 marginBottom: theme.spacing(1)
                             }}>
-                            <TextField placeholder={t('school-address')}
+                            <TextField placeholder={t('schoolAddress')}
                                 type="text"
                                 name="adress"
                                 defaultValue={school?.adress}
-                                label={t('school-address')}
+                                label={t('schoolAddress')}
                             />
                         </FormControl>
                         <FormControl
@@ -148,11 +152,11 @@ export default function Establishment(props: EstablishmentProps) {
                                 marginTop: theme.spacing(1),
                                 marginBottom: theme.spacing(1)
                             }}>
-                            <TextField placeholder={t('number-students')}
+                            <TextField placeholder={t('numberStudents')}
                                 name="studentCount"
                                 type="number"
                                 defaultValue={school?.studentCount}
-                                label={t('number-students')}
+                                label={t('numberStudents')}
                             />
                         </FormControl>
                         <FormControl
@@ -161,11 +165,11 @@ export default function Establishment(props: EstablishmentProps) {
                                 marginTop: theme.spacing(1),
                                 marginBottom: theme.spacing(1)
                             }}>
-                            <TextField placeholder={t('number-staff')}
+                            <TextField placeholder={t('numberStaff')}
                                 type="number"
                                 name="staffCount"
                                 defaultValue={school?.staffCount}
-                                label={t('number-staff')}
+                                label={t('numberStaff')}
                             />
                         </FormControl>
                         <FormControl
@@ -178,8 +182,9 @@ export default function Establishment(props: EstablishmentProps) {
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
                                 value={school?.establishmentYear?.toString()}
-                                label={t('number-staff')}
+                                label={t('numberStaff')}
                                 onChange={handleChange}
+                                name="establishmentYear"
                             >
                                 {
                                     options.map((option) => (

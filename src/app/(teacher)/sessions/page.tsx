@@ -1,11 +1,10 @@
 'use client'
 
-import '../../../i18n/i18n';
 import { Header } from "@/src/components/dashboard/header";
 import Container from '@mui/material/Container';
 import { Box, CircularProgress } from "@mui/material";
 import React, { FormEvent, useEffect, useState } from 'react';
-import { useTranslation } from "react-i18next";
+import { useTranslations } from 'next-intl'
 import Establishment from '../../../components/establishment/Establishment';
 import { styled } from "@mui/system";
 import { getUserCookies } from '@/api/auth';
@@ -21,10 +20,11 @@ const AccueilWrapper = styled(Box)`
 `
 
 export default function SessionsBoard() {
+    const t = useTranslations("session");
+
     const [sessions, setSessions] = useState<Session[]>([]);
     const [school, setSchool] = useState<School>({});
     const [loading, setLoading] = useState(false);
-    const { t } = useTranslation();
 
     async function deleteSession(session: Session) {
         const id = await archiveStudentSession(session)
@@ -69,7 +69,7 @@ export default function SessionsBoard() {
             <Container maxWidth="xl">
                 <AccueilWrapper>
                     {school.id && <Establishment school={school} />}
-                    <h2>{t('my-current-session')}</h2>
+                    <h2>{t('list')}</h2>
                     {
                         loading ? <CircularProgress /> :
                             sessions.length > 0 ?

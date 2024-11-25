@@ -10,7 +10,7 @@ import { styled } from "@mui/system";
 import { ChangeEvent, FormEventHandler, ReactElement, useState } from "react";
 import LoadingButton from '@mui/lab/LoadingButton';
 import { Autocomplete } from "@mui/material";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from 'next-intl'
 
 const BodyGrid = styled(Grid)(() => ({
     display: 'flex',
@@ -40,7 +40,7 @@ interface Props {
 }
 
 export const SignUpForm = ({ onSignUp, countries, showError, showSuccess, message, progress, loading }: Props) => {
-    const { t } = useTranslation();
+    const t = useTranslations();
 
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('')
@@ -95,9 +95,9 @@ export const SignUpForm = ({ onSignUp, countries, showError, showSuccess, messag
                             marginTop: theme.spacing(3),
                             marginBottom: theme.spacing(1)
                         }}>
-                        <TextField placeholder={t('first-name')}
+                        <TextField placeholder={t('firstName')}
                             name="firstName"
-                            label={t('first-name')}
+                            label={t('firstName')}
                         />
                     </FormControl>
                     <FormControl
@@ -106,10 +106,10 @@ export const SignUpForm = ({ onSignUp, countries, showError, showSuccess, messag
                             marginTop: theme.spacing(1),
                             marginBottom: theme.spacing(1)
                         }}>
-                        <TextField placeholder={t('last-name')}
+                        <TextField placeholder={t('lastName')}
                             type="text"
                             name="lastName"
-                            label={t('last-name')}
+                            label={t('lastName')}
                         />
                     </FormControl>
                     <FormControl
@@ -146,19 +146,19 @@ export const SignUpForm = ({ onSignUp, countries, showError, showSuccess, messag
                             marginTop: theme.spacing(1),
                             marginBottom: theme.spacing(1)
                         }}>
-                        <TextField placeholder={t('confirm-password')}
+                        <TextField placeholder={t('confirmPassword')}
                             type="password"
                             value={confirmPassword}
                             onChange={handleConfirmPasswordChange}
                             name="confirm-password"
-                            label={t('confirm-password')}
+                            label={t('confirmPassword')}
                             error={!passwordConfirmPasswordEquals && confirmPassword !== ''}
                         />
                     </FormControl>
                     <FormControl>
                         {!passwordConfirmPasswordEquals && confirmPassword !== '' && (
                             <Typography color="error">
-                                {t('password-mismatch')}
+                                {t('passwordMismatch')}
                             </Typography>
                         )}
                     </FormControl>
@@ -223,10 +223,10 @@ export const SignUpForm = ({ onSignUp, countries, showError, showSuccess, messag
                             marginTop: theme.spacing(1),
                             marginBottom: theme.spacing(1)
                         }}>
-                        <TextField placeholder={t('zip-code')}
+                        <TextField placeholder={t('zipCode')}
                             type="text"
                             name="postalCode"
-                            label={t('zip-code')}
+                            label={t('zipCode')}
                         />
                     </FormControl>
                     <FormControl

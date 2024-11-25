@@ -49,10 +49,10 @@ export const QuestionTypeComponent = ({ sessionSubCategory }: QuestionTypeCompon
     return <>
         <CustomDialog
             open={open}
-            titleLabel="abc-confirm-title"
-            contentLabel="abc-confirm-duplicate"
-            closeLabel="abc-yes"
-            confirmLabel="abc-no"
+            titleLabel="confirm-title"
+            contentLabel="confirm-duplicate"
+            closeLabel="yes"
+            confirmLabel="no"
             handleClose={handleClose}
         />
         <DataInput

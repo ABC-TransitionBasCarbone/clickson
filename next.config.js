@@ -1,4 +1,10 @@
-module.exports = {
+
+const createNextIntlPlugin = require('next-intl/plugin');
+
+const withNextIntl = createNextIntlPlugin();
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
     webpack: (
         config
     ) => {
@@ -16,10 +22,6 @@ module.exports = {
 
         return config
     },
-    i18n: {
-        locales: ["en", "fr", "it", "es", "hr", "gr", "ro", "hu"],
-        defaultLocale: "fr",
-    },
     images: {
         remotePatterns: [
             { hostname: 'flagcdn.com' },
@@ -27,4 +29,8 @@ module.exports = {
         ],
 
     }
-}
+};
+
+module.exports = withNextIntl(nextConfig);
+
+

@@ -1,29 +1,49 @@
-import {CssBaseline, ThemeProvider} from '@mui/material';
+import type { Metadata } from 'next'
+import { NextIntlClientProvider } from 'next-intl'
+import { getLocale, getMessages } from 'next-intl/server'
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter'
 import theme from "@/src/app/theme";
-import {ReactNode} from "react";
-import I18nProvider from '../i18n/i18nProvider';
+import {CssBaseline, ThemeProvider} from '@mui/material';
 
-import './global.css';
-import '../i18n/i18n';
-import React from 'react';
+import './global.css'
+import Head from 'next/head'
+import Providers from './Providers'
 
-export const metadata = {
+export const metadata: Metadata = {
     title: "Clickson PEBC",
     description: "Calculate",
 };
 
-export default function RootLayout({children, params}: { children: ReactNode, params: { locale: string } }) {
+interface Props {
+    children: React.ReactNode
+}
+
+const RootLayout = async ({ children }: Readonly<Props>) => {
+    const locale = await getLocale()
+
+    // Providing all messages to the client
+    // side is the easiest way to get started
+    const messages = await getMessages()
 
     return (
-        <html lang={params.locale}>
-        <body>
-        <ThemeProvider theme={theme}>
-            <CssBaseline/>
-            <I18nProvider locale={params.locale}>
-                {children}
-            </I18nProvider>
-        </ThemeProvider>
-        </body>
+        <html lang={locale}>
+            <Head>
+                <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/gilroy-bold" />
+            </Head>
+
+            <body>
+                <ThemeProvider theme={theme}>
+                <CssBaseline/>
+
+                    <AppRouterCacheProvider>
+                        <NextIntlClientProvider messages={messages}>
+                            <Providers>{children}</Providers>
+                        </NextIntlClientProvider>
+                    </AppRouterCacheProvider>
+                </ThemeProvider>
+            </body>
         </html>
-    );
+    )
 }
+
+export default RootLayout

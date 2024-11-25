@@ -2,7 +2,7 @@
 
 import { FormControl, Stack, MenuItem, OutlinedInput, Select, Typography, InputLabel, SelectChangeEvent } from "@mui/material";
 import { KeyboardArrowDown, Label } from "@mui/icons-material";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from 'next-intl'
 import { PrimaryButton } from "@/src/components/buttons/primaryButton";
 import { classes, StyledInputData } from "./styles";
 import { EmissionFactor } from "@/src/types/EmissionFactor";
@@ -24,7 +24,7 @@ export const DataInput = ({
     annualConsumptionText,
     handleAddData,
 }: DataInputProps) => {
-    const { t } = useTranslation();
+    const t = useTranslations();
     const [emission, setEmission] = useState<Emission>({
         emissionFactor: emissionFactors[0],
         value: 0,

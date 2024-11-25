@@ -7,12 +7,12 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
-import {useTranslation} from "react-i18next";
+import { useTranslations } from "next-intl";
 
 export default function ConfirmationDialog(props:any) {
   //local states
   const [open, setOpen] = useState(false);
-  const {t} = useTranslation();
+  const t = useTranslations();
   const showDialog = () => {
     setOpen(true);
   };

@@ -1,7 +1,7 @@
 'use client';
 
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material"
-import { useTranslation } from "react-i18next";
+import { useTranslations } from 'next-intl'
 
 interface CustomDialogProps {
     open: boolean;
@@ -19,10 +19,9 @@ export const CustomDialog = ({
     contentLabel,
     contentParams,
     closeLabel,
-    confirmLabel,
     handleClose,
 }: CustomDialogProps) => {
-    const { t } = useTranslation();
+    const t = useTranslations();
 
     return <Dialog
         open={open}

@@ -6,7 +6,7 @@ import { useTheme } from '@mui/material/styles';
 import ExcelJS from "exceljs";
 import { fetchExportFile } from "@/src/helpers/export";
 import React, { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from 'next-intl'
 import PieChart from "@/src/components/charts/PieChart";
 import { Download } from '@mui/icons-material';
 import { Session } from '@/src/types/Session';
@@ -62,9 +62,9 @@ interface Props {
 
 export const Stats = ({ session }: Props) => {
     const theme = useTheme();
-    const { t } = useTranslation();
+    const t = useTranslations('dashboard');
 
-    const labels = [t("abc-energy"), t("abc-food-service"), t('travel'), t('supplies'), t('fixed-assets')];
+    const labels = [t('energy'), t('foodService'), t('travel'), t('supplies'), t('fixedAssets')];
     const [data, setData] = useState<number[]>([]);
     const [total, setTotal] = useState(0);
 
@@ -100,7 +100,7 @@ export const Stats = ({ session }: Props) => {
 
             await workbook.xlsx.load(arrayBuffer);
 
-            const worksheet = workbook.getWorksheet('Summary and profile');
+            const worksheet = workbook.getWorksheet('SummaryAndProfile');
             if (!worksheet) {
                 throw new Error(`Sheet not found`);
             }
@@ -138,7 +138,7 @@ export const Stats = ({ session }: Props) => {
     return (data.length > 0 &&
         <Grid container>
             <CustomH6>
-                <strong>{t('emission-profile')} (kgCO2e)</strong>
+                <strong>{t('emissionProfile')} (kgCO2e)</strong>
             </CustomH6>
 
             <Divider aria-hidden="true" sx={{ marginTop: theme.spacing(1.25) }} />
@@ -149,7 +149,7 @@ export const Stats = ({ session }: Props) => {
                 <DownloadButton
                     onClick={handleExport}
                 >
-                    {t("abc-download")} <Download sx={{ cursor: 'pointer' }} />
+                    {t("download")} <Download sx={{ cursor: 'pointer' }} />
                 </DownloadButton>
                 <Popover
                     id="mouse-over-popover"
@@ -167,7 +167,7 @@ export const Stats = ({ session }: Props) => {
                     onClose={handlePopoverClose}
                     disableRestoreFocus
                 >
-                    <Typography sx={{ p: 1 }}>{t("abc-download-excel")}</Typography>
+                    <Typography sx={{ p: 1 }}>{t("downloadExcel")}</Typography>
                 </Popover>
 
             </StatsGrid>
@@ -196,7 +196,7 @@ export const Stats = ({ session }: Props) => {
                 <Grid container spacing={3} columns={12} sx={{ paddingLeft: theme.spacing(3.75) }}>
                     <Grid item xs={6}>
                         <div className="stats-wrapper">
-                            <span>{t("abc-energy")}</span>
+                            <span>{t("energy")}</span>
                             <Box sx={{
                                 color: 'primary.main',
                                 marginTop: theme.spacing(2),
@@ -210,7 +210,7 @@ export const Stats = ({ session }: Props) => {
                     </Grid>
                     <Grid item xs={6}>
                         <StatsWrapper>
-                            <span>{t("abc-food-service")}</span>
+                            <span>{t("foodService")}</span>
                             <Box
                                 sx={{
                                     color: 'error.main',
@@ -225,7 +225,7 @@ export const Stats = ({ session }: Props) => {
                     </Grid>
                     <Grid item xs={6}>
                         <StatsWrapper>
-                            <span>{t("abc-travel")}</span>
+                            <span>{t("travel")}</span>
                             <Box
                                 sx={{
                                     color: 'success.main',
@@ -240,7 +240,7 @@ export const Stats = ({ session }: Props) => {
                     </Grid>
                     <Grid item xs={6}>
                         <StatsWrapper>
-                            <span>{t("abc-supplies")}</span>
+                            <span>{t("supplies")}</span>
                             <Box sx={{
                                 color: 'secondary.main',
                                 marginTop: theme.spacing(2),
@@ -254,7 +254,7 @@ export const Stats = ({ session }: Props) => {
                     </Grid>
                     <Grid item xs={6}>
                         <StatsWrapper>
-                            <span>{t("abc-fixed-assets")}</span>
+                            <span>{t("fixedAssets")}</span>
                             <Box sx={{
                                 color: 'info.main',
                                 marginTop: theme.spacing(2),

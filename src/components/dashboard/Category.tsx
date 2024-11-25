@@ -5,7 +5,7 @@ import { Download } from "@mui/icons-material";
 import { Grid } from "@mui/material";
 import { styled } from "@mui/system";
 import Link from "next/link";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from 'next-intl'
 
 
 const CustomH3 = styled('h3')(({ theme }) => ({
@@ -76,7 +76,7 @@ interface Props {
 }
 
 export const CategoryItem = ({ category, borderColor }: Props) => {
-    const { t } = useTranslation();
+    const t = useTranslations('dashboard');
 
     const conatinerStyle = {
         justifyContent: "center",
@@ -90,12 +90,12 @@ export const CategoryItem = ({ category, borderColor }: Props) => {
     }
 
     return (<Grid container xs={12} sm={2} sx={conatinerStyle}>
-        <CustomH3>{t(category.label)}</CustomH3>
+        <CustomH3>{category.label}</CustomH3>
         <Paragraph>
-            {t(category.detail)}
+            {category.detail}
         </Paragraph>
         <Link href={`/category/` + category.idSessionEmissionCategory}>
-            <OngoingButton >{t('on-going')}</OngoingButton>
+            <OngoingButton >{t('onGoing')}</OngoingButton>
         </Link>
         {/* <DownloadButton onClick={() => { }}>{t('download')} <Download onClick={() => { }} /></DownloadButton> */}
     </Grid>);

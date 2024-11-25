@@ -1,6 +1,5 @@
 'use client'
 
-import '../../../../i18n/i18n';
 import { Header } from "@/src/components/dashboard/header";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Container from '@mui/material/Container';
@@ -10,7 +9,7 @@ import { styled } from "@mui/system";
 import { useEffect, useState } from 'react';
 import { CategoryItem } from '../../../../components/dashboard/Category';
 import CircularProgress from '@mui/material/CircularProgress';
-import { useTranslation } from "react-i18next";
+import { useTranslations } from 'next-intl'
 import Establishment from '@/src/components/establishment/Establishment';
 import { useParams, useRouter } from 'next/navigation'
 import { Category } from '@/src/types/Category';
@@ -70,7 +69,7 @@ const DividerSmall = styled("hr")`
 `;
 
 export default function Dashboard() {
-    const { t } = useTranslation();
+    const t = useTranslations('dashboard');
     const params = useParams<UrlParams>()
     const router = useRouter();
 
@@ -84,12 +83,7 @@ export default function Dashboard() {
 
 
     function filterWithRights(c: Category, rights: number[]) {
-        console.log("🚀 ~ filterWithRights ~ c:", c)
-        console.log("🚀 ~ filterWithRights ~ rights:", rights)
-
-
-
-
+        // TODO This function is used to filter the categories that the user has the right to see
         return true;
     }
 
@@ -122,14 +116,14 @@ export default function Dashboard() {
                     <Establishment school={session.school} />
                     <Stats session={session} />
 
-                    {session.locked ? "The Session is locked by your teacher" :
+                    {session.locked ? t("locked") :
                         <Grid container marginTop={4} marginBottom={6} sx={{ alignItems: "center", flexDirection: "column" }}>
                             <CustomH3>
-                                {t("abc-calculators-markers")}
+                                {t("calculatorsMarkers")}
                             </CustomH3>
                             <DividerSmall />
                             <Paragraph>
-                                {t("abc-click-marker-start")} <strong>{t("abc-data-gathering")}</strong>
+                                {t("clickMarkerStart")} <strong>{t("dataGathering")}</strong>
                             </Paragraph>
                         </Grid>}
                     {session.locked || loadingCategories ? (
