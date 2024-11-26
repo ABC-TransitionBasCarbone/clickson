@@ -1,12 +1,14 @@
 'use client';
 
 import { Category } from "@/src/types/Category";
-import { Download } from "@mui/icons-material";
-import { Grid } from "@mui/material";
+import { Grid, Switch } from "@mui/material";
 import { styled } from "@mui/system";
 import Link from "next/link";
-import { useTranslation } from "react-i18next";
-
+import { useTranslations } from 'next-intl'
+import LockIcon from '@mui/icons-material/Lock';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
+import { ChangeEvent, useEffect, useState } from "react";
+import { lockedSessionCategory } from "@/api/sessions";
 
 const CustomH3 = styled('h3')(({ theme }) => ({
     color: theme.palette.primary.main,
@@ -76,7 +78,19 @@ interface Props {
 }
 
 export const CategoryItem = ({ category, borderColor }: Props) => {
-    const { t } = useTranslation();
+    const t = useTranslations('dashboard');
+    const [locked, setLocked] = useState(category.locked);
+
+    useEffect(() => {
+        console.log("🚀 ~ CategoryItem ~ locked:", locked)
+
+    }, []);
+
+
+    const handleValueChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setLocked(event.target.checked);
+        lockedSessionCategory(category.idSessionEmissionCategory, event.target.checked);
+    };
 
     const conatinerStyle = {
         justifyContent: "center",
@@ -90,13 +104,19 @@ export const CategoryItem = ({ category, borderColor }: Props) => {
     }
 
     return (<Grid container xs={12} sm={2} sx={conatinerStyle}>
-        <CustomH3>{t(category.label)}</CustomH3>
+        <CustomH3>{category.label}</CustomH3>
         <Paragraph>
-            {t(category.detail)}
+            {category.detail}
         </Paragraph>
         <Link href={`/category/` + category.idSessionEmissionCategory}>
-            <OngoingButton >{t('abc-on-going')}</OngoingButton>
+            <OngoingButton >{t('onGoing')}</OngoingButton>
         </Link>
-        {/* <DownloadButton onClick={() => { }}>{t('abc-download')} <Download onClick={() => { }} /></DownloadButton> */}
+        <Switch
+            checkedIcon={<LockIcon />}
+            icon={<LockOpenIcon sx={{ color: 'black' }} />}
+            checked={locked}
+            onChange={handleValueChange} />
+
+        {/* <DownloadButton onClick={() => { }}>{t('download')} <Download onClick={() => { }} /></DownloadButton> */}
     </Grid>);
 }

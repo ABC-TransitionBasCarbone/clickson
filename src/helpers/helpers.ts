@@ -8,3 +8,7 @@ export const convertToPercentage = (data: number[]) => {
         .map(value => (value / total) * 100)
         .filter(value => value >= threshold);
 }
+
+export const toLocaleString = (value: number) => {
+    return Number(value).toLocaleString();
+}

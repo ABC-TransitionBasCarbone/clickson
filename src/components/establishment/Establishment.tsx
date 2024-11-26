@@ -1,27 +1,32 @@
 import theme from "@/src/app/theme";
 import { LoadingButton } from "@mui/lab";
-import { Grid, Modal, Backdrop, Fade, Typography, Alert, FormControl, TextField, Button } from "@mui/material";
+import { Grid, Modal, Backdrop, Fade, Typography, Alert, FormControl, TextField, Button, MenuItem, Select, SelectChangeEvent, Stack } from "@mui/material";
 import { Box, styled } from "@mui/system";
-import { t } from "i18next";
 import { useState, FormEvent, useEffect } from "react";
 import EditIcon from '@mui/icons-material/Edit';
 import { editSchool } from "@/api/schools";
 import { School } from "@/src/types/School";
-import { cookies } from "next/headers";
 import { getUserCookies } from "@/api/auth";
 import { User } from "@/src/types/User";
+import { useTranslations } from 'next-intl'
 
 const style = {
     position: 'absolute' as 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: 600,
     bgcolor: 'background.paper',
     boxShadow: 24,
     border: 'none',
     borderRadius: '5px',
-    p: 4,
+    p: 5,
+};
+
+const formControlStyle = {
+    width: '100%',
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1)
 };
 
 const StyledLoadingButton = styled(LoadingButton)(({ theme }) => ({
@@ -36,11 +41,17 @@ interface EstablishmentProps {
 }
 
 export default function Establishment(props: EstablishmentProps) {
+    const t = useTranslations('school');
 
     const [open, setOpen] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
     const [school, setSchool] = useState<School>(props.school);
     const [user, setUser] = useState<User>();
+
+
+    const handleChange = (event: SelectChangeEvent) => {
+        setSchool({ ...school, establishmentYear: Number(event.target.value) })
+    };
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => (setOpen(false), setShowSuccess(false))
@@ -63,24 +74,28 @@ export default function Establishment(props: EstablishmentProps) {
 
     return <>
         <Grid container spacing={3}>
-            <Grid item xs={12} sm={3} sx={{ display: 'flex', alignItems: 'center' }}>
-                <h2 >{t('abc-my-school')}</h2>
-                {user?.token && <Button variant="contained" onClick={handleOpen} sx={{ marginLeft: 1 }}>  <EditIcon /></Button>}
-
+            <Grid item xs={12} sm={3} sx={{ marginTop: 3, display: 'flex', alignItems: 'center' }}>
             </Grid>
         </Grid>
 
         <Grid container spacing={3}>
             <Grid item xs={12} sm={3}>
+                <Stack>
+                    <Typography variant="h5" >{school?.name}
+                        {user?.token &&
+                            <Button sx={{ marginLeft: 10 }} variant="outlined" onClick={handleOpen} startIcon={<EditIcon />}>
+                                {t('update')}
+                            </Button>}
+                    </Typography>
 
-                <p>{school?.name}</p>
+                </Stack>
                 <p>{school?.adress}</p>
                 <p>{school?.postalCode} {school?.townName}</p>
             </Grid>
             <Grid item xs={12} sm={3}>
-                <p>{t('abc-number-students')}: {school?.studentCount}</p>
-                <p>{t('abc-number-staff')}: {school?.staffCount}</p>
-                <p>{t('abc-year-of-construction')}: {school?.establishmentYear}</p>
+                <p>{t('numberStudents')}: {school?.studentCount}</p>
+                <p>{t('numberStaff')}: {school?.staffCount}</p>
+                <p>{t('yearOfConstruction')}: {school?.establishmentYear}</p>
             </Grid>
         </Grid>
         <Modal
@@ -99,83 +114,53 @@ export default function Establishment(props: EstablishmentProps) {
             <Fade in={open}>
                 <Box sx={style}>
                     <Typography id="transition-modal-title" variant="h6" component="h2">
-                        {t('abc-update-school')}
+                        {t('updateSchool')}
                     </Typography>
                     {showSuccess ? <><Alert severity="success" sx={{ marginTop: theme.spacing(2) }}>
-                        {t('abc-school-update-successfully')}</Alert> </> : <span></span>
+                        {t('schoolUpdateSuccessfully')}</Alert> </> : <span></span>
                     }
                     <form onSubmit={updateSchool}>
-                        <FormControl
-                            sx={{
-                                width: '100%',
-                                marginTop: theme.spacing(3),
-                                marginBottom: theme.spacing(1)
-                            }}>
-                            <TextField placeholder={t('abc-my-school')}
+                        <FormControl sx={formControlStyle}>
+                            <TextField placeholder={t('school')}
                                 type="text"
                                 name="name"
                                 defaultValue={school?.name}
-                                label={t('abc-my-school')}
+                                label={t('school')}
                             />
                         </FormControl>
-                        <FormControl
-                            sx={{
-                                width: '100%',
-                                marginTop: theme.spacing(1),
-                                marginBottom: theme.spacing(1)
-                            }}>
-                            <TextField placeholder={t('abc-school-address')}
+                        <FormControl sx={formControlStyle}>
+                            <TextField placeholder={t('schoolAddress')}
                                 type="text"
                                 name="adress"
                                 defaultValue={school?.adress}
-                                label={t('abc-school-address')}
+                                label={t('schoolAddress')}
                             />
                         </FormControl>
-                        <FormControl
-                            sx={{
-                                width: '100%',
-                                marginTop: theme.spacing(1),
-                                marginBottom: theme.spacing(1)
-                            }}>
-                            <TextField placeholder={t('abc-number-students')}
+                        <FormControl sx={formControlStyle}>
+                            <TextField placeholder={t('numberStudents')}
                                 name="studentCount"
                                 type="number"
                                 defaultValue={school?.studentCount}
-                                label={t('abc-number-students')}
+                                label={t('numberStudents')}
                             />
                         </FormControl>
-                        <FormControl
-                            sx={{
-                                width: '100%',
-                                marginTop: theme.spacing(1),
-                                marginBottom: theme.spacing(1)
-                            }}>
-                            <TextField placeholder={t('abc-number-staff')}
+                        <FormControl sx={formControlStyle}>
+                            <TextField placeholder={t('numberStaff')}
                                 type="number"
                                 name="staffCount"
                                 defaultValue={school?.staffCount}
-                                label={t('abc-number-staff')}
+                                label={t('numberStaff')}
                             />
                         </FormControl>
-                        <FormControl
-                            sx={{
-                                width: '100%',
-                                marginTop: theme.spacing(1),
-                                marginBottom: theme.spacing(1)
-                            }}>
-                            <TextField placeholder={t('abc-year-of-construction')}
+                        <FormControl sx={formControlStyle}>
+                            <TextField placeholder={t('yearOfConstruction')}
                                 type="number"
                                 name="establishmentYear"
                                 defaultValue={school?.establishmentYear}
-                                label={t('abc-year-of-construction')}
+                                label={t('yearOfConstruction')}
                             />
                         </FormControl>
-                        <FormControl
-                            sx={{
-                                width: '100%',
-                                marginTop: theme.spacing(1),
-                                marginBottom: theme.spacing(1)
-                            }}>
+                        <FormControl sx={formControlStyle}>
                             <StyledLoadingButton
                                 size="large"
                                 color="primary"
@@ -184,7 +169,7 @@ export default function Establishment(props: EstablishmentProps) {
                                 variant="contained"
                                 type="submit"
                             >
-                                <span>{t('abc-update')}</span>
+                                <span>{t('update')}</span>
                             </StyledLoadingButton>
                         </FormControl>
                     </form>

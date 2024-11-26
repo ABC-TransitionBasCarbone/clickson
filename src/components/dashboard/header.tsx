@@ -4,7 +4,7 @@ import { MouseEvent, useEffect, useState } from "react";
 import { getUserCookies, logout } from "@/api/auth";
 import { useRouter } from "next/navigation";
 import LanguageSwitcher from "@/src/components/language-switcher/LanguageSwitcher";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from 'next-intl'
 import { User } from "@/src/types/User";
 
 const BoxHeader = styled(Box)`
@@ -36,9 +36,10 @@ const UsernameBox = styled('div')(({ theme }) => ({
 }));
 
 export const Header = () => {
+    const t = useTranslations('header');
+
     const router = useRouter();
     const [user, setUser] = useState<User>({} as User);
-    const { t } = useTranslation();
     
     useEffect(() => {
         fetchUser();
@@ -82,9 +83,9 @@ export const Header = () => {
                     {
                         user?.email &&
                         <>
-                            <p >{t('abc-connected-as')}: <strong>{user?.role}</strong></p>
+                            <p >{t('connectedAs')}: <strong>{t(user?.role)}</strong></p>
                             <Link onClick={onLogout}>
-                                <Button>{t('abc-logout')}</Button>
+                                <Button>{t('logout')}</Button>
                             </Link>
 
                         </>

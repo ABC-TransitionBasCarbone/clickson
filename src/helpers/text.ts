@@ -6,5 +6,5 @@ export const prepareValueForTranslation = (value: string) => {
             .replace(/\s/g, "")
             .replace(/-\([^)]*\)$/, "");
 
-    return `abc-${newValue}`;
+    return `${newValue}`;
 }

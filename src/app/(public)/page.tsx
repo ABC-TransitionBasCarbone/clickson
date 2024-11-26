@@ -7,15 +7,15 @@ import Container from "@mui/material/Container";
 import { Header } from '../../components/login/header';
 import { Form } from '../../components/login/form'
 import { Footer } from '../../components/login/footer'
-import { useTranslation } from "react-i18next";
+import { useTranslations } from 'next-intl'
 
 export default function Page() {
     const router = useRouter();
     const [loading, setLoading] = useState(false)
     const [correctUserInfo, setCorrectUserInfo] = useState(true)
-    const { t } = useTranslation();
-    const [buttonValue, setButtonValue] = useState(t('abc-login-button'))
-    const bValue = t('abc-login-button');
+    const t = useTranslations('login');
+    const [buttonValue, setButtonValue] = useState(t('loginButton'))
+    const bValue = t('loginButton');
 
     useEffect(() => {
         setButtonValue(bValue);
@@ -24,7 +24,7 @@ export default function Page() {
     const onLogin = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         setLoading(true)
-        setButtonValue(t('abc-login-pending'))
+        setButtonValue(t('loginPending'))
         const formData = new FormData(event.currentTarget)
         const user = await login(formData)
 
@@ -32,7 +32,7 @@ export default function Page() {
             router.push("/sessions")
         } else {
             setLoading(false);
-            setButtonValue(t('abc-login'))
+            setButtonValue(t('login'))
             setCorrectUserInfo(false);
         }
     }
@@ -48,12 +48,10 @@ export default function Page() {
 
     return (
         <>
-            <div>
-                <Header logoPosition="flex-end" />
-            </div>
-            <Container>
+            <Header logoPosition={""} />
+            <Container >
                 <Form correctUserInfo={correctUserInfo} onLogin={onLogin} loading={loading} buttonValue={buttonValue} goToSignUp={goToSignUp} />
-            </Container>
+            </Container >
             <Footer />
         </>
     );

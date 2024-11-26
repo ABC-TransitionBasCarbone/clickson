@@ -5,7 +5,8 @@ import { Emission } from "@/src/types/Emission";
 import { CancelPresentationOutlined } from "@mui/icons-material";
 import { IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from 'next-intl'
+import { toLocaleString } from "@/src/helpers/helpers";
 
 interface DataTableProps {
     tableHeader: string[];
@@ -14,7 +15,7 @@ interface DataTableProps {
 }
 
 export const DataTable = ({ tableHeader, emissions, handleDelete }: DataTableProps) => {
-    const { t } = useTranslation();
+    const t = useTranslations('category');
     const [totalValues, setTotalValues] = useState(0);
     const [totalUncertainty, setTotalUncertainty] = useState(0);
 
@@ -23,7 +24,7 @@ export const DataTable = ({ tableHeader, emissions, handleDelete }: DataTablePro
         setTotalUncertainty(emissions.reduce((acc, emission) => acc + (Number(emission.emissionFactor?.uncertainty) || 0), 0))
     }, [emissions]);
 
-    return <TableContainer>
+    return <TableContainer sx={{ marginBottom: 5 }}>
         <Table>
             <TableHead>
                 <TableRow>
@@ -37,13 +38,13 @@ export const DataTable = ({ tableHeader, emissions, handleDelete }: DataTablePro
                 {emissions.map((emission) => (
                     <TableRow key={emission.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                         <TableCell component="th" scope="row">{emission.emissionFactor?.label}</TableCell>
-                        <TableCell align="right">{emission.value}</TableCell>
-                        <TableCell align="right">{emission.emissionFactor?.value}</TableCell>
+                        <TableCell align="right">{toLocaleString(emission.value)}</TableCell>
+                        <TableCell align="right">{toLocaleString(emission.emissionFactor?.value)}</TableCell>
                         <TableCell align="right">{emission.emissionFactor?.uncertainty}</TableCell>
                         <TableCell align="right">
                             <ConfirmationDialog
-                                title={t("abc-confirm-title")}
-                                description={t("abc-confirm-delete")}
+                                title={t("confirmTitle")}
+                                description={t("confirmDelete")}
                                 response={() => { handleDelete(emission) }}
                             >
                                 {(showDialog: () => void) => (
@@ -57,10 +58,10 @@ export const DataTable = ({ tableHeader, emissions, handleDelete }: DataTablePro
                 ))}
                 {emissions.length > 0 ? (
                     <TableRow >
-                        <TableCell><strong>{t('abc-total-value')}</strong></TableCell>
-                        <TableCell align="right"><strong>{totalValues}</strong></TableCell>
+                        <TableCell><strong>{t('totalValue')}</strong></TableCell>
+                        <TableCell align="right"><strong>{toLocaleString(totalValues)}</strong></TableCell>
                         <TableCell align="right"></TableCell>
-                        <TableCell align="right"><strong>{totalUncertainty}</strong></TableCell>
+                        <TableCell align="right"><strong>{toLocaleString(totalUncertainty)}</strong></TableCell>
                         <TableCell align="right"></TableCell>
                     </TableRow>
                 ) : null}

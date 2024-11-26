@@ -11,10 +11,10 @@ import {
     Typography
 } from "@mui/material";
 import theme from "@/src/app/theme";
-import {styled} from "@mui/system";
-import {FormEventHandler, MouseEventHandler} from "react";
+import { styled } from "@mui/system";
+import { FormEventHandler, MouseEventHandler } from "react";
 import LoadingButton from '@mui/lab/LoadingButton';
-import {useTranslation} from "react-i18next";
+import { useTranslations } from 'next-intl'
 
 const BodyGrid = styled(Grid)(() => ({
     display: 'flex',
@@ -24,21 +24,21 @@ const BodyGrid = styled(Grid)(() => ({
     minHeight: '80vh',
 }));
 
-const StyledButton = styled(Button)(({theme}) => ({
+const StyledButton = styled(Button)(({ theme }) => ({
     '&:hover': {
-        backgroundColor: theme.palette.secondary.main,
+        backgroundColor: 'black',
         color: 'white'
     }
 }));
 
-const StyledLoadingButton = styled(LoadingButton)(({theme}) => ({
+const StyledLoadingButton = styled(LoadingButton)(({ theme }) => ({
     '&:hover': {
-        backgroundColor: theme.palette.secondary.main,
+        backgroundColor: 'black',
         color: 'white'
     },
 }));
 
-const CustomLink = styled(Link)(({theme}) => ({
+const CustomLink = styled(Link)(({ theme }) => ({
     '&:hover': {
         color: theme.palette.secondary.main
     }
@@ -53,8 +53,8 @@ interface Props {
 }
 
 
-export const Form = ({correctUserInfo, onLogin, loading, buttonValue, goToSignUp}: Props) => {
-    const {t} = useTranslation();
+export const Form = ({ correctUserInfo, onLogin, loading, buttonValue, goToSignUp }: Props) => {
+    const t = useTranslations("login");
     return (
         <BodyGrid container spacing={5} columns={16}>
             <Grid item md={10}>
@@ -67,9 +67,7 @@ export const Form = ({correctUserInfo, onLogin, loading, buttonValue, goToSignUp
                     },
                     color: "primary.main"
                 }}>
-                    <strong>
-                        Clicks On
-                    </strong>
+                    <strong>Clicks On </strong>
                 </Typography>
                 <Typography
                     variant="h1"
@@ -86,7 +84,7 @@ export const Form = ({correctUserInfo, onLogin, loading, buttonValue, goToSignUp
                         textTransform: "Uppercase"
                     }}
                 >
-                    {t('abc-calculator')}
+                    {t('calculator')}
                 </Typography>
                 <Typography variant="h3" sx={{
                     marginBottom: theme.spacing(3),
@@ -97,45 +95,45 @@ export const Form = ({correctUserInfo, onLogin, loading, buttonValue, goToSignUp
                     },
                     fontWeight: 500
                 }}>
-                    {t('abc-calculator-sub-text')}
+                    {t('calculatorSubText')}
                 </Typography>
                 <p>
-                    {t('abc-calculator-small-text')}
+                    {t('calculatorSmallText')}
                 </p>
             </Grid>
             <Grid item md={6}>
-                <Typography variant="h5" sx={{fontWeight: "700"}}>
-                    {t('abc-login')}
+                <Typography variant="h5" sx={{ fontWeight: "700" }}>
+                    {t('login')}
                 </Typography>
                 <form onSubmit={onLogin}>
                     <FormControl
                         sx={{
-                            width: {xs: '100%', sm: '100%', md: '35ch', lg: '35ch'},
+                            width: { xs: '100%', sm: '100%', md: '35ch', lg: '35ch' },
                             marginTop: theme.spacing(3),
                             marginBottom: theme.spacing(1)
                         }}>
-                        <OutlinedInput placeholder={t('abc-email') + " / " + t('abc-username')}
-                                       name="username"
+                        <OutlinedInput placeholder={t('email') + " / " + t('username')}
+                            name="username"
                         />
                     </FormControl>
                     <FormControl
                         sx={{
-                            width: {xs: '100%', sm: '100%', md: '35ch', lg: '35ch'},
+                            width: { xs: '100%', sm: '100%', md: '35ch', lg: '35ch' },
                             marginTop: theme.spacing(1),
                             marginBottom: theme.spacing(1)
                         }}>
-                        <OutlinedInput placeholder={t('abc-password')}
-                                       type="password"
-                                       name="password"
+                        <OutlinedInput placeholder={t('password')}
+                            type="password"
+                            name="password"
                         />
                     </FormControl>
                     <FormControl
                         sx={{
-                            width: {xs: '100%', sm: '100%', md: '35ch', lg: '35ch'},
+                            width: { xs: '100%', sm: '100%', md: '35ch', lg: '35ch' },
                             marginTop: theme.spacing(1),
                             marginBottom: theme.spacing(1),
                             '& .MuiLoadingButton-root.Mui-disabled': {
-                                bgcolor: theme.palette.secondary.main,
+                                bgcolor: 'black',
                                 color: 'white',
                             }
                         }}>
@@ -153,22 +151,22 @@ export const Form = ({correctUserInfo, onLogin, loading, buttonValue, goToSignUp
 
                     <FormControl
                         sx={{
-                            width: {xs: '100%', sm: '100%', md: '35ch', lg: '35ch'},
+                            width: { xs: '100%', sm: '100%', md: '35ch', lg: '35ch' },
                             marginTop: theme.spacing(1),
                             marginBottom: theme.spacing(1)
                         }}>
-                        <FormControlLabel control={<Checkbox name="rememberMe"/>} label={t('abc-remember-me')}/>
+                        <FormControlLabel control={<Checkbox name="rememberMe" />} label={t('rememberMe')} />
                     </FormControl>
                     {!correctUserInfo && (
                         <FormControl sx={{
-                            width: {xs: '100%', sm: '100%', md: '35ch', lg: '35ch'},
+                            width: { xs: '100%', sm: '100%', md: '35ch', lg: '35ch' },
                             marginTop: theme.spacing(1),
                             marginBottom: theme.spacing(1)
                         }}>
                             <Alert
                                 severity="error"
                                 variant="filled"
-                                sx={{xs: '100%', sm: '100%', md: '35ch', lg: '35ch'}}
+                                sx={{ xs: '100%', sm: '100%', md: '35ch', lg: '35ch' }}
                             >
                                 Connexion échoué, merci de vérifier votre adresse email ou mot de passe !
                             </Alert>
@@ -176,14 +174,14 @@ export const Form = ({correctUserInfo, onLogin, loading, buttonValue, goToSignUp
                     )}
                 </form>
                 <span>
-                    <p>{t('abc-forgot-password')} <CustomLink href="#" underline="none">{t('abc-restore-password')}</CustomLink></p>
+                    <p>{t('forgotPassword')} <CustomLink href="#" underline="none">{t('restorePassword')}</CustomLink></p>
                 </span>
                 <FormControl sx={{
-                    width: {xs: '100%', sm: '100%', md: '35ch', lg: '35ch'},
+                    width: { xs: '100%', sm: '100%', md: '35ch', lg: '35ch' },
                     marginTop: theme.spacing(3),
                     marginBottom: theme.spacing(1)
                 }}>
-                    <StyledButton variant="contained" size="large" onClick={goToSignUp}>{t('abc-signup')}</StyledButton>
+                    <StyledButton variant="contained" size="large" onClick={goToSignUp}>{t('signup')}</StyledButton>
                 </FormControl>
             </Grid>
         </BodyGrid>

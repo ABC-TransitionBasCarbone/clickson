@@ -6,8 +6,8 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
-import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
+import { useTranslations } from 'next-intl'
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -28,7 +28,7 @@ interface MultipleSelectProps {
 
 
 export default function MultipleSelectChip({ setRights, rights, groupRights }: MultipleSelectProps) {
-  const { t } = useTranslation();
+  const  t = useTranslations('dashboard');
 
   const [selectedRights, setSelectedRights] = useState<number[]>(groupRights);
 
@@ -46,7 +46,7 @@ export default function MultipleSelectChip({ setRights, rights, groupRights }: M
   };
 
   const getLabel = (label: string, advanced: boolean) => {
-    return t(label) + (advanced ? (' ' + t('abc-advanced')) : '');
+    return t(label) + (advanced ? (' ' + t('advanced')) : '');
   }
 
   function getValue(value: number) {

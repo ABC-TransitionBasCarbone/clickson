@@ -3,14 +3,14 @@
 import { Header } from "@/src/components/login/header";
 import Container from "@mui/material/Container";
 import { SignUpForm } from "@/src/components/signup/signupform";
-import { Link } from "@mui/material";
+import { Button, Link } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { FormEvent, ReactElement, useEffect, useState } from "react";
 import { login, signUp } from "@/api/auth";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Divider from "@mui/material/Divider";
 import { useRouter } from "next/navigation";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from 'next-intl'
 import { getCountries } from "@/api/countries";
 
 /**
@@ -27,7 +27,7 @@ export default function SignUp() {
     const [message, setMessage] = useState<ReactElement | null>(null);
     const [progress, setProgress] = useState(0);
 
-    const { t } = useTranslation();
+    const t = useTranslations();
 
     const redirectToLogin = (showSuccess: boolean, message: ReactElement | null, showError: boolean) => {
         if (showSuccess && message && !showError) {
@@ -67,14 +67,14 @@ export default function SignUp() {
             setShowSuccess(false)
             setMessage(
                 <span>
-                    {t('abc-already-exists-account-part-one')}&nbsp;
+                    {t('alreadyExistsAccountPartOne')}&nbsp;
                     <Link href="/" sx={{
                         color: 'black',
                         fontWeight: 'bold',
                         textDecoration: 'none'
-                    }}>{t('abc-already-exists-account-part-two')}
+                    }}>{t('alreadyExistsAccountPartTwo')}
                     </Link>
-                    &nbsp;{t('abc-already-exists-account-part-three')}
+                    &nbsp;{t('alreadyExistsAccountPartThree')}
                 </span>
             )
         }
@@ -84,7 +84,7 @@ export default function SignUp() {
                 setShowError(false)
                 setShowSuccess(true)
                 setMessage(
-                    <span>{t('abc-successfully-created-account')}</span>
+                    <span>{t('successfullyCreatedAccount')}</span>
                 )
             }
         }
@@ -107,11 +107,9 @@ export default function SignUp() {
                     xs: theme.spacing(2),
                 }
             }}>
-                <ArrowBackIosIcon onClick={() => {
-                    router.back()
-                }} sx={{
-                    cursor: 'pointer'
-                }} />
+                <Button onClick={() => { router.push('/') }} sx={{ marginBottom: 2 }} variant="outlined" startIcon={<ArrowBackIosIcon />}>
+                    {t('accueil')}
+                </Button>
                 <Divider sx={{ marginTop: theme.spacing(2) }} />
             </Container>
             <Container>

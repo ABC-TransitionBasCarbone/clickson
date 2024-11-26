@@ -24,37 +24,44 @@ import LinkIcon from '@mui/icons-material/Link';
 import { CircularProgress, Switch, Tooltip } from '@mui/material';
 import { useRouter } from 'next/navigation'
 import CopyToClipboard from '../copytoclipboard';
+import ArchiveIcon from '@mui/icons-material/Archive';
+import { useTranslations } from 'next-intl';
+import LockIcon from '@mui/icons-material/Lock';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
 
 interface CollapsibleTableProps {
     currentSession: Session[];
-    deleteSession: (session: Session) => void;
+    deleteSession?: (session: Session) => void;
+    archiveSession?: (session: Session) => void;
     lockSession: (session: Session) => void;
 }
-interface CollapsibleTableRowProps {
+interface RowProps {
     session: Session;
-    deleteSession: (session: Session) => void;
+    deleteSession?: (session: Session) => void;
+    archiveSession?: (session: Session) => void;
     lockSession: (session: Session) => void;
 }
 
-function Row(props: CollapsibleTableRowProps) {
+function Row(props: RowProps) {
     const [session, setSession] = useState(props.session);
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(!props.session.archived);
     const [loading, setLoading] = useState(false)
     const navigation = useRouter();
+    const t = useTranslations("session");
 
     const chipData = [
-        { key: 0, label: 'abc-energy', advanced: false },
-        { key: 1, label: 'abc-travel', advanced: false },
-        { key: 2, label: 'abc-food-service', advanced: false },
-        { key: 3, label: 'abc-supplies', advanced: false },
-        { key: 4, label: 'abc-fixed-assets', advanced: false },
-        { key: 5, label: 'abc-travel', advanced: false },
-        { key: 6, label: 'abc-energy', advanced: true },
-        { key: 7, label: 'abc-travel', advanced: true },
-        { key: 8, label: 'abc-food-service', advanced: true },
-        { key: 9, label: 'abc-supplies', advanced: true },
-        { key: 10, label: 'abc-fixed-assets', advanced: true },
-        { key: 11, label: 'abc-travel', advanced: true },
+        { key: 0, label: 'energy', advanced: false },
+        { key: 1, label: 'travel', advanced: false },
+        { key: 2, label: 'foodService', advanced: false },
+        { key: 3, label: 'supplies', advanced: false },
+        { key: 4, label: 'fixedAssets', advanced: false },
+        { key: 5, label: 'travel', advanced: false },
+        { key: 6, label: 'energy', advanced: true },
+        { key: 7, label: 'travel', advanced: true },
+        { key: 8, label: 'foodService', advanced: true },
+        { key: 9, label: 'supplies', advanced: true },
+        { key: 10, label: 'fixedAssets', advanced: true },
+        { key: 11, label: 'travel', advanced: true },
     ]
 
     async function handleCreateGroup(event: FormEvent<HTMLFormElement>) {
@@ -93,14 +100,28 @@ function Row(props: CollapsibleTableRowProps) {
             <TableCell >{session.name}</TableCell>
             <TableCell >{session.year + ' - ' + (session.year + 1)}</TableCell>
             <TableCell>
-                <Tooltip title="Lock the session">
-                    <Switch checked={session.locked} onClick={() => (props.lockSession(session), setSession({ ...session, locked: !session.locked }))} />
+                <Tooltip title={t('locked')}>
+                    <Switch
+                        checkedIcon={<LockIcon />}
+                        icon={<LockOpenIcon sx={{ color: 'black' }} />}
+                        checked={session.locked}
+                        onClick={() =>
+                            (props.lockSession(session), setSession({ ...session, locked: !session.locked }))} />
                 </Tooltip>
-                <Tooltip title="Delete the session">
-                    <IconButton aria-label="delete" onClick={() => props.deleteSession(session)}>
-                        <DeleteIcon />
-                    </IconButton>
-                </Tooltip>
+                {
+                    session.archived ?
+                        <Tooltip title={t('delete')}>
+                            <IconButton aria-label="delete" onClick={() => props.deleteSession && props.deleteSession(session)}>
+                                <DeleteIcon />
+                            </IconButton>
+                        </Tooltip>
+                        :
+                        <Tooltip title={t('archive')}>
+                            <IconButton aria-label="archive" onClick={() => props.archiveSession && props.archiveSession(session)}>
+                                <ArchiveIcon />
+                            </IconButton>
+                        </Tooltip>
+                }
             </TableCell>
         </TableRow>
         <TableRow>
@@ -113,9 +134,9 @@ function Row(props: CollapsibleTableRowProps) {
                         <Table size="small" aria-label="purchases">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell>Nom</TableCell>
-                                    <TableCell >Actions</TableCell>
-                                    <TableCell >Affecter à la session</TableCell>
+                                    <TableCell>{t('name')}</TableCell>
+                                    <TableCell >{t('actions')}</TableCell>
+                                    <TableCell >{t('affect')}</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -148,9 +169,9 @@ function Row(props: CollapsibleTableRowProps) {
                                 ))}
                                 <TableRow >
                                     <TableCell>
-                                        {
+                                        {!session.archived && (
                                             loading ? <CircularProgress />
-                                                : <FormCreateGroup handleCreateGroup={handleCreateGroup} />
+                                                : <FormCreateGroup handleCreateGroup={handleCreateGroup} />)
                                         }
                                     </TableCell>
                                 </TableRow>
@@ -160,24 +181,22 @@ function Row(props: CollapsibleTableRowProps) {
                 </Collapse>
             </TableCell>
         </TableRow>
-    </Fragment>;
+    </Fragment >;
 }
 
 export default function CollapsibleTable(props: CollapsibleTableProps) {
-    const [currentSessions, setCurrentSessions] = useState<Session[]>([]);
+    const [currentSessions, setCurrentSessions] = useState<Session[]>(props.currentSession);
+    const t = useTranslations("session");
 
-    useEffect(() => {
-        setCurrentSessions(props.currentSession.filter(session => !session.archived));
-    }, []);
     return (
         <TableContainer component={Paper}>
             <Table aria-label="collapsible table">
                 <TableHead>
                     <TableRow>
                         <TableCell />
-                        <TableCell >Nom</TableCell>
-                        <TableCell >Année</TableCell>
-                        <TableCell >Actions</TableCell>
+                        <TableCell >{t('name')}</TableCell>
+                        <TableCell >{t('year')}</TableCell>
+                        <TableCell >{t('actions')}</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -185,6 +204,7 @@ export default function CollapsibleTable(props: CollapsibleTableProps) {
                         <Row key={session.name}
                             session={session}
                             deleteSession={props.deleteSession}
+                            archiveSession={props.archiveSession}
                             lockSession={props.lockSession} />
                     ))}
                 </TableBody>

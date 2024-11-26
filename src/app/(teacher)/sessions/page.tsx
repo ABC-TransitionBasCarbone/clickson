@@ -1,11 +1,10 @@
 'use client'
 
-import '../../i18n';
 import { Header } from "@/src/components/dashboard/header";
 import Container from '@mui/material/Container';
-import { Box, CircularProgress } from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import React, { FormEvent, useEffect, useState } from 'react';
-import { useTranslation } from "react-i18next";
+import { useTranslations } from 'next-intl'
 import Establishment from '../../../components/establishment/Establishment';
 import { styled } from "@mui/system";
 import { getUserCookies } from '@/api/auth';
@@ -21,15 +20,24 @@ const AccueilWrapper = styled(Box)`
 `
 
 export default function SessionsBoard() {
+    const t = useTranslations("session");
+
     const [sessions, setSessions] = useState<Session[]>([]);
     const [school, setSchool] = useState<School>({});
     const [loading, setLoading] = useState(false);
-    const { t } = useTranslation();
 
-    async function deleteSession(session: Session) {
+    async function archiveSession(session: Session) {
+        session.archived = !session.archived
         const id = await archiveStudentSession(session)
         setSessions(sessions.filter(g => g.id !== id))
     }
+
+    async function deleteSession(session: Session) {
+        session.deleted = !session.deleted
+        const id = await archiveStudentSession(session)
+        setSessions(sessions.filter(g => g.id !== id))
+    }
+
     async function lockSession(session: Session) {
         await lockedStudentSession(session)
     }
@@ -69,12 +77,17 @@ export default function SessionsBoard() {
             <Container maxWidth="xl">
                 <AccueilWrapper>
                     {school.id && <Establishment school={school} />}
-                    <h2>{t('abc-my-current-session')}</h2>
+                    <Typography variant="h5" sx={{ marginTop: 2 }} >{t('list')}</Typography>
                     {
                         loading ? <CircularProgress /> :
-                            sessions.length > 0 ?
-                                <CollapsibleTable currentSession={sessions} deleteSession={deleteSession} lockSession={lockSession} /> :
+                            sessions.filter(s => !s.archived).length > 0 ?
+                                <CollapsibleTable currentSession={sessions.filter(s => !s.archived)} archiveSession={archiveSession} lockSession={lockSession} /> :
                                 <FormCreateSession handleCreateSession={handleCreateSession} />
+                    }
+                    <Typography variant="h5" sx={{ marginTop: 2 }} >{t('archivedList')}</Typography>
+                    {
+                        loading ? <CircularProgress /> :
+                            <CollapsibleTable currentSession={sessions.filter(s => s.archived)} deleteSession={deleteSession} lockSession={lockSession} />
                     }
                 </AccueilWrapper>
             </Container>

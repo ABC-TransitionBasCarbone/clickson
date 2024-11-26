@@ -9,25 +9,34 @@ import { Box } from "@mui/system";
 import { DataTable } from "../../DataTable";
 import { Emission } from "@/src/types/Emission";
 import { SessionSubCategory } from "@/src/types/SessionSubCategory";
+import { CommentInput } from "../CommentInput";
+import { createComment } from "@/api/comments";
 
 interface QuestionTypeComponentProps {
-    sessionSubCategory: SessionSubCategory;
+    sessionSubCategoryProp: SessionSubCategory;
 }
 
-export const QuestionTypeComponent = ({ sessionSubCategory }: QuestionTypeComponentProps) => {
+export const QuestionTypeComponent = ({ sessionSubCategoryProp }: QuestionTypeComponentProps) => {
     const [saving, setSaving] = useState(false)
     const [loadingData, setLoadingData] = useState(false)
-    const [open, setOpen] = useState(false);    
-    const [subCategory, setSubCategory] = useState(sessionSubCategory.sessionEmissions);    
-
+    const [open, setOpen] = useState(false);
+    const [sessionSubCategory, setSessionSubCategory] = useState(sessionSubCategoryProp);
 
     const handleClose = () => {
         setOpen(false);
     };
 
+    const addComment = async (comment: string) => {
+        setLoadingData(true)
+        const commentData = await createComment({ comment: comment, idEmissionSubCategory: sessionSubCategory.id })
+        setSessionSubCategory({ ...sessionSubCategory, comments: sessionSubCategory.comments?.concat(commentData) })
+        setLoadingData(false)
+    };
+
+
     const handleDelete = async (emission: Emission) => {
         setLoadingData(true)
-        setSubCategory(subCategory.filter((se) => se.id !== emission.id))
+        setSessionSubCategory({ ...sessionSubCategory, sessionEmissions: sessionSubCategory.sessionEmissions.filter((se) => se.id !== emission.id) })
         await deleteEmission(emission)
         setLoadingData(false)
     };
@@ -41,7 +50,7 @@ export const QuestionTypeComponent = ({ sessionSubCategory }: QuestionTypeCompon
             idSessionEmissionSubCategory: sessionSubCategory.id,
             idEmissionFactor: emission.emissionFactor.id,
         })
-        setSubCategory(subCategory.concat({ ...emission, ...emissionData }))
+        setSessionSubCategory({ ...sessionSubCategory, sessionEmissions: [{ ...emission, ...emissionData }] })
         setSaving(false)
         setLoadingData(false)
     }
@@ -49,10 +58,10 @@ export const QuestionTypeComponent = ({ sessionSubCategory }: QuestionTypeCompon
     return <>
         <CustomDialog
             open={open}
-            titleLabel="abc-confirm-title"
-            contentLabel="abc-confirm-duplicate"
-            closeLabel="abc-yes"
-            confirmLabel="abc-no"
+            titleLabel="confirmTitle"
+            contentLabel="confirmDuplicate"
+            closeLabel="yes"
+            confirmLabel="no"
             handleClose={handleClose}
         />
         <DataInput
@@ -65,7 +74,13 @@ export const QuestionTypeComponent = ({ sessionSubCategory }: QuestionTypeCompon
             ? <Box sx={{ display: 'flex', justifyContent: "center", alignItems: "center", height: "20" }}>
                 <CircularProgress />
             </Box>
-            : <DataTable tableHeader={sessionSubCategory.dataToFill?.tableHeader || []} emissions={subCategory} handleDelete={handleDelete} />
+            : <>
+                <DataTable tableHeader={sessionSubCategory.dataToFill?.tableHeader || []} emissions={sessionSubCategory.sessionEmissions} handleDelete={handleDelete} />
+                <CommentInput addComment={addComment} />
+                {sessionSubCategory.comments?.map((comment, index) => (
+                    <div key={index}>{comment.comment}</div>
+                ))}
+            </>
         }
     </>
 };
