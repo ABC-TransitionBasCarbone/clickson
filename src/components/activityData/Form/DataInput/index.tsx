@@ -1,7 +1,7 @@
 'use client'
 
-import { FormControl, Stack, MenuItem, OutlinedInput, Select, Typography, InputLabel, SelectChangeEvent } from "@mui/material";
-import { KeyboardArrowDown, Label } from "@mui/icons-material";
+import { FormControl, Stack, MenuItem, OutlinedInput, Select, Typography, SelectChangeEvent, InputAdornment } from "@mui/material";
+import { KeyboardArrowDown } from "@mui/icons-material";
 import { useTranslations } from 'next-intl'
 import { PrimaryButton } from "@/src/components/buttons/primaryButton";
 import { classes, StyledInputData } from "./styles";
@@ -49,14 +49,12 @@ export const DataInput = ({
             ...prevEmission,
             value: Number(event.target.value),
         }));
-
     };
 
     return <StyledInputData>
-
         <Stack className={classes.input}>
             <FormControl className={classes.form}>
-                <Typography className={classes.label}>{t(titleSelectInput)}</Typography>
+                <Typography className={classes.label}>{titleSelectInput}</Typography>
                 <Select
                     IconComponent={KeyboardArrowDown}
                     value={emission.emissionFactor.id}
@@ -70,12 +68,11 @@ export const DataInput = ({
         </Stack>
         <Stack className={classes.input}>
             <FormControl className={classes.form}>
-                <Typography className={classes.label}>
-                    {emissionFactors[0] && `${t(annualConsumptionText)} (${emissionFactors[0].unit})`}
-                </Typography>
+                <Typography className={classes.label}>{annualConsumptionText}</Typography>
                 <OutlinedInput
                     type='text'
                     name="annual_consumption"
+                    endAdornment={<InputAdornment position="end">{emission.emissionFactor.unit}</InputAdornment>}
                     value={emission.value}
                     onChange={handleValueChange}
                 />
@@ -83,7 +80,7 @@ export const DataInput = ({
         </Stack>
         <Stack className={classes.button}>
             <PrimaryButton disabled={saving} onClick={() => handleAddData(emission)}>
-                {t('add')}
+                {t('category.add')}
             </PrimaryButton>
         </Stack>
     </StyledInputData>

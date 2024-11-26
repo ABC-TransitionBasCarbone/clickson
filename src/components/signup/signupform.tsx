@@ -40,7 +40,7 @@ interface Props {
 }
 
 export const SignUpForm = ({ onSignUp, countries, showError, showSuccess, message, progress, loading }: Props) => {
-    const t = useTranslations();
+    const t = useTranslations('signup');
 
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('')

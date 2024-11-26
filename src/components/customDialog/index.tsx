@@ -21,7 +21,7 @@ export const CustomDialog = ({
     closeLabel,
     handleClose,
 }: CustomDialogProps) => {
-    const t = useTranslations();
+    const t = useTranslations('category');
 
     return <Dialog
         open={open}

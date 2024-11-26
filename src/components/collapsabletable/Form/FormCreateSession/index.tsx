@@ -11,6 +11,7 @@ export default function FormCreateSession({ handleCreateSession }: FormCreateSes
     const t = useTranslations("session");
 
     return <form onSubmit={handleCreateSession}>
+        <p>{t('noActiveSession')}</p>
         <FormControl
             sx={{
                 marginTop: theme.spacing(1),

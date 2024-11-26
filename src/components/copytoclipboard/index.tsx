@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { Alert, Button, Tooltip } from '@mui/material';
+import { useTranslations } from 'next-intl';
 
 interface CopyToClipboardProps {
     shortUrl: string;
@@ -8,6 +9,7 @@ interface CopyToClipboardProps {
 
 export default function CopyToClipboard(props: CopyToClipboardProps) {
     const [copied, setCopied] = useState(false);
+    const t = useTranslations("session");
 
     const handleCopy = async () => {
         try {
@@ -19,12 +21,10 @@ export default function CopyToClipboard(props: CopyToClipboardProps) {
         }
     };
 
-    return (
-        <Tooltip title="Copy the link to share acccess with the group">
-            <Button onClick={() => handleCopy()} >
-                {copied && <Alert severity="success" />}
-                <ContentCopyIcon />
-                {props.shortUrl}
-            </Button>
-        </Tooltip>);
+    return <Tooltip title={t('copy')}>
+        <Button onClick={() => handleCopy()} >
+            {copied && <Alert severity="success" />}
+            <ContentCopyIcon />
+        </Button>
+    </Tooltip>;
 }

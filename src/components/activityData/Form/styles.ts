@@ -6,6 +6,7 @@ export const classes = {
     divider: `${classesLabel}Divider`,
     paragraph: `${classesLabel}Paragraph`,
     button: `${classesLabel}Button`,
+    form: `${classesLabel}Form`
 }
 
 export const StyledContainer = styled('div')(({ theme }) => ({

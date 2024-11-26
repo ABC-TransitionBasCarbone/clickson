@@ -23,6 +23,12 @@ const style = {
     p: 5,
 };
 
+const formControlStyle = {
+    width: '100%',
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1)
+};
+
 const StyledLoadingButton = styled(LoadingButton)(({ theme }) => ({
     '&:hover': {
         backgroundColor: theme.palette.secondary.main,
@@ -33,12 +39,6 @@ const StyledLoadingButton = styled(LoadingButton)(({ theme }) => ({
 interface EstablishmentProps {
     school: School,
 }
-
-const options = [
-    { key: 1, label: 'après 2004', value: 2004 },
-    { key: 2, label: 'entre 1984 et 2004', value: 1990 },
-    { key: 3, label: 'avant 1984', value: 1984 },
-]
 
 export default function Establishment(props: EstablishmentProps) {
     const t = useTranslations('school');
@@ -59,15 +59,12 @@ export default function Establishment(props: EstablishmentProps) {
     const updateSchool = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         const formData = new FormData(event.currentTarget)
-        console.log("🚀 ~ updateSchool ~ formData:", formData)
         const schoolReturn = await editSchool(formData, school)
         setSchool(schoolReturn)
         setShowSuccess(true)
     }
     const getUser = async () => {
         const user = await getUserCookies()
-        console.log("🚀 ~ updateSchool ~ school:", school)
-
         setUser(user)
     }
 
@@ -120,12 +117,7 @@ export default function Establishment(props: EstablishmentProps) {
                         {t('schoolUpdateSuccessfully')}</Alert> </> : <span></span>
                     }
                     <form onSubmit={updateSchool}>
-                        <FormControl
-                            sx={{
-                                width: '100%',
-                                marginTop: theme.spacing(3),
-                                marginBottom: theme.spacing(1)
-                            }}>
+                        <FormControl sx={formControlStyle}>
                             <TextField placeholder={t('school')}
                                 type="text"
                                 name="name"
@@ -133,12 +125,7 @@ export default function Establishment(props: EstablishmentProps) {
                                 label={t('school')}
                             />
                         </FormControl>
-                        <FormControl
-                            sx={{
-                                width: '100%',
-                                marginTop: theme.spacing(1),
-                                marginBottom: theme.spacing(1)
-                            }}>
+                        <FormControl sx={formControlStyle}>
                             <TextField placeholder={t('schoolAddress')}
                                 type="text"
                                 name="adress"
@@ -146,12 +133,7 @@ export default function Establishment(props: EstablishmentProps) {
                                 label={t('schoolAddress')}
                             />
                         </FormControl>
-                        <FormControl
-                            sx={{
-                                width: '100%',
-                                marginTop: theme.spacing(1),
-                                marginBottom: theme.spacing(1)
-                            }}>
+                        <FormControl sx={formControlStyle}>
                             <TextField placeholder={t('numberStudents')}
                                 name="studentCount"
                                 type="number"
@@ -159,12 +141,7 @@ export default function Establishment(props: EstablishmentProps) {
                                 label={t('numberStudents')}
                             />
                         </FormControl>
-                        <FormControl
-                            sx={{
-                                width: '100%',
-                                marginTop: theme.spacing(1),
-                                marginBottom: theme.spacing(1)
-                            }}>
+                        <FormControl sx={formControlStyle}>
                             <TextField placeholder={t('numberStaff')}
                                 type="number"
                                 name="staffCount"
@@ -172,33 +149,15 @@ export default function Establishment(props: EstablishmentProps) {
                                 label={t('numberStaff')}
                             />
                         </FormControl>
-                        <FormControl
-                            sx={{
-                                width: '100%',
-                                marginTop: theme.spacing(1),
-                                marginBottom: theme.spacing(1)
-                            }}>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                value={school?.establishmentYear?.toString()}
-                                label={t('numberStaff')}
-                                onChange={handleChange}
+                        <FormControl sx={formControlStyle}>
+                            <TextField placeholder={t('yearOfConstruction')}
+                                type="number"
                                 name="establishmentYear"
-                            >
-                                {
-                                    options.map((option) => (
-                                        <MenuItem value={option.value} >{option.label}</MenuItem>
-                                    ))
-                                }
-                            </Select>
+                                defaultValue={school?.establishmentYear}
+                                label={t('yearOfConstruction')}
+                            />
                         </FormControl>
-                        <FormControl
-                            sx={{
-                                width: '100%',
-                                marginTop: theme.spacing(1),
-                                marginBottom: theme.spacing(1)
-                            }}>
+                        <FormControl sx={formControlStyle}>
                             <StyledLoadingButton
                                 size="large"
                                 color="primary"

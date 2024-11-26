@@ -1,7 +1,6 @@
 'use client';
 import {Montserrat} from 'next/font/google';
 import {createTheme, responsiveFontSizes} from '@mui/material/styles';
-import { styled } from "@mui/system";
 
 const montserrat = Montserrat({
     weight: ['300', '400', '500', '700'],
@@ -34,11 +33,6 @@ let theme = createTheme({
         fontFamily: montserrat.style.fontFamily,
     },
 });
-
-
-const Link = styled('a')`
-    text-decoration: none;
-`
 
 theme = responsiveFontSizes(theme);
 export default theme;

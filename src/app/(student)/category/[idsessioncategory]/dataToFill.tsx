@@ -2,7 +2,7 @@ import { DataToFill } from "@/src/types/DataToFill";
 import { useTranslations } from 'next-intl'
 
 export const useDataToFill = () => {
-    const t = useTranslations();
+    const t = useTranslations('dataToFill');
 
     const dataToFill: DataToFill[] = [
         {

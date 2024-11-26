@@ -65,33 +65,31 @@ export const Stats = ({ session }: Props) => {
     const t = useTranslations('dashboard');
 
     const labels = [t('energy'), t('foodService'), t('travel'), t('supplies'), t('fixedAssets')];
-    const [data, setData] = useState<number[]>([]);
+    const [excelData, setExcelData] = useState<number[]>([]);
     const [total, setTotal] = useState(0);
 
     useEffect(() => {
         document.title = `${session.name}`;
-
-        if (data.length > 0) return
+        if (excelData.length > 0) return
         session.sessionEmissionCategories.forEach((category, index) => {
             category.sessionEmissionSubCategories.forEach((subCategory) => {
                 const subTotal = subCategory.sessionEmissions.reduce((acc, emission) => {
                     return acc + Number(emission.value)
                 }, 0)
-                data[index] = (data[index] || 0) + subTotal;
+                excelData[index] = (excelData[index] || 0) + subTotal;
 
             });
         });
-        setData(data);
-        setTotal(data.reduce((acc, value) => { return acc + value }))
 
-    }, [data]);
+        setExcelData(excelData);
+        setTotal(excelData.reduce((acc, value) => { return acc + value }))
+
+    }, [excelData]);
 
 
     const handleExport = async () => {
         try {
             const arrayBuffer = await fetchExportFile();
-            console.log("🚀 ~ handleExport ~ arrayBuffer:", arrayBuffer)
-
             if (!arrayBuffer) {
                 throw new Error('Failed to fetch the file');
             }
@@ -105,11 +103,11 @@ export const Stats = ({ session }: Props) => {
                 throw new Error(`Sheet not found`);
             }
 
-            worksheet.getCell('B6').value = data[0];
-            worksheet.getCell('B7').value = data[1];
-            worksheet.getCell('B8').value = data[2];
-            worksheet.getCell('B9').value = data[3];
-            worksheet.getCell('B10').value = data[4];
+            worksheet.getCell('B6').value = excelData[0];
+            worksheet.getCell('B7').value = excelData[1];
+            worksheet.getCell('B8').value = excelData[2];
+            worksheet.getCell('B9').value = excelData[3];
+            worksheet.getCell('B10').value = excelData[4];
 
             worksheet.getCell('B11').value = total;
             const buffer = await workbook.xlsx.writeBuffer();
@@ -135,10 +133,10 @@ export const Stats = ({ session }: Props) => {
 
     const open = Boolean(anchorEl);
 
-    return (data.length > 0 &&
+    return (total > 0 &&
         <Grid container>
             <CustomH6>
-                <strong>{t('emissionProfile')} (kgCO2e)</strong>
+                <strong>{t('emissionProfile')} ({t('unit')})</strong>
             </CustomH6>
 
             <Divider aria-hidden="true" sx={{ marginTop: theme.spacing(1.25) }} />
@@ -185,10 +183,10 @@ export const Stats = ({ session }: Props) => {
                         marginTop: '30px',
                         fontSize: 16,
                         marginLeft: theme.spacing(2)
-                    }}>kgCO2e</Box>
+                    }}>{t('unit')}</Box>
                 </InfoWrapper>
                 <ChartWrapper>
-                    <PieChart data={data} labels={labels} />
+                    <PieChart data={excelData} labels={labels} />
                 </ChartWrapper>
 
             </StatsGrid>
@@ -204,7 +202,7 @@ export const Stats = ({ session }: Props) => {
                                 fontWeight: 'medium'
                             }}
                             >
-                                {Math.floor(data[0])} (kgCO2e)
+                                {Math.floor(excelData[0])} ({t('unit')})
                             </Box>
                         </div>
                     </Grid>
@@ -219,7 +217,7 @@ export const Stats = ({ session }: Props) => {
                                     fontWeight: 'medium'
                                 }}
                             >
-                                {Math.floor(data[1])} (kgCO2e)
+                                {Math.floor(excelData[1])} ({t('unit')})
                             </Box>
                         </StatsWrapper>
                     </Grid>
@@ -234,7 +232,7 @@ export const Stats = ({ session }: Props) => {
                                     fontWeight: 'medium'
                                 }}
                             >
-                                {Math.floor(data[2])} (kgCO2e)
+                                {Math.floor(excelData[2])} ({t('unit')})
                             </Box>
                         </StatsWrapper>
                     </Grid>
@@ -248,7 +246,7 @@ export const Stats = ({ session }: Props) => {
                                 fontWeight: 'medium'
                             }}
                             >
-                                {Math.floor(data[3])} (kgCO2e)
+                                {Math.floor(excelData[3])} ({t('unit')})
                             </Box>
                         </StatsWrapper>
                     </Grid>
@@ -262,7 +260,7 @@ export const Stats = ({ session }: Props) => {
                                 fontWeight: 'medium'
                             }}
                             >
-                                {Math.floor(data[4])} (kgCO2e)
+                                {Math.floor(excelData[4])} ({t('unit')})
                             </Box>
                         </StatsWrapper>
                     </Grid>

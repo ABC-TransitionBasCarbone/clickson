@@ -1,5 +1,6 @@
 import { DataToFill } from "./DataToFill"
 import { Emission } from "./Emission"
+import { Comment } from "./Comment"
 import { SubCategory } from "./SubCategory"
 
 export interface SessionSubCategory {
@@ -9,4 +10,5 @@ export interface SessionSubCategory {
     sessionEmissions: Emission[]
     emissionSubCategory: SubCategory
     dataToFill?: DataToFill
+    comments?: Comment[]
 }

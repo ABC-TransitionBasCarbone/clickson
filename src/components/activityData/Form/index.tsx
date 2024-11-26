@@ -26,6 +26,7 @@ export const ActivityDataForm = ({ dataToFill }: ActivityDataFormProps) => {
     const getSubCategories = async () => {
         setLoading(true)
         const sessionSubCategoriesData = await getSessionSubCategoriesWithIdSessionCategory(params.idsessioncategory)
+        console.log("🚀 ~ getSubCategories ~ sessionSubCategoriesData:", sessionSubCategoriesData)
         setSessionSubCategories(sessionSubCategoriesData.map(subcategory => ({
             ...subcategory,
             dataToFill: dataToFill.find(header => subcategory.idEmissionSubCategory === header.id)
@@ -48,7 +49,7 @@ export const ActivityDataForm = ({ dataToFill }: ActivityDataFormProps) => {
                     <Stack spacing={2} marginTop={2} marginBottom={2} sx={{ flexDirection: "row" }}>
                         <ActivityDataFormDescription description={category.emissionSubCategory.detail} />
                         <Stack sx={{ marginLeft: "24px !important", flex: 1 }}>
-                            <QuestionTypeComponent sessionSubCategory={category} />
+                            <QuestionTypeComponent sessionSubCategoryProp={category} />
                         </Stack>
                     </Stack>
                 </Stack>

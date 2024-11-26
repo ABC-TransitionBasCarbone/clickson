@@ -7,7 +7,7 @@ interface ActivityDataFormDescription {
     description: string;
 }
 export const ActivityDataFormDescription = ({ description }: ActivityDataFormDescription) => {
-    const t = useTranslations();
+    const t = useTranslations('category');
     const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
     return <StyledContainer>

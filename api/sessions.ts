@@ -42,7 +42,6 @@ export async function getSessionsBySchoolId(idSchool: string) {
 }
 
 export async function archiveStudentSession(session: Session) {
-    session.archived = !session.archived
     const data = JSON.stringify(session)
     const requestOptions = {
         method: "PUT",
@@ -88,8 +87,7 @@ export async function createSession(sessionName: string, idSchool: string) {
 
     try {
         const result = await fetch(urlApi + "/sessions", requestOptions)
-        const session = await result.json()
-        return session
+        return await result.json()
     } catch (error) {
         throw new Error("Failed to createSession " + error)
     }

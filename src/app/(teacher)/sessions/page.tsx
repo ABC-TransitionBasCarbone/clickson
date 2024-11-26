@@ -26,10 +26,18 @@ export default function SessionsBoard() {
     const [school, setSchool] = useState<School>({});
     const [loading, setLoading] = useState(false);
 
-    async function deleteSession(session: Session) {
+    async function archiveSession(session: Session) {
+        session.archived = !session.archived
         const id = await archiveStudentSession(session)
         setSessions(sessions.filter(g => g.id !== id))
     }
+
+    async function deleteSession(session: Session) {
+        session.deleted = !session.deleted
+        const id = await archiveStudentSession(session)
+        setSessions(sessions.filter(g => g.id !== id))
+    }
+
     async function lockSession(session: Session) {
         await lockedStudentSession(session)
     }
@@ -72,9 +80,14 @@ export default function SessionsBoard() {
                     <h2>{t('list')}</h2>
                     {
                         loading ? <CircularProgress /> :
-                            sessions.length > 0 ?
-                                <CollapsibleTable currentSession={sessions} deleteSession={deleteSession} lockSession={lockSession} /> :
+                            sessions.filter(s => !s.archived).length > 0 ?
+                                <CollapsibleTable currentSession={sessions.filter(s => !s.archived)} archiveSession={archiveSession} lockSession={lockSession} /> :
                                 <FormCreateSession handleCreateSession={handleCreateSession} />
+                    }
+                    <h2>{t('archivedList')}</h2>
+                    {
+                        loading ? <CircularProgress /> :
+                            <CollapsibleTable currentSession={sessions.filter(s => s.archived)} deleteSession={deleteSession} lockSession={lockSession} />
                     }
                 </AccueilWrapper>
             </Container>

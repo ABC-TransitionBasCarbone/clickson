@@ -1,33 +1,27 @@
 'use server';
 
+import { Comment } from "@/src/types/Comment";
 
 const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
+const myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
 
 
-/**
- * Fetch Comments for energy by sub_category_id
- * @param id
- * @returns
- */
-export async function getComments(id: number) {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
+export async function getComments(idSubCategory: string) {
+    const response = await fetch(`${urlApi}/comments/${idSubCategory}`);
+    return response.json();
 
-    const data = JSON.stringify({
-        "sub_category_id": id,
-    });
+}
 
-    const requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: data,
-        redirect: "follow"
-    } as RequestInit;
+export async function createComment(comment: Comment) {
     try {
-        const result = await fetch(urlApi + "/energy/comments", requestOptions);
-        return await result.json();
+        const response = await fetch(`${urlApi}/comments`, {
+            method: 'POST',
+            headers: myHeaders,
+            body: JSON.stringify(comment)
+        });
+        return await response.json();
     } catch (error) {
-        throw(error);
-        throw error
+        throw new Error('Error creating comment : ' + error);
     }
 }

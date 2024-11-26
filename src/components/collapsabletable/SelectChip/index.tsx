@@ -28,7 +28,7 @@ interface MultipleSelectProps {
 
 
 export default function MultipleSelectChip({ setRights, rights, groupRights }: MultipleSelectProps) {
-  const  t = useTranslations();
+  const  t = useTranslations('dashboard');
 
   const [selectedRights, setSelectedRights] = useState<number[]>(groupRights);
 

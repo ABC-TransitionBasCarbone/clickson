@@ -12,7 +12,7 @@ import { useTranslations } from "next-intl";
 export default function ConfirmationDialog(props:any) {
   //local states
   const [open, setOpen] = useState(false);
-  const t = useTranslations();
+  const t = useTranslations('category');
   const showDialog = () => {
     setOpen(true);
   };

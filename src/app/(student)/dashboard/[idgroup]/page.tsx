@@ -16,7 +16,6 @@ import { Category } from '@/src/types/Category';
 import { UrlParams } from '@/src/types/UrlParams';
 import { getGroup } from '@/api/groups';
 import { Session } from '@/src/types/Session';
-import { SessionCategory } from '@/src/types/SessionCategory';
 
 const borderColors = [
     "#1c82b8",
@@ -81,13 +80,10 @@ export default function Dashboard() {
         fetchGroup();
     }, []);
 
-
     function filterWithRights(c: Category, rights: number[]) {
         // TODO This function is used to filter the categories that the user has the right to see
         return true;
     }
-
-
 
     const fetchGroup = async () => {
         setLoadingCategories(true);
@@ -98,7 +94,6 @@ export default function Dashboard() {
                 ...sc.emissionCategory,
                 idSessionEmissionCategory: sc.id
             }))
-                .filter(c => filterWithRights(c, group.rights))
         );
         setSession(group.sessionStudent);
         setLoadingCategories(false);
