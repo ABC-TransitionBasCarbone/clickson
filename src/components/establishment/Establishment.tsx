@@ -1,6 +1,6 @@
 import theme from "@/src/app/theme";
 import { LoadingButton } from "@mui/lab";
-import { Grid, Modal, Backdrop, Fade, Typography, Alert, FormControl, TextField, Button, MenuItem, Select, SelectChangeEvent } from "@mui/material";
+import { Grid, Modal, Backdrop, Fade, Typography, Alert, FormControl, TextField, Button, MenuItem, Select, SelectChangeEvent, Stack } from "@mui/material";
 import { Box, styled } from "@mui/system";
 import { useState, FormEvent, useEffect } from "react";
 import EditIcon from '@mui/icons-material/Edit';
@@ -69,23 +69,26 @@ export default function Establishment(props: EstablishmentProps) {
     }
 
     useEffect(() => {
-
         getUser()
     }, [])
 
     return <>
         <Grid container spacing={3}>
-            <Grid item xs={12} sm={3} sx={{ display: 'flex', alignItems: 'center' }}>
-                <h2 >{t('school')}</h2>
-                {user?.token && <Button variant="contained" onClick={handleOpen} sx={{ marginLeft: 1 }}>  <EditIcon /></Button>}
-
+            <Grid item xs={12} sm={3} sx={{ marginTop: 3, display: 'flex', alignItems: 'center' }}>
             </Grid>
         </Grid>
 
         <Grid container spacing={3}>
             <Grid item xs={12} sm={3}>
+                <Stack>
+                    <Typography variant="h5" >{school?.name}
+                        {user?.token &&
+                            <Button sx={{ marginLeft: 10 }} variant="outlined" onClick={handleOpen} startIcon={<EditIcon />}>
+                                {t('update')}
+                            </Button>}
+                    </Typography>
 
-                <p>{school?.name}</p>
+                </Stack>
                 <p>{school?.adress}</p>
                 <p>{school?.postalCode} {school?.townName}</p>
             </Grid>

@@ -73,6 +73,24 @@ export async function lockedStudentSession(session: Session) {
     return session
 }
 
+export async function lockedSessionCategory(idSessionEmissionCategory: string, locked: boolean) {
+    const requestOptions = {
+        method: "PUT",
+        headers: myHeaders,
+        body: JSON.stringify({
+            id: idSessionEmissionCategory,
+            locked
+        })
+    } as RequestInit;
+
+    const result = await fetch(urlApi + "/session-categories", requestOptions)
+    const sessionSubCategory = await result.json()
+    if (sessionSubCategory.errors) {
+        throw new Error("Failed to lock sub category " + sessionSubCategory.errors)
+    }
+    return sessionSubCategory
+}
+
 export async function createSession(sessionName: string, idSchool: string) {
     const data = JSON.stringify({
         "name": sessionName,

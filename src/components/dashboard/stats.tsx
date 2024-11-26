@@ -135,20 +135,12 @@ export const Stats = ({ session }: Props) => {
 
     return (total > 0 &&
         <Grid container>
-            <CustomH6>
-                <strong>{t('emissionProfile')} ({t('unit')})</strong>
-            </CustomH6>
-
-            <Divider aria-hidden="true" sx={{ marginTop: theme.spacing(1.25) }} />
+            <Typography sx={{ marginTop: 2 }} variant="h5" >{t('emissionProfile')}   ({t('unit')}) de {session.name}</Typography>
+            <Divider aria-hidden="true" sx={{ marginTop: theme.spacing(1) }} />
             <StatsGrid item xs={12} sx={{
                 display: 'flex',
                 justifyContent: 'flex-end',
             }}>
-                <DownloadButton
-                    onClick={handleExport}
-                >
-                    {t("download")} <Download sx={{ cursor: 'pointer' }} />
-                </DownloadButton>
                 <Popover
                     id="mouse-over-popover"
                     sx={{ pointerEvents: 'none' }}
@@ -170,21 +162,15 @@ export const Stats = ({ session }: Props) => {
 
             </StatsGrid>
             <StatsGrid item xs={12} md={6}>
-                <span>{t('total')}</span>
                 <InfoWrapper>
-                    <Box sx={{
-                        color: 'text.primary',
-                        marginTop: theme.spacing(2),
-                        fontSize: 32,
-                        fontWeight: 'medium'
-                    }}>{Math.floor(total)}</Box>
-                    <Box sx={{
-                        color: 'text.primary',
-                        marginTop: '30px',
-                        fontSize: 16,
-                        marginLeft: theme.spacing(2)
-                    }}>{t('unit')}</Box>
+                    <Typography sx={{ marginRight: 5 }} variant="h5" >{t('total')} {Math.floor(total)} {t('unit')}</Typography>
+                    <DownloadButton onClick={handleExport}>
+                        {t("download")} <Download sx={{ cursor: 'pointer' }} />
+                    </DownloadButton>
                 </InfoWrapper>
+
+
+
                 <ChartWrapper>
                     <PieChart data={excelData} labels={labels} />
                 </ChartWrapper>
@@ -197,9 +183,7 @@ export const Stats = ({ session }: Props) => {
                             <span>{t("energy")}</span>
                             <Box sx={{
                                 color: 'primary.main',
-                                marginTop: theme.spacing(2),
-                                fontSize: 16,
-                                fontWeight: 'medium'
+                                marginTop: theme.spacing(1),
                             }}
                             >
                                 {Math.floor(excelData[0])} ({t('unit')})
@@ -212,9 +196,7 @@ export const Stats = ({ session }: Props) => {
                             <Box
                                 sx={{
                                     color: 'error.main',
-                                    marginTop: theme.spacing(2),
-                                    fontSize: 16,
-                                    fontWeight: 'medium'
+                                    marginTop: theme.spacing(1),
                                 }}
                             >
                                 {Math.floor(excelData[1])} ({t('unit')})
@@ -227,9 +209,7 @@ export const Stats = ({ session }: Props) => {
                             <Box
                                 sx={{
                                     color: 'success.main',
-                                    marginTop: theme.spacing(2),
-                                    fontSize: 16,
-                                    fontWeight: 'medium'
+                                    marginTop: theme.spacing(1),
                                 }}
                             >
                                 {Math.floor(excelData[2])} ({t('unit')})
@@ -241,9 +221,7 @@ export const Stats = ({ session }: Props) => {
                             <span>{t("supplies")}</span>
                             <Box sx={{
                                 color: 'secondary.main',
-                                marginTop: theme.spacing(2),
-                                fontSize: 16,
-                                fontWeight: 'medium'
+                                marginTop: theme.spacing(1),
                             }}
                             >
                                 {Math.floor(excelData[3])} ({t('unit')})
@@ -255,9 +233,7 @@ export const Stats = ({ session }: Props) => {
                             <span>{t("fixedAssets")}</span>
                             <Box sx={{
                                 color: 'info.main',
-                                marginTop: theme.spacing(2),
-                                fontSize: theme.spacing(2),
-                                fontWeight: 'medium'
+                                marginTop: theme.spacing(1),
                             }}
                             >
                                 {Math.floor(excelData[4])} ({t('unit')})

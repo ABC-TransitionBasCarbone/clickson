@@ -2,7 +2,7 @@
 
 import { Header } from "@/src/components/dashboard/header";
 import Container from '@mui/material/Container';
-import { Box, CircularProgress } from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import React, { FormEvent, useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl'
 import Establishment from '../../../components/establishment/Establishment';
@@ -77,14 +77,14 @@ export default function SessionsBoard() {
             <Container maxWidth="xl">
                 <AccueilWrapper>
                     {school.id && <Establishment school={school} />}
-                    <h2>{t('list')}</h2>
+                    <Typography variant="h5" sx={{ marginTop: 2 }} >{t('list')}</Typography>
                     {
                         loading ? <CircularProgress /> :
                             sessions.filter(s => !s.archived).length > 0 ?
                                 <CollapsibleTable currentSession={sessions.filter(s => !s.archived)} archiveSession={archiveSession} lockSession={lockSession} /> :
                                 <FormCreateSession handleCreateSession={handleCreateSession} />
                     }
-                    <h2>{t('archivedList')}</h2>
+                    <Typography variant="h5" sx={{ marginTop: 2 }} >{t('archivedList')}</Typography>
                     {
                         loading ? <CircularProgress /> :
                             <CollapsibleTable currentSession={sessions.filter(s => s.archived)} deleteSession={deleteSession} lockSession={lockSession} />

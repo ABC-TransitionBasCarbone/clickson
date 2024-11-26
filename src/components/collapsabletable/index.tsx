@@ -26,6 +26,8 @@ import { useRouter } from 'next/navigation'
 import CopyToClipboard from '../copytoclipboard';
 import ArchiveIcon from '@mui/icons-material/Archive';
 import { useTranslations } from 'next-intl';
+import LockIcon from '@mui/icons-material/Lock';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
 
 interface CollapsibleTableProps {
     currentSession: Session[];
@@ -99,8 +101,12 @@ function Row(props: RowProps) {
             <TableCell >{session.year + ' - ' + (session.year + 1)}</TableCell>
             <TableCell>
                 <Tooltip title={t('locked')}>
-                    <Switch color="warning" checked={session.locked} onClick={() =>
-                        (props.lockSession(session), setSession({ ...session, locked: !session.locked }))} />
+                    <Switch
+                        checkedIcon={<LockIcon />}
+                        icon={<LockOpenIcon sx={{ color: 'black' }} />}
+                        checked={session.locked}
+                        onClick={() =>
+                            (props.lockSession(session), setSession({ ...session, locked: !session.locked }))} />
                 </Tooltip>
                 {
                     session.archived ?
@@ -110,7 +116,6 @@ function Row(props: RowProps) {
                             </IconButton>
                         </Tooltip>
                         :
-                        // TODO Create archive button function
                         <Tooltip title={t('archive')}>
                             <IconButton aria-label="archive" onClick={() => props.archiveSession && props.archiveSession(session)}>
                                 <ArchiveIcon />

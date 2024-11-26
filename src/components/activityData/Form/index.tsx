@@ -6,12 +6,14 @@ import { ActivityDataFormDescription } from "./Description";
 import { ActivityDataFormHeader } from "./Header";
 import { QuestionTypeComponent } from "./QuestionTypeComponents/TableQuestion";
 import { getSessionSubCategoriesWithIdSessionCategory } from "@/api/sessions";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { UrlParams } from "@/src/types/UrlParams";
-import { CircularProgress } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 import { DataToFill } from "@/src/types/DataToFill";
 import { SessionSubCategory } from "@/src/types/SessionSubCategory";
+import { useTranslations } from "next-intl";
+import HomeIcon from '@mui/icons-material/Home';
 
 interface ActivityDataFormProps {
     dataToFill: DataToFill[];
@@ -19,14 +21,16 @@ interface ActivityDataFormProps {
 
 export const ActivityDataForm = ({ dataToFill }: ActivityDataFormProps) => {
     const params = useParams<UrlParams>()
+    const router = useRouter();
+
     const [loading, setLoading] = useState<boolean>(true);
+    const t = useTranslations('category');
 
     const [sessionSubCategories, setSessionSubCategories] = useState<SessionSubCategory[]>([]);
 
     const getSubCategories = async () => {
         setLoading(true)
         const sessionSubCategoriesData = await getSessionSubCategoriesWithIdSessionCategory(params.idsessioncategory)
-        console.log("🚀 ~ getSubCategories ~ sessionSubCategoriesData:", sessionSubCategoriesData)
         setSessionSubCategories(sessionSubCategoriesData.map(subcategory => ({
             ...subcategory,
             dataToFill: dataToFill.find(header => subcategory.idEmissionSubCategory === header.id)
@@ -43,7 +47,11 @@ export const ActivityDataForm = ({ dataToFill }: ActivityDataFormProps) => {
             <CircularProgress />
         </Box>
         : <StyledContainer>
-            {  sessionSubCategories.map(category =>
+            <Button onClick={() => { router.push('/sessions') }} sx={{ marginBottom: 2 }} variant="outlined" startIcon={<HomeIcon />}>
+                {t('accueil')}
+            </Button>
+
+            {sessionSubCategories.map(category =>
                 <Stack key={category.id}>
                     <ActivityDataFormHeader category={category.emissionSubCategory.label} />
                     <Stack spacing={2} marginTop={2} marginBottom={2} sx={{ flexDirection: "row" }}>

@@ -5,6 +5,7 @@ export interface SessionCategory {
     id: string;
     idEmissionCategory?: number;
     idSessionStudent?: string;
+    locked: boolean;
     sessionEmissionSubCategories: SessionSubCategory[]
     emissionCategory: Category
 }

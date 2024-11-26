@@ -28,7 +28,6 @@ const borderColors = [
 const DashboardWrapper = styled(Box)`
     max-width: 100%;
     min-height: calc(100vh - 290px);
-    padding-top: 60px;
     padding-bottom: 80px;
     a {
         color: #6d6d6d;
@@ -63,7 +62,6 @@ const DividerSmall = styled("hr")`
     border: 0;
     width: 40px;
     height: 3px;
-    margin-bottom: 20px;
     border-radius: 5px;
 `;
 
@@ -88,13 +86,17 @@ export default function Dashboard() {
     const fetchGroup = async () => {
         setLoadingCategories(true);
         const group = await getGroup(params.idgroup);
+        console.log("🚀 ~ fetchGroup ~ group:", group)
+        console.log("🚀 ~ fetchGroup ~ group:", group.sessionStudent.sessionEmissionCategories)
 
         setCategories(
             group.sessionStudent.sessionEmissionCategories.map(sc => ({
                 ...sc.emissionCategory,
+                locked: sc.locked,
                 idSessionEmissionCategory: sc.id
             }))
         );
+
         setSession(group.sessionStudent);
         setLoadingCategories(false);
     }
@@ -104,15 +106,15 @@ export default function Dashboard() {
             <Header />
             <Container maxWidth="xl">
                 <DashboardWrapper>
-                    <Button variant="contained" onClick={() => { router.back() }} >
-                        <ArrowBackIosIcon />
+                    <Button onClick={() => { router.back() }} sx={{ marginBottom: 2 }} variant="outlined" startIcon={<ArrowBackIosIcon />}>
+                        {t('accueil')}
                     </Button>
 
                     <Establishment school={session.school} />
                     <Stats session={session} />
 
                     {session.locked ? t("locked") :
-                        <Grid container marginTop={4} marginBottom={6} sx={{ alignItems: "center", flexDirection: "column" }}>
+                        <Grid container marginBottom={6} sx={{ alignItems: "center", flexDirection: "column" }}>
                             <CustomH3>
                                 {t("calculatorsMarkers")}
                             </CustomH3>
@@ -126,7 +128,7 @@ export default function Dashboard() {
                             <CircularProgress />
                         </Box>) :
                         (
-                            <Grid container marginTop={2}>
+                            <Grid container>
                                 {categories.map((c, _index) => (
                                     <CategoryItem
                                         key={_index}

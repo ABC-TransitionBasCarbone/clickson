@@ -11,7 +11,7 @@
         "restorePassword": "Le récupérer",
         "signup": "Créer un compte",
         "calculator": "Calculateur",
-        "calculatorSubText": "Mesurons les émissions de CO2 de votre établissement!",
+        "calculatorSubText": "Mesurons les émissions de gaz à effet de serre de votre établissement!",
         "calculatorSmallText": "Utilisez le formulaire de connexion pour accéder à votre tableau de bord, ou demandez à votre enseignant de vous inviter."
     },
     "signup": {
@@ -72,6 +72,8 @@
         "update": "Modifier"
     },
     "dashboard": {
+        "accueil": "Page d'accueil",
+        "dashboard": "Tableau de bord",
         "unit": "kgCO²e",
         "energy": "Énergie",
         "travel": "Déplacements",
@@ -95,6 +97,7 @@
         "teacher": "Professeur"
     },
     "category": {
+        "accueil": "Page d'accueil",
         "confirmDelete": "Souhaitez-vous supprimer définitivement cette donnée ?",
         "confirmTitle": "Confirmation",
         "yes": "Oui",

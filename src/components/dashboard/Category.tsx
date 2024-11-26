@@ -1,12 +1,14 @@
 'use client';
 
 import { Category } from "@/src/types/Category";
-import { Download } from "@mui/icons-material";
-import { Grid } from "@mui/material";
+import { Grid, Switch } from "@mui/material";
 import { styled } from "@mui/system";
 import Link from "next/link";
 import { useTranslations } from 'next-intl'
-
+import LockIcon from '@mui/icons-material/Lock';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
+import { ChangeEvent, useEffect, useState } from "react";
+import { lockedSessionCategory } from "@/api/sessions";
 
 const CustomH3 = styled('h3')(({ theme }) => ({
     color: theme.palette.primary.main,
@@ -77,6 +79,18 @@ interface Props {
 
 export const CategoryItem = ({ category, borderColor }: Props) => {
     const t = useTranslations('dashboard');
+    const [locked, setLocked] = useState(category.locked);
+
+    useEffect(() => {
+        console.log("🚀 ~ CategoryItem ~ locked:", locked)
+
+    }, []);
+
+
+    const handleValueChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setLocked(event.target.checked);
+        lockedSessionCategory(category.idSessionEmissionCategory, event.target.checked);
+    };
 
     const conatinerStyle = {
         justifyContent: "center",
@@ -97,6 +111,12 @@ export const CategoryItem = ({ category, borderColor }: Props) => {
         <Link href={`/category/` + category.idSessionEmissionCategory}>
             <OngoingButton >{t('onGoing')}</OngoingButton>
         </Link>
+        <Switch
+            checkedIcon={<LockIcon />}
+            icon={<LockOpenIcon sx={{ color: 'black' }} />}
+            checked={locked}
+            onChange={handleValueChange} />
+
         {/* <DownloadButton onClick={() => { }}>{t('download')} <Download onClick={() => { }} /></DownloadButton> */}
     </Grid>);
 }
