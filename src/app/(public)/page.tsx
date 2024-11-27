@@ -1,6 +1,6 @@
 'use client'
 
-import { login, logout } from "@/api/auth";
+import { login } from "@/api/auth";
 import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from 'next/navigation'
 import Container from "@mui/material/Container";
@@ -27,7 +27,6 @@ export default function Page() {
         setButtonValue(t('loginPending'))
         const formData = new FormData(event.currentTarget)
         const user = await login(formData)
-
         if (!user.errors) {
             router.push("/sessions")
         } else {
@@ -41,19 +40,12 @@ export default function Page() {
         router.push("/sign-up");
     }
 
-    const onResetPassword = (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
-        logout();
-    }
-
-    return (
-        <>
-            <Header logoPosition={""} />
-            <Container >
-                <Form correctUserInfo={correctUserInfo} onLogin={onLogin} loading={loading} buttonValue={buttonValue} goToSignUp={goToSignUp} />
-            </Container >
-            <Footer />
-        </>
-    );
+    return <>
+        <Header />
+        <Container >
+            <Form correctUserInfo={correctUserInfo} onLogin={onLogin} loading={loading} buttonValue={buttonValue} goToSignUp={goToSignUp} />
+        </Container >
+        <Footer />
+    </>
 }
 

@@ -30,18 +30,14 @@ export async function login(formData: FormData) {
         body: raw
     } as RequestInit;
 
-    try {
-        const result = await fetch(urlApi + "/auth/login", requestOptions)
-        const login = await result.json();
-        if (login.errors) {
-            throw new Error("Failed to fetch API to get user");
-        }
-        const school = await getSchool(login.email)
-        cookies().set('user', JSON.stringify({ ...login, role: "teacher", school: school }))
-        return login;
-    } catch (error) {
-        throw new Error("Impossible to connect this user : " + error);
+    const result = await fetch(urlApi + "/auth/login", requestOptions)
+    const login = await result.json();
+    if (login.errors) {
+        return login
     }
+    const school = await getSchool(login.email)
+    cookies().set('user', JSON.stringify({ ...login, role: "teacher", school: school }))
+    return login;
 }
 
 /**

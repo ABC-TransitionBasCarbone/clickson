@@ -48,11 +48,6 @@ export default function Establishment(props: EstablishmentProps) {
     const [school, setSchool] = useState<School>(props.school);
     const [user, setUser] = useState<User>();
 
-
-    const handleChange = (event: SelectChangeEvent) => {
-        setSchool({ ...school, establishmentYear: Number(event.target.value) })
-    };
-
     const handleOpen = () => setOpen(true);
     const handleClose = () => (setOpen(false), setShowSuccess(false))
 
@@ -78,21 +73,19 @@ export default function Establishment(props: EstablishmentProps) {
             </Grid>
         </Grid>
 
-        <Grid container spacing={3}>
-            <Grid item xs={12} sm={3}>
-                <Stack>
+        <Grid container spacing={6}>
+            <Grid item xs={12} sm={4}>
                     <Typography variant="h5" >{school?.name}
                         {user?.token &&
-                            <Button sx={{ marginLeft: 10 }} variant="outlined" onClick={handleOpen} startIcon={<EditIcon />}>
+                            <Button sx={{ marginLeft: 5 }}  variant="outlined" onClick={handleOpen} startIcon={<EditIcon />}>
                                 {t('update')}
                             </Button>}
                     </Typography>
 
-                </Stack>
                 <p>{school?.adress}</p>
                 <p>{school?.postalCode} {school?.townName}</p>
             </Grid>
-            <Grid item xs={12} sm={3}>
+            <Grid item xs={12} sm={4}>
                 <p>{t('numberStudents')}: {school?.studentCount}</p>
                 <p>{t('numberStaff')}: {school?.staffCount}</p>
                 <p>{t('yearOfConstruction')}: {school?.establishmentYear}</p>

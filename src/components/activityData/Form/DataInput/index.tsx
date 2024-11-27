@@ -13,6 +13,7 @@ interface DataInputProps {
     titleSelectInput: string;
     emissionFactors: EmissionFactor[];
     saving: boolean;
+    locked: boolean;
     annualConsumptionText: string;
     handleAddData: (emission: Emission) => void;
 }
@@ -23,6 +24,7 @@ export const DataInput = ({
     saving,
     annualConsumptionText,
     handleAddData,
+    locked
 }: DataInputProps) => {
     const t = useTranslations();
     const [emission, setEmission] = useState<Emission>({
@@ -78,9 +80,9 @@ export const DataInput = ({
                 />
             </FormControl>
         </Stack>
-        <Stack className={classes.button}>
-            <PrimaryButton disabled={saving} onClick={() => handleAddData(emission)}>
-                {t('category.add')}
+        <Stack className={classes.button} >
+            <PrimaryButton disabled={saving || locked} onClick={() => handleAddData(emission)}>
+                {locked ? t('category.locked') : t('category.add')}
             </PrimaryButton>
         </Stack>
     </StyledInputData>

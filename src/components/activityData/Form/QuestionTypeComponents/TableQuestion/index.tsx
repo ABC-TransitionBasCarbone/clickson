@@ -3,14 +3,18 @@
 import { useState } from "react";
 import { CustomDialog } from "@/src/components/customDialog";
 import { DataInput } from "../../DataInput";
-import { createEmission, deleteEmission } from "@/api/emissions";
-import { CircularProgress } from "@mui/material";
-import { Box } from "@mui/system";
+import { createEmission, deleteComment, deleteEmission } from "@/api/emissions";
+import { CircularProgress, IconButton, Typography } from "@mui/material";
+import { Box, Stack } from "@mui/system";
 import { DataTable } from "../../DataTable";
 import { Emission } from "@/src/types/Emission";
 import { SessionSubCategory } from "@/src/types/SessionSubCategory";
 import { CommentInput } from "../CommentInput";
 import { createComment } from "@/api/comments";
+import ConfirmationDialog from "@/src/components/ConfirmationDialog";
+import { CancelPresentationOutlined } from "@mui/icons-material";
+import { useTranslations } from "next-intl";
+import { Comment } from "@/src/types/Comment";
 
 interface QuestionTypeComponentProps {
     sessionSubCategoryProp: SessionSubCategory;
@@ -21,6 +25,7 @@ export const QuestionTypeComponent = ({ sessionSubCategoryProp }: QuestionTypeCo
     const [loadingData, setLoadingData] = useState(false)
     const [open, setOpen] = useState(false);
     const [sessionSubCategory, setSessionSubCategory] = useState(sessionSubCategoryProp);
+    const t = useTranslations("category");
 
     const handleClose = () => {
         setOpen(false);
@@ -38,6 +43,13 @@ export const QuestionTypeComponent = ({ sessionSubCategoryProp }: QuestionTypeCo
         setLoadingData(true)
         setSessionSubCategory({ ...sessionSubCategory, sessionEmissions: sessionSubCategory.sessionEmissions.filter((se) => se.id !== emission.id) })
         await deleteEmission(emission)
+        setLoadingData(false)
+    };
+
+    const handleDeleteComment = async (comment: Comment) => {
+        setLoadingData(true)
+        setSessionSubCategory({ ...sessionSubCategory, comments: sessionSubCategory.comments?.filter((se) => se.id !== comment.id) })
+        await deleteComment(comment)
         setLoadingData(false)
     };
 
@@ -68,6 +80,7 @@ export const QuestionTypeComponent = ({ sessionSubCategoryProp }: QuestionTypeCo
             titleSelectInput={sessionSubCategory.dataToFill?.titleSelectInput || ""}
             emissionFactors={sessionSubCategory.emissionSubCategory.emissionFactors}
             saving={saving}
+            locked={sessionSubCategory.locked}
             annualConsumptionText={sessionSubCategory.dataToFill?.titleAnnualConsumptionInput || ""}
             handleAddData={handleAddData} />
         {loadingData
@@ -78,9 +91,22 @@ export const QuestionTypeComponent = ({ sessionSubCategoryProp }: QuestionTypeCo
                 <DataTable tableHeader={sessionSubCategory.dataToFill?.tableHeader || []} emissions={sessionSubCategory.sessionEmissions} handleDelete={handleDelete} />
                 <CommentInput addComment={addComment} />
                 {sessionSubCategory.comments?.map((comment, index) => (
-                    <div key={index}>{comment.comment}</div>
+                    <Stack direction="row" spacing={2}>
+                        <Typography sx={{  paddingTop: 1}} key={index}>{comment.comment}</Typography>
+                        <ConfirmationDialog
+                            title={t("confirmTitle")}
+                            description={t("confirmDeleteComment")}
+                            response={() => { handleDeleteComment(comment) }}
+                        >
+                            {(showDialog: () => void) => (
+                                <IconButton onClick={showDialog}  >
+                                    <CancelPresentationOutlined sx={{ color: "red" }} />
+                                </IconButton>
+                            )}
+                        </ConfirmationDialog>
+                    </Stack>
                 ))}
-            </>
-        }
+    </>
+}
     </>
 };

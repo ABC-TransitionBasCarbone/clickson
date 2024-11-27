@@ -1,7 +1,7 @@
 'use server'
 
 import { Session } from "@/src/types/Session";
-import { SessionSubCategory } from "@/src/types/SessionSubCategory";
+import { SessionCategory } from "@/src/types/SessionCategory";
 
 const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
 
@@ -15,7 +15,7 @@ export async function getSessionSubCategoriesWithIdSessionCategory(idSessionCate
         if (sessionsSubCategories.errors) {
             throw new Error("Failed to getSessions " + sessionsSubCategories.errors);
         }
-        return sessionsSubCategories as SessionSubCategory[];
+        return sessionsSubCategories as SessionCategory;
     } catch (error) {
         throw (error)
     }

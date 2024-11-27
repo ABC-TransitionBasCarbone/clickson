@@ -26,9 +26,8 @@ interface MultipleSelectProps {
   groupRights: number[];
 };
 
-
 export default function MultipleSelectChip({ setRights, rights, groupRights }: MultipleSelectProps) {
-  const  t = useTranslations('dashboard');
+  const t = useTranslations('dashboard');
 
   const [selectedRights, setSelectedRights] = useState<number[]>(groupRights);
 
@@ -54,34 +53,32 @@ export default function MultipleSelectChip({ setRights, rights, groupRights }: M
     return right ? getLabel(right.label, right.advanced) : '';
   }
 
-  return (
-    <div>
-      <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel>Droits sur la session</InputLabel>
-        <Select
-          multiple
-          value={selectedRights}
-          onChange={handleChange}
-          input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-          renderValue={(selected) => (
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-              {selected.map((value) => (
-                <Chip key={value} label={getValue(Number(value))} />
-              ))}
-            </Box>
-          )}
-          MenuProps={MenuProps}
-        >
-          {rights.map((right) => (
-            <MenuItem
-              key={right.key}
-              value={right.key}
-            >
-              {getLabel(right.label, right.advanced)}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-    </div>
-  );
+  return <div>
+    <FormControl sx={{ m: 1, width: 700 }}>
+      <InputLabel>{t('rights')}</InputLabel>
+      <Select
+        multiple
+        value={selectedRights}
+        onChange={handleChange}
+        input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+        renderValue={(selected) => (
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+            {selected.map((value) => (
+              <Chip key={value} label={getValue(Number(value))} />
+            ))}
+          </Box>
+        )}
+        MenuProps={MenuProps}
+      >
+        {rights.map((right) => (
+          <MenuItem
+            key={right.key}
+            value={right.key}
+          >
+            {getLabel(right.label, right.advanced)}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
+  </div>
 }

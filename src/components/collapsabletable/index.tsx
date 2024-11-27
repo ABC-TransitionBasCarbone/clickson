@@ -28,6 +28,7 @@ import ArchiveIcon from '@mui/icons-material/Archive';
 import { useTranslations } from 'next-intl';
 import LockIcon from '@mui/icons-material/Lock';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
+import ConfirmationDialog from '../ConfirmationDialog';
 
 interface CollapsibleTableProps {
     currentSession: Session[];
@@ -108,29 +109,42 @@ function Row(props: RowProps) {
                         onClick={() =>
                             (props.lockSession(session), setSession({ ...session, locked: !session.locked }))} />
                 </Tooltip>
-                {
-                    session.archived ?
-                        <Tooltip title={t('delete')}>
-                            <IconButton aria-label="delete" onClick={() => props.deleteSession && props.deleteSession(session)}>
-                                <DeleteIcon />
-                            </IconButton>
-                        </Tooltip>
-                        :
-                        <Tooltip title={t('archive')}>
-                            <IconButton aria-label="archive" onClick={() => props.archiveSession && props.archiveSession(session)}>
-                                <ArchiveIcon />
-                            </IconButton>
-                        </Tooltip>
-                }
+                {session.archived ?
+                    <ConfirmationDialog
+                        title={t("confirmTitle")}
+                        description={t("sessionDeleteConfirm")}
+                        response={() => props.deleteSession && props.deleteSession(session)}
+                    >
+                        {(showDialog: () => void) => (
+                            <Tooltip title={t('delete')}>
+                                <IconButton onClick={showDialog} >
+                                    <DeleteIcon />
+                                </IconButton>
+                            </Tooltip>
+
+                        )}
+                    </ConfirmationDialog>
+                    :
+                    <ConfirmationDialog
+                        title={t("confirmTitle")}
+                        description={t("sessionArhiveConfirm")}
+                        response={() => props.archiveSession && props.archiveSession(session)}
+                    >
+                        {(showDialog: () => void) => (
+                            <Tooltip title={t('archive')}>
+                                <IconButton onClick={showDialog} >
+                                    <ArchiveIcon />
+                                </IconButton>
+                            </Tooltip>
+                        )}
+                    </ConfirmationDialog>}
             </TableCell>
         </TableRow>
         <TableRow>
             <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
                 <Collapse in={open} timeout="auto" unmountOnExit>
                     <Box sx={{ margin: 1 }}>
-                        <Typography variant="h6" gutterBottom component="div">
-                            Groups
-                        </Typography>
+                        <Typography variant="h6" gutterBottom component="div">{t('groups')}</Typography>
                         <Table size="small" aria-label="purchases">
                             <TableHead>
                                 <TableRow>
@@ -146,17 +160,24 @@ function Row(props: RowProps) {
                                             {group.name}
                                         </TableCell>
                                         <TableCell>
-
-                                            <Tooltip title="Link to the group">
+                                            <Tooltip title={t('link')}>
                                                 <IconButton aria-label="dashboard" onClick={() => navigation.push("dashboard/" + group.id)}>
                                                     <LinkIcon />
                                                 </IconButton>
                                             </Tooltip>
-                                            <Tooltip title="Delete the group">
-                                                <IconButton aria-label="delete" onClick={() => deleteGroup(group)}>
-                                                    <DeleteIcon />
-                                                </IconButton>
-                                            </Tooltip>
+                                            <ConfirmationDialog
+                                                title={t("confirmTitle")}
+                                                description={t("sessionDeleteConfirm")}
+                                                response={() => deleteGroup(group)}
+                                            >
+                                                {(showDialog: () => void) => (
+                                                    <Tooltip title={t('deleteLink')}>
+                                                        <IconButton onClick={showDialog} >
+                                                            <DeleteIcon />
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                )}
+                                            </ConfirmationDialog>
                                             <CopyToClipboard shortUrl={group.id} />
                                         </TableCell>
                                         <TableCell align="right" >
@@ -171,8 +192,7 @@ function Row(props: RowProps) {
                                     <TableCell>
                                         {!session.archived && (
                                             loading ? <CircularProgress />
-                                                : <FormCreateGroup handleCreateGroup={handleCreateGroup} />)
-                                        }
+                                                : <FormCreateGroup handleCreateGroup={handleCreateGroup} />)}
                                     </TableCell>
                                 </TableRow>
                             </TableBody>

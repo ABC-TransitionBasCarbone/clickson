@@ -30,7 +30,7 @@ const CustomContainer = styled('div')`
 `
 
 interface Props {
-    logoPosition: string,
+    logoPosition?: string,
 }
 
 export const Header = ({ logoPosition }: Props) => {
