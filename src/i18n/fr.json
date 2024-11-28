@@ -12,7 +12,8 @@
         "signup": "Créer un compte",
         "calculator": "Calculateur",
         "calculatorSubText": "Mesurons les émissions de gaz à effet de serre de votre établissement!",
-        "calculatorSmallText": "Utilisez le formulaire de connexion pour accéder à votre tableau de bord, ou demandez à votre enseignant de vous inviter."
+        "calculatorSmallText": "Utilisez le formulaire de connexion pour accéder à votre tableau de bord, ou demandez à votre enseignant de vous inviter.",
+        "invalidCredentials": "Les informations de connexion que vous avez saisies sont incorrectes. Veuillez vérifier votre adresse email et votre mot de passe et réessayer."
     },
     "signup": {
         "signup": "Créer un compte",
@@ -36,6 +37,7 @@
         "noActiveSession": "Pas de session active, veuillez en créer une.",
         "session": "Session",
         "year": "Années",
+        "groups": "Groupes de la session",
         "name": "Nom de session",
         "list": "La session active de mon établissement",
         "archivedList": "Les sessions archivées de mon établissement",
@@ -51,14 +53,19 @@
         "sessionUpdateError": "Erreur lors de la mise à jour de la session",
         "sessionDeleteSuccess": "La session a été supprimée avec succès",
         "sessionDeleteError": "Erreur lors de la suppression de la session",
+        "confirmTitle": "Confirmation",
+        "groupDeleteConfirm": "Êtes-vous sûr de vouloir supprimer ce groupe ?",
         "sessionDeleteConfirm": "Êtes-vous sûr de vouloir supprimer cette session ?",
+        "sessionArhiveConfirm": "Êtes-vous sûr de vouloir archiver cette session ?",
+        "link": "Lien de partage de la session",
+        "deleteLink": "Supprimer le lien de partage de la session",
+        "copy": "Copier le lien vers la session",
         "myCurrentSession": "Ma session en cours",
         "id": "ID",
         "progression": "Progression",
         "actions": "Actions",
         "previousSession": "Mes sessions précédentes",
-        "affect": "Affecter à la session",
-        "copy": "Copy the link to share acccess with the group"
+        "affect": "Affecter à la session"
     },
     "school": {
         "school": "Nom de mon établissement",
@@ -72,6 +79,7 @@
         "update": "Modifier"
     },
     "dashboard": {
+        "rights": "Droits d'accès",
         "accueil": "Page d'accueil",
         "dashboard": "Tableau de bord",
         "unit": "kgCO²e",
@@ -97,8 +105,10 @@
         "teacher": "Professeur"
     },
     "category": {
+        "locked": "Verouillé",
         "accueil": "Page d'accueil",
         "confirmDelete": "Souhaitez-vous supprimer définitivement cette donnée ?",
+        "confirmDeleteComment": "Souhaitez-vous supprimer définitivement ce commentaire ?",
         "confirmTitle": "Confirmation",
         "yes": "Oui",
         "no": "Non",

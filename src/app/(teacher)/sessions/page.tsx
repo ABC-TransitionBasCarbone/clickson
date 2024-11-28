@@ -71,9 +71,7 @@ export default function SessionsBoard() {
 
     return (
         <>
-            <div>
-                <Header />
-            </div>
+            <Header />
             <Container maxWidth="xl">
                 <AccueilWrapper>
                     {school.id && <Establishment school={school} />}

@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useTranslations } from 'next-intl'
 import LockIcon from '@mui/icons-material/Lock';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { lockedSessionCategory } from "@/api/sessions";
 
 const CustomH3 = styled('h3')(({ theme }) => ({
@@ -80,12 +80,6 @@ interface Props {
 export const CategoryItem = ({ category, borderColor }: Props) => {
     const t = useTranslations('dashboard');
     const [locked, setLocked] = useState(category.locked);
-
-    useEffect(() => {
-        console.log("🚀 ~ CategoryItem ~ locked:", locked)
-
-    }, []);
-
 
     const handleValueChange = (event: ChangeEvent<HTMLInputElement>) => {
         setLocked(event.target.checked);

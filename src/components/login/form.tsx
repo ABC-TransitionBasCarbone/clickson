@@ -15,6 +15,9 @@ import { styled } from "@mui/system";
 import { FormEventHandler, MouseEventHandler } from "react";
 import LoadingButton from '@mui/lab/LoadingButton';
 import { useTranslations } from 'next-intl'
+import { useRouter } from 'next/navigation'
+
+const resetUrl = process.env.NEXT_PUBLIC_CLICKSON_RESET_PASSWORD_URL;
 
 const BodyGrid = styled(Grid)(() => ({
     display: 'flex',
@@ -23,6 +26,12 @@ const BodyGrid = styled(Grid)(() => ({
     alignItems: 'center',
     minHeight: '80vh',
 }));
+
+const styleFormControl = {
+    width: { xs: '100%', sm: '100%', md: '35ch', lg: '35ch' },
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(1)
+}
 
 const StyledButton = styled(Button)(({ theme }) => ({
     '&:hover': {
@@ -49,14 +58,16 @@ interface Props {
     onLogin: FormEventHandler,
     loading: boolean,
     buttonValue: string,
-    goToSignUp: MouseEventHandler,
+    goToSignUp: MouseEventHandler
 }
 
 
 export const Form = ({ correctUserInfo, onLogin, loading, buttonValue, goToSignUp }: Props) => {
     const t = useTranslations("login");
+    const router = useRouter();
+
     return (
-        <BodyGrid container spacing={5} columns={16}>
+        <BodyGrid sx={{marginTop: 2}} container spacing={5} columns={16}>
             <Grid item md={10}>
                 <Typography variant="h2" sx={{
                     marginBottom: theme.spacing(3),
@@ -106,22 +117,12 @@ export const Form = ({ correctUserInfo, onLogin, loading, buttonValue, goToSignU
                     {t('login')}
                 </Typography>
                 <form onSubmit={onLogin}>
-                    <FormControl
-                        sx={{
-                            width: { xs: '100%', sm: '100%', md: '35ch', lg: '35ch' },
-                            marginTop: theme.spacing(3),
-                            marginBottom: theme.spacing(1)
-                        }}>
+                    <FormControl sx={styleFormControl}>
                         <OutlinedInput placeholder={t('email') + " / " + t('username')}
                             name="username"
                         />
                     </FormControl>
-                    <FormControl
-                        sx={{
-                            width: { xs: '100%', sm: '100%', md: '35ch', lg: '35ch' },
-                            marginTop: theme.spacing(1),
-                            marginBottom: theme.spacing(1)
-                        }}>
+                    <FormControl sx={styleFormControl}>
                         <OutlinedInput placeholder={t('password')}
                             type="password"
                             name="password"
@@ -148,39 +149,20 @@ export const Form = ({ correctUserInfo, onLogin, loading, buttonValue, goToSignU
                             <span>{buttonValue}</span>
                         </StyledLoadingButton>
                     </FormControl>
-
-                    <FormControl
-                        sx={{
-                            width: { xs: '100%', sm: '100%', md: '35ch', lg: '35ch' },
-                            marginTop: theme.spacing(1),
-                            marginBottom: theme.spacing(1)
-                        }}>
+                    {!correctUserInfo &&
+                        <Alert
+                            severity="error"
+                            variant="filled"
+                            sx={styleFormControl}
+                        >{t('invalidCredentials')}</Alert>}
+                    <FormControl sx={styleFormControl}>
                         <FormControlLabel control={<Checkbox name="rememberMe" />} label={t('rememberMe')} />
                     </FormControl>
-                    {!correctUserInfo && (
-                        <FormControl sx={{
-                            width: { xs: '100%', sm: '100%', md: '35ch', lg: '35ch' },
-                            marginTop: theme.spacing(1),
-                            marginBottom: theme.spacing(1)
-                        }}>
-                            <Alert
-                                severity="error"
-                                variant="filled"
-                                sx={{ xs: '100%', sm: '100%', md: '35ch', lg: '35ch' }}
-                            >
-                                Connexion échoué, merci de vérifier votre adresse email ou mot de passe !
-                            </Alert>
-                        </FormControl>
-                    )}
                 </form>
                 <span>
-                    <p>{t('forgotPassword')} <CustomLink href="#" underline="none">{t('restorePassword')}</CustomLink></p>
+                    {t('forgotPassword')} <CustomLink onClick={() => router.push(resetUrl || "")} underline="none">{t('restorePassword')}</CustomLink>
                 </span>
-                <FormControl sx={{
-                    width: { xs: '100%', sm: '100%', md: '35ch', lg: '35ch' },
-                    marginTop: theme.spacing(3),
-                    marginBottom: theme.spacing(1)
-                }}>
+                <FormControl sx={styleFormControl}>
                     <StyledButton variant="contained" size="large" onClick={goToSignUp}>{t('signup')}</StyledButton>
                 </FormControl>
             </Grid>

@@ -30,11 +30,14 @@ export const ActivityDataForm = ({ dataToFill }: ActivityDataFormProps) => {
 
     const getSubCategories = async () => {
         setLoading(true)
-        const sessionSubCategoriesData = await getSessionSubCategoriesWithIdSessionCategory(params.idsessioncategory)
-        setSessionSubCategories(sessionSubCategoriesData.map(subcategory => ({
+        const sessionCategory = await getSessionSubCategoriesWithIdSessionCategory(params.idsessioncategory)
+
+        setSessionSubCategories(sessionCategory.sessionEmissionSubCategories.map(subcategory => ({
             ...subcategory,
+            locked: sessionCategory.locked,
             dataToFill: dataToFill.find(header => subcategory.idEmissionSubCategory === header.id)
         })))
+
         setLoading(false)
     }
 

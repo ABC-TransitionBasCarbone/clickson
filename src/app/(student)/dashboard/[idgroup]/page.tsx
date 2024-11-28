@@ -78,23 +78,20 @@ export default function Dashboard() {
         fetchGroup();
     }, []);
 
-    function filterWithRights(c: Category, rights: number[]) {
-        // TODO This function is used to filter the categories that the user has the right to see
-        return true;
-    }
-
     const fetchGroup = async () => {
         setLoadingCategories(true);
         const group = await getGroup(params.idgroup);
         console.log("🚀 ~ fetchGroup ~ group:", group)
-        console.log("🚀 ~ fetchGroup ~ group:", group.sessionStudent.sessionEmissionCategories)
 
         setCategories(
-            group.sessionStudent.sessionEmissionCategories.map(sc => ({
-                ...sc.emissionCategory,
-                locked: sc.locked,
-                idSessionEmissionCategory: sc.id
-            }))
+            group.sessionStudent.sessionEmissionCategories
+                .filter(sc =>
+                    group.rights.length === 0 || group.rights.includes(sc.emissionCategory.id) || group.rights.includes(sc.emissionCategory.id + 5))
+                .map(sc => ({
+                    ...sc.emissionCategory,
+                    locked: sc.locked,
+                    idSessionEmissionCategory: sc.id
+                }))
         );
 
         setSession(group.sessionStudent);
@@ -127,17 +124,15 @@ export default function Dashboard() {
                         <Box sx={{ display: 'flex', justifyContent: "center", alignItems: "center", height: "20" }}>
                             <CircularProgress />
                         </Box>) :
-                        (
-                            <Grid container>
-                                {categories.map((c, _index) => (
-                                    <CategoryItem
-                                        key={_index}
-                                        category={c}
-                                        borderColor={categories.length < 6 ? borderColors[_index] : ""}
-                                    />
-                                ))}
-                            </Grid>
-                        )
+                        (<Grid container>
+                            {categories.map((c, _index) => (
+                                <CategoryItem
+                                    key={_index}
+                                    category={c}
+                                    borderColor={categories.length < 6 ? borderColors[_index] : ""}
+                                />
+                            ))}
+                        </Grid>)
                     }
                 </DashboardWrapper>
             </Container>

@@ -58,13 +58,13 @@ export default function SignUp() {
     };
 
     const onSignUp = async (event: FormEvent<HTMLFormElement>) => {
+        setShowSuccess(false)
         event.preventDefault()
         const formData = new FormData(event.currentTarget)
         const signedUser = await signUp(formData)
 
         if (signedUser.errors) {
             setShowError(true)
-            setShowSuccess(false)
             setMessage(
                 <span>
                     {t('alreadyExistsAccountPartOne')}&nbsp;
