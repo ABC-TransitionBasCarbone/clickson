@@ -40,7 +40,7 @@ export const Header = () => {
 
     const router = useRouter();
     const [user, setUser] = useState<User>({} as User);
-    
+
     useEffect(() => {
         fetchUser();
     }, [setUser]);
@@ -68,7 +68,7 @@ export const Header = () => {
             <Grid item sm={3}>
                 <BoxHeader>
                     <img
-                        src="https://calculator.clickson.eu/wp-content/themes/co2calc-child/images/logo.png"
+                        src="https://clickson.eu/wp-content/uploads/2021/06/logo-color.png"
                         alt="logo"
                     />
                 </BoxHeader>
