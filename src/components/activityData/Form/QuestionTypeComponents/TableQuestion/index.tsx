@@ -91,8 +91,8 @@ export const QuestionTypeComponent = ({ sessionSubCategoryProp }: QuestionTypeCo
                 <DataTable tableHeader={sessionSubCategory.dataToFill?.tableHeader || []} emissions={sessionSubCategory.sessionEmissions} handleDelete={handleDelete} />
                 <CommentInput addComment={addComment} />
                 {sessionSubCategory.comments?.map((comment, index) => (
-                    <Stack direction="row" spacing={2}>
-                        <Typography sx={{  paddingTop: 1}} key={index}>{comment.comment}</Typography>
+                    <Stack direction="row" spacing={2} key={index}>
+                        <Typography sx={{  paddingTop: 1}} >{comment.comment}</Typography>
                         <ConfirmationDialog
                             title={t("confirmTitle")}
                             description={t("confirmDeleteComment")}

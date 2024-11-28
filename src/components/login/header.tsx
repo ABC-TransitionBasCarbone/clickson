@@ -54,7 +54,7 @@ export const Header = ({ logoPosition }: Props) => {
                 <Grid item sm={6}>
                     <BoxHeader>
                         <img
-                            src="https://calculator.clickson.eu/wp-content/themes/co2calc-child/images/logo.png"
+                            src="https://clickson.eu/wp-content/uploads/2021/06/logo-color.png"
                             alt="logo"
                         />
                     </BoxHeader>
