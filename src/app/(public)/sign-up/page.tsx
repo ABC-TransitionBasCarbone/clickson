@@ -108,7 +108,7 @@ export default function SignUp() {
                 }
             }}>
                 <Button onClick={() => { router.push('/') }} sx={{ marginBottom: 2 }} variant="outlined" startIcon={<ArrowBackIosIcon />}>
-                    {t('accueil')}
+                    {t('home')}
                 </Button>
                 <Divider sx={{ marginTop: theme.spacing(2) }} />
             </Container>
