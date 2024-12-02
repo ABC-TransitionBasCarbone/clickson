@@ -81,8 +81,6 @@ export default function Dashboard() {
     const fetchGroup = async () => {
         setLoadingCategories(true);
         const group = await getGroup(params.idgroup);
-        console.log("🚀 ~ fetchGroup ~ group:", group)
-
         setCategories(
             group.sessionStudent.sessionEmissionCategories
                 .filter(sc =>
@@ -104,7 +102,7 @@ export default function Dashboard() {
             <Container maxWidth="xl">
                 <DashboardWrapper>
                     <Button onClick={() => { router.back() }} sx={{ marginBottom: 2 }} variant="outlined" startIcon={<ArrowBackIosIcon />}>
-                        {t('accueil')}
+                        {t('home')}
                     </Button>
 
                     <Establishment school={session.school} />

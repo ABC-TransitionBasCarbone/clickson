@@ -41,7 +41,7 @@ export async function getSessionsBySchoolId(idSchool: string) {
     }
 }
 
-export async function archiveStudentSession(session: Session) {
+export async function modifySession(session: Session) {
     const data = JSON.stringify(session)
     const requestOptions = {
         method: "PUT",

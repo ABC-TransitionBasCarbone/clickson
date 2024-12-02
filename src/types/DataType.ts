@@ -1,9 +1,8 @@
 
-type QuestionType = "table";
 export interface DataType {
     key: string;
     category: string;
-    type: QuestionType;
+    type: string;
     titleSelectInput: string;
     titleAnnualConsumptionInput: string;
     tableHeader: string[];
