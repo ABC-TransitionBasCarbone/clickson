@@ -10,11 +10,11 @@ import { Emission } from "@/src/types/Emission";
 import { ChangeEvent, useState } from "react";
 
 interface DataInputProps {
-    titleSelectInput: string;
-    emissionFactors: EmissionFactor[];
     saving: boolean;
     locked: boolean;
-    annualConsumptionText: string;
+    titleSelectInput?: string;
+    annualConsumptionText?: string;
+    emissionFactors: EmissionFactor[];
     handleAddData: (emission: Emission) => void;
 }
 

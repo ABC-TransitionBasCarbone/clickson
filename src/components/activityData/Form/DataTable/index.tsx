@@ -9,8 +9,8 @@ import { useTranslations } from 'next-intl'
 import { toLocaleString } from "@/src/helpers/helpers";
 
 interface DataTableProps {
-    tableHeader: string[];
     emissions: Emission[];
+    tableHeader?: string[];
     handleDelete: (row: Emission) => void;
 }
 
@@ -28,7 +28,7 @@ export const DataTable = ({ tableHeader, emissions, handleDelete }: DataTablePro
         <Table>
             <TableHead>
                 <TableRow>
-                    {tableHeader.map((val, _index) => (
+                    {tableHeader?.map((val, _index) => (
                         <TableCell align={_index == 0 ? "left" : "right"} key={_index}>{val}</TableCell>
                     ))}
                     <TableCell />
