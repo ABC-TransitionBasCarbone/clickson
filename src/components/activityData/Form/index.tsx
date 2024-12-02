@@ -50,8 +50,8 @@ export const ActivityDataForm = ({ dataToFill }: ActivityDataFormProps) => {
             <CircularProgress />
         </Box>
         : <StyledContainer>
-            <Button onClick={() => { router.push('/sessions') }} sx={{ marginBottom: 2 }} variant="outlined" startIcon={<HomeIcon />}>
-                {t('accueil')}
+            <Button onClick={() => router.back()} sx={{ marginBottom: 2 }} variant="outlined" startIcon={<HomeIcon />}>
+                {t('home')}
             </Button>
 
             {sessionSubCategories.map(category =>

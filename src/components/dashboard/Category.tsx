@@ -9,6 +9,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import { ChangeEvent, useState } from "react";
 import { lockedSessionCategory } from "@/api/sessions";
+import { User } from "@/src/types/User";
 
 const CustomH3 = styled('h3')(({ theme }) => ({
     color: theme.palette.primary.main,
@@ -72,18 +73,19 @@ const DownloadButton = styled("button")(({ theme }) => ({
     }
 }));
 
-interface Props {
+interface CategoryItemProps {
     category: Category,
-    borderColor: string
+    borderColor: string,
+    user: User
 }
 
-export const CategoryItem = ({ category, borderColor }: Props) => {
+export const CategoryItem = (props: CategoryItemProps) => {
     const t = useTranslations('dashboard');
-    const [locked, setLocked] = useState(category.locked);
+    const [locked, setLocked] = useState(props.category.locked);
 
     const handleValueChange = (event: ChangeEvent<HTMLInputElement>) => {
         setLocked(event.target.checked);
-        lockedSessionCategory(category.idSessionEmissionCategory, event.target.checked);
+        lockedSessionCategory(props.category.idSessionEmissionCategory, event.target.checked);
     };
 
     const conatinerStyle = {
@@ -94,22 +96,22 @@ export const CategoryItem = ({ category, borderColor }: Props) => {
         paddingBottom: 5,
         margin: 2,
         borderRadius: 3,
-        border: `2px solid ${borderColor}`,
+        border: `2px solid ${props.borderColor}`,
     }
 
     return (<Grid container xs={12} sm={2} sx={conatinerStyle}>
-        <CustomH3>{category.label}</CustomH3>
+        <CustomH3>{props.category.label}</CustomH3>
         <Paragraph>
-            {category.detail}
+            {props.category.detail}
         </Paragraph>
-        <Link href={`/category/` + category.idSessionEmissionCategory}>
+        <Link href={`/category/` + props.category.idSessionEmissionCategory}>
             <OngoingButton >{t('onGoing')}</OngoingButton>
         </Link>
-        <Switch
+        {props.user.email && <Switch
             checkedIcon={<LockIcon />}
             icon={<LockOpenIcon sx={{ color: 'black' }} />}
             checked={locked}
-            onChange={handleValueChange} />
+            onChange={handleValueChange} />}
 
         {/* <DownloadButton onClick={() => { }}>{t('download')} <Download onClick={() => { }} /></DownloadButton> */}
     </Grid>);

@@ -163,7 +163,7 @@ export const Stats = ({ session }: Props) => {
             </StatsGrid>
             <StatsGrid item xs={12} md={6}>
                 <InfoWrapper>
-                    <Typography sx={{ marginRight: 5 }} variant="h5" >{t('total')} {Math.floor(total)} {t('unit')}</Typography>
+                    <Typography sx={{ marginRight: 5 }} variant="h5" >{t('total')} {Math.round(total)} {t('unit')}</Typography>
                     <DownloadButton onClick={handleExport}>
                         {t("download")} <Download sx={{ cursor: 'pointer' }} />
                     </DownloadButton>
@@ -186,7 +186,7 @@ export const Stats = ({ session }: Props) => {
                                 marginTop: theme.spacing(1),
                             }}
                             >
-                                {Math.floor(excelData[0])} ({t('unit')})
+                                {Math.round(excelData[0])} ({t('unit')})
                             </Box>
                         </div>
                     </Grid>
@@ -199,7 +199,7 @@ export const Stats = ({ session }: Props) => {
                                     marginTop: theme.spacing(1),
                                 }}
                             >
-                                {Math.floor(excelData[1])} ({t('unit')})
+                                {Math.round(excelData[1])} ({t('unit')})
                             </Box>
                         </StatsWrapper>
                     </Grid>
@@ -212,7 +212,7 @@ export const Stats = ({ session }: Props) => {
                                     marginTop: theme.spacing(1),
                                 }}
                             >
-                                {Math.floor(excelData[2])} ({t('unit')})
+                                {Math.round(excelData[2])} ({t('unit')})
                             </Box>
                         </StatsWrapper>
                     </Grid>
@@ -224,7 +224,7 @@ export const Stats = ({ session }: Props) => {
                                 marginTop: theme.spacing(1),
                             }}
                             >
-                                {Math.floor(excelData[3])} ({t('unit')})
+                                {Math.round(excelData[3])} ({t('unit')})
                             </Box>
                         </StatsWrapper>
                     </Grid>
@@ -236,7 +236,7 @@ export const Stats = ({ session }: Props) => {
                                 marginTop: theme.spacing(1),
                             }}
                             >
-                                {Math.floor(excelData[4])} ({t('unit')})
+                                {Math.round(excelData[4])} ({t('unit')})
                             </Box>
                         </StatsWrapper>
                     </Grid>

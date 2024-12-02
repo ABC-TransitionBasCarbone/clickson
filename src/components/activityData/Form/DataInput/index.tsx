@@ -18,17 +18,10 @@ interface DataInputProps {
     handleAddData: (emission: Emission) => void;
 }
 
-export const DataInput = ({
-    titleSelectInput,
-    emissionFactors,
-    saving,
-    annualConsumptionText,
-    handleAddData,
-    locked
-}: DataInputProps) => {
-    const t = useTranslations();
+export const DataInput = (props: DataInputProps) => {
+    const t = useTranslations('category');
     const [emission, setEmission] = useState<Emission>({
-        emissionFactor: emissionFactors[0],
+        emissionFactor: props.emissionFactors[0],
         value: 0,
     });
 
@@ -37,7 +30,7 @@ export const DataInput = ({
             target: { value: factorId },
         } = event;
 
-        const selectedFactor = emissionFactors.find(factor => factor.id === factorId);
+        const selectedFactor = props.emissionFactors.find(factor => factor.id === factorId);
         if (selectedFactor) {
             setEmission(prevEmission => ({
                 ...prevEmission,
@@ -46,7 +39,7 @@ export const DataInput = ({
         }
     };
 
-    const handleValueChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const handleEmissionValueChange = (event: ChangeEvent<HTMLInputElement>) => {
         setEmission(prevEmission => ({
             ...prevEmission,
             value: Number(event.target.value),
@@ -56,33 +49,30 @@ export const DataInput = ({
     return <StyledInputData>
         <Stack className={classes.input}>
             <FormControl className={classes.form}>
-                <Typography className={classes.label}>{titleSelectInput}</Typography>
+                <Typography className={classes.label}>{props.titleSelectInput}</Typography>
                 <Select
                     IconComponent={KeyboardArrowDown}
                     value={emission.emissionFactor.id}
                     onChange={handleEmissionFactorChange}
                 >
-                    {emissionFactors.map((emissionFactor) => (
-                        <MenuItem key={emissionFactor.id} value={emissionFactor.id}>{emissionFactor.label}</MenuItem>
-                    ))}
+                    {props.emissionFactors.map((emissionFactor) => (<MenuItem key={emissionFactor.id} value={emissionFactor.id}>{emissionFactor.label}</MenuItem>))}
                 </Select>
             </FormControl>
         </Stack>
         <Stack className={classes.input}>
             <FormControl className={classes.form}>
-                <Typography className={classes.label}>{annualConsumptionText}</Typography>
+                <Typography className={classes.label}>{props.annualConsumptionText}</Typography>
                 <OutlinedInput
                     type='text'
-                    name="annual_consumption"
                     endAdornment={<InputAdornment position="end">{emission.emissionFactor.unit}</InputAdornment>}
                     value={emission.value}
-                    onChange={handleValueChange}
+                    onChange={handleEmissionValueChange}
                 />
             </FormControl>
         </Stack>
         <Stack className={classes.button} >
-            <PrimaryButton disabled={saving || locked} onClick={() => handleAddData(emission)}>
-                {locked ? t('category.locked') : t('category.add')}
+            <PrimaryButton disabled={props.saving || props.locked} onClick={() => props.handleAddData(emission)}>
+                {props.locked ? t('locked') : t('add')}
             </PrimaryButton>
         </Stack>
     </StyledInputData>

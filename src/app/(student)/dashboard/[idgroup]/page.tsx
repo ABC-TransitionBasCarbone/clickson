@@ -16,6 +16,8 @@ import { Category } from '@/src/types/Category';
 import { UrlParams } from '@/src/types/UrlParams';
 import { getGroup } from '@/api/groups';
 import { Session } from '@/src/types/Session';
+import { User } from "@/src/types/User";
+import { getUserCookies } from "@/api/auth";
 
 const borderColors = [
     "#1c82b8",
@@ -73,16 +75,24 @@ export default function Dashboard() {
     const [loadingCategories, setLoadingCategories] = useState(false);
     const [categories, setCategories] = useState<Category[]>([]);
     const [session, setSession] = useState<Session>({} as Session);
+    const [user, setUser] = useState<User>({} as User);
 
     useEffect(() => {
+        getUser();
         fetchGroup();
     }, []);
+
+    const getUser = async () => {
+        const cookies = await getUserCookies();
+        if (!cookies) {
+            return
+        }
+        setUser(cookies);
+    }
 
     const fetchGroup = async () => {
         setLoadingCategories(true);
         const group = await getGroup(params.idgroup);
-        console.log("🚀 ~ fetchGroup ~ group:", group)
-
         setCategories(
             group.sessionStudent.sessionEmissionCategories
                 .filter(sc =>
@@ -103,9 +113,9 @@ export default function Dashboard() {
             <Header />
             <Container maxWidth="xl">
                 <DashboardWrapper>
-                    <Button onClick={() => { router.back() }} sx={{ marginBottom: 2 }} variant="outlined" startIcon={<ArrowBackIosIcon />}>
-                        {t('accueil')}
-                    </Button>
+                    {user.email && <Button onClick={() => { router.back() }} sx={{ marginBottom: 2 }} variant="outlined" startIcon={<ArrowBackIosIcon />}>
+                        {t('home')}
+                    </Button>}
 
                     <Establishment school={session.school} />
                     <Stats session={session} />
@@ -129,6 +139,7 @@ export default function Dashboard() {
                                 <CategoryItem
                                     key={_index}
                                     category={c}
+                                    user={user}
                                     borderColor={categories.length < 6 ? borderColors[_index] : ""}
                                 />
                             ))}
