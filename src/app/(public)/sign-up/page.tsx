@@ -13,10 +13,6 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from 'next-intl'
 import { getCountries } from "@/api/countries";
 
-/**
- * Page de création de compte
- * @returns vers le Dashboard
- */
 export default function SignUp() {
     const theme = useTheme();
     const router = useRouter();

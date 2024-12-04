@@ -56,10 +56,8 @@ function Row(props: RowProps) {
         if (formData.get("groupName") === null) {
             return
         }
-        const group = await createGroup(formData.get("groupName")?.toString() || "", session)
-        setSession({ ...session, groups: session.groups?.concat(group) });
-        console.log("🚀 ~ handleCreateGroup ~ session:", session)
-
+        const group = await createGroup(formData.get("groupName")?.toString() || "", session)        
+        setSession({ ...session, groups: session.groups?.concat([group]) });
         
         setLoading(false)
 

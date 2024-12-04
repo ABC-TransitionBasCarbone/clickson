@@ -87,7 +87,6 @@ export default function SessionsBoard() {
                             <CollapsibleTable currentSession={sessions.filter(s => !s.archived)} archiveSession={archiveSession} lockSession={lockSession} modifySessionName={modifySessionName} /> :
                             <FormCreateSession handleCreateSession={handleCreateSession} />
                 }
-
                 <Typography variant="h5" sx={{ marginTop: 10 }} >{t('archivedList')}</Typography>
                 {
                     loading ? <CircularProgress /> :
