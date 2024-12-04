@@ -1,12 +1,6 @@
 'use client'
 
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import LoginIcon from '@mui/icons-material/Login';
-import DeleteIcon from '@mui/icons-material/Delete';
-import LockIcon from '@mui/icons-material/Lock';
-import LockOpenIcon from '@mui/icons-material/LockOpen';
-import InventoryIcon from '@mui/icons-material/Inventory';
+import { KeyboardArrowDown, KeyboardArrowUp, Login, Delete, Lock, Inventory, LockOpen } from '@mui/icons-material';
 import { Session } from '@/src/types/Session';
 import { Fragment, useState, FormEvent, ChangeEvent } from 'react';
 import { createGroup, deleteGroupInDatabase, updateGroup } from '@/api/groups';
@@ -18,6 +12,7 @@ import ConfirmationDialog from '../ConfirmationDialog';
 import CopyToClipboard from '../copytoclipboard';
 import MultipleSelectChip from './SelectChip';
 import FormCreateGroup from './Form/FormCreateGroup';
+import CustomizedSwitch from './CustomizedSwitch';
 
 interface CollapsibleTableProps {
     currentSession: Session[];
@@ -62,7 +57,10 @@ function Row(props: RowProps) {
             return
         }
         const group = await createGroup(formData.get("groupName")?.toString() || "", session)
-        setSession({ ...session, groups: session.groups ? [...session.groups, group] : [group] });
+        setSession({ ...session, groups: session.groups?.concat(group) });
+        console.log("🚀 ~ handleCreateGroup ~ session:", session)
+
+        
         setLoading(false)
 
     }
@@ -89,7 +87,7 @@ function Row(props: RowProps) {
                     size="small"
                     onClick={() => setOpen(!open)}
                 >
-                    {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                    {open ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
                 </IconButton>
             </TableCell>
             <TableCell width={400} >
@@ -105,19 +103,20 @@ function Row(props: RowProps) {
             <TableCell width={200}>
                 <Tooltip title={t('linkAdmin')}>
                     <IconButton aria-label="dashboard" onClick={() => navigation.push("dashboard/" + session.groups?.[0]?.id)}>
-                        <LoginIcon />
+                        <Login />
                     </IconButton>
                 </Tooltip>
 
                 <Tooltip title={t('locked')}>
                     <Switch
-                        checkedIcon={<LockIcon />}
-                        icon={<LockOpenIcon sx={{ color: 'black' }} />}
+                        checkedIcon={<Lock />}
+                        icon={<LockOpen sx={{ color: 'green', borderRadius: 10 }} />}
                         checked={session.locked}
                         color="error"
                         onClick={() =>
                             (props.lockSession(session), setSession({ ...session, locked: !session.locked }))} />
                 </Tooltip>
+
                 {session.archived ?
                     <ConfirmationDialog
                         title={t("confirmTitle")}
@@ -127,7 +126,7 @@ function Row(props: RowProps) {
                         {(showDialog: () => void) => (
                             <Tooltip title={t('delete')}>
                                 <IconButton onClick={showDialog} >
-                                    <DeleteIcon />
+                                    <Delete />
                                 </IconButton>
                             </Tooltip>
 
@@ -142,7 +141,7 @@ function Row(props: RowProps) {
                         {(showDialog: () => void) => (
                             <Tooltip title={t('archive')}>
                                 <IconButton onClick={showDialog} >
-                                    <InventoryIcon />
+                                    <Inventory />
                                 </IconButton>
                             </Tooltip>
                         )}
@@ -175,19 +174,19 @@ function Row(props: RowProps) {
                                         <TableCell>
                                             <Tooltip title={t('link')}>
                                                 <IconButton aria-label="dashboard" onClick={() => navigation.push("dashboard/" + group.id)}>
-                                                    <LoginIcon />
+                                                    <Login />
                                                 </IconButton>
                                             </Tooltip>
                                             <CopyToClipboard shortUrl={group.id} />
                                             <ConfirmationDialog
                                                 title={t("confirmTitle")}
-                                                description={t("sessionDeleteConfirm")}
+                                                description={t("groupDeleteConfirm")}
                                                 response={() => deleteGroup(group)}
                                             >
                                                 {(showDialog: () => void) => (
-                                                    <Tooltip title={t('deleteLink')}>
+                                                    <Tooltip title={t('deleteLinkGroup')}>
                                                         <IconButton onClick={showDialog} >
-                                                            <DeleteIcon />
+                                                            <Delete />
                                                         </IconButton>
                                                     </Tooltip>
                                                 )}

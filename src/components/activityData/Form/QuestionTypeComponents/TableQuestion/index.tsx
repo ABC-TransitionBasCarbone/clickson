@@ -62,7 +62,7 @@ export const QuestionTypeComponent = ({ sessionSubCategoryProp }: QuestionTypeCo
             idSessionEmissionSubCategory: sessionSubCategory.id,
             idEmissionFactor: emission.emissionFactor.id,
         })
-        setSessionSubCategory({ ...sessionSubCategory, sessionEmissions: [{ ...emission, ...emissionData }] })
+        setSessionSubCategory({ ...sessionSubCategory, sessionEmissions: sessionSubCategory.sessionEmissions.concat({ ...emission, id: emissionData.id }) })
         setSaving(false)
         setLoadingData(false)
     }
