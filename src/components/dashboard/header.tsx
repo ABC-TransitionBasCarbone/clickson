@@ -66,12 +66,14 @@ export const Header = () => {
             alignItems="center"
         >
             <Grid item sm={3}>
-                <BoxHeader>
-                    <img
-                        src="https://clickson.eu/wp-content/uploads/2021/06/logo-color.png"
-                        alt="logo"
-                    />
-                </BoxHeader>
+                <Link onClick={() => router.back()} >
+                    <BoxHeader >
+                        <img
+                            src="https://clickson.eu/wp-content/uploads/2021/06/logo-color.png"
+                            alt="logo"
+                        />
+                    </BoxHeader>
+                </Link>
             </Grid>
             <Grid item sm={6}>
                 <Box sx={{ border: 'none' }}></Box>

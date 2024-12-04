@@ -13,10 +13,6 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from 'next-intl'
 import { getCountries } from "@/api/countries";
 
-/**
- * Page de création de compte
- * @returns vers le Dashboard
- */
 export default function SignUp() {
     const theme = useTheme();
     const router = useRouter();
@@ -108,7 +104,7 @@ export default function SignUp() {
                 }
             }}>
                 <Button onClick={() => { router.push('/') }} sx={{ marginBottom: 2 }} variant="outlined" startIcon={<ArrowBackIosIcon />}>
-                    {t('accueil')}
+                    {t('home')}
                 </Button>
                 <Divider sx={{ marginTop: theme.spacing(2) }} />
             </Container>

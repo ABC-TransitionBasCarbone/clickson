@@ -1,6 +1,6 @@
 import theme from "@/src/app/theme";
 import { LoadingButton } from "@mui/lab";
-import { Grid, Modal, Backdrop, Fade, Typography, Alert, FormControl, TextField, Button, MenuItem, Select, SelectChangeEvent, Stack } from "@mui/material";
+import { Grid, Modal, Backdrop, Fade, Typography, Alert, FormControl, TextField, Button, MenuItem, Select, SelectChangeEvent, Stack, Paper } from "@mui/material";
 import { Box, styled } from "@mui/system";
 import { useState, FormEvent, useEffect } from "react";
 import EditIcon from '@mui/icons-material/Edit';
@@ -10,8 +10,12 @@ import { getUserCookies } from "@/api/auth";
 import { User } from "@/src/types/User";
 import { useTranslations } from 'next-intl'
 
+const Item = styled("div")(({ theme }) => ({
+    padding: theme.spacing(1),
+}));
+
 const style = {
-    position: 'absolute' as 'absolute',
+    position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
@@ -75,20 +79,21 @@ export default function Establishment(props: EstablishmentProps) {
 
         <Grid container spacing={6}>
             <Grid item xs={12} sm={4}>
+                <Item>
                     <Typography variant="h5" >{school?.name}
                         {user?.token &&
-                            <Button sx={{ marginLeft: 5 }}  variant="outlined" onClick={handleOpen} startIcon={<EditIcon />}>
+                            <Button sx={{ marginLeft: 5 }} variant="outlined" onClick={handleOpen} startIcon={<EditIcon />}>
                                 {t('update')}
                             </Button>}
                     </Typography>
-
-                <p>{school?.adress}</p>
-                <p>{school?.postalCode} {school?.townName}</p>
+                </Item>
+                <Item>{school?.adress}</Item>
+                <Item>{school?.postalCode} {school?.townName}</Item>
             </Grid>
-            <Grid item xs={12} sm={4}>
-                <p>{t('numberStudents')}: {school?.studentCount}</p>
-                <p>{t('numberStaff')}: {school?.staffCount}</p>
-                <p>{t('yearOfConstruction')}: {school?.establishmentYear}</p>
+            <Grid item xs={12} sm={4} rowSpacing={1}>
+                <Item>{t('numberStudents')}: {school?.studentCount}</Item>
+                <Item>{t('numberStaff')}: {school?.staffCount}</Item>
+                <Item>{t('yearOfConstruction')}: {school?.establishmentYear}</Item>
             </Grid>
         </Grid>
         <Modal

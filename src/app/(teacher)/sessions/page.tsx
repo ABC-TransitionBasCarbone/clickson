@@ -2,7 +2,7 @@
 
 import { Header } from "@/src/components/dashboard/header";
 import Container from '@mui/material/Container';
-import { Box, CircularProgress, Typography } from "@mui/material";
+import { Box, CircularProgress, Divider, Typography } from "@mui/material";
 import React, { FormEvent, useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl'
 import Establishment from '../../../components/establishment/Establishment';
@@ -10,7 +10,7 @@ import { styled } from "@mui/system";
 import { getUserCookies } from '@/api/auth';
 import { Session } from '@/src/types/Session';
 import CollapsibleTable from '@/src/components/collapsabletable';
-import { archiveStudentSession, createSession, getSessionsBySchoolId, lockedStudentSession } from '@/api/sessions';
+import { modifySession, createSession, getSessionsBySchoolId, lockedStudentSession } from '@/api/sessions';
 import FormCreateSession from '@/src/components/collapsabletable/Form/FormCreateSession';
 import { School } from '@/src/types/School';
 
@@ -26,15 +26,21 @@ export default function SessionsBoard() {
     const [school, setSchool] = useState<School>({});
     const [loading, setLoading] = useState(false);
 
+    async function modifySessionName(session: Session) {
+        await modifySession(session)
+    }
+
     async function archiveSession(session: Session) {
         session.archived = !session.archived
-        const id = await archiveStudentSession(session)
+        session.locked = !session.archived
+        const id = await modifySession(session)
         setSessions(sessions.filter(g => g.id !== id))
     }
 
     async function deleteSession(session: Session) {
         session.deleted = !session.deleted
-        const id = await archiveStudentSession(session)
+        session.locked = !session.deleted
+        const id = await modifySession(session)
         setSessions(sessions.filter(g => g.id !== id))
     }
 
@@ -69,26 +75,24 @@ export default function SessionsBoard() {
         fetchSessions()
     }, []);
 
-    return (
-        <>
-            <Header />
-            <Container maxWidth="xl">
-                <AccueilWrapper>
-                    {school.id && <Establishment school={school} />}
-                    <Typography variant="h5" sx={{ marginTop: 2 }} >{t('list')}</Typography>
-                    {
-                        loading ? <CircularProgress /> :
-                            sessions.filter(s => !s.archived).length > 0 ?
-                                <CollapsibleTable currentSession={sessions.filter(s => !s.archived)} archiveSession={archiveSession} lockSession={lockSession} /> :
-                                <FormCreateSession handleCreateSession={handleCreateSession} />
-                    }
-                    <Typography variant="h5" sx={{ marginTop: 2 }} >{t('archivedList')}</Typography>
-                    {
-                        loading ? <CircularProgress /> :
-                            <CollapsibleTable currentSession={sessions.filter(s => s.archived)} deleteSession={deleteSession} lockSession={lockSession} />
-                    }
-                </AccueilWrapper>
-            </Container>
-        </>
-    )
+    return <>
+        <Header />
+        <Container maxWidth="xl">
+            <AccueilWrapper>
+                {school.id && <Establishment school={school} />}
+                <Typography variant="h5" sx={{ marginTop: 2 }} >{t('list')}</Typography>
+                {
+                    loading ? <CircularProgress /> :
+                        sessions.filter(s => !s.archived).length > 0 ?
+                            <CollapsibleTable currentSession={sessions.filter(s => !s.archived)} archiveSession={archiveSession} lockSession={lockSession} modifySessionName={modifySessionName} /> :
+                            <FormCreateSession handleCreateSession={handleCreateSession} />
+                }
+                <Typography variant="h5" sx={{ marginTop: 10 }} >{t('archivedList')}</Typography>
+                {
+                    loading ? <CircularProgress /> :
+                        <CollapsibleTable currentSession={sessions.filter(s => s.archived)} deleteSession={deleteSession} lockSession={lockSession} />
+                }
+            </AccueilWrapper>
+        </Container>
+    </>
 };

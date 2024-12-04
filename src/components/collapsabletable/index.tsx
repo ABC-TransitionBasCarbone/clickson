@@ -1,46 +1,32 @@
 'use client'
 
-import Box from '@mui/material/Box';
-import Collapse from '@mui/material/Collapse';
-import IconButton from '@mui/material/IconButton';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { KeyboardArrowDown, KeyboardArrowUp, Login, Delete, Lock, Inventory, LockOpen } from '@mui/icons-material';
 import { Session } from '@/src/types/Session';
-import { Fragment, useState, useEffect, FormEvent } from 'react';
-import MultipleSelectChip from './SelectChip';
-import DeleteIcon from '@mui/icons-material/Delete';
-import FormCreateGroup from './Form/FormCreateGroup';
+import { Fragment, useState, FormEvent, ChangeEvent } from 'react';
 import { createGroup, deleteGroupInDatabase, updateGroup } from '@/api/groups';
 import { Group } from '@/src/types/Group';
-import LinkIcon from '@mui/icons-material/Link';
-import { CircularProgress, Switch, Tooltip } from '@mui/material';
+import { CircularProgress, Switch, Tooltip, TextField, Box, Collapse, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import { useRouter } from 'next/navigation'
-import CopyToClipboard from '../copytoclipboard';
-import ArchiveIcon from '@mui/icons-material/Archive';
 import { useTranslations } from 'next-intl';
-import LockIcon from '@mui/icons-material/Lock';
-import LockOpenIcon from '@mui/icons-material/LockOpen';
 import ConfirmationDialog from '../ConfirmationDialog';
+import CopyToClipboard from '../copytoclipboard';
+import MultipleSelectChip from './SelectChip';
+import FormCreateGroup from './Form/FormCreateGroup';
+import CustomizedSwitch from './CustomizedSwitch';
 
 interface CollapsibleTableProps {
     currentSession: Session[];
     deleteSession?: (session: Session) => void;
     archiveSession?: (session: Session) => void;
     lockSession: (session: Session) => void;
+    modifySessionName?: (session: Session) => void;
 }
 interface RowProps {
     session: Session;
     deleteSession?: (session: Session) => void;
     archiveSession?: (session: Session) => void;
     lockSession: (session: Session) => void;
+    modifySessionName?: (session: Session) => void;
 }
 
 function Row(props: RowProps) {
@@ -51,18 +37,16 @@ function Row(props: RowProps) {
     const t = useTranslations("session");
 
     const chipData = [
-        { key: 0, label: 'energy', advanced: false },
-        { key: 1, label: 'travel', advanced: false },
+        { key: 1, label: 'energy', advanced: false },
         { key: 2, label: 'foodService', advanced: false },
-        { key: 3, label: 'supplies', advanced: false },
-        { key: 4, label: 'fixedAssets', advanced: false },
-        { key: 5, label: 'travel', advanced: false },
+        { key: 3, label: 'travel', advanced: false },
+        { key: 4, label: 'supplies', advanced: false },
+        { key: 5, label: 'fixedAssets', advanced: false },
         { key: 6, label: 'energy', advanced: true },
-        { key: 7, label: 'travel', advanced: true },
-        { key: 8, label: 'foodService', advanced: true },
+        { key: 7, label: 'foodService', advanced: true },
+        { key: 8, label: 'travel', advanced: true },
         { key: 9, label: 'supplies', advanced: true },
         { key: 10, label: 'fixedAssets', advanced: true },
-        { key: 11, label: 'travel', advanced: true },
     ]
 
     async function handleCreateGroup(event: FormEvent<HTMLFormElement>) {
@@ -72,8 +56,9 @@ function Row(props: RowProps) {
         if (formData.get("groupName") === null) {
             return
         }
-        const group = await createGroup(formData.get("groupName")?.toString() || "", session)
-        setSession({ ...session, groups: session.groups ? [...session.groups, group] : [group] });
+        const group = await createGroup(formData.get("groupName")?.toString() || "", session)        
+        setSession({ ...session, groups: session.groups?.concat([group]) });
+        
         setLoading(false)
 
     }
@@ -87,28 +72,49 @@ function Row(props: RowProps) {
         await updateGroup({ ...group, rights: rights.map(r => r.key) })
     }
 
+    const handleSessionNameChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setSession({ ...session, name: event.target.value })
+        props.modifySessionName && props.modifySessionName({ ...session, name: event.target.value })
+    };
+
     return session && <Fragment>
         <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-            <TableCell>
+            <TableCell width={1}>
                 <IconButton
                     aria-label="expand row"
                     size="small"
                     onClick={() => setOpen(!open)}
                 >
-                    {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                    {open ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
                 </IconButton>
             </TableCell>
-            <TableCell >{session.name}</TableCell>
-            <TableCell >{session.year + ' - ' + (session.year + 1)}</TableCell>
-            <TableCell>
+            <TableCell width={400} >
+                <TextField
+                    hiddenLabel
+                    id="filled-hidden-label-small"
+                    variant="filled"
+                    size="small"
+                    value={session.name}
+                    onChange={handleSessionNameChange}
+                />
+            </TableCell>
+            <TableCell width={200}>
+                <Tooltip title={t('linkAdmin')}>
+                    <IconButton aria-label="dashboard" onClick={() => navigation.push("dashboard/" + session.groups?.[0]?.id)}>
+                        <Login />
+                    </IconButton>
+                </Tooltip>
+
                 <Tooltip title={t('locked')}>
                     <Switch
-                        checkedIcon={<LockIcon />}
-                        icon={<LockOpenIcon sx={{ color: 'black' }} />}
+                        checkedIcon={<Lock />}
+                        icon={<LockOpen sx={{ color: 'green', borderRadius: 10 }} />}
                         checked={session.locked}
+                        color="error"
                         onClick={() =>
                             (props.lockSession(session), setSession({ ...session, locked: !session.locked }))} />
                 </Tooltip>
+
                 {session.archived ?
                     <ConfirmationDialog
                         title={t("confirmTitle")}
@@ -118,7 +124,7 @@ function Row(props: RowProps) {
                         {(showDialog: () => void) => (
                             <Tooltip title={t('delete')}>
                                 <IconButton onClick={showDialog} >
-                                    <DeleteIcon />
+                                    <Delete />
                                 </IconButton>
                             </Tooltip>
 
@@ -133,12 +139,13 @@ function Row(props: RowProps) {
                         {(showDialog: () => void) => (
                             <Tooltip title={t('archive')}>
                                 <IconButton onClick={showDialog} >
-                                    <ArchiveIcon />
+                                    <Inventory />
                                 </IconButton>
                             </Tooltip>
                         )}
                     </ConfirmationDialog>}
             </TableCell>
+            <TableCell >{session.year + ' - ' + (session.year + 1)}</TableCell>
         </TableRow>
         <TableRow>
             <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -148,46 +155,49 @@ function Row(props: RowProps) {
                         <Table size="small" aria-label="purchases">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell>{t('name')}</TableCell>
+                                    <TableCell>{t('nameGroup')}</TableCell>
                                     <TableCell >{t('actions')}</TableCell>
                                     <TableCell >{t('affect')}</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {session.groups?.map((group) => (
-                                    <TableRow key={group.name}>
+                                {session.groups?.map((group, index) => {
+                                    if (index === 0) {
+                                        return
+                                    }
+                                    return <TableRow key={group.name}>
                                         <TableCell component="th" scope="row">
                                             {group.name}
                                         </TableCell>
                                         <TableCell>
                                             <Tooltip title={t('link')}>
                                                 <IconButton aria-label="dashboard" onClick={() => navigation.push("dashboard/" + group.id)}>
-                                                    <LinkIcon />
+                                                    <Login />
                                                 </IconButton>
                                             </Tooltip>
+                                            <CopyToClipboard shortUrl={group.id} />
                                             <ConfirmationDialog
                                                 title={t("confirmTitle")}
-                                                description={t("sessionDeleteConfirm")}
+                                                description={t("groupDeleteConfirm")}
                                                 response={() => deleteGroup(group)}
                                             >
                                                 {(showDialog: () => void) => (
-                                                    <Tooltip title={t('deleteLink')}>
+                                                    <Tooltip title={t('deleteLinkGroup')}>
                                                         <IconButton onClick={showDialog} >
-                                                            <DeleteIcon />
+                                                            <Delete />
                                                         </IconButton>
                                                     </Tooltip>
                                                 )}
                                             </ConfirmationDialog>
-                                            <CopyToClipboard shortUrl={group.id} />
                                         </TableCell>
-                                        <TableCell align="right" >
+                                        <TableCell >
                                             <MultipleSelectChip
                                                 groupRights={group.rights}
                                                 rights={chipData}
                                                 setRights={(event) => updateGroupRights(event, group)} />
                                         </TableCell>
                                     </TableRow>
-                                ))}
+                                })}
                                 <TableRow >
                                     <TableCell>
                                         {!session.archived && (
@@ -215,8 +225,8 @@ export default function CollapsibleTable(props: CollapsibleTableProps) {
                     <TableRow>
                         <TableCell />
                         <TableCell >{t('name')}</TableCell>
-                        <TableCell >{t('year')}</TableCell>
                         <TableCell >{t('actions')}</TableCell>
+                        <TableCell >{t('year')}</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -225,7 +235,9 @@ export default function CollapsibleTable(props: CollapsibleTableProps) {
                             session={session}
                             deleteSession={props.deleteSession}
                             archiveSession={props.archiveSession}
-                            lockSession={props.lockSession} />
+                            lockSession={props.lockSession}
+                            modifySessionName={props.modifySessionName}
+                        />
                     ))}
                 </TableBody>
             </Table>

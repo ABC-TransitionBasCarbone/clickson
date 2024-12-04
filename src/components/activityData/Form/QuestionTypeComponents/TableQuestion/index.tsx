@@ -62,7 +62,7 @@ export const QuestionTypeComponent = ({ sessionSubCategoryProp }: QuestionTypeCo
             idSessionEmissionSubCategory: sessionSubCategory.id,
             idEmissionFactor: emission.emissionFactor.id,
         })
-        setSessionSubCategory({ ...sessionSubCategory, sessionEmissions: [{ ...emission, ...emissionData }] })
+        setSessionSubCategory({ ...sessionSubCategory, sessionEmissions: sessionSubCategory.sessionEmissions.concat({ ...emission, id: emissionData.id }) })
         setSaving(false)
         setLoadingData(false)
     }
@@ -77,22 +77,22 @@ export const QuestionTypeComponent = ({ sessionSubCategoryProp }: QuestionTypeCo
             handleClose={handleClose}
         />
         <DataInput
-            titleSelectInput={sessionSubCategory.dataToFill?.titleSelectInput || ""}
+            titleSelectInput={sessionSubCategory.dataToFill?.titleSelectInput}
             emissionFactors={sessionSubCategory.emissionSubCategory.emissionFactors}
             saving={saving}
             locked={sessionSubCategory.locked}
-            annualConsumptionText={sessionSubCategory.dataToFill?.titleAnnualConsumptionInput || ""}
+            annualConsumptionText={sessionSubCategory.dataToFill?.titleAnnualConsumptionInput}
             handleAddData={handleAddData} />
         {loadingData
             ? <Box sx={{ display: 'flex', justifyContent: "center", alignItems: "center", height: "20" }}>
                 <CircularProgress />
             </Box>
             : <>
-                <DataTable tableHeader={sessionSubCategory.dataToFill?.tableHeader || []} emissions={sessionSubCategory.sessionEmissions} handleDelete={handleDelete} />
+                <DataTable tableHeader={sessionSubCategory.dataToFill?.tableHeader} emissions={sessionSubCategory.sessionEmissions} handleDelete={handleDelete} />
                 <CommentInput addComment={addComment} />
                 {sessionSubCategory.comments?.map((comment, index) => (
                     <Stack direction="row" spacing={2} key={index}>
-                        <Typography sx={{  paddingTop: 1}} >{comment.comment}</Typography>
+                        <Typography sx={{ paddingTop: 1 }} >{comment.comment}</Typography>
                         <ConfirmationDialog
                             title={t("confirmTitle")}
                             description={t("confirmDeleteComment")}
@@ -106,7 +106,7 @@ export const QuestionTypeComponent = ({ sessionSubCategoryProp }: QuestionTypeCo
                         </ConfirmationDialog>
                     </Stack>
                 ))}
-    </>
-}
+            </>
+        }
     </>
 };
