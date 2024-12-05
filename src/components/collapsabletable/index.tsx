@@ -1,6 +1,6 @@
 'use client'
 
-import { KeyboardArrowDown, KeyboardArrowUp, Login, Delete, Lock, Inventory, LockOpen } from '@mui/icons-material';
+import { KeyboardArrowDown, KeyboardArrowUp, Unarchive, Login, Delete, Lock, Inventory, LockOpen } from '@mui/icons-material';
 import { Session } from '@/src/types/Session';
 import { Fragment, useState, FormEvent, ChangeEvent } from 'react';
 import { createGroup, deleteGroupInDatabase, updateGroup } from '@/api/groups';
@@ -12,19 +12,18 @@ import ConfirmationDialog from '../ConfirmationDialog';
 import CopyToClipboard from '../copytoclipboard';
 import MultipleSelectChip from './SelectChip';
 import FormCreateGroup from './Form/FormCreateGroup';
-import CustomizedSwitch from './CustomizedSwitch';
 
 interface CollapsibleTableProps {
     currentSession: Session[];
-    deleteSession?: (session: Session) => void;
-    archiveSession?: (session: Session) => void;
+    deleteSession: (session: Session) => void;
+    archiveSession: (session: Session) => void;
     lockSession: (session: Session) => void;
     modifySessionName?: (session: Session) => void;
 }
 interface RowProps {
     session: Session;
-    deleteSession?: (session: Session) => void;
-    archiveSession?: (session: Session) => void;
+    deleteSession: (session: Session) => void;
+    archiveSession: (session: Session) => void;
     lockSession: (session: Session) => void;
     modifySessionName?: (session: Session) => void;
 }
@@ -56,11 +55,9 @@ function Row(props: RowProps) {
         if (formData.get("groupName") === null) {
             return
         }
-        const group = await createGroup(formData.get("groupName")?.toString() || "", session)        
-        setSession({ ...session, groups: session.groups?.concat([group]) });
-        
+        const group = await createGroup(formData.get("groupName")?.toString() || "", session)
+        setSession({ ...session, groups: session.groups ? session.groups?.concat([group]) : [group] });
         setLoading(false)
-
     }
 
     async function deleteGroup(group: Group) {
@@ -88,7 +85,7 @@ function Row(props: RowProps) {
                     {open ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
                 </IconButton>
             </TableCell>
-            <TableCell width={400} >
+            <TableCell width={370} >
                 <TextField
                     hiddenLabel
                     id="filled-hidden-label-small"
@@ -98,7 +95,7 @@ function Row(props: RowProps) {
                     onChange={handleSessionNameChange}
                 />
             </TableCell>
-            <TableCell width={200}>
+            <TableCell width={250}>
                 <Tooltip title={t('linkAdmin')}>
                     <IconButton aria-label="dashboard" onClick={() => navigation.push("dashboard/" + session.groups?.[0]?.id)}>
                         <Login />
@@ -114,36 +111,32 @@ function Row(props: RowProps) {
                         onClick={() =>
                             (props.lockSession(session), setSession({ ...session, locked: !session.locked }))} />
                 </Tooltip>
-
-                {session.archived ?
-                    <ConfirmationDialog
-                        title={t("confirmTitle")}
-                        description={t("sessionDeleteConfirm")}
-                        response={() => props.deleteSession && props.deleteSession(session)}
-                    >
-                        {(showDialog: () => void) => (
-                            <Tooltip title={t('delete')}>
-                                <IconButton onClick={showDialog} >
-                                    <Delete />
-                                </IconButton>
-                            </Tooltip>
-
-                        )}
-                    </ConfirmationDialog>
-                    :
-                    <ConfirmationDialog
-                        title={t("confirmTitle")}
-                        description={t("sessionArhiveConfirm")}
-                        response={() => props.archiveSession && props.archiveSession(session)}
-                    >
-                        {(showDialog: () => void) => (
-                            <Tooltip title={t('archive')}>
-                                <IconButton onClick={showDialog} >
-                                    <Inventory />
-                                </IconButton>
-                            </Tooltip>
-                        )}
-                    </ConfirmationDialog>}
+                <ConfirmationDialog
+                    title={t("confirmTitle")}
+                    description={session.archived ? t("unarchive") : t("sessionArchiveConfirm")}
+                    response={() => props.archiveSession(session)}
+                >
+                    {(showDialog: () => void) => (
+                        <Tooltip title={session.archived ? t("unarchive") : t('archive')}>
+                            <IconButton onClick={showDialog} >
+                                {session.archived ? <Unarchive /> : <Inventory />}
+                            </IconButton>
+                        </Tooltip>
+                    )}
+                </ConfirmationDialog>
+                <ConfirmationDialog
+                    title={t("confirmTitle")}
+                    description={t("sessionDeleteConfirm")}
+                    response={() => props.deleteSession(session)}
+                >
+                    {(showDialog: () => void) => (
+                        <Tooltip title={t('delete')}>
+                            <IconButton color="error" onClick={showDialog} >
+                                <Delete />
+                            </IconButton>
+                        </Tooltip>
+                    )}
+                </ConfirmationDialog>
             </TableCell>
             <TableCell >{session.year + ' - ' + (session.year + 1)}</TableCell>
         </TableRow>
@@ -169,7 +162,7 @@ function Row(props: RowProps) {
                                         <TableCell component="th" scope="row">
                                             {group.name}
                                         </TableCell>
-                                        <TableCell>
+                                        <TableCell width={250}>
                                             <Tooltip title={t('link')}>
                                                 <IconButton aria-label="dashboard" onClick={() => navigation.push("dashboard/" + group.id)}>
                                                     <Login />
@@ -183,7 +176,7 @@ function Row(props: RowProps) {
                                             >
                                                 {(showDialog: () => void) => (
                                                     <Tooltip title={t('deleteLinkGroup')}>
-                                                        <IconButton onClick={showDialog} >
+                                                        <IconButton  color="error" onClick={showDialog} >
                                                             <Delete />
                                                         </IconButton>
                                                     </Tooltip>
@@ -215,7 +208,6 @@ function Row(props: RowProps) {
 }
 
 export default function CollapsibleTable(props: CollapsibleTableProps) {
-    const [currentSessions, setCurrentSessions] = useState<Session[]>(props.currentSession);
     const t = useTranslations("session");
 
     return (
@@ -223,14 +215,14 @@ export default function CollapsibleTable(props: CollapsibleTableProps) {
             <Table aria-label="collapsible table">
                 <TableHead>
                     <TableRow>
-                        <TableCell />
+                        <TableCell width={3} />
                         <TableCell >{t('name')}</TableCell>
                         <TableCell >{t('actions')}</TableCell>
                         <TableCell >{t('year')}</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {currentSessions.map((session) => (
+                    {props.currentSession.map((session) => (
                         <Row key={session.name}
                             session={session}
                             deleteSession={props.deleteSession}
