@@ -108,7 +108,7 @@ export default function Dashboard() {
         setLoadingCategories(false);
     }
 
-    return (session.id ?
+    return session.id ?
         <>
             <Header />
             <Container maxWidth="xl">
@@ -148,5 +148,4 @@ export default function Dashboard() {
                 </DashboardWrapper>
             </Container>
         </> : <CircularProgress />
-    );
 };

@@ -135,7 +135,7 @@ export const Stats = ({ session }: Props) => {
 
     return (total > 0 &&
         <Grid container>
-            <Typography sx={{ marginTop: 2 }} variant="h5" >{t('emissionProfile')}   ({t('unit')}) de {session.name}</Typography>
+            <Typography sx={{ marginTop: 5 }} variant="h5" >{t('emissionsProfil')}   ({t('unit')}) de {session.name}</Typography>
             <Divider aria-hidden="true" sx={{ marginTop: theme.spacing(1) }} />
             <StatsGrid item xs={12} sx={{
                 display: 'flex',
@@ -163,7 +163,6 @@ export const Stats = ({ session }: Props) => {
             </StatsGrid>
             <StatsGrid item xs={12} md={6}>
                 <InfoWrapper>
-                    <Typography sx={{ marginRight: 5 }} variant="h5" >{t('total')} {Math.round(total)} {t('unit')}</Typography>
                     <DownloadButton onClick={handleExport}>
                         {t("download")} <Download sx={{ cursor: 'pointer' }} />
                     </DownloadButton>
