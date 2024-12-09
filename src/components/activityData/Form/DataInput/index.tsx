@@ -23,6 +23,7 @@ export const DataInput = (props: DataInputProps) => {
     const [emission, setEmission] = useState<Emission>({
         emissionFactor: props.emissionFactors[0],
         value: 0,
+        total: 0,
     });
 
     const handleEmissionFactorChange = (event: SelectChangeEvent<number>) => {
@@ -52,7 +53,7 @@ export const DataInput = (props: DataInputProps) => {
                 <Typography className={classes.label}>{props.titleSelectInput}</Typography>
                 <Select
                     IconComponent={KeyboardArrowDown}
-                    value={emission.emissionFactor.id}
+                    value={Number(emission.emissionFactor.id)}
                     onChange={handleEmissionFactorChange}
                 >
                     {props.emissionFactors.map((emissionFactor) => (<MenuItem key={emissionFactor.id} value={emissionFactor.id}>{emissionFactor.label}</MenuItem>))}

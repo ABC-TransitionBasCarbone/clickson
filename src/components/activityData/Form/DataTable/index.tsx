@@ -17,11 +17,9 @@ interface DataTableProps {
 export const DataTable = ({ tableHeader, emissions, handleDelete }: DataTableProps) => {
     const t = useTranslations('category');
     const [totalValues, setTotalValues] = useState(0);
-    const [totalUncertainty, setTotalUncertainty] = useState(0);
 
     useEffect(() => {
         setTotalValues(emissions.reduce((acc, emission) => acc + Number(emission.total), 0));
-        setTotalUncertainty(emissions.reduce((acc, emission) => acc + (Number(emission.emissionFactor?.uncertainty) || 0), 0))
     }, [emissions]);
 
     return <TableContainer sx={{ marginBottom: 5 }}>
@@ -62,7 +60,8 @@ export const DataTable = ({ tableHeader, emissions, handleDelete }: DataTablePro
                         <TableCell><strong>{t('totalValue')}</strong></TableCell>
                         <TableCell align="right"></TableCell>
                         <TableCell align="right"></TableCell>
-                        <TableCell align="right"><strong>{toLocaleString(totalUncertainty)}</strong></TableCell>
+                        <TableCell align="right"></TableCell>
+
                         <TableCell align="right"><strong>{toLocaleString(totalValues)}</strong></TableCell>
                         <TableCell align="right"></TableCell>
                     </TableRow>

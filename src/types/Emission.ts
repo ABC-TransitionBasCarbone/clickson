@@ -6,7 +6,7 @@ export interface Emission {
     efValue?: number;
     total: number;
     idSessionEmissionSubCategory?: string;
-    label: string;
+    label?: string;
     type?: string;
     unit?: string;
     uncertainty?: number;
