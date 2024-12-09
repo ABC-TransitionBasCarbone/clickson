@@ -70,9 +70,6 @@ export const Stats = ({ session }: Props) => {
 
     useEffect(() => {
         document.title = `${session.name}`;
-        console.log("🚀 ~ useEffect ~ excelData:", excelData)
-        console.log("🚀 ~ sessionEmissionCategories:", session.sessionEmissionCategories)
-
         if (excelData.length > 0) { return }
         session.sessionEmissionCategories.forEach((category, index) => {
             category.sessionEmissionSubCategories.forEach((subCategory) => {

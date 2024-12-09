@@ -54,7 +54,6 @@ export const QuestionTypeComponent = ({ sessionSubCategoryProp }: QuestionTypeCo
     };
 
     const handleAddData = async (emission: Emission) => {
-        console.log("🚀 ~ handleAddData ~ emission:", emission)
         setLoadingData(true)
         setSaving(true)
         const emissionData = await createEmission({
@@ -64,7 +63,6 @@ export const QuestionTypeComponent = ({ sessionSubCategoryProp }: QuestionTypeCo
             idSessionEmissionSubCategory: sessionSubCategory.id,
             idEmissionFactor: emission.emissionFactor.id,
         })
-        console.log("🚀 ~ handleAddData ~ emissionData:", emissionData)
         setSessionSubCategory({ ...sessionSubCategory, sessionEmissions: sessionSubCategory.sessionEmissions.concat({ ...emissionData, emissionFactor: emission.emissionFactor }) })
         setSaving(false)
         setLoadingData(false)
