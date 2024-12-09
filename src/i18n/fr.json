@@ -138,6 +138,7 @@
         "confirmDuplicate": "Une donnée d'activité existe déjà pour , voulez-vous quand même enregistrer une nouvelle donnée ?"
     },
     "dataToFill": {
+        "total": "Total kgCO₂e",
         "energy": "Énergie",
         "travel": "Déplacements",
         "foodService": "Restauration",
@@ -157,7 +158,7 @@
         "naturalGas": "Gaz naturel",
         "woodPellets": "Granulés de bois (8% d'humidité)",
         "typeOfFuel": "Type de combustible",
-        "values": "Valeur (kgCO₂e)",
+        "values": "Valeur",
         "emissionFactor": "Facteur d'émission",
         "uncertainty": "Incertitude",
         "billOfTheMonth": "Facture du mois",

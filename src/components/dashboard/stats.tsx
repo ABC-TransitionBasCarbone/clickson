@@ -70,11 +70,14 @@ export const Stats = ({ session }: Props) => {
 
     useEffect(() => {
         document.title = `${session.name}`;
-        if (excelData.length > 0) return
+        console.log("🚀 ~ useEffect ~ excelData:", excelData)
+        console.log("🚀 ~ sessionEmissionCategories:", session.sessionEmissionCategories)
+
+        if (excelData.length > 0) { return }
         session.sessionEmissionCategories.forEach((category, index) => {
             category.sessionEmissionSubCategories.forEach((subCategory) => {
                 const subTotal = subCategory.sessionEmissions.reduce((acc, emission) => {
-                    return acc + Number(emission.value)
+                    return acc + Number(emission.total)
                 }, 0)
                 excelData[index] = (excelData[index] || 0) + subTotal;
 
