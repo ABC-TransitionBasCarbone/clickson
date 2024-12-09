@@ -41,7 +41,7 @@ export const DataTable = ({ tableHeader, emissions, handleDelete }: DataTablePro
                         <TableCell align="right">{toLocaleString(emission.value) + " " + emission.emissionFactor?.unit}</TableCell>
                         <TableCell align="right">{toLocaleString(emission.emissionFactor?.value) + " " + t('kgCO₂e') + "/" + emission.emissionFactor?.unit}</TableCell>
                         <TableCell align="right">{emission.emissionFactor?.uncertainty}</TableCell>
-                        <TableCell align="right">{emission.total}</TableCell>
+                        <TableCell align="right">{toLocaleString(emission.total)}</TableCell>
                         <TableCell align="right">
                             <ConfirmationDialog
                                 title={t("confirmTitle")}
