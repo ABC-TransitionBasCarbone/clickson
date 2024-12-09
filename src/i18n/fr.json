@@ -109,6 +109,7 @@
         "teacher": "Professeur"
     },
     "category": {
+        "kgCO₂e": "kgCO₂e",
         "locked": "Verouillé",
         "home": "Tableau de bord",
         "confirmDelete": "Souhaitez-vous supprimer définitivement cette donnée ?",
