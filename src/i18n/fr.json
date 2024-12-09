@@ -16,6 +16,7 @@
         "invalidCredentials": "Les informations de connexion que vous avez saisies sont incorrectes. Veuillez vérifier votre adresse email et votre mot de passe et réessayer."
     },
     "signup": {
+        "home": "Accueil",
         "signup": "Créer un compte",
         "firstName": "Prénom",
         "lastName": "Nom de famille",

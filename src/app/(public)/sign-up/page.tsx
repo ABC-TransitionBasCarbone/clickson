@@ -23,7 +23,7 @@ export default function SignUp() {
     const [message, setMessage] = useState<ReactElement | null>(null);
     const [progress, setProgress] = useState(0);
 
-    const t = useTranslations();
+    const t = useTranslations('signup');
 
     const redirectToLogin = (showSuccess: boolean, message: ReactElement | null, showError: boolean) => {
         if (showSuccess && message && !showError) {
