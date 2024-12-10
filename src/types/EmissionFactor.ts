@@ -1,5 +1,5 @@
 export interface EmissionFactor {
-    id: number;
+    id: string;
     idEmissionSubCategorie?: number;
     idLanguage?: number;
     label: string;

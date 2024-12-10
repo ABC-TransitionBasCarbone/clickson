@@ -16,9 +16,6 @@ myHeaders.append("Content-Type", "application/json");
 export async function login(formData: FormData) {
     const rememberMe = formData.get("rememberMe") !== null;
     const email = formData.get('username') == null ? formData.get("email") : formData.get("username");
-    if (email == null || formData.get("password") == null) {
-        throw new Error("Invalid credential enter a password and email");
-    }
     const raw = JSON.stringify({
         username: email,
         password: `${formData.get("password")}`,

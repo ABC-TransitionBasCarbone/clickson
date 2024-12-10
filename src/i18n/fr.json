@@ -16,6 +16,7 @@
         "invalidCredentials": "Les informations de connexion que vous avez saisies sont incorrectes. Veuillez vérifier votre adresse email et votre mot de passe et réessayer."
     },
     "signup": {
+        "home": "Accueil",
         "signup": "Créer un compte",
         "firstName": "Prénom",
         "lastName": "Nom de famille",
@@ -109,6 +110,7 @@
         "teacher": "Professeur"
     },
     "category": {
+        "kgCO₂e": "kgCO₂e",
         "locked": "Verouillé",
         "home": "Tableau de bord",
         "confirmDelete": "Souhaitez-vous supprimer définitivement cette donnée ?",
@@ -137,6 +139,7 @@
         "confirmDuplicate": "Une donnée d'activité existe déjà pour , voulez-vous quand même enregistrer une nouvelle donnée ?"
     },
     "dataToFill": {
+        "total": "Total kgCO₂e",
         "energy": "Énergie",
         "travel": "Déplacements",
         "foodService": "Restauration",
@@ -156,7 +159,7 @@
         "naturalGas": "Gaz naturel",
         "woodPellets": "Granulés de bois (8% d'humidité)",
         "typeOfFuel": "Type de combustible",
-        "values": "Valeur (kgCO₂e)",
+        "values": "Valeur",
         "emissionFactor": "Facteur d'émission",
         "uncertainty": "Incertitude",
         "billOfTheMonth": "Facture du mois",
