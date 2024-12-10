@@ -14,51 +14,55 @@ import { useTranslations } from 'next-intl'
 import { getCountries } from "@/api/countries";
 
 export default function SignUp() {
-    const theme = useTheme();
-    const router = useRouter();
+    const theme = useTheme()
+    const router = useRouter()
+    const t = useTranslations('signup')
 
-    const [countries, setCountries] = useState<Country[]>([]);
+    const [countries, setCountries] = useState<Country[]>([])
     const [showSuccess, setShowSuccess] = useState(false)
-    const [showError, setShowError] = useState(false);
-    const [message, setMessage] = useState<ReactElement | null>(null);
-    const [progress, setProgress] = useState(0);
-
-    const t = useTranslations('signup');
+    const [showError, setShowError] = useState(false)
+    const [message, setMessage] = useState<ReactElement | null>(null)
+    const [progress, setProgress] = useState(0)
 
     const redirectToLogin = (showSuccess: boolean, message: ReactElement | null, showError: boolean) => {
         if (showSuccess && message && !showError) {
-            setProgress(0);
-            const totalTime = 3000;
-            const intervalTime = 100;
+            setProgress(0)
+            const totalTime = 3000
+            const intervalTime = 100
 
-            let currentProgress = 0;
+            let currentProgress = 0
             const interval = setInterval(() => {
-                currentProgress += (intervalTime / totalTime) * 100;
-                setProgress(currentProgress);
+                currentProgress += (intervalTime / totalTime) * 100
+                setProgress(currentProgress)
 
                 if (currentProgress >= 100) {
-                    clearInterval(interval);
+                    clearInterval(interval)
                 }
-            }, intervalTime);
+            }, intervalTime)
 
             setTimeout(() => {
-                router.push('/sessions');
-            }, totalTime);
+                router.push('/sessions')
+            }, totalTime)
 
-            return () => clearInterval(interval);
+            return () => clearInterval(interval)
         }
     }
+
     const fetchCountries = async () => {
-        const data = await getCountries();
+        const data = await getCountries()
         setCountries(data);
-    };
+    }
 
     const onSignUp = async (event: FormEvent<HTMLFormElement>) => {
         setShowSuccess(false)
         event.preventDefault()
         const formData = new FormData(event.currentTarget)
-        const signedUser = await signUp(formData)
 
+        if (formData.get("password") !== formData.get("passwordConfirm")) {
+            setShowError(true)
+            setMessage(<span>{t('passwordMismatch')}</span>)
+        }
+        const signedUser = await signUp(formData)
         if (signedUser.errors) {
             setShowError(true)
             setMessage(
@@ -74,45 +78,40 @@ export default function SignUp() {
                 </span>
             )
         }
-        else {
-            const connectedUser = await login(formData)
-            if (!connectedUser.errors) {
-                setShowError(false)
-                setShowSuccess(true)
-                setMessage(
-                    <span>{t('successfullyCreatedAccount')}</span>
-                )
-            }
+        const connectedUser = await login(formData)
+        if (!connectedUser.errors) {
+            setShowError(false)
+            setShowSuccess(true)
+            setMessage(
+                <span>{t('successfullyCreatedAccount')}</span>
+            )
         }
     }
 
     useEffect(() => {
         fetchCountries()
         redirectToLogin(showSuccess, message, showError)
-    }, [message]);
+    }, [message])
 
-    return (
-        <>
-            <div>
-                <Header logoPosition="flex-start" />
-            </div>
-            <Container maxWidth="xl" sx={{
-                marginTop: {
-                    lg: theme.spacing(15),
-                    sm: theme.spacing(2),
-                    xs: theme.spacing(2),
-                }
-            }}>
-                <Button onClick={() => { router.push('/') }} sx={{ marginBottom: 2 }} variant="outlined" startIcon={<ArrowBackIosIcon />}>
-                    {t('home')}
-                </Button>
-                <Divider sx={{ marginTop: theme.spacing(2) }} />
-            </Container>
-            <Container>
-                <SignUpForm onSignUp={onSignUp} countries={countries} showSuccess={showSuccess} showError={showError}
-                    message={message} progress={progress} loading={showSuccess} />
-            </Container>
-        </>
-    );
-
-};
+    return <>
+        <div>
+            <Header logoPosition="flex-start" />
+        </div>
+        <Container maxWidth="xl" sx={{
+            marginTop: {
+                lg: theme.spacing(15),
+                sm: theme.spacing(2),
+                xs: theme.spacing(2),
+            }
+        }}>
+            <Button onClick={() => { router.push('/') }} sx={{ marginBottom: 2 }} variant="outlined" startIcon={<ArrowBackIosIcon />}>
+                {t('home')}
+            </Button>
+            <Divider sx={{ marginTop: theme.spacing(2) }} />
+        </Container>
+        <Container>
+            <SignUpForm onSignUp={onSignUp} countries={countries} showSuccess={showSuccess} showError={showError}
+                message={message} progress={progress} loading={showSuccess} />
+        </Container>
+    </>
+}
