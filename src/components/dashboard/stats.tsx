@@ -66,11 +66,11 @@ export const Stats = ({ session }: Props) => {
     const t = useTranslations('dashboard');
 
     const labels = [
-        'energy',
-        'foodService',
-        'travel',
-        'supplies',
-        'fixedAssets'];
+        t('energy'),
+        t('foodService'),
+        t('travel'),
+        t('supplies'),
+        t('fixedAssets')];
     const [excelData, setExcelData] = useState<number[]>([]);
     const [total, setTotal] = useState(0);
 
@@ -183,7 +183,7 @@ export const Stats = ({ session }: Props) => {
                 {
                     labels.map((label, index) => (<Grid key={index} item xs={6}>
                         <StatsWrapper>
-                            <span>{t(label)}</span>
+                            <span>{label}</span>
                             <Box sx={{
                                 color: backgroundColors[index],
                                 marginTop: theme.spacing(1),
