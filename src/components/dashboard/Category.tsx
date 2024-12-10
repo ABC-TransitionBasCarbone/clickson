@@ -5,8 +5,7 @@ import { Grid, Switch } from "@mui/material";
 import { styled } from "@mui/system";
 import Link from "next/link";
 import { useTranslations } from 'next-intl'
-import LockIcon from '@mui/icons-material/Lock';
-import LockOpenIcon from '@mui/icons-material/LockOpen';
+import { Lock, LockOpen } from '@mui/icons-material';
 import { ChangeEvent, useState } from "react";
 import { lockedSessionCategory } from "@/api/sessions";
 import { User } from "@/src/types/User";
@@ -108,9 +107,10 @@ export const CategoryItem = (props: CategoryItemProps) => {
             <OngoingButton >{t('onGoing')}</OngoingButton>
         </Link>
         {props.user.email && <Switch
-            checkedIcon={<LockIcon />}
-            icon={<LockOpenIcon sx={{ color: 'black' }} />}
+            checkedIcon={<Lock />}
+            icon={<LockOpen sx={{ color: 'green', borderRadius: 10 }} />}
             checked={locked}
+            color="error"
             onChange={handleValueChange} />}
 
         {/* <DownloadButton onClick={() => { }}>{t('download')} <Download onClick={() => { }} /></DownloadButton> */}
