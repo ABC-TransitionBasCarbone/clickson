@@ -102,12 +102,12 @@
         "download": "Télécharger",
         "downloadExcel": "Télécharger les résultats de la session au format Excel",
         "onGoing": "En cours",
-        "locked": "La session est verrouillée par votre professeur"
+        "locked": "La session est verrouillée par votre enseignant"
     },
     "header": {
         "connectedAs": "Connecté en tant que",
         "logout": "Se déconnecter",
-        "teacher": "Professeur"
+        "teacher": "Enseignant"
     },
     "category": {
         "kgCO₂e": "kgCO₂e",
@@ -160,6 +160,7 @@
         "woodPellets": "Granulés de bois (8% d'humidité)",
         "typeOfFuel": "Type de combustible",
         "values": "Valeur",
+        "meals": "Nombre de repas",
         "emissionFactor": "Facteur d'émission",
         "uncertainty": "Incertitude",
         "billOfTheMonth": "Facture du mois",

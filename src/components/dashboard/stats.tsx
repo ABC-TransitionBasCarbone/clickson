@@ -10,6 +10,7 @@ import { useTranslations } from 'next-intl'
 import PieChart from "@/src/components/charts/PieChart";
 import { Download } from '@mui/icons-material';
 import { Session } from '@/src/types/Session';
+import { backgroundColors } from "@/src/constants/colors";
 
 const StatsGrid = styled(Grid)`
     margin-top: 30px;
@@ -64,7 +65,12 @@ export const Stats = ({ session }: Props) => {
     const theme = useTheme();
     const t = useTranslations('dashboard');
 
-    const labels = [t('energy'), t('foodService'), t('travel'), t('supplies'), t('fixedAssets')];
+    const labels = [
+        'energy',
+        'foodService',
+        'travel',
+        'supplies',
+        'fixedAssets'];
     const [excelData, setExcelData] = useState<number[]>([]);
     const [total, setTotal] = useState(0);
 
@@ -133,114 +139,63 @@ export const Stats = ({ session }: Props) => {
 
     const open = Boolean(anchorEl);
 
-    return (total > 0 &&
-        <Grid container>
-            <Typography sx={{ marginTop: 5 }} variant="h5" >{t('emissionsProfil')}   ({t('unit')}) de {session.name}</Typography>
-            <Divider aria-hidden="true" sx={{ marginTop: theme.spacing(1) }} />
-            <StatsGrid item xs={12} sx={{
-                display: 'flex',
-                justifyContent: 'flex-end',
-            }}>
-                <Popover
-                    id="mouse-over-popover"
-                    sx={{ pointerEvents: 'none' }}
-                    open={open}
-                    anchorEl={anchorEl}
-                    anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'left',
-                    }}
-                    transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'left',
-                    }}
-                    onClose={handlePopoverClose}
-                    disableRestoreFocus
-                >
-                    <Typography sx={{ p: 1 }}>{t("downloadExcel")}</Typography>
-                </Popover>
+    return <Grid container>
+        <Typography sx={{ marginTop: 5 }} variant="h5" >{t('emissionsProfil')}   ({t('unit')}) de {session.name}</Typography>
+        <Divider aria-hidden="true" sx={{ marginTop: theme.spacing(1) }} />
+        <StatsGrid item xs={12} sx={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+        }}>
+            <Popover
+                id="mouse-over-popover"
+                sx={{ pointerEvents: 'none' }}
+                open={open}
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                }}
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left',
+                }}
+                onClose={handlePopoverClose}
+                disableRestoreFocus
+            >
+                <Typography sx={{ p: 1 }}>{t("downloadExcel")}</Typography>
+            </Popover>
 
-            </StatsGrid>
+        </StatsGrid>
+        {total > 0 &&
             <StatsGrid item xs={12} md={6}>
                 <InfoWrapper>
                     <DownloadButton onClick={handleExport}>
                         {t("download")} <Download sx={{ cursor: 'pointer' }} />
                     </DownloadButton>
                 </InfoWrapper>
-
-
-
                 <ChartWrapper>
                     <PieChart data={excelData} labels={labels} />
                 </ChartWrapper>
-
             </StatsGrid>
-            <StatsGrid item xs={12} md={6}>
-                <Grid container spacing={3} columns={12} sx={{ paddingLeft: theme.spacing(3.75) }}>
-                    <Grid item xs={6}>
-                        <div className="stats-wrapper">
-                            <span>{t("energy")}</span>
+        }
+        <StatsGrid item xs={12} md={6}>
+            <Grid container spacing={3} columns={12} sx={{ paddingLeft: theme.spacing(3.75) }}>
+                {
+                    labels.map((label, index) => (<Grid key={index} item xs={6}>
+                        <StatsWrapper>
+                            <span>{t(label)}</span>
                             <Box sx={{
-                                color: 'primary.main',
+                                color: backgroundColors[index],
                                 marginTop: theme.spacing(1),
                             }}
                             >
-                                {Math.round(excelData[0])} ({t('unit')})
-                            </Box>
-                        </div>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <StatsWrapper>
-                            <span>{t("foodService")}</span>
-                            <Box
-                                sx={{
-                                    color: 'error.main',
-                                    marginTop: theme.spacing(1),
-                                }}
-                            >
-                                {Math.round(excelData[1])} ({t('unit')})
+                                {Math.round(excelData[index])} ({t('unit')})
                             </Box>
                         </StatsWrapper>
                     </Grid>
-                    <Grid item xs={6}>
-                        <StatsWrapper>
-                            <span>{t("travel")}</span>
-                            <Box
-                                sx={{
-                                    color: 'success.main',
-                                    marginTop: theme.spacing(1),
-                                }}
-                            >
-                                {Math.round(excelData[2])} ({t('unit')})
-                            </Box>
-                        </StatsWrapper>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <StatsWrapper>
-                            <span>{t("supplies")}</span>
-                            <Box sx={{
-                                color: 'secondary.main',
-                                marginTop: theme.spacing(1),
-                            }}
-                            >
-                                {Math.round(excelData[3])} ({t('unit')})
-                            </Box>
-                        </StatsWrapper>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <StatsWrapper>
-                            <span>{t("fixedAssets")}</span>
-                            <Box sx={{
-                                color: 'info.main',
-                                marginTop: theme.spacing(1),
-                            }}
-                            >
-                                {Math.round(excelData[4])} ({t('unit')})
-                            </Box>
-                        </StatsWrapper>
-                    </Grid>
-                </Grid>
-            </StatsGrid>
-        </Grid>
-    )
+                    ))
+                }
+            </Grid>
+        </StatsGrid>
+    </Grid>
 }

@@ -3,7 +3,7 @@
 import { Header } from "@/src/components/dashboard/header";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Container from '@mui/material/Container';
-import { Box, Button, Grid } from "@mui/material";
+import { Box, Button, Grid, Paper, Typography } from "@mui/material";
 import { Stats } from "@/src/components/dashboard/stats";
 import { styled } from "@mui/system";
 import { useEffect, useState } from 'react';
@@ -18,14 +18,7 @@ import { getGroup } from '@/api/groups';
 import { Session } from '@/src/types/Session';
 import { User } from "@/src/types/User";
 import { getUserCookies } from "@/api/auth";
-
-const borderColors = [
-    "#1c82b8",
-    "#11990F",
-    "#ff4040",
-    "#ffae42",
-    "#800080"
-]
+import { backgroundColors } from "@/src/constants/colors";
 
 const DashboardWrapper = styled(Box)`
     max-width: 100%;
@@ -38,25 +31,6 @@ const DashboardWrapper = styled(Box)`
         color: black;
     }
 `
-
-
-const CustomH3 = styled('h3')`
-    font-family: "Montserrat", sans-serif;
-    font-size: 18px;
-    position: relative;
-    padding-bottom: 30px;
-    font-weight: 600;
-    text-align: center
-`;
-
-const Paragraph = styled("p")`
-    font-family: "Open Sans", sans-serif;
-    color: #000;
-    font-weight: 300;
-    font-size: 18px;
-    padding-bottom: 30px;
-    text-align: center;
-`;
 
 const DividerSmall = styled("hr")`
     display: inline-block;
@@ -97,12 +71,13 @@ export default function Dashboard() {
             group.sessionStudent.sessionEmissionCategories
                 .filter(sc =>
                     group.rights.length === 0 || group.rights.includes(sc.emissionCategory.id) || group.rights.includes(sc.emissionCategory.id + 5))
-                .map(sc => ({
+                .map((sc, index) => ({
                     ...sc.emissionCategory,
+                    id: index,
                     locked: sc.locked,
                     idSessionEmissionCategory: sc.id
                 }))
-        );
+        )
 
         setSession(group.sessionStudent);
         setLoadingCategories(false);
@@ -122,25 +97,21 @@ export default function Dashboard() {
 
                     {session.locked ? t("locked") :
                         <Grid container marginBottom={6} sx={{ alignItems: "center", flexDirection: "column" }}>
-                            <CustomH3>
-                                {t("calculatorsMarkers")}
-                            </CustomH3>
+                            <Typography variant="h4">{t("calculatorsMarkers")}</Typography>
                             <DividerSmall />
-                            <Paragraph>
-                                {t("clickMarkerStart")} <strong>{t("dataGathering")}</strong>
-                            </Paragraph>
+                            <Typography>{t("clickMarkerStart")} <strong>{t("dataGathering")}</strong></Typography>
                         </Grid>}
                     {session.locked || loadingCategories ? (
                         <Box sx={{ display: 'flex', justifyContent: "center", alignItems: "center", height: "20" }}>
                             <CircularProgress />
                         </Box>) :
                         (<Grid container>
-                            {categories.map((c, _index) => (
+                            {categories.map((c, i) => (
                                 <CategoryItem
-                                    key={_index}
+                                    key={i}
                                     category={c}
                                     user={user}
-                                    borderColor={categories.length < 6 ? borderColors[_index] : ""}
+                                    borderColor={backgroundColors[i]}
                                 />
                             ))}
                         </Grid>)

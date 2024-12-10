@@ -34,7 +34,7 @@ export const useDataToFill = () => {
             category: 'food',
             type: "table",
             titleSelectInput: t('foodService'),
-            titleAnnualConsumptionInput: t('quantity'),
+            titleAnnualConsumptionInput: t('meals'),
             tableHeader: [t('emissionFactor'), t('values'), t('emissionFactor'), t('uncertainty'), t('total')]
         },
         {
@@ -42,7 +42,7 @@ export const useDataToFill = () => {
             category: 'food',
             type: "table",
             titleSelectInput: t('foodService'),
-            titleAnnualConsumptionInput: t('quantity'),
+            titleAnnualConsumptionInput: t('meals'),
             tableHeader: [t('emissionFactor'), t('values'), t('emissionFactor'), t('uncertainty'), t('total')]
         },
         {
@@ -71,7 +71,7 @@ export const useDataToFill = () => {
         },
         {
             id: 9,
-            category: 'personnel-travel',
+            category: 'personnelTravel',
             type: "table",
             titleSelectInput: t('meanOfTravel'),
             titleAnnualConsumptionInput: `${t('quantity')}`,
@@ -79,7 +79,7 @@ export const useDataToFill = () => {
         },
         {
             id: 10,
-            category: 'school-trips',
+            category: 'schoolTrips',
             type: "table",
             titleSelectInput: t('schoolTrips'),
             titleAnnualConsumptionInput: `${t('quantity')}`,
