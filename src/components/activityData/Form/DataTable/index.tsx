@@ -36,7 +36,7 @@ export const DataTable = ({ tableHeader, emissions, handleDelete }: DataTablePro
                 {emissions.map((emission) => (
                     <TableRow key={emission.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                         <TableCell component="th" scope="row">{emission.emissionFactor?.label}</TableCell>
-                        <TableCell align="right">{toLocaleString(emission.value) + " " + emission.emissionFactor?.unit}</TableCell>
+                        <TableCell align="right">{toLocaleString(emission.value)}</TableCell>
                         <TableCell align="right">{toLocaleString(emission.emissionFactor?.value) + " " + t('kgCO₂e') + "/" + emission.emissionFactor?.unit}</TableCell>
                         <TableCell align="right">{emission.emissionFactor?.uncertainty}</TableCell>
                         <TableCell align="right">{toLocaleString(emission.total)}</TableCell>

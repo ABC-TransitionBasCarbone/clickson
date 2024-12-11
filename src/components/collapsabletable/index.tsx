@@ -72,7 +72,7 @@ function Row(props: RowProps) {
     const handleSessionNameChange = (event: ChangeEvent<HTMLInputElement>) => {
         setSession({ ...session, name: event.target.value })
         props.modifySessionName && props.modifySessionName({ ...session, name: event.target.value })
-    };
+    }
 
     return session && <Fragment>
         <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
@@ -176,7 +176,7 @@ function Row(props: RowProps) {
                                             >
                                                 {(showDialog: () => void) => (
                                                     <Tooltip title={t('deleteLinkGroup')}>
-                                                        <IconButton  color="error" onClick={showDialog} >
+                                                        <IconButton color="error" onClick={showDialog} >
                                                             <Delete />
                                                         </IconButton>
                                                     </Tooltip>
@@ -204,35 +204,33 @@ function Row(props: RowProps) {
                 </Collapse>
             </TableCell>
         </TableRow>
-    </Fragment >;
+    </Fragment>
 }
 
 export default function CollapsibleTable(props: CollapsibleTableProps) {
-    const t = useTranslations("session");
+    const t = useTranslations("session")
 
-    return (
-        <TableContainer component={Paper}>
-            <Table aria-label="collapsible table">
-                <TableHead>
-                    <TableRow>
-                        <TableCell width={3} />
-                        <TableCell >{t('name')}</TableCell>
-                        <TableCell >{t('actions')}</TableCell>
-                        <TableCell >{t('year')}</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {props.currentSession.map((session) => (
-                        <Row key={session.name}
-                            session={session}
-                            deleteSession={props.deleteSession}
-                            archiveSession={props.archiveSession}
-                            lockSession={props.lockSession}
-                            modifySessionName={props.modifySessionName}
-                        />
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
-    );
+    return <TableContainer component={Paper}>
+        <Table aria-label="collapsible table">
+            <TableHead>
+                <TableRow>
+                    <TableCell width={3} />
+                    <TableCell >{t('name')}</TableCell>
+                    <TableCell >{t('actions')}</TableCell>
+                    <TableCell >{t('year')}</TableCell>
+                </TableRow>
+            </TableHead>
+            <TableBody>
+                {props.currentSession.map((session) => (
+                    <Row key={session.name}
+                        session={session}
+                        deleteSession={props.deleteSession}
+                        archiveSession={props.archiveSession}
+                        lockSession={props.lockSession}
+                        modifySessionName={props.modifySessionName}
+                    />
+                ))}
+            </TableBody>
+        </Table>
+    </TableContainer>
 }
