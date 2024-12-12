@@ -32,7 +32,7 @@ function Row(props: RowProps) {
     const [session, setSession] = useState(props.session);
     const [open, setOpen] = useState(!props.session.archived);
     const [loading, setLoading] = useState(false)
-    const navigation = useRouter();
+    const router = useRouter();
     const t = useTranslations("session");
 
     const chipData = [
@@ -97,7 +97,7 @@ function Row(props: RowProps) {
             </TableCell>
             <TableCell width={250}>
                 <Tooltip title={t('linkAdmin')}>
-                    <IconButton aria-label="dashboard" onClick={() => navigation.push("dashboard/" + session.groups?.[0]?.id)}>
+                    <IconButton aria-label="dashboard" onClick={() => router.push("dashboard/" + session.groups?.[0]?.id)}>
                         <Login />
                     </IconButton>
                 </Tooltip>
@@ -164,7 +164,7 @@ function Row(props: RowProps) {
                                         </TableCell>
                                         <TableCell width={250}>
                                             <Tooltip title={t('link')}>
-                                                <IconButton aria-label="dashboard" onClick={() => navigation.push("dashboard/" + group.id)}>
+                                                <IconButton aria-label="dashboard" onClick={() => router.push("dashboard/" + group.id)}>
                                                     <Login />
                                                 </IconButton>
                                             </Tooltip>

@@ -72,7 +72,7 @@ export const DataInput = (props: DataInputProps) => {
             </FormControl>
         </Stack>
         <Stack className={classes.button} >
-            <PrimaryButton disabled={props.saving || props.locked} onClick={() => props.handleAddData(emission)}>
+            <PrimaryButton disabled={props.saving || props.locked} onClick={() => emission.value > 0 && props.handleAddData(emission)}>
                 {props.locked ? t('locked') : t('add')}
             </PrimaryButton>
         </Stack>

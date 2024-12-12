@@ -110,6 +110,7 @@ export default function Dashboard() {
                                 <CategoryItem
                                     key={i}
                                     category={c}
+                                    idGroup={params.idgroup}
                                     user={user}
                                     borderColor={backgroundColors[i]}
                                 />

@@ -18,9 +18,10 @@ import { Comment } from "@/src/types/Comment";
 
 interface QuestionTypeComponentProps {
     sessionSubCategoryProp: SessionSubCategory;
+    schoolYear?: number;
 }
 
-export const QuestionTypeComponent = ({ sessionSubCategoryProp }: QuestionTypeComponentProps) => {
+export const QuestionTypeComponent = ({ sessionSubCategoryProp, schoolYear }: QuestionTypeComponentProps) => {
     const [saving, setSaving] = useState(false)
     const [loadingData, setLoadingData] = useState(false)
     const [open, setOpen] = useState(false);
@@ -56,10 +57,23 @@ export const QuestionTypeComponent = ({ sessionSubCategoryProp }: QuestionTypeCo
     const handleAddData = async (emission: Emission) => {
         setLoadingData(true)
         setSaving(true)
+
+        const currentYear = new Date().getFullYear()
+
+        let totalEmission = emission.value * emission.emissionFactor.value
+        if (emission.emissionFactor.depreciationPeriod && schoolYear) {
+            if ((currentYear - schoolYear) > emission.emissionFactor.depreciationPeriod) {
+                totalEmission = 0
+            }
+            else {
+                totalEmission = totalEmission / emission.emissionFactor.depreciationPeriod
+            }
+        }
+
         const emissionData = await createEmission({
             ...emission.emissionFactor,
             ...emission,
-            total: emission.value * emission.emissionFactor.value,
+            total: totalEmission,
             idSessionEmissionSubCategory: sessionSubCategory.id,
             idEmissionFactor: emission.emissionFactor.id,
         })
@@ -89,7 +103,10 @@ export const QuestionTypeComponent = ({ sessionSubCategoryProp }: QuestionTypeCo
                 <CircularProgress />
             </Box>
             : <>
-                <DataTable tableHeader={sessionSubCategory.dataToFill?.tableHeader} emissions={sessionSubCategory.sessionEmissions} handleDelete={handleDelete} />
+                <DataTable
+                    tableHeader={sessionSubCategory.dataToFill?.tableHeader}
+                    emissions={sessionSubCategory.sessionEmissions}
+                    handleDelete={handleDelete} />
                 <CommentInput addComment={addComment} />
                 {sessionSubCategory.comments?.map((comment, index) => (
                     <Stack direction="row" spacing={2} key={index}>

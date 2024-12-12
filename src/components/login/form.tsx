@@ -67,7 +67,7 @@ export const Form = ({ correctUserInfo, onLogin, loading, buttonValue, goToSignU
     const router = useRouter();
 
     return (
-        <BodyGrid sx={{marginTop: 2}} container spacing={5} columns={16}>
+        <BodyGrid sx={{ marginTop: 2 }} container spacing={5} columns={16}>
             <Grid item md={10}>
                 <Typography variant="h2" sx={{
                     marginBottom: theme.spacing(3),
@@ -146,7 +146,7 @@ export const Form = ({ correctUserInfo, onLogin, loading, buttonValue, goToSignU
                             variant="contained"
                             type="submit"
                         >
-                            <span>{buttonValue}</span>
+                            {buttonValue}
                         </StyledLoadingButton>
                     </FormControl>
                     {!correctUserInfo &&
@@ -159,9 +159,9 @@ export const Form = ({ correctUserInfo, onLogin, loading, buttonValue, goToSignU
                         <FormControlLabel control={<Checkbox name="rememberMe" />} label={t('rememberMe')} />
                     </FormControl>
                 </form>
-                <span>
-                    {t('forgotPassword')} <CustomLink onClick={() => router.push(resetUrl || "")} underline="none">{t('restorePassword')}</CustomLink>
-                </span>
+                <Typography>
+                    {t('forgotPassword')} <Link onClick={() => router.push(resetUrl || "")} underline="none">{t('restorePassword')}</Link>
+                </Typography>
                 <FormControl sx={styleFormControl}>
                     <StyledButton variant="contained" size="large" onClick={goToSignUp}>{t('signup')}</StyledButton>
                 </FormControl>

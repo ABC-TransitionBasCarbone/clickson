@@ -6,6 +6,7 @@ export interface Emission {
     efValue?: number;
     total: number;
     idSessionEmissionSubCategory?: string;
+    depreciationPeriod?: number;
     label?: string;
     type?: string;
     unit?: string;

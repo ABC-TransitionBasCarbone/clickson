@@ -30,6 +30,7 @@ export async function login(formData: FormData) {
     const result = await fetch(urlApi + "/auth/login", requestOptions)
     const login = await result.json();
     if (login.errors) {
+        console.error(new Error(login.errors + " Failed to login wrong password or email"))
         return login
     }
     const school = await getSchool(login.email)

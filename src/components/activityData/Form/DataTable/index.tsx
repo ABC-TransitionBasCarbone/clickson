@@ -61,7 +61,6 @@ export const DataTable = ({ tableHeader, emissions, handleDelete }: DataTablePro
                         <TableCell align="right"></TableCell>
                         <TableCell align="right"></TableCell>
                         <TableCell align="right"></TableCell>
-
                         <TableCell align="right"><strong>{toLocaleString(totalValues)}</strong></TableCell>
                         <TableCell align="right"></TableCell>
                     </TableRow>

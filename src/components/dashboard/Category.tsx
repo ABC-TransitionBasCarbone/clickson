@@ -28,11 +28,11 @@ const OngoingButton = styled("button")(({ theme }) => ({
     }
 }));
 
-
 interface CategoryItemProps {
     category: Category,
     borderColor: string,
     user: User
+    idGroup: string
 }
 
 export const CategoryItem = (props: CategoryItemProps) => {
@@ -60,7 +60,7 @@ export const CategoryItem = (props: CategoryItemProps) => {
         <Typography color={theme.palette.primary.main} variant="h5" align={'center'}>{props.category.label}</Typography>
         <Typography marginTop={2} marginBottom={2}>{props.category.detail}</Typography>
         <Grid display={'inline-block'} alignSelf={'flex-end'} >
-            <Link href={`/category/` + props.category.idSessionEmissionCategory}>
+            <Link href={`/category/` + props.idGroup + '/' + props.category.idSessionEmissionCategory}>
                 <OngoingButton >{t('onGoing')}</OngoingButton>
             </Link>
             {props.user.email && <Switch
