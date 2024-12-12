@@ -91,23 +91,23 @@
         "energy": "Énergie",
         "travel": "Déplacements",
         "foodService": "Restauration",
-        "supplies": "Fournitures",
+        "supplies": "Achats",
         "fixedAssets": "Immobilisation",
         "advanced": "Avancé",
         "total": "Le Total",
-        "calculatorsMarkers": "Marqueurs De La Calculatrice",
-        "clickMarkerStart": "Cliquez simplement sur un marqueur et démarrez la",
+        "calculatorsMarkers": "Feuille de calcul",
+        "clickMarkerStart": "Cliquez simplement sur la rubrique pour commencer la collecte de données",
         "dataGathering": "collecte de données !",
         "emissionsProfil": "Profil d'émissions",
         "download": "Télécharger",
         "downloadExcel": "Télécharger les résultats de la session au format Excel",
         "onGoing": "En cours",
-        "locked": "La session est verrouillée par votre professeur"
+        "locked": "La session est verrouillée par votre enseignant"
     },
     "header": {
         "connectedAs": "Connecté en tant que",
         "logout": "Se déconnecter",
-        "teacher": "Professeur"
+        "teacher": "Enseignant"
     },
     "category": {
         "kgCO₂e": "kgCO₂e",
@@ -143,9 +143,10 @@
         "energy": "Énergie",
         "travel": "Déplacements",
         "foodService": "Restauration",
-        "supplies": "Fournitures",
+        "supplies": "Achats",
         "fixedAssets": "Immobilisation",
         "quantity": "Quantité",
+        "value": "Valeur",
         "schoolTrips": "Voyages scolaires",
         "personnelTravel": "Trajets personnels",
         "fuel": "Combustible",
@@ -160,6 +161,7 @@
         "woodPellets": "Granulés de bois (8% d'humidité)",
         "typeOfFuel": "Type de combustible",
         "values": "Valeur",
+        "meals": "Nombre de repas",
         "emissionFactor": "Facteur d'émission",
         "uncertainty": "Incertitude",
         "billOfTheMonth": "Facture du mois",

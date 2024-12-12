@@ -11,7 +11,7 @@ export const useDataToFill = () => {
             type: "table",
             titleSelectInput: t('kindOfFuel'),
             titleAnnualConsumptionInput: t('annualConsumption'),
-            tableHeader: [t('typeOfFuel'), t('values'), t('emissionFactor'), t('uncertainty'), t('total')]
+            tableHeader: [t('typeOfFuel'), t('quantity'), t('value'), t('uncertainty'), t('total')]
         },
         {
             id: 2,
@@ -19,7 +19,7 @@ export const useDataToFill = () => {
             type: "calendar",
             titleSelectInput: t('billOfTheMonth'),
             titleAnnualConsumptionInput: `${t('consumptionFromLatestBill')}`,
-            tableHeader: [t('billOfTheMonth'), t('values'), t('emissionFactor'), t('uncertainty'), t('total')]
+            tableHeader: [t('billOfTheMonth'), t('quantity'), t('value'), t('uncertainty'), t('total')]
         },
         {
             id: 3,
@@ -27,23 +27,23 @@ export const useDataToFill = () => {
             type: "table",
             titleSelectInput: t('kindOfGas'),
             titleAnnualConsumptionInput: `${t('quantity')}`,
-            tableHeader: [t('bunsenBurnerGas'), t('values'), t('emissionFactor'), t('uncertainty'), t('total')]
+            tableHeader: [t('bunsenBurnerGas'), t('quantity'), t('value'), t('uncertainty'), t('total')]
         },
         {
             id: 4,
             category: 'food',
             type: "table",
             titleSelectInput: t('foodService'),
-            titleAnnualConsumptionInput: t('quantity'),
-            tableHeader: [t('emissionFactor'), t('values'), t('emissionFactor'), t('uncertainty'), t('total')]
+            titleAnnualConsumptionInput: t('meals'),
+            tableHeader: [t('emissionFactor'), t('quantity'), t('value'), t('uncertainty'), t('total')]
         },
         {
             id: 5,
             category: 'food',
             type: "table",
             titleSelectInput: t('foodService'),
-            titleAnnualConsumptionInput: t('quantity'),
-            tableHeader: [t('emissionFactor'), t('values'), t('emissionFactor'), t('uncertainty'), t('total')]
+            titleAnnualConsumptionInput: t('meals'),
+            tableHeader: [t('emissionFactor'), t('quantity'), t('value'), t('uncertainty'), t('total')]
         },
         {
             id: 6,
@@ -51,7 +51,7 @@ export const useDataToFill = () => {
             type: "table",
             titleSelectInput: t('foodService'),
             titleAnnualConsumptionInput: t('quantity'),
-            tableHeader: [t('emissionFactor'), t('values'), t('emissionFactor'), t('uncertainty'), t('total')]
+            tableHeader: [t('emissionFactor'), t('quantity'), t('value'), t('uncertainty'), t('total')]
         },
         {
             id: 7,
@@ -59,7 +59,7 @@ export const useDataToFill = () => {
             type: "table",
             titleSelectInput: t('meanOfTravel'),
             titleAnnualConsumptionInput: `${t('quantity')}`,
-            tableHeader: [t('emissionFactor'), t('values'), t('emissionFactor'), t('uncertainty'), t('total')]
+            tableHeader: [t('emissionFactor'), t('quantity'), t('value'), t('uncertainty'), t('total')]
         },
         {
             id: 8,
@@ -67,23 +67,23 @@ export const useDataToFill = () => {
             type: "table",
             titleSelectInput: t('meanOfTravel'),
             titleAnnualConsumptionInput: `${t('quantity')}`,
-            tableHeader: [t('emissionFactor'), t('values'), t('emissionFactor'), t('uncertainty'), t('total')]
+            tableHeader: [t('emissionFactor'), t('quantity'), t('value'), t('uncertainty'), t('total')]
         },
         {
             id: 9,
-            category: 'personnel-travel',
+            category: 'personnelTravel',
             type: "table",
             titleSelectInput: t('meanOfTravel'),
             titleAnnualConsumptionInput: `${t('quantity')}`,
-            tableHeader: [t('emissionFactor'), t('values'), t('emissionFactor'), t('uncertainty'), t('total')]
+            tableHeader: [t('emissionFactor'), t('quantity'), t('value'), t('uncertainty'), t('total')]
         },
         {
             id: 10,
-            category: 'school-trips',
+            category: 'schoolTrips',
             type: "table",
             titleSelectInput: t('schoolTrips'),
             titleAnnualConsumptionInput: `${t('quantity')}`,
-            tableHeader: [t('emissionFactor'), t('values'), t('emissionFactor'), t('uncertainty'), t('total')]
+            tableHeader: [t('emissionFactor'), t('quantity'), t('value'), t('uncertainty'), t('total')]
         },
         {
             id: 11,
@@ -91,7 +91,7 @@ export const useDataToFill = () => {
             type: "input",
             titleSelectInput: t('kindOfEmissionFactor'),
             titleAnnualConsumptionInput: t('quantity'),
-            tableHeader: [t('emissionFactor'), t('values'), t('emissionFactor'), t('uncertainty'), t('total')]
+            tableHeader: [t('emissionFactor'), t('quantity'), t('value'), t('uncertainty'), t('total')]
         },
         {
             id: 12,
@@ -99,7 +99,7 @@ export const useDataToFill = () => {
             type: "input",
             titleSelectInput: t('kindOfEmissionFactor'),
             titleAnnualConsumptionInput: `${t('quantity')}`,
-            tableHeader: [t('emissionFactor'), t('values'), t('emissionFactor'), t('uncertainty'), t('total')]
+            tableHeader: [t('emissionFactor'), t('quantity'), t('value'), t('uncertainty'), t('total')]
         },
         {
             id: 13,
@@ -107,7 +107,7 @@ export const useDataToFill = () => {
             type: "table",
             titleSelectInput: t('kindOfEmissionFactor'),
             titleAnnualConsumptionInput: `${t('quantity')}`,
-            tableHeader: [t('emissionFactor'), t('values'), t('emissionFactor'), t('uncertainty'), t('total')]
+            tableHeader: [t('emissionFactor'), t('quantity'), t('value'), t('uncertainty'), t('total')]
         },
         {
             id: 14,
@@ -115,7 +115,7 @@ export const useDataToFill = () => {
             type: "input",
             titleSelectInput: t('kindOfInfrastructure'),
             titleAnnualConsumptionInput: `${t('quantity')}`,
-            tableHeader: [t('emissionFactor'), t('values'), t('emissionFactor'), t('uncertainty'), t('total')]
+            tableHeader: [t('emissionFactor'), t('quantity'), t('value'), t('uncertainty'), t('total')]
 
         },
         {
@@ -124,7 +124,7 @@ export const useDataToFill = () => {
             type: "input",
             titleSelectInput: t('kindOfEmissionFactor'),
             titleAnnualConsumptionInput: `${t('quantity')}`,
-            tableHeader: [t('emissionFactor'), t('values'), t('emissionFactor'), t('uncertainty'), t('total')]
+            tableHeader: [t('emissionFactor'), t('quantity'), t('value'), t('uncertainty'), t('total')]
 
         },
     ];

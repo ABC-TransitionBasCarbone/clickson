@@ -14,6 +14,9 @@ import { DataToFill } from "@/src/types/DataToFill";
 import { SessionSubCategory } from "@/src/types/SessionSubCategory";
 import { useTranslations } from "next-intl";
 import HomeIcon from '@mui/icons-material/Home';
+import { getGroup } from "@/api/groups";
+import { School } from "@/src/types/School";
+import { getSchoolById } from "@/api/schools";
 
 interface ActivityDataFormProps {
     dataToFill: DataToFill[];
@@ -24,6 +27,7 @@ export const ActivityDataForm = ({ dataToFill }: ActivityDataFormProps) => {
     const router = useRouter();
 
     const [loading, setLoading] = useState<boolean>(true);
+    const [school, setSchool] = useState<School>();
     const t = useTranslations('category');
 
     const [sessionSubCategories, setSessionSubCategories] = useState<SessionSubCategory[]>([]);
@@ -38,7 +42,14 @@ export const ActivityDataForm = ({ dataToFill }: ActivityDataFormProps) => {
             dataToFill: dataToFill.find(header => subcategory.idEmissionSubCategory === header.id)
         })))
 
+
+        getSchool()
         setLoading(false)
+    }
+
+    const getSchool = async () => {
+        const group = await getGroup(params.idgroup)
+        setSchool(await getSchoolById(group.idSchool))
     }
 
     useEffect(() => {
@@ -50,7 +61,7 @@ export const ActivityDataForm = ({ dataToFill }: ActivityDataFormProps) => {
             <CircularProgress />
         </Box>
         : <StyledContainer>
-            <Button onClick={() => router.back()} sx={{ marginBottom: 2 }} variant="outlined" startIcon={<HomeIcon />}>
+            <Button onClick={() => router.push("/dashboard/" + params.idgroup)} sx={{ marginBottom: 2 }} variant="outlined" startIcon={<HomeIcon />}>
                 {t('home')}
             </Button>
 
@@ -60,7 +71,9 @@ export const ActivityDataForm = ({ dataToFill }: ActivityDataFormProps) => {
                     <Stack spacing={2} marginTop={2} marginBottom={2} sx={{ flexDirection: "row" }}>
                         <ActivityDataFormDescription description={category.emissionSubCategory.detail} />
                         <Stack sx={{ marginLeft: "24px !important", flex: 1 }}>
-                            <QuestionTypeComponent sessionSubCategoryProp={category} />
+                            <QuestionTypeComponent
+                                schoolYear={school?.establishmentYear}
+                                sessionSubCategoryProp={category} />
                         </Stack>
                     </Stack>
                 </Stack>

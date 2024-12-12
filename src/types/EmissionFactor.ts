@@ -7,4 +7,5 @@ export interface EmissionFactor {
     unit?: string;
     value: number;
     uncertainty?: number;
+    depreciationPeriod?: number;
 }

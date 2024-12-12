@@ -49,8 +49,11 @@ export default function SignUp() {
     }
 
     const fetchCountries = async () => {
-        const data = await getCountries()
-        setCountries(data);
+        const coutriesData = await getCountries()
+        const france = coutriesData.find(country => country.nameFr === 'France') as Country
+        coutriesData.splice(coutriesData.indexOf(france), 1)
+        coutriesData.unshift(france)
+        setCountries(coutriesData)
     }
 
     const onSignUp = async (event: FormEvent<HTMLFormElement>) => {
