@@ -57,7 +57,7 @@ export default function SessionsBoard() {
             return
         }
         const userSession = await getUserCookies()
-        const createdSession = await createSession(formData.get("sessionName")?.toString() || "", userSession.school.id)
+        const createdSession = await createSession(formData.get("sessionName")?.toString() || "", userSession.school.id || "")
         setSessions(sessions.concat(createdSession))
         setLoading(false);
     }

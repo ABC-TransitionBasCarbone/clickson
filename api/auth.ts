@@ -2,6 +2,7 @@
 
 import { cookies } from "next/headers";
 import { getSchool } from "./schools";
+import { User } from "@/src/types/User";
 
 const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
 
@@ -47,8 +48,8 @@ export async function logout() {
 
 export async function getUserCookies() {
     const userCookies = cookies().get("user")?.value;
-    if (!userCookies) return {};
-    return JSON.parse(userCookies);
+    if (!userCookies) return {} as User;
+    return JSON.parse(userCookies) as User;
 }
 
 export async function signUp(formData: FormData) {

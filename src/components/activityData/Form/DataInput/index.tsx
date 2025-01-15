@@ -64,7 +64,7 @@ export const DataInput = (props: DataInputProps) => {
             <FormControl className={classes.form}>
                 <Typography className={classes.label}>{props.annualConsumptionText}</Typography>
                 <OutlinedInput
-                    type='text'
+                    type='number'
                     endAdornment={<InputAdornment position="end">{emission.emissionFactor.unit}</InputAdornment>}
                     value={emission.value}
                     onChange={handleEmissionValueChange}
