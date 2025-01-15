@@ -8,8 +8,8 @@ export interface EmissionFactorFormProps {
 }
 
 export const EmissionFactorForm: React.FC<EmissionFactorFormProps> = ({ factor, keys, handleInputChange }) => (<div>
-    {keys.map(key => (
-        <EmissionFactorFormField fieldKey={key} id={factor.id} value={factor[key as keyof EmissionFactor]} handleInputChange={handleInputChange} />
+    {keys.map((key, id) => (
+        <EmissionFactorFormField key={id} fieldKey={key} id={factor.id} value={factor[key as keyof EmissionFactor]} handleInputChange={handleInputChange} />
     ))}
 </div>);
 

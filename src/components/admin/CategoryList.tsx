@@ -15,8 +15,8 @@ export const CategoryList: React.FC<CategoryListProps> = ({ categories, keys, ha
         {categories.map(category => (
             <div key={category.id}>
                 <Typography variant="h4">{category.id + " " + category.label}</Typography>
-                {category.emissionSubCategories?.map(subCategory => (
-                    <SubCategoryList subCategory={subCategory} keys={keys} handleInputChange={handleInputChange} createFE={createFE} />
+                {category.emissionSubCategories?.map((subCategory, i) => (
+                    <SubCategoryList key={i} subCategory={subCategory} keys={keys} handleInputChange={handleInputChange} createFE={createFE} />
                 ))}
             </div>
         ))}

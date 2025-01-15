@@ -71,10 +71,7 @@ export default function Admin() {
     }, [router]);
 
     const handleInputChange = useCallback((id: string, key: keyof EmissionFactor | string, event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, toUpdate?: boolean) => {
-        console.log("🚀 ~ handleInputChange ~ toUpdate:", toUpdate)
         const value = formatInput(key, event);
-        console.log("🚀 ~ handleInputChange ~ key:", key)
-        console.log("🚀 ~ handleInputChange ~ value:", value)
         dispatch({ type: 'UPDATE_FACTOR', payload: { id, key, value } });
         toUpdate && updateEmissionFactor({ id, [key]: value } as unknown as EmissionFactor);
     }, []);
