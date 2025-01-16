@@ -1,6 +1,6 @@
 'use client'
 
-import { FormControl, Stack, MenuItem, OutlinedInput, Select, Typography, SelectChangeEvent, InputAdornment } from "@mui/material";
+import { FormControl, Stack, MenuItem, Select, Typography, SelectChangeEvent, InputAdornment, TextField } from "@mui/material";
 import { KeyboardArrowDown } from "@mui/icons-material";
 import { useTranslations } from 'next-intl'
 import { PrimaryButton } from "@/src/components/buttons/primaryButton";
@@ -63,9 +63,11 @@ export const DataInput = (props: DataInputProps) => {
         <Stack className={classes.input}>
             <FormControl className={classes.form}>
                 <Typography className={classes.label}>{props.annualConsumptionText}</Typography>
-                <OutlinedInput
+                <TextField
                     type='number'
-                    endAdornment={<InputAdornment position="end">{emission.emissionFactor.unit}</InputAdornment>}
+                    InputProps={{
+                        endAdornment: <InputAdornment position="end">{emission.emissionFactor.unit}</InputAdornment>,
+                    }}
                     value={emission.value}
                     onChange={handleEmissionValueChange}
                 />
