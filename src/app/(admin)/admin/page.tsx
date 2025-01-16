@@ -4,11 +4,13 @@ import { useState, useEffect, useCallback, useReducer } from 'react';
 import { useRouter } from 'next/navigation';
 import { CircularProgress, Container } from '@mui/material';
 import { getUserCookies } from '@/api/auth';
-import { createEmissionFactor, getEmissionFactors, updateEmissionFactor } from '@/api/emissions';
+import { createEmissionFactor, deleteEmissionFactor, getEmissionFactors, updateEmissionFactor } from '@/api/emissions';
 import { Category } from '@/src/types/Category';
 import { EmissionFactor } from '@/src/types/EmissionFactor';
 import { CategoryList } from '@/src/components/admin/CategoryList';
 import { Header } from '@/src/components/login/header';
+import { updateCategory, updateSubCategory } from '@/api/categories';
+import { SubCategory } from '@/src/types/SubCategory';
 
 const keys = ['label', 'type', 'value', 'unit', 'uncertainty', 'depreciationPeriod'];
 
@@ -32,6 +34,14 @@ const categoriesReducer = (state: Category[], action: any) => {
                         }
                         return factor;
                     })
+                }))
+            }));
+        case 'DELETE_FACTOR':
+            return state.map(category => ({
+                ...category,
+                emissionSubCategories: category.emissionSubCategories?.map(subCategory => ({
+                    ...subCategory,
+                    emissionFactors: subCategory.emissionFactors.filter(factor => factor.id !== action.payload)
                 }))
             }));
         case 'ADD_FACTOR':
@@ -70,13 +80,19 @@ export default function Admin() {
         checkAuthAndFetchData();
     }, [router]);
 
-    const handleInputChange = useCallback((id: string, key: keyof EmissionFactor | string, event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, toUpdate?: boolean) => {
+    const handleInputChange = useCallback((id: string, key: string, event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, toUpdate?: boolean) => {
+        if (key === 'delete') {
+            deleteEmissionFactor({ id: Number(id) } as unknown as EmissionFactor);
+            dispatch({ type: 'DELETE_FACTOR', payload: id });
+            return;
+        }
+
         const value = formatInput(key, event);
         dispatch({ type: 'UPDATE_FACTOR', payload: { id, key, value } });
         toUpdate && updateEmissionFactor({ id, [key]: value } as unknown as EmissionFactor);
     }, []);
 
-    const createFE = useCallback((idEmissionCategorie: number, idLanguage: number, key: keyof EmissionFactor | string, event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const createFE = useCallback((idEmissionCategorie: number, idLanguage: number, key: string, event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         event.preventDefault();
         const value = formatInput(key, event);
         if (value === '' || value === 0) return;
@@ -96,11 +112,25 @@ export default function Admin() {
         );
     }, [categories]);
 
+    function modifyCategory(category: Category | SubCategory): void {
+        updateCategory(category);
+    }
+
+    function modifySubCategory(subCategory: Category | SubCategory): void {
+        updateSubCategory(subCategory);
+    }
+
     return (
         <>
             <Header />
             <Container maxWidth="xl" sx={{ mt: 10 }}>
-                {loading ? <CircularProgress /> : <CategoryList categories={categories} keys={keys} handleInputChange={handleInputChange} createFE={createFE} />}
+                {loading ? <CircularProgress /> : <CategoryList
+                    categories={categories}
+                    keys={keys}
+                    handleInputChange={handleInputChange}
+                    modifyCategory={modifyCategory}
+                    modifySubCategory={modifySubCategory}
+                    createFE={createFE} />}
             </Container>
         </>
     );

@@ -22,7 +22,6 @@ export const EmissionFactorFormField: React.FC<EmissionFactorFormFieldProps> = (
             onBlur={(event) => handleInputChange(id, fieldKey, event, true)}
             variant="outlined"
             margin="normal" />
-
     </>
 
 }

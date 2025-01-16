@@ -10,7 +10,6 @@ const myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 
 export async function createEmissionFactor(emissionFactor: EmissionFactor) {
-    console.log("🚀 ~ createEmissionFactor ~ emissionFactor:", emissionFactor)
     const data = JSON.stringify(emissionFactor)
 
     const requestOptions = {
@@ -22,13 +21,29 @@ export async function createEmissionFactor(emissionFactor: EmissionFactor) {
     const result = await fetch(urlApi + "/emission-factors", requestOptions)
     const emissionFactorData = await result.json()
     if (emissionFactorData.errors) {
-        throw new Error("Failed to update group")
+        throw new Error("Failed to create EmissionFactor")
+    }
+    return emissionFactorData as EmissionFactor
+}
+
+export async function deleteEmissionFactor(emissionFactor: EmissionFactor) {
+    const data = JSON.stringify(emissionFactor)
+
+    const requestOptions = {
+        method: "DELETE",
+        headers: myHeaders,
+        body: data
+    } as RequestInit;
+
+    const result = await fetch(urlApi + "/emission-factors", requestOptions)
+    const emissionFactorData = await result.json()
+    if (emissionFactorData.errors) {
+        throw new Error("Failed to delete EmissionFactor")
     }
     return emissionFactorData as EmissionFactor
 }
 
 export async function updateEmissionFactor(emissionFactor: EmissionFactor) {
-    console.log("🚀 ~ updateEmissionFactor ~ emissionFactor:", emissionFactor)
     const data = JSON.stringify(emissionFactor)
 
     const requestOptions = {
@@ -40,7 +55,7 @@ export async function updateEmissionFactor(emissionFactor: EmissionFactor) {
     const result = await fetch(urlApi + "/emission-factors", requestOptions)
     const emissionFactorData = await result.json()
     if (emissionFactorData.errors) {
-        throw new Error("Failed to update group")
+        throw new Error("Failed to update EmissionFactor")
     }
     return emissionFactorData as EmissionFactor
 }

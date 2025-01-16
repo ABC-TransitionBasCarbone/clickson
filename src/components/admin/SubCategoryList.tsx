@@ -1,17 +1,21 @@
-import { TextField, Typography } from '@mui/material';
+import { TextField } from '@mui/material';
 import { EmissionFactor } from '@/src/types/EmissionFactor';
 import { EmissionFactorForm } from './EmissionFactorForm';
+import { CategoryInput } from './CategoryInput';
+import { SubCategory } from '@/src/types/SubCategory';
+import { Category } from '@/src/types/Category';
 
 interface SubCategoryListProps {
     subCategory: any;
     keys: string[];
-    handleInputChange: (id: string, key: keyof EmissionFactor | string, event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, toUpdate?: boolean) => void;
-    createFE: (idEmissionCategorie: number, idLanguage: number, key: keyof EmissionFactor | string, event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+    modifySubCategory: (category: Category | SubCategory) => void;
+    handleInputChange: (id: string, key: string, event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, toUpdate?: boolean) => void;
+    createFE: (idEmissionCategorie: number, idLanguage: number, key: string, event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 }
 
-export const SubCategoryList: React.FC<SubCategoryListProps> = ({ subCategory, keys, handleInputChange, createFE }) => (
-    <div key={subCategory.id} >
-        <Typography variant="h6" > {subCategory.id + " " + subCategory.label} </Typography>
+export const SubCategoryList: React.FC<SubCategoryListProps> = ({ subCategory, keys, handleInputChange, createFE, modifySubCategory }) => (
+    <div style={{ marginLeft: 10 }} key={subCategory.id} >
+        <CategoryInput category={subCategory} modifyCategory={modifySubCategory} />
         {
             subCategory.emissionFactors.map((factor: EmissionFactor) => (
                 <EmissionFactorForm key={factor.id} factor={factor} keys={keys} handleInputChange={handleInputChange} />
@@ -27,8 +31,9 @@ export const SubCategoryList: React.FC<SubCategoryListProps> = ({ subCategory, k
                     variant="outlined"
                     margin="normal"
                 />
-            ))}
-    </div>
+            ))
+        }
+    </div >
 );
 
 function isText(key: string) {

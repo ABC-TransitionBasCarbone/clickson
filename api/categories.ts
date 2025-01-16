@@ -2,10 +2,45 @@
 
 import { Category } from "@/src/types/Category";
 import { SessionCategory } from "@/src/types/SessionCategory";
+import { SubCategory } from "@/src/types/SubCategory";
 
 const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
 const myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
+
+export async function updateSubCategory(subCategory: Category | SubCategory) {
+    const data = JSON.stringify(subCategory)
+
+    const requestOptions = {
+        method: "PUT",
+        headers: myHeaders,
+        body: data
+    } as RequestInit;
+
+    const result = await fetch(urlApi + "/emission/sub-categories", requestOptions)
+    const categories = await result.json()
+    if (categories.errors) {
+        throw new Error("Failed to update emission/categories")
+    }
+    return categories as Category
+}
+
+export async function updateCategory(category: Category | SubCategory) {
+    const data = JSON.stringify(category)
+
+    const requestOptions = {
+        method: "PUT",
+        headers: myHeaders,
+        body: data
+    } as RequestInit;
+
+    const result = await fetch(urlApi + "/emission/categories", requestOptions)
+    const categories = await result.json()
+    if (categories.errors) {
+        throw new Error("Failed to update emission/categories")
+    }
+    return categories as Category
+}
 
 export async function getCategories(idLanguage: number) {
     try {
