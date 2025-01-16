@@ -16,7 +16,7 @@ export const EmissionFactorFormField: React.FC<EmissionFactorFormFieldProps> = (
         <TextField
             key={id}
             type={isText(fieldKey) ? 'text' : 'number'}
-            value={factorData}
+            value={factorData || ''}
             label={fieldKey}
             onChange={(event) => setFactorData(isText(fieldKey) ? event.target.value : Number(event.target.value))}
             onBlur={(event) => handleInputChange(id, fieldKey, event, true)}

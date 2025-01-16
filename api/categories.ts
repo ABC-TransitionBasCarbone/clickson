@@ -12,24 +12,25 @@ export async function updateSubCategory(subCategory: Category | SubCategory) {
     const data = JSON.stringify(subCategory)
 
     const requestOptions = {
-        method: "PUT",
+        method: subCategory.id > 0 ? "PUT" : "POST",
         headers: myHeaders,
         body: data
     } as RequestInit;
 
     const result = await fetch(urlApi + "/emission/sub-categories", requestOptions)
-    const categories = await result.json()
-    if (categories.errors) {
-        throw new Error("Failed to update emission/categories")
+    const subCategories = await result.json()
+    if (subCategories.errors) {
+        throw new Error("Failed to update emission/sub-categories")
     }
-    return categories as Category
+    return subCategories as Category
 }
 
 export async function updateCategory(category: Category | SubCategory) {
+    console.log("🚀 ~ updateCategory ~ category:", category)
     const data = JSON.stringify(category)
 
     const requestOptions = {
-        method: "PUT",
+        method: category.id > 0 ? "PUT" : "POST",
         headers: myHeaders,
         body: data
     } as RequestInit;

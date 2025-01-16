@@ -8,5 +8,6 @@ export interface Category {
     detail: string;
     locked: boolean;
     subCategories: SubCategory[];
+    idLanguage: number;
     emissionSubCategories?: SubCategory[];
 }

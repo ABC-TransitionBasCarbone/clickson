@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useReducer } from 'react';
 import { useRouter } from 'next/navigation';
-import { CircularProgress, Container } from '@mui/material';
+import { CircularProgress, Container, Typography } from '@mui/material';
 import { getUserCookies } from '@/api/auth';
 import { createEmissionFactor, deleteEmissionFactor, getEmissionFactors, updateEmissionFactor } from '@/api/emissions';
 import { Category } from '@/src/types/Category';
@@ -113,11 +113,15 @@ export default function Admin() {
     }, [categories]);
 
     function modifyCategory(category: Category | SubCategory): void {
-        updateCategory(category);
+        console.log("🚀 ~ modifyCategory ~ category:", category)
+
+        updateCategory(category)
     }
 
     function modifySubCategory(subCategory: Category | SubCategory): void {
-        updateSubCategory(subCategory);
+        console.log("🚀 ~ modifySubCategory ~ subCategory:", subCategory)
+
+        updateSubCategory(subCategory)
     }
 
     return (
