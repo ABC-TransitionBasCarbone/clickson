@@ -113,14 +113,10 @@ export default function Admin() {
     }, [categories]);
 
     function modifyCategory(category: Category | SubCategory): void {
-        console.log("🚀 ~ modifyCategory ~ category:", category)
-
         updateCategory(category)
     }
 
     function modifySubCategory(subCategory: Category | SubCategory): void {
-        console.log("🚀 ~ modifySubCategory ~ subCategory:", subCategory)
-
         updateSubCategory(subCategory)
     }
 

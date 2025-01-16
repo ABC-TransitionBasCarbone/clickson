@@ -26,7 +26,6 @@ export async function updateSubCategory(subCategory: Category | SubCategory) {
 }
 
 export async function updateCategory(category: Category | SubCategory) {
-    console.log("🚀 ~ updateCategory ~ category:", category)
     const data = JSON.stringify(category)
 
     const requestOptions = {

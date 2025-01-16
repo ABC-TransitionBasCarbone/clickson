@@ -58,5 +58,13 @@ export const CategoryInput: React.FC<CategoryInputProps> = ({ category, modifyCa
             onBlur={(event) => handleBlur('label', event)}
             value={categoryData.label || ''}
         />
+        {categoryData.id > 0 && <TextField
+            sx={{ mt: 2 }}
+            label={"Details"}
+            type="text"
+            onChange={(event) => handleChange('label', event)}
+            onBlur={(event) => handleBlur('label', event)}
+            value={categoryData.detail || ''}
+        />}
     </>;
 };
