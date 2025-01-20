@@ -62,8 +62,8 @@ export const CategoryInput: React.FC<CategoryInputProps> = ({ category, modifyCa
             sx={{ mt: 2 }}
             label={"Details"}
             type="text"
-            onChange={(event) => handleChange('label', event)}
-            onBlur={(event) => handleBlur('label', event)}
+            onChange={(event) => handleChange('detail', event)}
+            onBlur={(event) => handleBlur('detail', event)}
             value={categoryData.detail || ''}
         />}
     </>;

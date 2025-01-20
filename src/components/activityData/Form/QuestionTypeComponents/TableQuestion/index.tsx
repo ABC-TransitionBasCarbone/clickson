@@ -61,7 +61,7 @@ export const QuestionTypeComponent = ({ sessionSubCategoryProp, schoolYear }: Qu
         const currentYear = new Date().getFullYear()
 
         let totalEmission = emission.value * emission.emissionFactor.value
-        if (emission.emissionFactor.depreciationPeriod && schoolYear) {
+        if (emission.emissionFactor.depreciationPeriod && emission.emissionFactor.depreciationPeriod > 0 && schoolYear) {
             if ((currentYear - schoolYear) > emission.emissionFactor.depreciationPeriod) {
                 totalEmission = 0
             }

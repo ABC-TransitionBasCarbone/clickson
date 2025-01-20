@@ -1,9 +1,11 @@
-'use client';
+'use client'
 
 import Link from "next/link";
 import { styled } from "@mui/system";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { Language } from "@/src/types/Language";
+import { setLanguageCookie } from "@/api/languages";
 
 const languages: Language[] = [
     { code: 'en', name: 'English', image: "https://flagcdn.com/h20/gb.png" },
@@ -26,13 +28,23 @@ const LanguageMenu = styled('ul')(({ theme }) => ({
 }));
 
 export default function LanguageSwitcher() {
+    const router = useRouter();
+
+    const handleLanguageSwitch = (code: string) => {
+        setLanguageCookie(code);
+
+    };
+
     return (
         <LanguageMenu>
             {languages.map(({ code, name, image }) => (
                 <li key={code}>
                     <Link
-                        href={``}
-                        onClick={() => { }}
+                        href="#"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            handleLanguageSwitch(code);
+                        }}
                     >
                         <Image
                             src={image}
