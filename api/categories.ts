@@ -9,7 +9,7 @@ const myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 
 export async function updateSubCategory(subCategory: Category | SubCategory) {
-    const data = JSON.stringify(subCategory)
+    const data = JSON.stringify({ ...subCategory, idEmissionCategory: subCategory.idEmissionCategory });
 
     const requestOptions = {
         method: subCategory.id > 0 ? "PUT" : "POST",
@@ -55,7 +55,7 @@ export async function getSessionCategories(idSessionStudent: string, categories:
     try {
         const result = await fetch(urlApi + "/session-categories/" + idSessionStudent);
         let sessionCategories = await result.json() as SessionCategory[];
-        sessionCategories = sessionCategories.map((sessionCategory, index) => ({ ...sessionCategory, idEmissionCategorie: categories[index].id }))
+        sessionCategories = sessionCategories.map((sessionCategory, index) => ({ ...sessionCategory, idEmissionCategory: categories[index].id }))
 
         return sessionCategories
     } catch (error) {

@@ -2,7 +2,7 @@ import { EmissionFactor } from "./EmissionFactor";
 
 export interface SubCategory {
     id: number;
-    idEmissionCategorie: number;
+    idEmissionCategory: number;
     idLanguage?: number;
     label: string;
     detail: string;

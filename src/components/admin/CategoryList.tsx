@@ -11,7 +11,7 @@ interface CategoryListProps {
     handleInputChange: (id: string, key: string, event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, toUpdate?: boolean) => void;
     modifyCategory: (category: Category | SubCategory) => void;
     modifySubCategory: (category: Category | SubCategory) => void;
-    createFE: (idEmissionCategorie: number, idLanguage: number, key: string, event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+    createFE: (idEmissionCategory: number, idLanguage: number, key: string, event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 }
 
 export const CategoryList: React.FC<CategoryListProps> = ({ categories, keys, handleInputChange, modifyCategory, modifySubCategory, createFE }) => (
@@ -19,16 +19,16 @@ export const CategoryList: React.FC<CategoryListProps> = ({ categories, keys, ha
         {categories.map(category => (
             <div key={category.id}>
                 <CategoryInput category={category} modifyCategory={modifyCategory} />
-                <Grid display={'flex'} alignItems={'center'} sx={{ mt: 2, mb: 2 }}>
+                {/* <Grid display={'flex'} alignItems={'center'} sx={{ mt: 2, mb: 2 }}>
                     <Typography sx={{ mt: 2, mr: 2 }}>Nouvelle Catégorie </Typography>
                     <CategoryInput category={{ ...category, id: 0, label: "" }} modifyCategory={modifyCategory} />
-                </Grid>
+                </Grid> */}
                 {category.emissionSubCategories?.map((subCategory, i) => (
                     <SubCategoryList key={i} subCategory={subCategory} keys={keys} modifySubCategory={modifySubCategory} handleInputChange={handleInputChange} createFE={createFE} />
                 ))}
                 <Grid display={'flex'} alignItems={'center'} sx={{ m: 2 }}>
                     <Typography sx={{ mt: 2, mr: 2, ml: 4 }}>Nouvelle Sous Catégorie </Typography>
-                    <CategoryInput category={{ ...category, idEmissionCategorie: category.id, id: 0, label: "" }} modifyCategory={modifySubCategory} />
+                    <CategoryInput category={{ ...category, idEmissionCategory: category.id, id: 0, label: "" }} modifyCategory={modifySubCategory} />
                 </Grid>
             </div>
         ))}

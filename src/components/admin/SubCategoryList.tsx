@@ -11,7 +11,7 @@ interface SubCategoryListProps {
     keys: string[];
     modifySubCategory: (category: Category | SubCategory) => void;
     handleInputChange: (id: string, key: string, event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, toUpdate?: boolean) => void;
-    createFE: (idEmissionCategorie: number, idLanguage: number, key: string, event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+    createFE: (idEmissionCategory: number, idLanguage: number, key: string, event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 }
 
 export const SubCategoryList: React.FC<SubCategoryListProps> = ({ subCategory, keys, handleInputChange, createFE, modifySubCategory }) => (

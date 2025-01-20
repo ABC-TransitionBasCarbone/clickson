@@ -92,7 +92,7 @@ export default function Admin() {
         toUpdate && updateEmissionFactor({ id, [key]: value } as unknown as EmissionFactor);
     }, []);
 
-    const createFE = useCallback((idEmissionCategorie: number, idLanguage: number, key: string, event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const createFE = useCallback((idEmissionCategory: number, idLanguage: number, key: string, event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         event.preventDefault();
         const value = formatInput(key, event);
         if (value === '' || value === 0) return;
@@ -104,11 +104,11 @@ export default function Admin() {
             uncertainty: 0,
             depreciationPeriod: 0,
             [key]: value,
-            idEmissionSubCategory: idEmissionCategorie,
+            idEmissionSubCategory: idEmissionCategory,
             idLanguage: idLanguage
         } as unknown as EmissionFactor;
         createEmissionFactor(newFactor).then((factor) =>
-            dispatch({ type: 'ADD_FACTOR', payload: { idEmissionSubCategory: idEmissionCategorie, newFactor: factor } })
+            dispatch({ type: 'ADD_FACTOR', payload: { idEmissionSubCategory: idEmissionCategory, newFactor: factor } })
         );
     }, [categories]);
 
