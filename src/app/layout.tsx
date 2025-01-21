@@ -20,6 +20,7 @@ interface Props {
 
 const RootLayout = async ({ children }: Readonly<Props>) => {
     const locale = await getLocale()
+    console.log("🚀 ~ RootLayout ~ locale:", locale)
 
     // Providing all messages to the client
     // side is the easiest way to get started

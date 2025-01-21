@@ -11,6 +11,8 @@ export const getLocale = async (): Promise<LocaleType> => {
 }
 
 export const switchLocale = async (value: LocaleType) => {
+  console.log('switchLocale', value)
   const cookies = getCookies()
+  console.log('cookies', cookies)
   cookies.set(COOKIE_NAME, value)
 }
