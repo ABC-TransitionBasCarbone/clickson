@@ -17,6 +17,9 @@ import HomeIcon from '@mui/icons-material/Home';
 import { getGroup } from "@/api/groups";
 import { School } from "@/src/types/School";
 import { getSchoolById } from "@/api/schools";
+import { getLocale } from "@/src/i18n/locale";
+import { routing } from "@/src/i18n/routing";
+import { getSubCategories } from "@/api/categories";
 
 interface ActivityDataFormProps {
     dataToFill: DataToFill[];
@@ -32,17 +35,21 @@ export const ActivityDataForm = ({ dataToFill }: ActivityDataFormProps) => {
 
     const [sessionSubCategories, setSessionSubCategories] = useState<SessionSubCategory[]>([]);
 
-    const getSubCategories = async () => {
+    const getCategoryData = async () => {
         setLoading(true)
         const sessionCategory = await getSessionSubCategoriesWithIdSessionCategory(params.idsessioncategory)
+        const locale = await getLocale()
+        const idLang = routing.locales.findIndex(l => l === locale) + 1
+        const subCategories = await getSubCategories(idLang)
+        console.log(subCategories)
 
-        setSessionSubCategories(sessionCategory.sessionEmissionSubCategories.map(subcategory => ({
+        setSessionSubCategories(sessionCategory.sessionEmissionSubCategories.map((subcategory, index) => ({
             ...subcategory,
+            emissionSubCategory: subCategories[subcategory.idEmissionSubCategory - 1],
             locked: sessionCategory.locked,
             dataToFill: dataToFill.find(header => subcategory.idEmissionSubCategory === header.id)
         })))
-
-
+        console.log(sessionCategory)
         getSchool()
         setLoading(false)
     }
@@ -53,7 +60,7 @@ export const ActivityDataForm = ({ dataToFill }: ActivityDataFormProps) => {
     }
 
     useEffect(() => {
-        getSubCategories()
+        getCategoryData()
     }, []);
 
     return loading ?
