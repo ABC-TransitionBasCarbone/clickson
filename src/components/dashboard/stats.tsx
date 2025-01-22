@@ -34,13 +34,6 @@ const StatsWrapper = styled('div')`
     margin-bottom: 80px;
 `
 
-const CustomH6 = styled('h6')`
-    font-size: 1rem;
-    line-height: 1.2;
-    font-weight: 500;
-    margin-top: 1rem;
-`
-
 const DownloadButton = styled(Button)(({ theme }) => ({
     border: `1px solid ${theme.palette.secondary.main}`,
     color: theme.palette.secondary.main,
@@ -59,7 +52,6 @@ const DownloadButton = styled(Button)(({ theme }) => ({
 interface Props {
     session: Session,
 }
-
 
 export const Stats = ({ session }: Props) => {
     const theme = useTheme();
@@ -83,15 +75,13 @@ export const Stats = ({ session }: Props) => {
                     return acc + Number(emission.total)
                 }, 0)
                 excelData[index] = (excelData[index] || 0) + subTotal;
-
             });
         });
 
+
         setExcelData(excelData);
         setTotal(excelData.reduce((acc, value) => { return acc + value }))
-
     }, [excelData]);
-
 
     const handleExport = async () => {
         try {
@@ -103,8 +93,8 @@ export const Stats = ({ session }: Props) => {
             const workbook = new ExcelJS.Workbook();
 
             await workbook.xlsx.load(arrayBuffer);
+            const worksheet = workbook.addWorksheet('SummaryAndProfile');
 
-            const worksheet = workbook.getWorksheet('SummaryAndProfile');
             if (!worksheet) {
                 throw new Error(`Sheet not found`);
             }

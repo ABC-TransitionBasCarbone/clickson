@@ -61,14 +61,14 @@ export const DataInput = (props: DataInputProps) => {
             </FormControl>
         </Stack>
         <Stack className={classes.input}>
+
             <FormControl className={classes.form}>
                 <Typography className={classes.label}>{props.annualConsumptionText}</Typography>
                 <TextField
-                    type='number'
+                    type="number"
                     InputProps={{
                         endAdornment: <InputAdornment position="end">{emission.emissionFactor.unit}</InputAdornment>,
                     }}
-                    value={emission.value}
                     onChange={handleEmissionValueChange}
                 />
             </FormControl>

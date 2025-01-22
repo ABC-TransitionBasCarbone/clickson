@@ -41,7 +41,6 @@ export const ActivityDataForm = ({ dataToFill }: ActivityDataFormProps) => {
         const locale = await getLocale()
         const idLang = routing.locales.findIndex(l => l === locale) + 1
         const subCategories = await getSubCategories(idLang)
-        console.log(subCategories)
 
         setSessionSubCategories(sessionCategory.sessionEmissionSubCategories.map((subcategory, index) => ({
             ...subcategory,
@@ -49,7 +48,6 @@ export const ActivityDataForm = ({ dataToFill }: ActivityDataFormProps) => {
             locked: sessionCategory.locked,
             dataToFill: dataToFill.find(header => subcategory.idEmissionSubCategory === header.id)
         })))
-        console.log(sessionCategory)
         getSchool()
         setLoading(false)
     }
