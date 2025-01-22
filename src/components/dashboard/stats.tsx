@@ -92,8 +92,9 @@ export const Stats = ({ session }: Props) => {
 
             const workbook = new ExcelJS.Workbook();
 
+            console.log(workbook)
             await workbook.xlsx.load(arrayBuffer);
-            const worksheet = workbook.addWorksheet('SummaryAndProfile');
+            const worksheet = workbook.getWorksheet("Summary and profile");
 
             if (!worksheet) {
                 throw new Error(`Sheet not found`);
