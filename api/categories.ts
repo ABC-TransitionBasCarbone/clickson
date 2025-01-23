@@ -60,6 +60,15 @@ export async function getCategories(idLanguage: number) {
     }
 }
 
+export async function getCategory(id: number) {
+    try {
+        const result = await fetch(urlApi + "/emission/categorie/" + id);
+        return await result.json() as Category
+    } catch (error) {
+        throw error
+    }
+}
+
 export async function getSessionCategories(idSessionStudent: string, categories: Category[]) {
     try {
         const result = await fetch(urlApi + "/session-categories/" + idSessionStudent);

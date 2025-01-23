@@ -39,7 +39,6 @@ export const QuestionTypeComponent = ({ sessionSubCategoryProp, schoolYear }: Qu
         setLoadingData(false)
     };
 
-
     const handleDelete = async (emission: Emission) => {
         setLoadingData(true)
         setSessionSubCategory({ ...sessionSubCategory, sessionEmissions: sessionSubCategory.sessionEmissions.filter((se) => se.id !== emission.id) })
@@ -78,6 +77,8 @@ export const QuestionTypeComponent = ({ sessionSubCategoryProp, schoolYear }: Qu
             idEmissionFactor: emission.emissionFactor.id,
         })
         setSessionSubCategory({ ...sessionSubCategory, sessionEmissions: sessionSubCategory.sessionEmissions.concat({ ...emission, ...emissionData }) })
+        console.log(" sessionSubCategory ", sessionSubCategory)
+
         setSaving(false)
         setLoadingData(false)
     }

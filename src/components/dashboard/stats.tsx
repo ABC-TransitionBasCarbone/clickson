@@ -63,25 +63,33 @@ export const Stats = ({ session }: Props) => {
         t('travel'),
         t('supplies'),
         t('fixedAssets')];
-    const [excelData, setExcelData] = useState<number[]>([]);
+    const [totalCategories, setTotalCategories] = useState<number[]>([]);
+    const [totalSubCategories, setTotalSubCategorie] = useState<number[]>([]);
     const [total, setTotal] = useState(0);
 
     useEffect(() => {
         document.title = `${session.name}`;
-        if (excelData.length > 0) { return }
-        session.sessionEmissionCategories.forEach((category, index) => {
-            category.sessionEmissionSubCategories.forEach((subCategory) => {
+        if (totalCategories.length > 0) { return }
+        let idSubCategory = 0
+        session.sessionEmissionCategories.forEach((category, cIndex) => {
+            category.sessionEmissionSubCategories.forEach((subCategory, scIndex) => {
                 const subTotal = subCategory.sessionEmissions.reduce((acc, emission) => {
                     return acc + Number(emission.total)
                 }, 0)
-                excelData[index] = (excelData[index] || 0) + subTotal;
+                totalCategories[cIndex] = (totalCategories[cIndex] || 0) + subTotal;
+                idSubCategory++
+                subCategory.sessionEmissions.forEach((emission) => {
+                    totalSubCategories[idSubCategory] = (totalSubCategories[idSubCategory] || 0) + Number(emission.total);
+                })
             });
         });
 
+        console.log("session : ", session)
 
-        setExcelData(excelData);
-        setTotal(excelData.reduce((acc, value) => { return acc + value }))
-    }, [excelData]);
+        setTotalSubCategorie(totalSubCategories);
+        setTotalCategories(totalCategories);
+        setTotal(totalCategories.reduce((acc, value) => { return acc + value }))
+    }, [totalCategories]);
 
     const handleExport = async () => {
         try {
@@ -92,21 +100,23 @@ export const Stats = ({ session }: Props) => {
 
             const workbook = new ExcelJS.Workbook();
 
-            console.log(workbook)
             await workbook.xlsx.load(arrayBuffer);
-            const worksheet = workbook.getWorksheet("Summary and profile");
+            const synthese = workbook.getWorksheet("Synthèse & Profil");
 
-            if (!worksheet) {
-                throw new Error(`Sheet not found`);
+            if (!synthese) {
+                throw new Error(`synthese not found`);
             }
 
-            worksheet.getCell('B6').value = excelData[0];
-            worksheet.getCell('B7').value = excelData[1];
-            worksheet.getCell('B8').value = excelData[2];
-            worksheet.getCell('B9').value = excelData[3];
-            worksheet.getCell('B10').value = excelData[4];
+            // Fill total emissions by categories   
+            totalCategories.forEach((data, index) => {
+                synthese.getCell(`B${6 + index}`).value = data;
+            });
 
-            worksheet.getCell('B11').value = total;
+            // Fill total emissions by sub categories   
+            totalSubCategories.forEach((data, index) => {
+                synthese.getCell(`C${13 + index}`).value = data;
+            });
+
             const buffer = await workbook.xlsx.writeBuffer();
 
             const blob = new Blob([buffer], { type: 'application/octet-stream' });
@@ -165,7 +175,7 @@ export const Stats = ({ session }: Props) => {
                     </DownloadButton>
                 </InfoWrapper>
                 <ChartWrapper>
-                    <PieChart data={excelData} labels={labels} />
+                    <PieChart data={totalCategories} labels={labels} />
                 </ChartWrapper>
             </StatsGrid>
         }
@@ -180,7 +190,7 @@ export const Stats = ({ session }: Props) => {
                                 marginTop: theme.spacing(1),
                             }}
                             >
-                                {Math.round(excelData[index])} ({t('unit')})
+                                {Math.round(totalCategories[index])} ({t('unit')})
                             </Box>
                         </StatsWrapper>
                     </Grid>
