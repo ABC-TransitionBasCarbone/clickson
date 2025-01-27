@@ -25,6 +25,23 @@ export async function updateSubCategory(subCategory: Category | SubCategory) {
     return subCategories as Category
 }
 
+export async function deleteSC(subCategory: SubCategory) {
+    const data = JSON.stringify(subCategory);
+
+    const requestOptions = {
+        method: "DELETE",
+        headers: myHeaders,
+        body: data
+    } as RequestInit;
+
+    const result = await fetch(urlApi + "/emission/sub-categories/" + subCategory.id, requestOptions)
+    const subCategories = await result.json()
+    if (subCategories.errors) {
+        throw new Error("Failed to update emission/sub-categories")
+    }
+    return subCategories as Category
+}
+
 export async function updateCategory(category: Category | SubCategory) {
     const data = JSON.stringify(category)
 

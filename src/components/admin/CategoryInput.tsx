@@ -1,11 +1,12 @@
 import { Category } from '@/src/types/Category';
 import { SubCategory } from '@/src/types/SubCategory';
-import { TextField } from '@mui/material';
+import { Delete } from '@mui/icons-material';
+import { IconButton, TextField } from '@mui/material';
 import React, { useState, useEffect, useRef } from 'react';
 
 interface CategoryInputProps {
-    category: Category | SubCategory;
-    modifyCategory: (category: Category | SubCategory) => void;
+    category: Category | SubCategory
+    modifyCategory: (category: Category | SubCategory) => void
 }
 
 const useDebounce = (callback: (...args: any[]) => void, delay: number) => {
@@ -66,5 +67,5 @@ export const CategoryInput: React.FC<CategoryInputProps> = ({ category, modifyCa
             onBlur={(event) => handleBlur('detail', event)}
             value={categoryData.detail || ''}
         />}
-    </>;
+    </>
 };

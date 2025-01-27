@@ -2,14 +2,14 @@
 
 import { useState, useEffect, useCallback, useReducer } from 'react';
 import { useRouter } from 'next/navigation';
-import { CircularProgress, Container, Typography } from '@mui/material';
+import { CircularProgress, Container } from '@mui/material';
 import { getUserCookies } from '@/api/auth';
 import { createEmissionFactor, deleteEmissionFactor, getEmissionFactors, updateEmissionFactor } from '@/api/emissions';
 import { Category } from '@/src/types/Category';
 import { EmissionFactor } from '@/src/types/EmissionFactor';
 import { CategoryList } from '@/src/components/admin/CategoryList';
 import { Header } from '@/src/components/login/header';
-import { updateCategory, updateSubCategory } from '@/api/categories';
+import { deleteSC, updateCategory, updateSubCategory } from '@/api/categories';
 import { SubCategory } from '@/src/types/SubCategory';
 
 const keys = ['label', 'type', 'value', 'unit', 'uncertainty', 'depreciationPeriod'];
@@ -119,21 +119,24 @@ export default function Admin() {
     function modifySubCategory(subCategory: Category | SubCategory): void {
         updateSubCategory(subCategory)
     }
+    function deleteSubCategory(subCategory: SubCategory): void {
+        console.log("deleteSubCategory   ", subCategory)
+        deleteSC(subCategory)
+    }
 
-    return (
-        <>
-            <Header />
-            <Container maxWidth="xl" sx={{ mt: 10 }}>
-                {loading ? <CircularProgress /> : <CategoryList
-                    categories={categories}
-                    keys={keys}
-                    handleInputChange={handleInputChange}
-                    modifyCategory={modifyCategory}
-                    modifySubCategory={modifySubCategory}
-                    createFE={createFE} />}
-            </Container>
-        </>
-    );
+    return <>
+        <Header />
+        <Container maxWidth="xl" sx={{ mt: 10 }}>
+            {loading ? <CircularProgress /> : <CategoryList
+                categories={categories}
+                keys={keys}
+                handleInputChange={handleInputChange}
+                modifyCategory={modifyCategory}
+                modifySubCategory={modifySubCategory}
+                deleteSubCategory={deleteSubCategory}
+                createFE={createFE} />}
+        </Container>
+    </>
 
     function formatInput(key: string, event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
         return key === 'label' || key === 'type' || key === 'unit' ? event.target.value : Number(event.target.value);

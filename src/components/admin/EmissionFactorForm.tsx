@@ -13,7 +13,10 @@ export const EmissionFactorForm: React.FC<EmissionFactorFormProps> = ({ factor, 
     {keys.map((key, id) => (
         <EmissionFactorFormField key={id} fieldKey={key} id={factor.id} value={factor[key as keyof EmissionFactor]} handleInputChange={handleInputChange} />
     ))}
-    <IconButton sx={{ mt: 3, cursor: 'pointer' }} color="error" onClick={() => handleInputChange(factor.id, 'delete', {} as React.ChangeEvent<HTMLInputElement>)}>
+    <IconButton
+        sx={{ mt: 3, cursor: 'pointer' }}
+        color="error"
+        onClick={() => handleInputChange(factor.id, 'delete', {} as React.ChangeEvent<HTMLInputElement>)}>
         <Delete />
     </IconButton>
 </div>);
