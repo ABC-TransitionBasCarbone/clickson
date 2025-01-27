@@ -20,6 +20,7 @@ import { getSchoolById } from "@/api/schools";
 import { getLocale } from "@/src/i18n/locale";
 import { routing } from "@/src/i18n/routing";
 import { getCategories, getCategory, getSubCategories } from "@/api/categories";
+import { SubCategory } from "@/src/types/SubCategory";
 
 interface ActivityDataFormProps {
     dataToFill: DataToFill[];
@@ -27,14 +28,14 @@ interface ActivityDataFormProps {
 
 export const ActivityDataForm = ({ dataToFill }: ActivityDataFormProps) => {
     const params = useParams<UrlParams>()
-    const router = useRouter();
+    const router = useRouter()
 
-    const [loading, setLoading] = useState<boolean>(true);
-    const [school, setSchool] = useState<School>();
-    const [labelCategory, setLabelCategory] = useState("");
-    const t = useTranslations('category');
+    const [loading, setLoading] = useState<boolean>(true)
+    const [school, setSchool] = useState<School>()
+    const [labelCategory, setLabelCategory] = useState("")
+    const t = useTranslations('category')
 
-    const [sessionSubCategories, setSessionSubCategories] = useState<SessionSubCategory[]>([]);
+    const [sessionSubCategories, setSessionSubCategories] = useState<SessionSubCategory[]>([])
 
     const getCategoryData = async () => {
         setLoading(true)
@@ -42,19 +43,17 @@ export const ActivityDataForm = ({ dataToFill }: ActivityDataFormProps) => {
         const idLang = routing.locales.findIndex(l => l === locale) + 1
         const subCategories = await getSubCategories(idLang)
 
-        const sessionCategory = await getSessionSubCategoriesWithIdSessionCategory(params.idsessioncategory)
-
-        console.log("subCategories ", subCategories)
+        const sessionCategory = await getSessionSubCategoriesWithIdSessionCategory(params.idsessioncategory, idLang)
         setLabelCategory(sessionCategory.emissionCategory.label)
 
         setSessionSubCategories(sessionCategory.sessionEmissionSubCategories.map((subcategory) => ({
             ...subcategory,
-            // emissionSubCategory: subCategories[subcategory.idEmissionSubCategory - 1],
+            emissionSubCategory: subCategories.find(sc =>
+                sc.idEmissionSubCategory === subcategory.idEmissionSubCategory) || {} as SubCategory,
             locked: sessionCategory.locked,
             dataToFill: dataToFill.find(header => subcategory.idEmissionSubCategory === header.id)
         })))
 
-        console.log("sessionCategory ", sessionCategory)
         getSchool()
         setLoading(false)
     }
@@ -66,7 +65,7 @@ export const ActivityDataForm = ({ dataToFill }: ActivityDataFormProps) => {
 
     useEffect(() => {
         getCategoryData()
-    }, []);
+    }, [])
 
     return loading ?
         <Box sx={{ display: 'flex', justifyContent: "center", alignItems: "center", height: "80vh" }}>
@@ -93,4 +92,4 @@ export const ActivityDataForm = ({ dataToFill }: ActivityDataFormProps) => {
                 </Stack>
             )}
         </StyledContainer>
-};
+}

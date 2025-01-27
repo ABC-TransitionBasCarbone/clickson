@@ -7,7 +7,7 @@ interface ActivityDataFormHeaderProps {
 export const ActivityDataFormHeader = ({ category }: ActivityDataFormHeaderProps) => {
 
     return <StyledContainer>
-        <h4> {category.toUpperCase()}</h4>
+        <h4> {category?.toUpperCase()}</h4>
         <Divider className={classes.divider} aria-hidden="true" />
     </StyledContainer>;
 }

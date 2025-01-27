@@ -8,12 +8,12 @@ interface CommentInputProps {
     addComment: (comment: string) => void;
 }
 export const CommentInput = ({ addComment }: CommentInputProps) => {
-    const t = useTranslations();
-    const [comment, setComments] = useState("");
+    const t = useTranslations()
+    const [comment, setComments] = useState("")
 
     const handleValueChange = (event: ChangeEvent<HTMLInputElement>) => {
         setComments(event.target.value);
-    };
+    }
 
     return <StyledInputData>
         <Stack className={classes.input}>
@@ -32,7 +32,3 @@ export const CommentInput = ({ addComment }: CommentInputProps) => {
         </Stack>
     </StyledInputData>
 }
-
-
-
-

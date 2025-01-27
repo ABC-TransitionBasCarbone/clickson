@@ -23,8 +23,8 @@ export const DataInput = (props: DataInputProps) => {
     const [emission, setEmission] = useState<Emission>({
         emissionFactor: props.emissionFactors[0],
         value: 0,
-        total: 0,
-    });
+        total: 0
+    })
 
     const handleEmissionFactorChange = (event: SelectChangeEvent<number>) => {
         const {
@@ -38,14 +38,14 @@ export const DataInput = (props: DataInputProps) => {
                 emissionFactor: selectedFactor,
             }));
         }
-    };
+    }
 
     const handleEmissionValueChange = (event: ChangeEvent<HTMLInputElement>) => {
         setEmission(prevEmission => ({
             ...prevEmission,
             value: Number(event.target.value),
         }));
-    };
+    }
 
     return <StyledInputData>
         <Stack className={classes.input}>
@@ -79,4 +79,4 @@ export const DataInput = (props: DataInputProps) => {
             </PrimaryButton>
         </Stack>
     </StyledInputData>
-};
+}
