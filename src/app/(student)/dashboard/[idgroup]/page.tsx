@@ -86,6 +86,7 @@ export default function Dashboard() {
                     locked: sc.locked,
                     idSessionEmissionCategory: sc.id
                 }))
+                .sort((a, b) => a.id - b.id)
         )
         setSession(group.sessionStudent);
 
