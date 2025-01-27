@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useReducer } from 'react';
 import { useRouter } from 'next/navigation';
-import { CircularProgress, Container } from '@mui/material';
+import { CircularProgress, Container, Snackbar, Alert } from '@mui/material';
 import { getUserCookies } from '@/api/auth';
 import { createEmissionFactor, deleteEmissionFactor, getEmissionFactors, updateEmissionFactor } from '@/api/emissions';
 import { Category } from '@/src/types/Category';
@@ -65,6 +65,8 @@ const categoriesReducer = (state: Category[], action: any) => {
 export default function Admin() {
     const [categories, dispatch] = useReducer(categoriesReducer, []);
     const [loading, setLoading] = useState(true);
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState('');
     const router = useRouter();
 
     useEffect(() => {
@@ -84,12 +86,16 @@ export default function Admin() {
         if (key === 'delete') {
             deleteEmissionFactor({ id: Number(id) } as unknown as EmissionFactor);
             dispatch({ type: 'DELETE_FACTOR', payload: id });
+            setSnackbarMessage(`Deleted emission factor with id: ${id}`);
+            setSnackbarOpen(true);
             return;
         }
 
         const value = formatInput(key, event);
         dispatch({ type: 'UPDATE_FACTOR', payload: { id, key, value } });
         toUpdate && updateEmissionFactor({ id, [key]: value } as unknown as EmissionFactor);
+        setSnackbarMessage(`Updated emission factor with id: ${id}, key: ${key}, value: ${value}`);
+        setSnackbarOpen(true);
     }, []);
 
     const createFE = useCallback((idEmissionCategory: number, idLanguage: number, key: string, event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -107,22 +113,34 @@ export default function Admin() {
             idEmissionSubCategory: idEmissionCategory,
             idLanguage: idLanguage
         } as unknown as EmissionFactor;
-        createEmissionFactor(newFactor).then((factor) =>
-            dispatch({ type: 'ADD_FACTOR', payload: { idEmissionSubCategory: idEmissionCategory, newFactor: factor } })
-        );
+        createEmissionFactor(newFactor).then((factor) => {
+            dispatch({ type: 'ADD_FACTOR', payload: { idEmissionSubCategory: idEmissionCategory, newFactor: factor } });
+            setSnackbarMessage(`Created new emission factor: ${JSON.stringify(factor)}`);
+            setSnackbarOpen(true);
+        });
     }, [categories]);
 
     function modifyCategory(category: Category | SubCategory): void {
-        updateCategory(category)
+        updateCategory(category);
+        setSnackbarMessage(`Modified category: ${JSON.stringify(category)}`);
+        setSnackbarOpen(true);
     }
 
     function modifySubCategory(subCategory: Category | SubCategory): void {
-        updateSubCategory(subCategory)
+        updateSubCategory(subCategory);
+        setSnackbarMessage(`Modified sub-category: ${JSON.stringify(subCategory)}`);
+        setSnackbarOpen(true);
     }
+
     function deleteSubCategory(subCategory: SubCategory): void {
-        console.log("deleteSubCategory   ", subCategory)
-        deleteSC(subCategory)
+        deleteSC(subCategory);
+        setSnackbarMessage(`Deleted sub-category: ${JSON.stringify(subCategory)}`);
+        setSnackbarOpen(true);
     }
+
+    const handleCloseSnackbar = () => {
+        setSnackbarOpen(false);
+    };
 
     return <>
         <Header />
@@ -136,6 +154,11 @@ export default function Admin() {
                 deleteSubCategory={deleteSubCategory}
                 createFE={createFE} />}
         </Container>
+        <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleCloseSnackbar}>
+            <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
+                {snackbarMessage}
+            </Alert>
+        </Snackbar>
     </>
 
     function formatInput(key: string, event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
