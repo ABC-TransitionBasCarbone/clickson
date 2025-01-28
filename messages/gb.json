@@ -128,6 +128,7 @@
     "update": "Update",
     "delete": "Delete",
     "enter": "Enter",
+    "foodTooltipText": "Indicate the total number of meals in a week",
     "commentsNotes": "Comments and Notes",
     "columnMenuSortAsc": "Sort ascending",
     "columnMenuSortDesc": "Sort descending",

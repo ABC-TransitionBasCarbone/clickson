@@ -100,12 +100,36 @@ export const Stats = ({ session }: Props) => {
 
             const workbook = new ExcelJS.Workbook();
 
+
             await workbook.xlsx.load(arrayBuffer);
             const synthese = workbook.getWorksheet("Synthèse & Profil");
+            const fe = workbook.getWorksheet("FE");
+            if (!fe) {
+                return
+            }
+
+            fe.addRow([
+                "Label",
+                "Donnée d'activité",
+                "facteur d'émission",
+                "Emissions GES",
+                "Unité",
+                "Incertitude",
+                "Type"
+            ])
 
             if (!synthese) {
                 throw new Error(`synthese not found`);
             }
+
+            // Fill all activities data
+            session.sessionEmissionCategories.forEach((category) => {
+                category.sessionEmissionSubCategories.forEach((subCategory) => {
+                    subCategory.sessionEmissions.forEach((emission) => {
+                        fe.addRow([emission.label, emission.total, emission.value, emission.total, emission.unit, emission.uncertainty, emission.type]);
+                    });
+                });
+            })
 
             // Fill total emissions by categories   
             totalCategories.forEach((data, index) => {

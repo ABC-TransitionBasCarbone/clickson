@@ -34,6 +34,7 @@ export const useDataToFill = () => {
             category: 'food',
             type: "table",
             titleSelectInput: t('foodService'),
+            tooltipText: t('foodTootlipText'),
             titleAnnualConsumptionInput: t('meals'),
             tableHeader: [t('emissionFactor'), t('quantity'), t('value'), t('uncertainty'), t('total')]
         },

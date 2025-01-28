@@ -5,4 +5,5 @@ export interface DataToFill {
     titleSelectInput: string;
     titleAnnualConsumptionInput?: string;
     tableHeader?: string[];
+    tooltipText?: string;
 }

@@ -143,6 +143,7 @@
         "energy": "Énergie",
         "travel": "Déplacements",
         "foodService": "Restauration",
+        "foodTootlipText": "Indique le nombre total de repas sur une semaine",
         "supplies": "Achats",
         "fixedAssets": "Immobilisation",
         "quantity": "Quantité",

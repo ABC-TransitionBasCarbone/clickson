@@ -1,7 +1,7 @@
 import { EmissionFactor } from '@/src/types/EmissionFactor';
 import { EmissionFactorFormField } from './EmissionFactorFormField';
 import { Delete } from '@mui/icons-material';
-import { Accordion, AccordionDetails, AccordionSummary, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 
 export interface EmissionFactorFormProps {
     factor: EmissionFactor;

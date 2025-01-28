@@ -77,7 +77,6 @@ export const QuestionTypeComponent = ({ sessionSubCategoryProp, schoolYear }: Qu
             idEmissionFactor: emission.emissionFactor.id,
         })
         setSessionSubCategory({ ...sessionSubCategory, sessionEmissions: sessionSubCategory.sessionEmissions.concat({ ...emission, ...emissionData }) })
-        console.log(" sessionSubCategory ", sessionSubCategory)
 
         setSaving(false)
         setLoadingData(false)
@@ -97,6 +96,7 @@ export const QuestionTypeComponent = ({ sessionSubCategoryProp, schoolYear }: Qu
             emissionFactors={sessionSubCategory.emissionSubCategory.emissionFactors}
             saving={saving}
             locked={sessionSubCategory.locked}
+            tootlipText={sessionSubCategory.dataToFill?.tooltipText}
             annualConsumptionText={sessionSubCategory.dataToFill?.titleAnnualConsumptionInput}
             handleAddData={handleAddData} />
         {loadingData
