@@ -23,15 +23,14 @@ interface DataInputProps {
 export const DataInput = (props: DataInputProps) => {
     const t = useTranslations('category');
     const [emission, setEmission] = useState<Emission>({
-        emissionFactor: props.emissionFactors[0],
+        emissionFactor: props.emissionFactors ?
+            props.emissionFactors[0] : { id: "0", value: 0, label: '', unit: '' } as EmissionFactor,
         value: 0,
         total: 0
     })
 
     const handleEmissionFactorChange = (event: SelectChangeEvent<number>) => {
-        const {
-            target: { value: factorId },
-        } = event;
+        const { target: { value: factorId } } = event;
 
         const selectedFactor = props.emissionFactors.find(factor => factor.id === factorId);
         if (selectedFactor) {
@@ -58,22 +57,23 @@ export const DataInput = (props: DataInputProps) => {
                     value={Number(emission.emissionFactor.id)}
                     onChange={handleEmissionFactorChange}
                 >
-                    {props.emissionFactors.map((emissionFactor) => (<MenuItem key={emissionFactor.id} value={emissionFactor.id}>{emissionFactor.label}</MenuItem>))}
+                    {props.emissionFactors && props.emissionFactors.map((emissionFactor) =>
+                        (<MenuItem key={emissionFactor.id} value={emissionFactor.id}>{emissionFactor.label}</MenuItem>))}
                 </Select>
             </FormControl>
         </Stack>
         <Stack className={classes.input}>
-
             <FormControl className={classes.form}>
                 <Typography className={classes.label}>{props.annualConsumptionText}</Typography>
                 <TextField
                     type="number"
                     InputProps={{
-                        endAdornment: <InputAdornment position="end">{emission.emissionFactor.unit}                    {props.tootlipText && <Tooltip title={props.tootlipText}>
-                            <IconButton>
-                                <HelpOutlineIcon />
-                            </IconButton>
-                        </Tooltip>}
+                        endAdornment: <InputAdornment position="end">{emission.emissionFactor.unit}
+                            {props.tootlipText && <Tooltip title={props.tootlipText}>
+                                <IconButton>
+                                    <HelpOutlineIcon />
+                                </IconButton>
+                            </Tooltip>}
                         </InputAdornment>,
                     }}
                     onChange={handleEmissionValueChange}

@@ -54,6 +54,8 @@ export const ActivityDataForm = ({ dataToFill }: ActivityDataFormProps) => {
             dataToFill: dataToFill.find(header => subcategory.idEmissionSubCategory === header.id)
         })))
 
+        console.log("sessionCategory", sessionCategory)
+
         getSchool()
         setLoading(false)
     }

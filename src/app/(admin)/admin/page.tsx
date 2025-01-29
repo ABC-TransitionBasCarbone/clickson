@@ -121,20 +121,20 @@ export default function Admin() {
     }, [categories]);
 
     function modifyCategory(category: Category | SubCategory): void {
-        updateCategory(category);
-        setSnackbarMessage(`Modified category: ${JSON.stringify(category)}`);
+        const error = updateCategory(category);
+        setSnackbarMessage(`Modified category: ${JSON.stringify(category)} + ${error}`);
         setSnackbarOpen(true);
     }
 
     function modifySubCategory(subCategory: Category | SubCategory): void {
-        updateSubCategory(subCategory);
-        setSnackbarMessage(`Modified sub-category: ${JSON.stringify(subCategory)}`);
+        const error = updateSubCategory(subCategory);
+        setSnackbarMessage(`Modified sub-category: ${JSON.stringify(subCategory)} + ${error}`);
         setSnackbarOpen(true);
     }
 
     function deleteSubCategory(subCategory: SubCategory): void {
-        deleteSC(subCategory);
-        setSnackbarMessage(`Deleted sub-category: ${JSON.stringify(subCategory)}`);
+        const error = deleteSC(subCategory);
+        setSnackbarMessage(`Deleted sub-category: ${JSON.stringify(subCategory)} +  ${error}`);
         setSnackbarOpen(true);
     }
 

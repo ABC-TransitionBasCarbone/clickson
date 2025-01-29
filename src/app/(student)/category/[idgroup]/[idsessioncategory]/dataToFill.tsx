@@ -128,6 +128,42 @@ export const useDataToFill = () => {
             tableHeader: [t('emissionFactor'), t('quantity'), t('value'), t('uncertainty'), t('total')]
 
         },
+        {
+            id: 16,
+            category: 'equipment',
+            type: "input",
+            titleSelectInput: t('kindOfEmissionFactor'),
+            titleAnnualConsumptionInput: `${t('quantity')}`,
+            tableHeader: [t('emissionFactor'), t('quantity'), t('value'), t('uncertainty'), t('total')]
+
+        },
+        {
+            id: 17,
+            category: 'equipment',
+            type: "input",
+            titleSelectInput: t('kindOfEmissionFactor'),
+            titleAnnualConsumptionInput: `${t('quantity')}`,
+            tableHeader: [t('emissionFactor'), t('quantity'), t('value'), t('uncertainty'), t('total')]
+
+        },
+        {
+            id: 18,
+            category: 'equipment',
+            type: "input",
+            titleSelectInput: t('kindOfEmissionFactor'),
+            titleAnnualConsumptionInput: `${t('quantity')}`,
+            tableHeader: [t('emissionFactor'), t('quantity'), t('value'), t('uncertainty'), t('total')]
+
+        },
+        {
+            id: 19,
+            category: 'equipment',
+            type: "input",
+            titleSelectInput: t('kindOfEmissionFactor'),
+            titleAnnualConsumptionInput: `${t('quantity')}`,
+            tableHeader: [t('emissionFactor'), t('quantity'), t('value'), t('uncertainty'), t('total')]
+
+        },
     ];
 
     return dataToFill;

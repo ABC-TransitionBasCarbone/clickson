@@ -98,7 +98,7 @@ export default function Dashboard() {
             <Header />
             <Container maxWidth="xl">
                 <DashboardWrapper>
-                    {user.email && <Button onClick={() => { router.back() }} sx={{ marginBottom: 2 }} variant="outlined" startIcon={<ArrowBackIosIcon />}>
+                    {user.email && <Button onClick={() => { router.push("/sessions") }} sx={{ marginBottom: 2 }} variant="outlined" startIcon={<ArrowBackIosIcon />}>
                         {t('home')}
                     </Button>}
 
