@@ -48,7 +48,7 @@ export const DataInput = (props: DataInputProps) => {
         }));
     }
 
-    return <StyledInputData>
+    return props.emissionFactors && <StyledInputData>
         <Stack className={classes.input}>
             <FormControl className={classes.form}>
                 <Typography className={classes.label}>{props.titleSelectInput}</Typography>
@@ -57,7 +57,7 @@ export const DataInput = (props: DataInputProps) => {
                     value={Number(emission.emissionFactor.id)}
                     onChange={handleEmissionFactorChange}
                 >
-                    {props.emissionFactors && props.emissionFactors.map((emissionFactor) =>
+                    {props.emissionFactors.map((emissionFactor) =>
                         (<MenuItem key={emissionFactor.id} value={emissionFactor.id}>{emissionFactor.label}</MenuItem>))}
                 </Select>
             </FormControl>
