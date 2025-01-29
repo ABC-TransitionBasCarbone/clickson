@@ -84,8 +84,6 @@ export const Stats = ({ session }: Props) => {
             });
         });
 
-        console.log("session : ", session)
-
         setTotalSubCategorie(totalSubCategories);
         setTotalCategories(totalCategories);
         setTotal(totalCategories.reduce((acc, value) => { return acc + value }))
