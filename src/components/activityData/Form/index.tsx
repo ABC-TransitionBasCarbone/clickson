@@ -9,7 +9,7 @@ import { getSessionSubCategoriesWithIdSessionCategory } from "@/api/sessions";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { UrlParams } from "@/src/types/UrlParams";
-import { Button, CircularProgress } from "@mui/material";
+import { Button, CircularProgress, Typography } from "@mui/material";
 import { DataToFill } from "@/src/types/DataToFill";
 import { SessionSubCategory } from "@/src/types/SessionSubCategory";
 import { useTranslations } from "next-intl";
@@ -17,6 +17,10 @@ import HomeIcon from '@mui/icons-material/Home';
 import { getGroup } from "@/api/groups";
 import { School } from "@/src/types/School";
 import { getSchoolById } from "@/api/schools";
+import { getLocale } from "@/src/i18n/locale";
+import { routing } from "@/src/i18n/routing";
+import { getCategories, getCategory, getSubCategories } from "@/api/categories";
+import { SubCategory } from "@/src/types/SubCategory";
 
 interface ActivityDataFormProps {
     dataToFill: DataToFill[];
@@ -24,24 +28,31 @@ interface ActivityDataFormProps {
 
 export const ActivityDataForm = ({ dataToFill }: ActivityDataFormProps) => {
     const params = useParams<UrlParams>()
-    const router = useRouter();
+    const router = useRouter()
 
-    const [loading, setLoading] = useState<boolean>(true);
-    const [school, setSchool] = useState<School>();
-    const t = useTranslations('category');
+    const [loading, setLoading] = useState<boolean>(true)
+    const [school, setSchool] = useState<School>()
+    const [labelCategory, setLabelCategory] = useState("")
+    const t = useTranslations('category')
 
-    const [sessionSubCategories, setSessionSubCategories] = useState<SessionSubCategory[]>([]);
+    const [sessionSubCategories, setSessionSubCategories] = useState<SessionSubCategory[]>([])
 
-    const getSubCategories = async () => {
+    const getCategoryData = async () => {
         setLoading(true)
-        const sessionCategory = await getSessionSubCategoriesWithIdSessionCategory(params.idsessioncategory)
+        const locale = await getLocale()
+        const idLang = routing.locales.findIndex(l => l === locale) + 1
+        const subCategories = await getSubCategories(idLang)
 
-        setSessionSubCategories(sessionCategory.sessionEmissionSubCategories.map(subcategory => ({
+        const sessionCategory = await getSessionSubCategoriesWithIdSessionCategory(params.idsessioncategory, idLang)
+        setLabelCategory(sessionCategory.emissionCategory.label)
+
+        setSessionSubCategories(sessionCategory.sessionEmissionSubCategories.map((subcategory) => ({
             ...subcategory,
+            emissionSubCategory: subCategories.find(sc =>
+                sc.idEmissionSubCategory === subcategory.idEmissionSubCategory) || {} as SubCategory,
             locked: sessionCategory.locked,
             dataToFill: dataToFill.find(header => subcategory.idEmissionSubCategory === header.id)
         })))
-
 
         getSchool()
         setLoading(false)
@@ -53,18 +64,20 @@ export const ActivityDataForm = ({ dataToFill }: ActivityDataFormProps) => {
     }
 
     useEffect(() => {
-        getSubCategories()
-    }, []);
+        getCategoryData()
+    }, [])
 
     return loading ?
         <Box sx={{ display: 'flex', justifyContent: "center", alignItems: "center", height: "80vh" }}>
             <CircularProgress />
         </Box>
         : <StyledContainer>
-            <Button onClick={() => router.push("/dashboard/" + params.idgroup)} sx={{ marginBottom: 2 }} variant="outlined" startIcon={<HomeIcon />}>
-                {t('home')}
-            </Button>
-
+            <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: 2 }}>
+                <Button onClick={() => router.push("/dashboard/" + params.idgroup)} variant="outlined" startIcon={<HomeIcon />}>
+                    {t('home')}
+                </Button>
+                <Typography variant="h4" sx={{ marginLeft: 2 }}>{labelCategory}</Typography>
+            </Box>
             {sessionSubCategories.map(category =>
                 <Stack key={category.id}>
                     <ActivityDataFormHeader category={category.emissionSubCategory.label} />
@@ -79,4 +92,4 @@ export const ActivityDataForm = ({ dataToFill }: ActivityDataFormProps) => {
                 </Stack>
             )}
         </StyledContainer>
-};
+}

@@ -13,7 +13,6 @@ export const StyledContainer = styled('div')(({ theme }) => ({
     justifyContent: "flex-end",
     width: "200px",
     [`.${classes.paragraph}`]: {
-        textAlign: "right",
         fontSize: "14px",
     },
     [`.${classes.button}`]: {

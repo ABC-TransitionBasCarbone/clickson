@@ -1,48 +1,30 @@
-'use client';
-
-import Link from "next/link";
-import { styled } from "@mui/system";
+import { useLocale } from 'next-intl';
+import LocaleSwitcherSelect from './LocaleSwitcherSelect';
+import { Link, routing } from '@/src/i18n/routing';
 import Image from "next/image";
-import { Language } from "@/src/types/Language";
+import { switchLocale } from '@/src/i18n/locale';
+import { LocaleType } from '@/src/i18n/config';
 
-const languages: Language[] = [
-    { code: 'en', name: 'English', image: "https://flagcdn.com/h20/gb.png" },
-    { code: 'fr', name: 'French', image: "https://flagcdn.com/h20/fr.png" },
-    { code: 'es', name: 'Spanish', image: "https://flagcdn.com/h20/es.png" },
-    { code: 'it', name: 'Italian', image: "https://flagcdn.com/h20/it.png" },
-    { code: 'gr', name: 'Greek', image: "https://flagcdn.com/h20/gr.png" },
-    { code: 'hr', name: 'Croatian', image: "https://flagcdn.com/h20/hr.png" },
-    { code: 'hu', name: 'Hungarian', image: "https://flagcdn.com/h20/hu.png" },
-    { code: 'ro', name: 'Romanian', image: "https://flagcdn.com/h20/ro.png" },
-];
+export default function LocaleSwitcher() {
+    const locale = useLocale();
 
-const LanguageMenu = styled('ul')(({ theme }) => ({
-    li: {
-        display: "inline-block",
-        paddingLeft: theme.spacing(1),
-        marginTop: theme.spacing(2),
-        marginBottom: theme.spacing(1),
-    },
-}));
-
-export default function LanguageSwitcher() {
     return (
-        <LanguageMenu>
-            {languages.map(({ code, name, image }) => (
-                <li key={code}>
-                    <Link
-                        href={``}
-                        onClick={() => { }}
-                    >
-                        <Image
-                            src={image}
-                            alt={name}
-                            width={17}
-                            height={11}
-                        />
-                    </Link>
-                </li>
+        <LocaleSwitcherSelect defaultValue={locale} >
+            {routing.locales.map((code) => (
+                <Link
+                    key={code}
+                    href="/"
+                    onClick={(e) => { e.preventDefault(); switchLocale(code as LocaleType); }}
+                    style={{ display: 'inline-block', paddingLeft: '5px', marginTop: '2px', marginBottom: '1px' }}
+                >
+                    <Image
+                        src={`https://flagcdn.com/h20/${code}.png`}
+                        alt={code}
+                        width={17}
+                        height={11}
+                    />
+                </Link>
             ))}
-        </LanguageMenu>
-    )
+        </LocaleSwitcherSelect >
+    );
 }

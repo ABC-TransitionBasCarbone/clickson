@@ -3,7 +3,7 @@ import { NextIntlClientProvider } from 'next-intl'
 import { getLocale, getMessages } from 'next-intl/server'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter'
 import theme from "@/src/app/theme";
-import {CssBaseline, ThemeProvider} from '@mui/material';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 
 import './global.css'
 import Head from 'next/head'
@@ -20,7 +20,6 @@ interface Props {
 
 const RootLayout = async ({ children }: Readonly<Props>) => {
     const locale = await getLocale()
-
     // Providing all messages to the client
     // side is the easiest way to get started
     const messages = await getMessages()
@@ -33,7 +32,7 @@ const RootLayout = async ({ children }: Readonly<Props>) => {
 
             <body>
                 <ThemeProvider theme={theme}>
-                <CssBaseline/>
+                    <CssBaseline />
 
                     <AppRouterCacheProvider>
                         <NextIntlClientProvider messages={messages}>

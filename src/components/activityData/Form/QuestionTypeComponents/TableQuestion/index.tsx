@@ -39,7 +39,6 @@ export const QuestionTypeComponent = ({ sessionSubCategoryProp, schoolYear }: Qu
         setLoadingData(false)
     };
 
-
     const handleDelete = async (emission: Emission) => {
         setLoadingData(true)
         setSessionSubCategory({ ...sessionSubCategory, sessionEmissions: sessionSubCategory.sessionEmissions.filter((se) => se.id !== emission.id) })
@@ -61,8 +60,10 @@ export const QuestionTypeComponent = ({ sessionSubCategoryProp, schoolYear }: Qu
         const currentYear = new Date().getFullYear()
 
         let totalEmission = emission.value * emission.emissionFactor.value
-        if (emission.emissionFactor.depreciationPeriod && schoolYear) {
-            if ((currentYear - schoolYear) > emission.emissionFactor.depreciationPeriod) {
+        if (emission.emissionFactor.depreciationPeriod && emission.emissionFactor.depreciationPeriod > 0 && schoolYear) {
+            console.log("currentYear - schoolYear", currentYear - schoolYear)
+            console.log("emission.emissionFactor.depreciationPeriod", emission.emissionFactor.depreciationPeriod)
+            if ((currentYear - schoolYear) < emission.emissionFactor.depreciationPeriod) {
                 totalEmission = 0
             }
             else {
@@ -78,6 +79,7 @@ export const QuestionTypeComponent = ({ sessionSubCategoryProp, schoolYear }: Qu
             idEmissionFactor: emission.emissionFactor.id,
         })
         setSessionSubCategory({ ...sessionSubCategory, sessionEmissions: sessionSubCategory.sessionEmissions.concat({ ...emission, ...emissionData }) })
+
         setSaving(false)
         setLoadingData(false)
     }
@@ -96,6 +98,7 @@ export const QuestionTypeComponent = ({ sessionSubCategoryProp, schoolYear }: Qu
             emissionFactors={sessionSubCategory.emissionSubCategory.emissionFactors}
             saving={saving}
             locked={sessionSubCategory.locked}
+            tootlipText={sessionSubCategory.dataToFill?.tooltipText}
             annualConsumptionText={sessionSubCategory.dataToFill?.titleAnnualConsumptionInput}
             handleAddData={handleAddData} />
         {loadingData

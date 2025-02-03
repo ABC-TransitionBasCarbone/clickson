@@ -11,10 +11,9 @@ export const classes = {
 
 export const StyledContainer = styled('div')(({ theme }) => ({
     [`.${classes.divider}`]: {
-        marginTop: theme.spacing(5),
+        marginTop: theme.spacing(2),
     },
     [`.${classes.paragraph}`]: {
-        textAlign: "right",
         fontSize: "14px",
     },
     [`.${classes.button}`]: {

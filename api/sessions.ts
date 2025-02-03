@@ -8,9 +8,9 @@ const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
 const myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 
-export async function getSessionSubCategoriesWithIdSessionCategory(idSessionCategory: string) {
+export async function getSessionSubCategoriesWithIdSessionCategory(idSessionCategory: string, idLang: number) {
     try {
-        const result = await fetch(urlApi + "/session-sub-categories/" + idSessionCategory)
+        const result = await fetch(urlApi + "/session-sub-categories/" + idSessionCategory + "/" + idLang)
         const sessionsSubCategories = await result.json()
         if (sessionsSubCategories.errors) {
             throw new Error("Failed to getSessions " + sessionsSubCategories.errors);

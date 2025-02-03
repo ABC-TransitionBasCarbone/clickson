@@ -66,7 +66,7 @@ export const Header = () => {
             alignItems="center"
         >
             <Grid item sm={3}>
-                <Link onClick={() => router.back()} >
+                <Link onClick={() => router.push("/sessions")} >
                     <BoxHeader >
                         <img
                             src="https://clickson.eu/wp-content/uploads/2021/06/logo-color.png"

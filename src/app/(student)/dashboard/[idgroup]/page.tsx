@@ -19,6 +19,10 @@ import { Session } from '@/src/types/Session';
 import { User } from "@/src/types/User";
 import { getUserCookies } from "@/api/auth";
 import { backgroundColors } from "@/src/constants/colors";
+import { getLocale } from "@/src/i18n/locale";
+import { routing } from "@/src/i18n/routing";
+import { LocaleType } from "@/src/i18n/config";
+import { getCategories } from "@/api/categories";
 
 const DashboardWrapper = styled(Box)`
     max-width: 100%;
@@ -67,19 +71,25 @@ export default function Dashboard() {
     const fetchGroup = async () => {
         setLoadingCategories(true);
         const group = await getGroup(params.idgroup);
+        const locale = await getLocale()
+        const idLang = routing.locales.findIndex(l => l === locale) + 1
+
+        const emissionCategories = await getCategories(idLang);
+
         setCategories(
             group.sessionStudent.sessionEmissionCategories
                 .filter(sc =>
                     group.rights.length === 0 || group.rights.includes(sc.emissionCategory.id) || group.rights.includes(sc.emissionCategory.id + 5))
                 .map((sc, index) => ({
-                    ...sc.emissionCategory,
+                    ...emissionCategories[index],
                     id: index,
                     locked: sc.locked,
                     idSessionEmissionCategory: sc.id
                 }))
+                .sort((a, b) => a.id - b.id)
         )
-
         setSession(group.sessionStudent);
+
         setLoadingCategories(false);
     }
 
@@ -88,7 +98,7 @@ export default function Dashboard() {
             <Header />
             <Container maxWidth="xl">
                 <DashboardWrapper>
-                    {user.email && <Button onClick={() => { router.back() }} sx={{ marginBottom: 2 }} variant="outlined" startIcon={<ArrowBackIosIcon />}>
+                    {user.email && <Button onClick={() => { router.push("/sessions") }} sx={{ marginBottom: 2 }} variant="outlined" startIcon={<ArrowBackIosIcon />}>
                         {t('home')}
                     </Button>}
 
