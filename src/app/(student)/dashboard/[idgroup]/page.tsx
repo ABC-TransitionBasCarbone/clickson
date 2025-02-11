@@ -21,7 +21,6 @@ import { getUserCookies } from "@/api/auth";
 import { backgroundColors } from "@/src/constants/colors";
 import { getLocale } from "@/src/i18n/locale";
 import { routing } from "@/src/i18n/routing";
-import { LocaleType } from "@/src/i18n/config";
 import { getCategories } from "@/api/categories";
 
 const DashboardWrapper = styled(Box)`
@@ -74,7 +73,7 @@ export default function Dashboard() {
         const locale = await getLocale()
         const idLang = routing.locales.findIndex(l => l === locale) + 1
 
-        const emissionCategories = await getCategories(idLang);
+        const emissionCategories = (await getCategories(idLang)).sort((a, b) => (a.idEmissionCategory ?? 0) - (b.idEmissionCategory ?? 0));
 
         setCategories(
             group.sessionStudent.sessionEmissionCategories
@@ -86,8 +85,14 @@ export default function Dashboard() {
                     locked: sc.locked,
                     idSessionEmissionCategory: sc.id
                 }))
-                .sort((a, b) => a.id - b.id)
+                .sort((a, b) => (a.idEmissionCategory ?? 0) - (b.idEmissionCategory ?? 0))
         )
+        console.log("emissionCategories", emissionCategories)
+        console.log("group.sessionStudent.sessionEmissionCategories", group.sessionStudent.sessionEmissionCategories)
+
+        console.log("categories ", categories)
+
+
         setSession(group.sessionStudent);
 
         setLoadingCategories(false);
