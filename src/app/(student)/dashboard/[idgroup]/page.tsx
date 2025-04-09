@@ -87,11 +87,6 @@ export default function Dashboard() {
                 }))
                 .sort((a, b) => (a.idEmissionCategory ?? 0) - (b.idEmissionCategory ?? 0))
         )
-        console.log("emissionCategories", emissionCategories)
-        console.log("group.sessionStudent.sessionEmissionCategories", group.sessionStudent.sessionEmissionCategories)
-
-        console.log("categories ", categories)
-
 
         setSession(group.sessionStudent);
 
