@@ -5,6 +5,8 @@ export enum Locale {
   IT = 'it',
   GR = 'gr',
   HR = 'hr',
+  HU = 'hu',
+  RO = 'ro',
 }
 
 export type LocaleType =
@@ -13,6 +15,8 @@ export type LocaleType =
   typeof Locale.ES |
   typeof Locale.IT |
   typeof Locale.GR |
-  typeof Locale.HR
+  typeof Locale.HR |
+  typeof Locale.HU |
+  typeof Locale.RO
 
 export const defaultLocale: LocaleType = Locale.FR

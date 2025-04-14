@@ -1,4 +1,3 @@
-import { useLocale } from 'next-intl';
 import LocaleSwitcherSelect from './LocaleSwitcherSelect';
 import { Link, routing } from '@/src/i18n/routing';
 import Image from "next/image";
@@ -6,10 +5,9 @@ import { switchLocale } from '@/src/i18n/locale';
 import { LocaleType } from '@/src/i18n/config';
 
 export default function LocaleSwitcher() {
-    const locale = useLocale();
 
     return (
-        <LocaleSwitcherSelect defaultValue={locale} >
+        <LocaleSwitcherSelect >
             {routing.locales.map((code) => (
                 <Link
                     key={code}
