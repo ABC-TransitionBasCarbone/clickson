@@ -9,7 +9,7 @@ export async function fetchExportFile() {
             method: "PUT",
         } as RequestInit;
 
-        const response = await fetch(urlApi + '/report/file', requestOptions);
+        const response = await fetch(urlApi + 'report/file', requestOptions);
         if (!response.ok) {
             throw new Error(`Response not OK : ${response.statusText}`);
         }
