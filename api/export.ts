@@ -7,19 +7,8 @@ export async function fetchExportFile() {
     try {
         const requestOptions = {
             method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-            },
-            body: JSON.stringify({
-                "report": {
-                    "type": "export",
-                    "format": "xlsx",
-                }
-            }),
         } as RequestInit;
 
-        console.log(requestOptions)
 
         const response = await fetch(urlApi + 'report/file', requestOptions);
         if (!response.ok) {
