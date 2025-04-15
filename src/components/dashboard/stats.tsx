@@ -4,7 +4,7 @@ import { Box, Grid, Popover, Typography, Button, Divider } from "@mui/material";
 import { styled } from "@mui/system";
 import { useTheme } from '@mui/material/styles';
 import ExcelJS from "exceljs";
-import { fetchExportFile } from "@/src/helpers/export";
+import { fetchExportFile } from "@/api/export";
 import React, { useEffect, useState } from "react";
 import { useTranslations } from 'next-intl'
 import PieChart from "@/src/components/charts/PieChart";
@@ -119,6 +119,7 @@ export const Stats = ({ session }: Props) => {
             if (!synthese) {
                 throw new Error(`synthese not found`);
             }
+
 
             // Fill all activities data
             session.sessionEmissionCategories.forEach((category) => {

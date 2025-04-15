@@ -11,7 +11,6 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Divider from "@mui/material/Divider";
 import { useRouter } from "next/navigation";
 import { useTranslations } from 'next-intl'
-import { getCountries } from "@/api/countries";
 
 export default function SignUp() {
     const theme = useTheme()
@@ -47,15 +46,6 @@ export default function SignUp() {
             return () => clearInterval(interval)
         }
     }
-
-    const fetchCountries = async () => {
-        const coutriesData = await getCountries()
-        const france = coutriesData.find(country => country.nameFr === 'France') as Country
-        coutriesData.splice(coutriesData.indexOf(france), 1)
-        coutriesData.unshift(france)
-        setCountries(coutriesData)
-    }
-
     const onSignUp = async (event: FormEvent<HTMLFormElement>) => {
         setShowSuccess(false)
         event.preventDefault()
@@ -92,7 +82,6 @@ export default function SignUp() {
     }
 
     useEffect(() => {
-        fetchCountries()
         redirectToLogin(showSuccess, message, showError)
     }, [message])
 
