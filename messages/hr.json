@@ -84,6 +84,7 @@
     "update": "Ažuriraj"
   },
   "dashboard": {
+    "noData": "No Data",
     "rights": "Prava pristupa",
     "home": "Moje sesije",
     "dashboard": "Nadzorna ploča",

@@ -84,6 +84,7 @@
     "update": "Aggiorna"
   },
   "dashboard": {
+    "noData": "No Data",
     "rights": "Diritti di accesso",
     "home": "Le mie sessioni",
     "dashboard": "Cruscotto",

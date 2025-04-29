@@ -84,6 +84,7 @@
     "update": "Actualizează"
   },
   "dashboard": {
+    "noData": "No Data",
     "rights": "Drepturi de acces",
     "home": "Sesiunile mele",
     "dashboard": "Tablou de bord",

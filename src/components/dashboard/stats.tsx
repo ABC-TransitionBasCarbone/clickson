@@ -86,7 +86,7 @@ export const Stats = ({ session }: Props) => {
 
         setTotalSubCategorie(totalSubCategories);
         setTotalCategories(totalCategories);
-        setTotal(totalCategories.reduce((acc, value) => { return acc + value }))
+        totalCategories.length > 0 && setTotal(totalCategories.reduce((acc, value) => { return acc + value }))
     }, [totalCategories]);
 
     const handleExport = async () => {
@@ -162,64 +162,69 @@ export const Stats = ({ session }: Props) => {
     };
 
     const open = Boolean(anchorEl);
+    if (!totalCategories[0]) {
+        return <Typography variant="h5" sx={{ marginTop: 5 }}>{t('noData')}</Typography>
+    }
 
-    return <Grid container>
-        <Typography sx={{ marginTop: 5 }} variant="h5" >{t('emissionsProfil')}   ({t('unit')}) de {session.name}</Typography>
-        <Divider aria-hidden="true" sx={{ marginTop: theme.spacing(1) }} />
-        <StatsGrid item xs={12} sx={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-        }}>
-            <Popover
-                id="mouse-over-popover"
-                sx={{ pointerEvents: 'none' }}
-                open={open}
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                }}
-                transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
-                }}
-                onClose={handlePopoverClose}
-                disableRestoreFocus
-            >
-                <Typography sx={{ p: 1 }}>{t("downloadExcel")}</Typography>
-            </Popover>
+    return <>
+        <Grid container>
+            <Typography sx={{ marginTop: 5 }} variant="h5" >{t('emissionsProfil')}   ({t('unit')}) de {session.name}</Typography>
+            <Divider aria-hidden="true" sx={{ marginTop: theme.spacing(1) }} />
+            <StatsGrid item xs={12} sx={{
+                display: 'flex',
+                justifyContent: 'flex-end',
+            }}>
+                <Popover
+                    id="mouse-over-popover"
+                    sx={{ pointerEvents: 'none' }}
+                    open={open}
+                    anchorEl={anchorEl}
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                    }}
+                    transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'left',
+                    }}
+                    onClose={handlePopoverClose}
+                    disableRestoreFocus
+                >
+                    <Typography sx={{ p: 1 }}>{t("downloadExcel")}</Typography>
+                </Popover>
 
-        </StatsGrid>
-        {total > 0 &&
-            <StatsGrid item xs={12} md={6}>
-                <InfoWrapper>
-                    <DownloadButton onClick={handleExport}>
-                        {t("download")} <Download sx={{ cursor: 'pointer' }} />
-                    </DownloadButton>
-                </InfoWrapper>
-                <ChartWrapper>
-                    <PieChart data={totalCategories} labels={labels} />
-                </ChartWrapper>
             </StatsGrid>
-        }
-        <StatsGrid item xs={12} md={6}>
-            <Grid container spacing={3} columns={12} sx={{ paddingLeft: theme.spacing(3.75) }}>
-                {
-                    labels.map((label, index) => (<Grid key={index} item xs={6}>
-                        <StatsWrapper>
-                            <span>{label}</span>
-                            <Box sx={{
-                                color: backgroundColors[index],
-                                marginTop: theme.spacing(1),
-                            }}
-                            >
-                                {Math.round(totalCategories[index])} ({t('unit')})
-                            </Box>
-                        </StatsWrapper>
-                    </Grid>
-                    ))
-                }
-            </Grid>
-        </StatsGrid>
-    </Grid>
+            {total > 0 &&
+                <StatsGrid item xs={12} md={6}>
+                    <InfoWrapper>
+                        <DownloadButton onClick={handleExport}>
+                            {t("download")} <Download sx={{ cursor: 'pointer' }} />
+                        </DownloadButton>
+                    </InfoWrapper>
+                    <ChartWrapper>
+                        <PieChart data={totalCategories} labels={labels} />
+                    </ChartWrapper>
+                </StatsGrid>
+            }
+            <StatsGrid item xs={12} md={6}>
+                <Grid container spacing={3} columns={12} sx={{ paddingLeft: theme.spacing(3.75) }}>
+                    {
+                        labels.map((label, index) => (<Grid key={index} item xs={6}>
+                            <StatsWrapper>
+                                <span>{label}</span>
+                                <Box sx={{
+                                    color: backgroundColors[index],
+                                    marginTop: theme.spacing(1),
+                                }}
+                                >
+                                    {Math.round(totalCategories[index])} ({t('unit')})
+                                </Box>
+                            </StatsWrapper>
+                        </Grid>
+                        ))
+                    }
+                </Grid>
+            </StatsGrid>
+        </Grid>
+    </>
 }

@@ -84,6 +84,7 @@
     "update": "Actualizar"
   },
   "dashboard": {
+    "noData": "No Data",
     "rights": "Derechos de acceso",
     "home": "Mis sesiones",
     "dashboard": "Tablero",

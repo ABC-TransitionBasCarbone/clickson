@@ -84,6 +84,7 @@
     "update": "Ενημέρωση"
   },
   "dashboard": {
+    "noData": "No Data",
     "rights": "Δικαιώματα πρόσβασης",
     "home": "Οι συνεδρίες μου",
     "dashboard": "Πίνακας ελέγχου",
