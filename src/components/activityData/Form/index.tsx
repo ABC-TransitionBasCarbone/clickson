@@ -19,7 +19,7 @@ import { School } from "@/src/types/School";
 import { getSchoolById } from "@/api/schools";
 import { getLocale } from "@/src/i18n/locale";
 import { routing } from "@/src/i18n/routing";
-import { getCategories, getCategory, getSubCategories } from "@/api/categories";
+import { getSubCategories } from "@/api/categories";
 import { SubCategory } from "@/src/types/SubCategory";
 
 interface ActivityDataFormProps {
