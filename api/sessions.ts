@@ -23,8 +23,9 @@ export async function getSessionSubCategoriesWithIdSessionCategory(idSessionCate
 }
 
 export async function getSessionStudent(id: string) {
+    const url = urlApi + "/sessions/" + id
     try {
-        const result = await fetch(urlApi + "/sessions/" + id)
+        const result = await fetch(url)
         const session = await result.json()
         return session as Session;
     } catch (error) {
@@ -33,8 +34,9 @@ export async function getSessionStudent(id: string) {
 }
 
 export async function getSessionsBySchoolId(idSchool: string) {
+    const url = urlApi + "/sessions/school/" + idSchool
     try {
-        const result = await fetch(urlApi + "/sessions/school/" + idSchool)
+        const result = await fetch(url)
         const sessions = await result.json()
         return sessions as Session[];
     } catch (error) {
@@ -43,6 +45,8 @@ export async function getSessionsBySchoolId(idSchool: string) {
 }
 
 export async function modifySession(session: Session) {
+    const url = urlApi + "/sessions"
+
     const data = JSON.stringify(session)
     const requestOptions = {
         method: "PUT",
@@ -50,7 +54,7 @@ export async function modifySession(session: Session) {
         body: data
     } as RequestInit;
 
-    const result = await fetch(urlApi + "/sessions", requestOptions)
+    const result = await fetch(url, requestOptions)
     const groups = await result.json()
     if (groups.errors) {
         throw new Error("Failed to delete session " + groups.errors)
@@ -59,6 +63,8 @@ export async function modifySession(session: Session) {
 }
 
 export async function lockedStudentSession(session: Session) {
+    const url = urlApi + "/sessions"
+
     session.locked = !session.locked
     const requestOptions = {
         method: "PUT",
@@ -66,7 +72,7 @@ export async function lockedStudentSession(session: Session) {
         body: JSON.stringify(session)
     } as RequestInit;
 
-    const result = await fetch(urlApi + "/sessions", requestOptions)
+    const result = await fetch(url, requestOptions)
     const groups = await result.json()
     if (groups.errors) {
         throw new Error("Failed to delete session " + groups.errors)
@@ -75,6 +81,8 @@ export async function lockedStudentSession(session: Session) {
 }
 
 export async function lockedSessionCategory(idSessionEmissionCategory: string, locked: boolean) {
+    const url = urlApi + "/session-categories"
+
     const requestOptions = {
         method: "PUT",
         headers: myHeaders,
@@ -84,7 +92,7 @@ export async function lockedSessionCategory(idSessionEmissionCategory: string, l
         })
     } as RequestInit;
 
-    const result = await fetch(urlApi + "/session-categories", requestOptions)
+    const result = await fetch(url, requestOptions)
     const sessionSubCategory = await result.json()
     if (sessionSubCategory.errors) {
         throw new Error("Failed to lock sub category " + sessionSubCategory.errors)
@@ -93,6 +101,8 @@ export async function lockedSessionCategory(idSessionEmissionCategory: string, l
 }
 
 export async function createSession(sessionName: string, idSchool: string) {
+    const url = urlApi + "/sessions"
+
     const data = JSON.stringify({
         "name": sessionName,
         "year": new Date().getFullYear(),
@@ -105,7 +115,7 @@ export async function createSession(sessionName: string, idSchool: string) {
     } as RequestInit;
 
     try {
-        const result = await fetch(urlApi + "/sessions", requestOptions)
+        const result = await fetch(url, requestOptions)
         return await result.json()
     } catch (error) {
         throw new Error("Failed to createSession " + error)
