@@ -14,7 +14,7 @@ export async function getSessionSubCategoriesWithIdSessionCategory(idSessionCate
         const result = await fetch(url)
         const sessionsSubCategories = await result.json()
         if (sessionsSubCategories.errors) {
-            throw new Error("Failed to getSessions " + sessionsSubCategories.errors);
+            throw new Error("Failed to getSessionSubCategoriesWithIdSessionCategory " + sessionsSubCategories.errors);
         }
         return sessionsSubCategories as SessionCategory;
     } catch (error) {
@@ -29,7 +29,7 @@ export async function getSessionStudent(id: string) {
         const session = await result.json()
         return session as Session;
     } catch (error) {
-        throw new Error("Failed to getSessions " + error)
+        throw new Error("Failed to getSessionStudent " + error)
     }
 }
 
@@ -40,7 +40,7 @@ export async function getSessionsBySchoolId(idSchool: string) {
         const sessions = await result.json()
         return sessions as Session[];
     } catch (error) {
-        throw new Error("Failed to getSessions " + error)
+        throw new Error("Failed to getSessionsBySchoolId " + error)
     }
 }
 
@@ -57,7 +57,7 @@ export async function modifySession(session: Session) {
     const result = await fetch(url, requestOptions)
     const groups = await result.json()
     if (groups.errors) {
-        throw new Error("Failed to delete session " + groups.errors)
+        throw new Error("Failed to modify session " + groups.errors)
     }
     return session.id
 }
@@ -75,7 +75,7 @@ export async function lockedStudentSession(session: Session) {
     const result = await fetch(url, requestOptions)
     const groups = await result.json()
     if (groups.errors) {
-        throw new Error("Failed to delete session " + groups.errors)
+        throw new Error("Failed to lock session " + groups.errors)
     }
     return session
 }

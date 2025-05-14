@@ -27,7 +27,7 @@ export async function updateSubCategory(subCategory: Category | SubCategory) {
 }
 
 export async function deleteSC(subCategory: SubCategory) {
-    const url = urlApi + "/emission/sub-categories" + subCategory.id
+    const url = urlApi + "/emission/sub-categories/" + subCategory.id
     const data = JSON.stringify(subCategory);
 
     const requestOptions = {

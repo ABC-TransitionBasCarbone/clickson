@@ -39,9 +39,6 @@ export async function login(formData: FormData) {
     return login;
 }
 
-/**
- * Destroy the session
- */
 export async function logout() {
     (await cookies()).delete('user');
 }
