@@ -64,7 +64,6 @@ export async function updateCategory(category: Category | SubCategory) {
 
 export async function getSubCategories(idLanguage: number) {
     const url = urlApi + "/emission/sub-categories/" + idLanguage
-    console.log("getSubCategories", url)
     try {
         const result = await fetch(urlApi + "/emission/sub-categories/" + idLanguage);
         return await result.json() as SubCategory[]
