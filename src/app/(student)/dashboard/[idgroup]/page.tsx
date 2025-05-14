@@ -1,27 +1,27 @@
 'use client'
 
-import { Header } from "@/src/components/dashboard/header";
+import { Header } from "../../../../components/dashboard/header";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Container from '@mui/material/Container';
-import { Box, Button, Grid, Paper, Typography } from "@mui/material";
-import { Stats } from "@/src/components/dashboard/stats";
+import { Box, Button, Grid, Typography } from "@mui/material";
+import { Stats } from "../../../../components/dashboard/stats";
 import { styled } from "@mui/system";
 import { useEffect, useState } from 'react';
 import { CategoryItem } from '../../../../components/dashboard/Category';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useTranslations } from 'next-intl'
-import Establishment from '@/src/components/establishment/Establishment';
+import Establishment from '../../../../components/establishment/Establishment';
 import { useParams, useRouter } from 'next/navigation'
-import { Category } from '@/src/types/Category';
-import { UrlParams } from '@/src/types/UrlParams';
-import { getGroup } from '@/api/groups';
-import { Session } from '@/src/types/Session';
-import { User } from "@/src/types/User";
-import { getUserCookies } from "@/api/auth";
-import { backgroundColors } from "@/src/constants/colors";
-import { getLocale } from "@/src/i18n/locale";
-import { routing } from "@/src/i18n/routing";
-import { getCategories } from "@/api/categories";
+import { Category } from '../../../../types/Category';
+import { UrlParams } from '../../../../types/UrlParams';
+import { getGroup } from '../../../../../api/groups';
+import { Session } from '../../../../types/Session';
+import { User } from "../../../../types/User";
+import { getUserCookies } from "../../../../../api/auth";
+import { backgroundColors } from "../../../../constants/colors";
+import { getLocale } from "../../../../i18n/locale";
+import { routing } from "../../../../i18n/routing";
+import { getCategories } from "../../../../../api/categories";
 
 const DashboardWrapper = styled(Box)`
     max-width: 100%;

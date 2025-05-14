@@ -1,9 +1,9 @@
 import { Accordion, AccordionDetails, AccordionSummary, Grid, IconButton, TextField } from '@mui/material';
-import { EmissionFactor } from '@/src/types/EmissionFactor';
+import { EmissionFactor } from '@/types/EmissionFactor';
 import { EmissionFactorForm } from './EmissionFactorForm';
 import { CategoryInput } from './CategoryInput';
-import { SubCategory } from '@/src/types/SubCategory';
-import { Category } from '@/src/types/Category';
+import { SubCategory } from '@/types/SubCategory';
+import { Category } from '@/types/Category';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { Delete } from '@mui/icons-material';
 

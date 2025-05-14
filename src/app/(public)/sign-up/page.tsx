@@ -1,12 +1,12 @@
 'use client'
 
-import { Header } from "@/src/components/login/header";
+import { Header } from "../../../../src/components/login/header";
 import Container from "@mui/material/Container";
-import { SignUpForm } from "@/src/components/signup/signupform";
+import { SignUpForm } from "../../../../src/components/signup/signupform";
 import { Button, Link } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { FormEvent, ReactElement, useEffect, useState } from "react";
-import { login, signUp } from "@/api/auth";
+import { login, signUp } from "../../../../api/auth";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Divider from "@mui/material/Divider";
 import { useRouter } from "next/navigation";

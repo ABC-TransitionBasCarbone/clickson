@@ -1,7 +1,7 @@
-import { Category } from '@/src/types/Category';
+import { Category } from '../../types/Category';
 import { SubCategoryList } from './SubCategoryList';
 import { CategoryInput } from './CategoryInput';
-import { SubCategory } from '@/src/types/SubCategory';
+import { SubCategory } from '../../types/SubCategory';
 import { Grid, Typography } from '@mui/material';
 
 interface CategoryListProps {

@@ -1,15 +1,15 @@
 'use client';
 
-import { Category } from "@/src/types/Category";
+import { Category } from "@/types/Category";
 import { Grid, Switch, Typography } from "@mui/material";
 import { styled } from "@mui/system";
 import Link from "next/link";
 import { useTranslations } from 'next-intl'
 import { Lock, LockOpen } from '@mui/icons-material';
 import { ChangeEvent, useState } from "react";
-import { lockedSessionCategory } from "@/api/sessions";
-import { User } from "@/src/types/User";
-import theme from "@/src/app/theme";
+import { User } from "@/types/User";
+import theme from "@/app/theme";
+import { lockedSessionCategory } from "../../../api/sessions";
 
 const OngoingButton = styled("button")(({ theme }) => ({
     backgroundColor: theme.palette.secondary.main,
@@ -56,7 +56,7 @@ export const CategoryItem = (props: CategoryItemProps) => {
         display: 'flex'
     }
 
-    return <Grid container xs={12} sm={2} sx={conatinerStyle}>
+    return <Grid container size={8} sx={conatinerStyle}>
         <Typography color={theme.palette.primary.main} variant="h5" align={'center'}>{props.category.label}</Typography>
         <Typography marginTop={2} marginBottom={2}>{props.category.detail}</Typography>
         <Grid display={'inline-block'} alignSelf={'flex-end'} >

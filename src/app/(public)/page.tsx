@@ -1,6 +1,6 @@
 'use client'
 
-import { login } from "@/api/auth";
+import { login } from "../../../api/auth";
 import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from 'next/navigation'
 import Container from "@mui/material/Container";

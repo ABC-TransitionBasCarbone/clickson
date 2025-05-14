@@ -11,12 +11,12 @@ import {
     OutlinedInput,
     Typography
 } from "@mui/material";
-import theme from "@/src/app/theme";
+import theme from "@/app/theme";
 import { styled } from "@mui/system";
 import { FormEventHandler, MouseEventHandler } from "react";
-import LoadingButton from '@mui/lab/LoadingButton';
 import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
+import { LoadingButton } from '@mui/lab';
 
 const resetUrl = process.env.NEXT_PUBLIC_CLICKSON_RESET_PASSWORD_URL;
 
@@ -69,7 +69,7 @@ export const Form = ({ correctUserInfo, onLogin, loading, buttonValue, goToSignU
 
     return (
         <BodyGrid sx={{ marginTop: 2 }} container spacing={5} columns={16}>
-            <Grid item md={10}>
+            <Grid size={10}>
                 <Typography variant="h2" sx={{
                     marginBottom: theme.spacing(3),
                     fontSize: {
@@ -113,7 +113,7 @@ export const Form = ({ correctUserInfo, onLogin, loading, buttonValue, goToSignU
                     {t('calculatorSmallText')}
                 </p>
             </Grid>
-            <Grid item md={6}>
+            <Grid size={6}>
                 <Typography variant="h5" sx={{ fontWeight: "700" }}>
                     {t('login')}
                 </Typography>

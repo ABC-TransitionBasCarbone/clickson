@@ -1,8 +1,8 @@
 import LocaleSwitcherSelect from './LocaleSwitcherSelect';
-import { Link, routing } from '@/src/i18n/routing';
+import { Link, routing } from '@/i18n/routing';
 import Image from "next/image";
-import { switchLocale } from '@/src/i18n/locale';
-import { LocaleType } from '@/src/i18n/config';
+import { switchLocale } from '@/i18n/locale';
+import { LocaleType } from '@/i18n/config';
 
 export default function LocaleSwitcher() {
 

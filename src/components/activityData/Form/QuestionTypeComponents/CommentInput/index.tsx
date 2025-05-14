@@ -1,8 +1,8 @@
-import { PrimaryButton } from "@/src/components/buttons/primaryButton";
 import { FormControl, Typography, OutlinedInput, Stack } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { ChangeEvent, useState } from "react";
 import { StyledInputData, classes } from "../../DataInput/styles";
+import { PrimaryButton } from "@/components/buttons/primaryButton";
 
 interface CommentInputProps {
     addComment: (comment: string) => void;

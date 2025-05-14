@@ -4,12 +4,12 @@ import {
     Grid, LinearProgress,
     TextField, Typography
 } from "@mui/material";
-import theme from "@/src/app/theme";
+import theme from "@/app/theme";
 import { styled } from "@mui/system";
 import { ChangeEvent, FormEventHandler, ReactElement, useState } from "react";
-import LoadingButton from '@mui/lab/LoadingButton';
 import { Autocomplete } from "@mui/material";
 import { useTranslations } from 'next-intl'
+import { LoadingButton } from '@mui/lab';
 
 const BodyGrid = styled(Grid)(() => ({
     display: 'flex',
@@ -61,8 +61,7 @@ export const SignUpForm = ({ onSignUp, countries, showError, showSuccess, messag
     const passwordConfirmPasswordEquals = password === confirmPassword;
 
     return <BodyGrid container spacing={5} columns={16}>
-        <Grid item md={16}>
-
+        <Grid size={16}>
             {showError && (
                 <FormControl sx={{
                     width: '100%',

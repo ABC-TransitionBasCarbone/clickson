@@ -1,12 +1,12 @@
 'use client'
 
-import ConfirmationDialog from "@/src/components/ConfirmationDialog";
-import { Emission } from "@/src/types/Emission";
 import { CancelPresentationOutlined } from "@mui/icons-material";
 import { IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useTranslations } from 'next-intl'
-import { toLocaleString } from "@/src/helpers/helpers";
+import ConfirmationDialog from "@/components/ConfirmationDialog";
+import { Emission } from "@/types/Emission";
+import { toLocaleString } from "@/helpers/helpers";
 
 interface DataTableProps {
     emissions: Emission[];

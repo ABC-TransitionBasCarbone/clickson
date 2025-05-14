@@ -4,13 +4,13 @@ import { Box, Grid, Popover, Typography, Button, Divider } from "@mui/material";
 import { styled } from "@mui/system";
 import { useTheme } from '@mui/material/styles';
 import ExcelJS from "exceljs";
-import { fetchExportFile } from "@/api/export";
+import { fetchExportFile } from "../../../api/export";
 import React, { useEffect, useState } from "react";
 import { useTranslations } from 'next-intl'
-import PieChart from "@/src/components/charts/PieChart";
+import PieChart from "@/components/charts/PieChart";
 import { Download } from '@mui/icons-material';
-import { Session } from '@/src/types/Session';
-import { backgroundColors } from "@/src/constants/colors";
+import { Session } from '../../types/Session';
+import { backgroundColors } from "../../constants/colors";
 
 const StatsGrid = styled(Grid)`
     margin-top: 30px;
@@ -170,7 +170,7 @@ export const Stats = ({ session }: Props) => {
         <Grid container>
             <Typography sx={{ marginTop: 5 }} variant="h5" >{t('emissionsProfil')}   ({t('unit')}) de {session.name}</Typography>
             <Divider aria-hidden="true" sx={{ marginTop: theme.spacing(1) }} />
-            <StatsGrid item xs={12} sx={{
+            <StatsGrid size={6} sx={{
                 display: 'flex',
                 justifyContent: 'flex-end',
             }}>
@@ -195,7 +195,7 @@ export const Stats = ({ session }: Props) => {
 
             </StatsGrid>
             {total > 0 &&
-                <StatsGrid item xs={12} md={6}>
+                <StatsGrid size={6}>
                     <InfoWrapper>
                         <DownloadButton onClick={handleExport}>
                             {t("download")} <Download sx={{ cursor: 'pointer' }} />
@@ -206,10 +206,10 @@ export const Stats = ({ session }: Props) => {
                     </ChartWrapper>
                 </StatsGrid>
             }
-            <StatsGrid item xs={12} md={6}>
+            <StatsGrid size={6}>
                 <Grid container spacing={3} columns={12} sx={{ paddingLeft: theme.spacing(3.75) }}>
                     {
-                        labels.map((label, index) => (<Grid key={index} item xs={6}>
+                        labels.map((label, index) => (<Grid key={index} size={6}>
                             <StatsWrapper>
                                 <span>{label}</span>
                                 <Box sx={{

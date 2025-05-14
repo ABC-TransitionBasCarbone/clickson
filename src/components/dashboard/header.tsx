@@ -1,11 +1,11 @@
 import { Grid, Box, Button } from "@mui/material";
 import { styled } from "@mui/system";
 import { MouseEvent, useEffect, useState } from "react";
-import { getUserCookies, logout } from "@/api/auth";
 import { useRouter } from "next/navigation";
-import LanguageSwitcher from "@/src/components/language-switcher/LanguageSwitcher";
+import LanguageSwitcher from "@/components/language-switcher/LanguageSwitcher";
 import { useTranslations } from 'next-intl'
-import { User } from "@/src/types/User";
+import { User } from "@/types/User";
+import { getUserCookies, logout } from "../../../api/auth";
 
 const BoxHeader = styled(Box)`
     img {
@@ -65,7 +65,7 @@ export const Header = () => {
             justifyContent="space-between"
             alignItems="center"
         >
-            <Grid item sm={3}>
+            <Grid size={3} >
                 <Link onClick={() => router.push("/sessions")} >
                     <BoxHeader >
                         <img
@@ -75,10 +75,10 @@ export const Header = () => {
                     </BoxHeader>
                 </Link>
             </Grid>
-            <Grid item sm={6}>
+            <Grid size={6}>
                 <Box sx={{ border: 'none' }}></Box>
             </Grid>
-            <Grid item sm={3}>
+            <Grid size={3}>
                 <UsernameBox sx={{ border: 'none' }}>
                     <LanguageSwitcher />
                     <p>{user?.email}</p>

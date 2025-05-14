@@ -1,6 +1,6 @@
 'use server'
 
-import { School } from "@/src/types/School";
+import { School } from "../src/types/School";
 import { getUserCookies } from "./auth";
 import { cookies } from "next/headers";
 
@@ -50,8 +50,8 @@ export async function editSchool(formData: FormData, school: School | undefined 
     try {
         await fetch(urlApi + "/school", requestOptions)
 
-        const userSession = await getUserCookies()
-        cookies().set('user', JSON.stringify({ ...userSession, school: school }))
+        const userSession = await getUserCookies();
+        (await cookies()).set('user', JSON.stringify({ ...userSession, school: school }))
         return school;
     } catch (error) {
         throw new Error("Failed to editSchool : " + error);

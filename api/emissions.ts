@@ -1,9 +1,9 @@
 'use server';
 
-import { Emission } from "@/src/types/Emission";
-import { Comment } from "@/src/types/Comment";
-import { Category } from "@/src/types/Category";
-import { EmissionFactor } from "@/src/types/EmissionFactor";
+import { Emission } from "../src/types/Emission";
+import { Comment } from "../src/types/Comment";
+import { Category } from "../src/types/Category";
+import { EmissionFactor } from "../src/types/EmissionFactor";
 
 const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
 const myHeaders = new Headers();

@@ -1,4 +1,4 @@
-import theme from "@/src/app/theme";
+import theme from "@/app/theme";
 import { FormControl, OutlinedInput, Button } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import { FormEvent } from "react";

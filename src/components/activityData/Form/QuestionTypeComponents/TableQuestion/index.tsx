@@ -1,20 +1,20 @@
 'use client'
 
 import { useState } from "react";
-import { CustomDialog } from "@/src/components/customDialog";
+import { CustomDialog } from "../../../../../components/customDialog";
 import { DataInput } from "../../DataInput";
-import { createEmission, deleteComment, deleteEmission } from "@/api/emissions";
+import { createEmission, deleteComment, deleteEmission } from "../../../../../../api/emissions";
 import { CircularProgress, IconButton, Typography } from "@mui/material";
 import { Box, Stack } from "@mui/system";
 import { DataTable } from "../../DataTable";
-import { Emission } from "@/src/types/Emission";
-import { SessionSubCategory } from "@/src/types/SessionSubCategory";
+import { Emission } from "../../../../../types/Emission";
+import { SessionSubCategory } from "../../../../../types/SessionSubCategory";
 import { CommentInput } from "../CommentInput";
-import { createComment } from "@/api/comments";
-import ConfirmationDialog from "@/src/components/ConfirmationDialog";
+import { createComment } from "../../../../../../api/comments";
+import ConfirmationDialog from "../../../../../components/ConfirmationDialog";
 import { CancelPresentationOutlined } from "@mui/icons-material";
 import { useTranslations } from "next-intl";
-import { Comment } from "@/src/types/Comment";
+import { Comment } from "../../../../../types/Comment";
 
 interface QuestionTypeComponentProps {
     sessionSubCategoryProp: SessionSubCategory;

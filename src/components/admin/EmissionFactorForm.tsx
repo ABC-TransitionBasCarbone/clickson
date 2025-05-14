@@ -1,4 +1,4 @@
-import { EmissionFactor } from '@/src/types/EmissionFactor';
+import { EmissionFactor } from '@/types/EmissionFactor';
 import { EmissionFactorFormField } from './EmissionFactorFormField';
 import { Delete } from '@mui/icons-material';
 import { IconButton } from '@mui/material';

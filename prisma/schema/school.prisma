@@ -1,0 +1,29 @@
+model SchoolAdmins {
+  schoolId      String   @map("school_id") @db.Uuid
+  adminUsername String   @map("admin_username")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+  school        Schools  @relation(fields: [schoolId], references: [id])
+
+  @@id([schoolId, adminUsername])
+  @@map("school_admins")
+}
+
+model Schools {
+  id                String            @id @default(uuid()) @db.Uuid
+  state             String
+  name              String
+  townName          String            @map("town_name")
+  postalCode        String            @map("postal_code")
+  studentCount      Int?              @map("student_count")
+  staffCount        Int?              @map("staff_count")
+  establishmentYear Int?              @map("establishment_year")
+  adress            String?
+  createdAt         DateTime          @default(now()) @map("created_at")
+  updatedAt         DateTime          @updatedAt @map("updated_at")
+  groups            Groups[]
+  schoolAdmins      SchoolAdmins[]
+  sessionStudents   SessionStudents[]
+
+  @@map("schools")
+}

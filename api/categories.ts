@@ -1,14 +1,15 @@
 'use server';
 
-import { Category } from "@/src/types/Category";
-import { SessionCategory } from "@/src/types/SessionCategory";
-import { SubCategory } from "@/src/types/SubCategory";
+import { Category } from "../src/types/Category";
+import { SessionCategory } from "../src/types/SessionCategory";
+import { SubCategory } from "../src/types/SubCategory";
 
 const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
 const myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 
 export async function updateSubCategory(subCategory: Category | SubCategory) {
+    const url = urlApi + "/emission/sub-categories"
     const data = JSON.stringify({ ...subCategory, idEmissionCategory: subCategory.idEmissionCategory });
 
     const requestOptions = {
@@ -17,7 +18,7 @@ export async function updateSubCategory(subCategory: Category | SubCategory) {
         body: data
     } as RequestInit;
 
-    const result = await fetch(urlApi + "/emission/sub-categories", requestOptions)
+    const result = await fetch(url, requestOptions)
     const subCategories = await result.json()
     if (subCategories.errors) {
         throw new Error("Failed to update emission/sub-categories")
@@ -26,6 +27,7 @@ export async function updateSubCategory(subCategory: Category | SubCategory) {
 }
 
 export async function deleteSC(subCategory: SubCategory) {
+    const url = urlApi + "/emission/sub-categories/" + subCategory.id
     const data = JSON.stringify(subCategory);
 
     const requestOptions = {
@@ -34,7 +36,7 @@ export async function deleteSC(subCategory: SubCategory) {
         body: data
     } as RequestInit;
 
-    const result = await fetch(urlApi + "/emission/sub-categories/" + subCategory.id, requestOptions)
+    const result = await fetch(url, requestOptions)
     const subCategories = await result.json()
     if (subCategories.errors) {
         throw new Error("Failed to update emission/sub-categories")
@@ -43,6 +45,7 @@ export async function deleteSC(subCategory: SubCategory) {
 }
 
 export async function updateCategory(category: Category | SubCategory) {
+    const url = urlApi + "/emission/categories"
     const data = JSON.stringify(category)
 
     const requestOptions = {
@@ -51,7 +54,7 @@ export async function updateCategory(category: Category | SubCategory) {
         body: data
     } as RequestInit;
 
-    const result = await fetch(urlApi + "/emission/categories", requestOptions)
+    const result = await fetch(url, requestOptions)
     const categories = await result.json()
     if (categories.errors) {
         throw new Error("Failed to update emission/categories")
@@ -60,6 +63,7 @@ export async function updateCategory(category: Category | SubCategory) {
 }
 
 export async function getSubCategories(idLanguage: number) {
+    const url = urlApi + "/emission/sub-categories/" + idLanguage
     try {
         const result = await fetch(urlApi + "/emission/sub-categories/" + idLanguage);
         return await result.json() as SubCategory[]
@@ -69,8 +73,9 @@ export async function getSubCategories(idLanguage: number) {
 }
 
 export async function getCategories(idLanguage: number) {
+    const url = urlApi + "/emission/categories/" + idLanguage
     try {
-        const result = await fetch(urlApi + "/emission/categories/" + idLanguage);
+        const result = await fetch(url);
         return await result.json() as Category[]
     } catch (error) {
         throw error
@@ -78,8 +83,9 @@ export async function getCategories(idLanguage: number) {
 }
 
 export async function getCategory(id: number) {
+    const url = urlApi + "/emission/categorie/" + id
     try {
-        const result = await fetch(urlApi + "/emission/categorie/" + id);
+        const result = await fetch(url);
         return await result.json() as Category
     } catch (error) {
         throw error
@@ -87,8 +93,9 @@ export async function getCategory(id: number) {
 }
 
 export async function getSessionCategories(idSessionStudent: string, categories: Category[]) {
+    const url = urlApi + "/session-categories/" + idSessionStudent
     try {
-        const result = await fetch(urlApi + "/session-categories/" + idSessionStudent);
+        const result = await fetch(url);
         let sessionCategories = await result.json() as SessionCategory[];
         sessionCategories = sessionCategories.map((sessionCategory, index) => ({ ...sessionCategory, idEmissionCategory: categories[index].id }))
 

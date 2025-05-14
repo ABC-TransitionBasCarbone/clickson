@@ -1,0 +1,16 @@
+model Groups {
+  id               String          @id @default(uuid()) @db.Uuid
+  idSchool         String          @map("id_school") @db.Uuid
+  idSessionStudent String          @map("id_session_student") @db.Uuid
+  name             String          @db.VarChar(255)
+  year             Int             @default(dbgenerated("date_part('year'::text, CURRENT_DATE)"))
+  archived         Boolean         @default(false)
+  deleted          Boolean         @default(false)
+  rights           Int[]           @default([])
+  createdAt        DateTime        @default(now()) @map("created_at")
+  updatedAt        DateTime        @updatedAt @map("updated_at")
+  school           Schools         @relation(fields: [idSchool], references: [id])
+  sessionStudent   SessionStudents @relation(fields: [idSessionStudent], references: [id])
+
+  @@map("groups")
+}
