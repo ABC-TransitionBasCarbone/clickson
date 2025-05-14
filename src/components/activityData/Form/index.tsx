@@ -41,15 +41,13 @@ export const ActivityDataForm = ({ dataToFill }: ActivityDataFormProps) => {
         setLoading(true)
         const locale = await getLocale()
         const idLang = routing.locales.findIndex(l => l === locale) + 1
-        const subCategories = await getSubCategories(idLang)
 
         const sessionCategory = await getSessionSubCategoriesWithIdSessionCategory(params.idsessioncategory, idLang)
+        console.log("sessionCategory ", sessionCategory)
         setLabelCategory(sessionCategory.emissionCategory.label)
 
         setSessionSubCategories(sessionCategory.sessionEmissionSubCategories.map((subcategory) => ({
             ...subcategory,
-            emissionSubCategory: subCategories.find(sc =>
-                sc.idEmissionSubCategory === subcategory.idEmissionSubCategory) || {} as SubCategory,
             locked: sessionCategory.locked,
             dataToFill: dataToFill.find(header => subcategory.idEmissionSubCategory === header.id)
         })))

@@ -56,7 +56,7 @@ export const CategoryItem = (props: CategoryItemProps) => {
         display: 'flex'
     }
 
-    return <Grid container xs={12} sm={2} sx={conatinerStyle}>
+    return <Grid container size={8} sx={conatinerStyle}>
         <Typography color={theme.palette.primary.main} variant="h5" align={'center'}>{props.category.label}</Typography>
         <Typography marginTop={2} marginBottom={2}>{props.category.detail}</Typography>
         <Grid display={'inline-block'} alignSelf={'flex-end'} >

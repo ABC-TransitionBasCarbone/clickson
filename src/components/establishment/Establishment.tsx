@@ -1,14 +1,13 @@
 import theme from "@/src/app/theme";
-import { LoadingButton } from "@mui/lab";
-import { Grid, Modal, Backdrop, Fade, Typography, Alert, FormControl, TextField, Button, MenuItem, Select, SelectChangeEvent, Stack, Paper } from "@mui/material";
-import { Box, styled } from "@mui/system";
 import { useState, FormEvent, useEffect } from "react";
 import EditIcon from '@mui/icons-material/Edit';
 import { editSchool } from "@/api/schools";
 import { School } from "@/src/types/School";
 import { getUserCookies } from "@/api/auth";
 import { User } from "@/src/types/User";
+import { LoadingButton } from '@mui/lab';
 import { useTranslations } from 'next-intl'
+import { styled, Grid, Typography, Button, Modal, Backdrop, Fade, Box, Alert, FormControl, TextField } from "@mui/material";
 
 const Item = styled("div")(({ theme }) => ({
     padding: theme.spacing(1),
@@ -73,12 +72,12 @@ export default function Establishment(props: EstablishmentProps) {
 
     return <>
         <Grid container spacing={3}>
-            <Grid item xs={12} sm={3} sx={{ marginTop: 3, display: 'flex', alignItems: 'center' }}>
+            <Grid size={8} sx={{ marginTop: 3, display: 'flex', alignItems: 'center' }}>
             </Grid>
         </Grid>
 
         <Grid container spacing={6}>
-            <Grid item xs={12} sm={4}>
+            <Grid size={8} >
                 <Item>
                     <Typography variant="h5" >{school?.name}
                         {user?.token &&
@@ -90,7 +89,7 @@ export default function Establishment(props: EstablishmentProps) {
                 <Item>{school?.adress}</Item>
                 <Item>{school?.postalCode} {school?.townName}</Item>
             </Grid>
-            <Grid item xs={12} sm={4} rowSpacing={1}>
+            <Grid size={8} rowSpacing={1}>
                 <Item>{t('numberStudents')}: {school?.studentCount}</Item>
                 <Item>{t('numberStaff')}: {school?.staffCount}</Item>
                 <Item>{t('yearOfConstruction')}: {school?.establishmentYear}</Item>

@@ -1,7 +1,6 @@
 import { Category } from '@/src/types/Category';
 import { SubCategory } from '@/src/types/SubCategory';
-import { Delete } from '@mui/icons-material';
-import { IconButton, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import React, { useState, useEffect, useRef } from 'react';
 
 interface CategoryInputProps {
@@ -10,7 +9,7 @@ interface CategoryInputProps {
 }
 
 const useDebounce = (callback: (...args: any[]) => void, delay: number) => {
-    const timeoutRef = useRef<number | undefined>();
+    const timeoutRef = useRef<number | undefined>(undefined);
 
     return (...args: any[]) => {
         if (timeoutRef.current) {

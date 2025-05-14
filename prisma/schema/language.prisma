@@ -1,0 +1,10 @@
+model Languages {
+  id                    Int                     @id
+  languageCode          String                  @map("language_code") @db.Char(2)
+  flagUrl               String                  @map("flag_url") @db.VarChar(255)
+  emissionCategories    EmissionCategories[]
+  emissionFactors       EmissionFactors[]
+  emissionSubCategories EmissionSubCategories[]
+
+  @@map("languages")
+}

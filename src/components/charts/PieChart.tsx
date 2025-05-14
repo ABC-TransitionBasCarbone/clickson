@@ -84,10 +84,10 @@ const PieChart: React.FC<PieChartProps> = ({ data, labels }) => {
         },
     }
     return <BodyGrid container spacing={0} columns={12}>
-        <Grid item xs={8}>
+        <Grid size={8}>
             <Pie data={chartData} options={options} ref={chartRef} />
         </Grid>
-        <Grid item xs={4} sx={{
+        <Grid size={4} sx={{
             display: 'flex',
             flexDirection: 'column',
             gap: 1

@@ -9,8 +9,9 @@ const myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 
 export async function getSessionSubCategoriesWithIdSessionCategory(idSessionCategory: string, idLang: number) {
+    const url = urlApi + "/session-sub-categories/" + idSessionCategory + "/" + idLang
     try {
-        const result = await fetch(urlApi + "/session-sub-categories/" + idSessionCategory + "/" + idLang)
+        const result = await fetch(url)
         const sessionsSubCategories = await result.json()
         if (sessionsSubCategories.errors) {
             throw new Error("Failed to getSessions " + sessionsSubCategories.errors);

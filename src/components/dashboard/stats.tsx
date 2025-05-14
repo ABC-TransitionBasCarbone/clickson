@@ -209,7 +209,7 @@ export const Stats = ({ session }: Props) => {
             <StatsGrid item xs={12} md={6}>
                 <Grid container spacing={3} columns={12} sx={{ paddingLeft: theme.spacing(3.75) }}>
                     {
-                        labels.map((label, index) => (<Grid key={index} item xs={6}>
+                        labels.map((label, index) => (<Grid key={index} size={6}>
                             <StatsWrapper>
                                 <span>{label}</span>
                                 <Box sx={{
