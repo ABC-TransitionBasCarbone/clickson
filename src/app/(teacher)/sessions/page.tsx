@@ -1,18 +1,18 @@
 'use client'
 
-import { Header } from "@/src/components/dashboard/header";
+import { Header } from "../../../components/dashboard/header";
 import Container from '@mui/material/Container';
 import { Box, CircularProgress, Typography } from "@mui/material";
 import React, { FormEvent, useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl'
 import Establishment from '../../../components/establishment/Establishment';
 import { styled } from "@mui/system";
-import { getUserCookies } from '@/api/auth';
-import { Session } from '@/src/types/Session';
-import CollapsibleTable from '@/src/components/collapsabletable';
-import { modifySession, createSession, getSessionsBySchoolId, lockedStudentSession } from '@/api/sessions';
-import FormCreateSession from '@/src/components/collapsabletable/Form/FormCreateSession';
-import { School } from '@/src/types/School';
+import { getUserCookies } from '../../../../api/auth';
+import { Session } from '../../../types/Session';
+import CollapsibleTable from '../../../components/collapsabletable';
+import { modifySession, createSession, getSessionsBySchoolId, lockedStudentSession } from '../../../../api/sessions';
+import FormCreateSession from '../../../components/collapsabletable/Form/FormCreateSession';
+import { School } from '../../../types/School';
 
 const AccueilWrapper = styled(Box)`
     a { color: #6d6d6d; }

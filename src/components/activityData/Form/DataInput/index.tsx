@@ -3,10 +3,10 @@
 import { FormControl, Stack, MenuItem, Select, Typography, SelectChangeEvent, InputAdornment, TextField, IconButton, Tooltip } from "@mui/material";
 import { KeyboardArrowDown } from "@mui/icons-material";
 import { useTranslations } from 'next-intl'
-import { PrimaryButton } from "@/src/components/buttons/primaryButton";
+import { PrimaryButton } from "../../../../components/buttons/primaryButton";
 import { classes, StyledInputData } from "./styles";
-import { EmissionFactor } from "@/src/types/EmissionFactor";
-import { Emission } from "@/src/types/Emission";
+import { EmissionFactor } from "../../../../types/EmissionFactor";
+import { Emission } from "../../../../types/Emission";
 import { ChangeEvent, useState } from "react";
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 

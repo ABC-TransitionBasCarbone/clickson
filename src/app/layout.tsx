@@ -2,12 +2,12 @@ import type { Metadata } from 'next'
 import { NextIntlClientProvider } from 'next-intl'
 import { getLocale, getMessages } from 'next-intl/server'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter'
-import theme from "@/src/app/theme";
 import { CssBaseline, ThemeProvider } from '@mui/material';
 
 import './global.css'
 import Head from 'next/head'
 import Providers from './Providers'
+import theme from './theme';
 
 export const metadata: Metadata = {
     title: "Clickson PEBC",

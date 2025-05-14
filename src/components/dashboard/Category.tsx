@@ -1,15 +1,15 @@
 'use client';
 
-import { Category } from "@/src/types/Category";
+import { Category } from "@/types/Category";
 import { Grid, Switch, Typography } from "@mui/material";
 import { styled } from "@mui/system";
 import Link from "next/link";
 import { useTranslations } from 'next-intl'
 import { Lock, LockOpen } from '@mui/icons-material';
 import { ChangeEvent, useState } from "react";
-import { lockedSessionCategory } from "@/api/sessions";
-import { User } from "@/src/types/User";
-import theme from "@/src/app/theme";
+import { User } from "@/types/User";
+import theme from "@/app/theme";
+import { lockedSessionCategory } from "../../../api/sessions";
 
 const OngoingButton = styled("button")(({ theme }) => ({
     backgroundColor: theme.palette.secondary.main,

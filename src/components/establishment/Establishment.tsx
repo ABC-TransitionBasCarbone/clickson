@@ -1,13 +1,13 @@
-import theme from "@/src/app/theme";
+import theme from "@/app/theme";
 import { useState, FormEvent, useEffect } from "react";
 import EditIcon from '@mui/icons-material/Edit';
-import { editSchool } from "@/api/schools";
-import { School } from "@/src/types/School";
-import { getUserCookies } from "@/api/auth";
-import { User } from "@/src/types/User";
+import { School } from "@/types/School";
+import { User } from "@/types/User";
 import { LoadingButton } from '@mui/lab';
 import { useTranslations } from 'next-intl'
 import { styled, Grid, Typography, Button, Modal, Backdrop, Fade, Box, Alert, FormControl, TextField } from "@mui/material";
+import { editSchool } from "../../../api/schools";
+import { getUserCookies } from "../../../api/auth";
 
 const Item = styled("div")(({ theme }) => ({
     padding: theme.spacing(1),

@@ -4,13 +4,13 @@ import { Box, Grid, Popover, Typography, Button, Divider } from "@mui/material";
 import { styled } from "@mui/system";
 import { useTheme } from '@mui/material/styles';
 import ExcelJS from "exceljs";
-import { fetchExportFile } from "@/api/export";
+import { fetchExportFile } from "../../../api/export";
 import React, { useEffect, useState } from "react";
 import { useTranslations } from 'next-intl'
-import PieChart from "@/src/components/charts/PieChart";
+import PieChart from "@/components/charts/PieChart";
 import { Download } from '@mui/icons-material';
-import { Session } from '@/src/types/Session';
-import { backgroundColors } from "@/src/constants/colors";
+import { Session } from '../../types/Session';
+import { backgroundColors } from "../../constants/colors";
 
 const StatsGrid = styled(Grid)`
     margin-top: 30px;

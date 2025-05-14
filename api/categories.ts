@@ -1,8 +1,8 @@
 'use server';
 
-import { Category } from "@/src/types/Category";
-import { SessionCategory } from "@/src/types/SessionCategory";
-import { SubCategory } from "@/src/types/SubCategory";
+import { Category } from "../src/types/Category";
+import { SessionCategory } from "../src/types/SessionCategory";
+import { SubCategory } from "../src/types/SubCategory";
 
 const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
 const myHeaders = new Headers();

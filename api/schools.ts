@@ -1,6 +1,6 @@
 'use server'
 
-import { School } from "@/src/types/School";
+import { School } from "../src/types/School";
 import { getUserCookies } from "./auth";
 import { cookies } from "next/headers";
 

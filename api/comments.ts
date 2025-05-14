@@ -1,6 +1,6 @@
 'use server';
 
-import { Comment } from "@/src/types/Comment";
+import { Comment } from "../src/types/Comment";
 
 const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
 const myHeaders = new Headers();

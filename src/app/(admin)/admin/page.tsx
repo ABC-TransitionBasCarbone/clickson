@@ -3,14 +3,14 @@
 import { useState, useEffect, useCallback, useReducer } from 'react';
 import { useRouter } from 'next/navigation';
 import { CircularProgress, Container, Snackbar, Alert } from '@mui/material';
-import { getUserCookies } from '@/api/auth';
-import { createEmissionFactor, deleteEmissionFactor, getEmissionFactors, updateEmissionFactor } from '@/api/emissions';
-import { Category } from '@/src/types/Category';
-import { EmissionFactor } from '@/src/types/EmissionFactor';
-import { CategoryList } from '@/src/components/admin/CategoryList';
-import { Header } from '@/src/components/login/header';
-import { deleteSC, updateCategory, updateSubCategory } from '@/api/categories';
-import { SubCategory } from '@/src/types/SubCategory';
+import { getUserCookies } from '../../../../api/auth';
+import { createEmissionFactor, deleteEmissionFactor, getEmissionFactors, updateEmissionFactor } from '../../../../api/emissions';
+import { Category } from '../../../../src/types/Category';
+import { EmissionFactor } from '../../../../src/types/EmissionFactor';
+import { CategoryList } from '../../../../src/components/admin/CategoryList';
+import { Header } from '../../../../src/components/login/header';
+import { deleteSC, updateCategory, updateSubCategory } from '../../../../api/categories';
+import { SubCategory } from '../../../../src/types/SubCategory';
 
 const keys = ['label', 'type', 'value', 'unit', 'uncertainty', 'depreciationPeriod'];
 

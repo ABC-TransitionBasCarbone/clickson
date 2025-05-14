@@ -1,11 +1,11 @@
 import { Grid, Box, Button } from "@mui/material";
 import { styled } from "@mui/system";
 import { MouseEvent, useEffect, useState } from "react";
-import { getUserCookies, logout } from "@/api/auth";
 import { useRouter } from "next/navigation";
-import LanguageSwitcher from "@/src/components/language-switcher/LanguageSwitcher";
+import LanguageSwitcher from "@/components/language-switcher/LanguageSwitcher";
 import { useTranslations } from 'next-intl'
-import { User } from "@/src/types/User";
+import { User } from "@/types/User";
+import { getUserCookies, logout } from "../../../api/auth";
 
 const BoxHeader = styled(Box)`
     img {

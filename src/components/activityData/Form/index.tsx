@@ -5,23 +5,20 @@ import { StyledContainer } from "./styles";
 import { ActivityDataFormDescription } from "./Description";
 import { ActivityDataFormHeader } from "./Header";
 import { QuestionTypeComponent } from "./QuestionTypeComponents/TableQuestion";
-import { getSessionSubCategoriesWithIdSessionCategory } from "@/api/sessions";
+import { getSessionSubCategoriesWithIdSessionCategory } from "../../../../api/sessions";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { UrlParams } from "@/src/types/UrlParams";
+import { UrlParams } from "../../../types/UrlParams";
 import { Button, CircularProgress, Typography } from "@mui/material";
-import { DataToFill } from "@/src/types/DataToFill";
-import { SessionSubCategory } from "@/src/types/SessionSubCategory";
+import { DataToFill } from "../../../types/DataToFill";
+import { SessionSubCategory } from "../../../types/SessionSubCategory";
 import { useTranslations } from "next-intl";
 import HomeIcon from '@mui/icons-material/Home';
-import { getGroup } from "@/api/groups";
-import { School } from "@/src/types/School";
-import { getSchoolById } from "@/api/schools";
-import { getLocale } from "@/src/i18n/locale";
-import { routing } from "@/src/i18n/routing";
-import { getSubCategories } from "@/api/categories";
-import { SubCategory } from "@/src/types/SubCategory";
-
+import { getGroup } from "../../../../api/groups";
+import { School } from "../../../types/School";
+import { getSchoolById } from "../../../../api/schools";
+import { getLocale } from "../../../i18n/locale";
+import { routing } from "../../../i18n/routing";
 interface ActivityDataFormProps {
     dataToFill: DataToFill[];
 };
@@ -43,7 +40,6 @@ export const ActivityDataForm = ({ dataToFill }: ActivityDataFormProps) => {
         const idLang = routing.locales.findIndex(l => l === locale) + 1
 
         const sessionCategory = await getSessionSubCategoriesWithIdSessionCategory(params.idsessioncategory, idLang)
-        console.log("sessionCategory ", sessionCategory)
         setLabelCategory(sessionCategory.emissionCategory.label)
 
         setSessionSubCategories(sessionCategory.sessionEmissionSubCategories.map((subcategory) => ({

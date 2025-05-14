@@ -11,7 +11,7 @@ import {
     OutlinedInput,
     Typography
 } from "@mui/material";
-import theme from "@/src/app/theme";
+import theme from "@/app/theme";
 import { styled } from "@mui/system";
 import { FormEventHandler, MouseEventHandler } from "react";
 import { useTranslations } from 'next-intl'

@@ -15,7 +15,7 @@ import ChartDataLabels from "chartjs-plugin-datalabels";
 import 'chartjs-plugin-annotation';
 import { Checkbox, Grid } from "@mui/material";
 import { styled } from "@mui/system";
-import { backgroundColors } from "@/src/constants/colors";
+import { backgroundColors } from "@/constants/colors";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement, ChartDataLabels);
 

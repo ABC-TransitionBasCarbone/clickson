@@ -1,7 +1,7 @@
 'use server'
 
-import { Group } from "@/src/types/Group";
-import { Session } from "@/src/types/Session";
+import { Group } from "../src/types/Group";
+import { Session } from "../src/types/Session";
 
 const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
 

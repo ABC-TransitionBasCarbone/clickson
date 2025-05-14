@@ -1,7 +1,7 @@
 'use server'
 
-import { Session } from "@/src/types/Session";
-import { SessionCategory } from "@/src/types/SessionCategory";
+import { Session } from "../src/types/Session";
+import { SessionCategory } from "../src/types/SessionCategory";
 
 const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
 

@@ -1,4 +1,4 @@
-import { DataToFill } from "@/src/types/DataToFill";
+import { DataToFill } from "../../../../../../src/types/DataToFill";
 import { useTranslations } from 'next-intl'
 
 export const useDataToFill = () => {

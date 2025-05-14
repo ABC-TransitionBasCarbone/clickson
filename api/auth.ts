@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 import { getSchool } from "./schools";
-import { User } from "@/src/types/User";
+import { User } from "../src/types/User";
 
 const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
 

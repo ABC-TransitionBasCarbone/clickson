@@ -4,7 +4,7 @@ import {
     Grid, LinearProgress,
     TextField, Typography
 } from "@mui/material";
-import theme from "@/src/app/theme";
+import theme from "@/app/theme";
 import { styled } from "@mui/system";
 import { ChangeEvent, FormEventHandler, ReactElement, useState } from "react";
 import { Autocomplete } from "@mui/material";

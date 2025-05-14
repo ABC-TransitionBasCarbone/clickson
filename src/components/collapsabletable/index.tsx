@@ -1,10 +1,9 @@
 'use client'
 
 import { KeyboardArrowDown, KeyboardArrowUp, Unarchive, Login, Delete, Lock, Inventory, LockOpen } from '@mui/icons-material';
-import { Session } from '@/src/types/Session';
+import { Session } from '@/types/Session';
 import { Fragment, useState, FormEvent, ChangeEvent } from 'react';
-import { createGroup, deleteGroupInDatabase, updateGroup } from '@/api/groups';
-import { Group } from '@/src/types/Group';
+import { Group } from '@/types/Group';
 import { CircularProgress, Switch, Tooltip, TextField, Box, Collapse, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl';
@@ -12,6 +11,7 @@ import ConfirmationDialog from '../ConfirmationDialog';
 import CopyToClipboard from '../copytoclipboard';
 import MultipleSelectChip from './SelectChip';
 import FormCreateGroup from './Form/FormCreateGroup';
+import { createGroup, deleteGroupInDatabase, updateGroup } from '../../../api/groups';
 
 interface CollapsibleTableProps {
     currentSession: Session[];

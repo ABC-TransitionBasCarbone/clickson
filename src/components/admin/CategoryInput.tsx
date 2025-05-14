@@ -1,5 +1,6 @@
-import { Category } from '@/src/types/Category';
-import { SubCategory } from '@/src/types/SubCategory';
+
+import { Category } from '@/types/Category';
+import { SubCategory } from '@/types/SubCategory';
 import { TextField } from '@mui/material';
 import React, { useState, useEffect, useRef } from 'react';
 
