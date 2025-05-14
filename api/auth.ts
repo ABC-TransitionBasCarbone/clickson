@@ -34,8 +34,8 @@ export async function login(formData: FormData) {
         console.error(new Error(login.errors + " Failed to login wrong password or email"))
         return login
     }
-    const school = await getSchool(login.email)
-    cookies().set('user', JSON.stringify({ ...login, role: "teacher", school: school }))
+    const school = await getSchool(login.email);
+    (await cookies()).set('user', JSON.stringify({ ...login, role: "teacher", school: school }))
     return login;
 }
 
@@ -43,11 +43,11 @@ export async function login(formData: FormData) {
  * Destroy the session
  */
 export async function logout() {
-    cookies().delete('user');
+    (await cookies()).delete('user');
 }
 
 export async function getUserCookies() {
-    const userCookies = cookies().get("user")?.value;
+    const userCookies = (await cookies()).get("user")?.value;
     if (!userCookies) return {} as User;
     return JSON.parse(userCookies) as User;
 }
