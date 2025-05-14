@@ -32,7 +32,7 @@ export const DataInput = (props: DataInputProps) => {
     const handleEmissionFactorChange = (event: SelectChangeEvent<number>) => {
         const { target: { value: factorId } } = event;
 
-        const selectedFactor = props.emissionFactors.find(factor => factor.id === factorId);
+        const selectedFactor = props.emissionFactors.find(factor => factor.id === factorId.toString());
         if (selectedFactor) {
             setEmission(prevEmission => ({
                 ...prevEmission,

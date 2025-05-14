@@ -51,7 +51,7 @@ export const Header = ({ logoPosition }: Props) => {
                 justifyContent="space-between"
                 alignItems="center"
             >
-                <Grid item sm={6}>
+                <Grid size={6}>
                     <BoxHeader>
                         <img
                             src="https://clickson.eu/wp-content/uploads/2021/06/logo-color.png"
@@ -59,7 +59,7 @@ export const Header = ({ logoPosition }: Props) => {
                         />
                     </BoxHeader>
                 </Grid>
-                <Grid item sm={3}>
+                <Grid size={3}>
                     <UsernameBox sx={{ border: 'none' }}>
                         <LanguageSwitcher />
                     </UsernameBox>
