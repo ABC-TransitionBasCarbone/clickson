@@ -17,7 +17,7 @@ myHeaders.append("Content-Type", "application/json");
  */
 export async function login(formData: FormData) {
     const rememberMe = formData.get("rememberMe") !== null;
-    const email = (formData.get('username') && formData.get("email"))?.toString();
+    const email = (formData.get('username') || formData.get("email"))?.toString();
     const password = formData.get("password")?.toString();
 
     if (!email || !password) {
