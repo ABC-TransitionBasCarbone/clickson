@@ -72,7 +72,7 @@ export default function SignUp() {
             )
         }
         const connectedUser = await login(formData)
-        if (!connectedUser.errors) {
+        if (!connectedUser) {
             setShowError(false)
             setShowSuccess(true)
             setMessage(
