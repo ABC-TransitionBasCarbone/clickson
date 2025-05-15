@@ -3,6 +3,7 @@
 import { cookies } from "next/headers";
 import { getSchool } from "./schools";
 import { User } from "../src/types/User";
+import { getWordpressUser } from "@/services/auth";
 
 const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL;
 
@@ -16,26 +17,21 @@ myHeaders.append("Content-Type", "application/json");
  */
 export async function login(formData: FormData) {
     const rememberMe = formData.get("rememberMe") !== null;
-    const email = formData.get('username') == null ? formData.get("email") : formData.get("username");
-    const raw = JSON.stringify({
-        username: email,
-        password: `${formData.get("password")}`,
-        rememberMe: rememberMe,
-    });
-    const requestOptions = {
-        headers: myHeaders,
-        method: "POST",
-        body: raw
-    } as RequestInit;
+    const email = (formData.get('username') && formData.get("email"))?.toString();
+    const password = formData.get("password")?.toString();
 
-    const result = await fetch(urlApi + "/auth/login", requestOptions)
-    const login = await result.json();
-    if (login.errors) {
-        console.error(new Error(login.errors + " Failed to login wrong password or email"))
-        return login
+    if (!email || !password) {
+        throw new Error("Impossible to login with this user");
     }
-    const school = await getSchool(login.email);
-    (await cookies()).set('user', JSON.stringify({ ...login, role: "teacher", school: school }))
+
+    const wordpressUser = await getWordpressUser(email, password, rememberMe)
+
+    if (!wordpressUser) {
+        throw new Error("Impossible to login with this user");
+    }
+
+    const school = await getSchool(email);
+    (await cookies()).set('user', JSON.stringify({ ...wordpressUser, role: "teacher", school: school }))
     return login;
 }
 
