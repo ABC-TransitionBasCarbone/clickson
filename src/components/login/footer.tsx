@@ -1,5 +1,5 @@
 import { Box, useMediaQuery } from "@mui/material";
-import waveBG from "@/public/waveBG.png";
+import waveBG from "./../../../public/waveBG.png";
 import { useTheme } from "@mui/material/styles";
 
 export const Footer = () => {
