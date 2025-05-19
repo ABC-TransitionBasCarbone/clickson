@@ -1,10 +1,11 @@
 export const prepareValueForTranslation = (value: string) => {
-    let newValue;
+  let newValue
 
-    newValue = value.toLowerCase()
-            .replace(/\s+/g, "-")
-            .replace(/\s/g, "")
-            .replace(/-\([^)]*\)$/, "");
+  newValue = value
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/\s/g, '')
+    .replace(/-\([^)]*\)$/, '')
 
-    return `${newValue}`;
+  return `${newValue}`
 }

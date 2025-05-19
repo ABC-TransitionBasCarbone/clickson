@@ -1,10 +1,9 @@
 ---
 name: Bugs
 about: Template for creating bug issues
-title: "[BUG]"
+title: '[BUG]'
 labels: Bug
 assignees: ''
-
 ---
 
 **Description of the bug**
