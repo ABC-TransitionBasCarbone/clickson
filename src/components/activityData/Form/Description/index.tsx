@@ -1,17 +1,15 @@
-import { Button } from "@mui/material"
-import { useState } from "react";
 import { useTranslations } from 'next-intl'
-import { StyledContainer, classes } from "./styles";
+import { StyledContainer, classes } from './styles'
 
 interface ActivityDataFormDescription {
-    description: string;
+  description: string
 }
 export const ActivityDataFormDescription = ({ description }: ActivityDataFormDescription) => {
-    const t = useTranslations('category');
+  const t = useTranslations('category')
 
-    return <StyledContainer>
-        <p className={classes.paragraph}>
-            {description}
-        </p>
+  return (
+    <StyledContainer>
+      <p className={classes.paragraph}>{description}</p>
     </StyledContainer>
+  )
 }

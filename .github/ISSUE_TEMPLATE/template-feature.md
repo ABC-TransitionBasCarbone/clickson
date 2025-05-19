@@ -5,7 +5,7 @@ about: Template for creating feature issues
 
 ## Context
 
-## Acceptance tests 
+## Acceptance tests
 
 - [ ] Fonctionnality to test ?
 

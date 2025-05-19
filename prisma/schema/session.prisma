@@ -29,7 +29,7 @@ model SessionEmissionSubCategories {
   idEmissionSubCategory     Int                       @map("id_emission_sub_category")
   comments                  Comments[]
   sessionEmissionCategories SessionEmissionCategories @relation(fields: [idSessionEmissionCategory], references: [id], onDelete: Cascade)
-  emissionSubCategory       EmissionSubCategories     @relation(fields: [idEmissionSubCategory], references: [id], onDelete: Cascade)
+  emissionSubCategory       EmissionSubCategories?    @relation(fields: [idEmissionSubCategory], references: [id], onDelete: NoAction)
   sessionEmissions          SessionEmissions[]
   createdAt                 DateTime                  @default(now()) @map("created_at")
   updatedAt                 DateTime                  @updatedAt @map("updated_at")
