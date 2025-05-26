@@ -31,7 +31,7 @@ const CustomContainer = styled('div')`
 
 const BoxHeader = styled(Box)(() => ({
   display: 'flex',
-  justifyContent: 'center',
+  justifyContent: 'left',
   alignItems: 'center',
   img: {
     maxHeight: '60px',
@@ -45,7 +45,7 @@ export const Header = () => {
       <Box sx={{ width: '100%' }}>
         <Grid container direction="row" justifyContent="space-between" alignItems="center">
           <Grid size={6}>
-            <BoxHeader>
+            <BoxHeader >
               <img src="https://clickson.eu/wp-content/uploads/2021/06/logo-color.png" alt="logo" />
             </BoxHeader>
           </Grid>
