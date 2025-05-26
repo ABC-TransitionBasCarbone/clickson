@@ -1,15 +1,23 @@
-import { DataToFill } from "./DataToFill"
-import { Emission } from "./Emission"
-import { Comment } from "./Comment"
-import { SubCategory } from "./SubCategory"
+import {
+  Comments,
+  EmissionCategories,
+  EmissionFactors,
+  EmissionSubCategories,
+  SessionEmissions,
+  SessionEmissionSubCategories,
+} from '@prisma/client'
+import { DataToFill } from './DataToFill'
 
 export interface SessionSubCategory {
-    id: string
-    idSessionEmissionCategory: string
-    idEmissionSubCategory: number
-    locked: boolean
-    sessionEmissions: Emission[]
-    emissionSubCategory: SubCategory
-    dataToFill?: DataToFill
-    comments?: Comment[]
+  emissionCategory: EmissionCategories & {
+    emissionSubCategories: (EmissionSubCategories & {
+      emissionFactors: EmissionFactors[]
+      dataToFill?: DataToFill
+      locked: boolean
+      sessionEmissionSubCategories: (SessionEmissionSubCategories & {
+        sessionEmissions: SessionEmissions[]
+        comments: Comments[]
+      })[]
+    })[]
+  }
 }

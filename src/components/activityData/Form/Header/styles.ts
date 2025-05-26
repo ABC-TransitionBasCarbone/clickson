@@ -1,13 +1,13 @@
-import { styled } from "@mui/system";
+import { styled } from '@mui/system'
 
-const classesLabel = "ActivityDataForm";
+const classesLabel = 'ActivityDataForm'
 
 export const classes = {
-    divider: `${classesLabel}Divider`,
+  divider: `${classesLabel}Divider`,
 }
 
 export const StyledContainer = styled('div')(({ theme }) => ({
-    [`.${classes.divider}`]: {
-        marginTop: theme.spacing(5),
-    },
-}));
+  [`.${classes.divider}`]: {
+    marginTop: theme.spacing(5),
+  },
+}))

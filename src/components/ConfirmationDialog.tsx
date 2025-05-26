@@ -1,34 +1,33 @@
+import { useState } from 'react'
 
-import { useState } from "react";
+import Button from '@mui/material/Button'
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogTitle from '@mui/material/DialogTitle'
+import { useTranslations } from 'next-intl'
 
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import Button from '@mui/material/Button';
-import { useTranslations } from "next-intl";
-
-export default function ConfirmationDialog(props:any) {
+export default function ConfirmationDialog(props: any) {
   //local states
-  const [open, setOpen] = useState(false);
-  const t = useTranslations('category');
+  const [open, setOpen] = useState(false)
+  const t = useTranslations('category')
   const showDialog = () => {
-    setOpen(true);
-  };
+    setOpen(true)
+  }
 
   const hideDialog = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
   const confirmRequest = () => {
-    props.response();
-    hideDialog();
-  };
+    props.response()
+    hideDialog()
+  }
 
-  return (<>
-
-  {props.children(showDialog)}
+  return (
+    <>
+      {props.children(showDialog)}
       {open && (
         <Dialog
           open={open}
@@ -38,9 +37,7 @@ export default function ConfirmationDialog(props:any) {
         >
           <DialogTitle id="alert-dialog-title">{props.title}</DialogTitle>
           <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              {props.description}
-            </DialogContentText>
+            <DialogContentText id="alert-dialog-description">{props.description}</DialogContentText>
           </DialogContent>
           <DialogActions>
             <Button onClick={hideDialog} color="secondary">
@@ -49,9 +46,9 @@ export default function ConfirmationDialog(props:any) {
             <Button onClick={confirmRequest} color="primary">
               {t('yes')}
             </Button>
-
           </DialogActions>
         </Dialog>
       )}
-  </>)
+    </>
+  )
 }

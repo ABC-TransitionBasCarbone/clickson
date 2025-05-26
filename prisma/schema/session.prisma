@@ -29,7 +29,7 @@ model SessionEmissionSubCategories {
   idEmissionSubCategory     Int                       @map("id_emission_sub_category")
   comments                  Comments[]
   sessionEmissionCategories SessionEmissionCategories @relation(fields: [idSessionEmissionCategory], references: [id], onDelete: Cascade)
-  emissionSubCategory       EmissionSubCategories     @relation(fields: [idEmissionSubCategory], references: [id], onDelete: Cascade)
+  emissionSubCategory       EmissionSubCategories?    @relation(fields: [idEmissionSubCategory], references: [id], onDelete: NoAction)
   sessionEmissions          SessionEmissions[]
   createdAt                 DateTime                  @default(now()) @map("created_at")
   updatedAt                 DateTime                  @updatedAt @map("updated_at")
@@ -41,9 +41,9 @@ model SessionEmissions {
   id                           String                        @id @default(uuid()) @db.Uuid
   idSessionEmissionSubCategory String                        @map("id_session_emission_sub_category") @db.Uuid
   idEmissionFactor             Int                           @map("id_emission_factor")
-  value                        Decimal                       @db.Decimal
-  total                        Decimal                       @db.Decimal
-  uncertainty                  Decimal                       @default(0) @db.Decimal
+  value                        Float
+  total                        Float
+  uncertainty                  Float?
   label                        String
   type                         String
   unit                         String
