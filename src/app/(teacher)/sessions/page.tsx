@@ -37,14 +37,14 @@ export default function SessionsBoard() {
     session.archived = !session.archived
     session.locked = true
     const id = await modifySession(session)
-    setSessions(sessions.map(s => s.id == id ? session : s))
+    setSessions(sessions.map((s) => (s.id == id ? session : s)))
   }
 
   async function deleteSession(session: SessionStudents) {
     session.deleted = !session.deleted
     session.locked = true
     const id = await modifySession(session)
-    setSessions(sessions.map(s => s.id == id ? session : s))
+    setSessions(sessions.map((s) => (s.id == id ? session : s)))
   }
 
   async function lockSession(session: SessionStudents) {
@@ -72,7 +72,6 @@ export default function SessionsBoard() {
 
     const returnedSessions = await getSessions(returnedUser.school.id)
 
-    console.log(returnedSessions)
     if (!returnedSessions) {
       setLoading(false)
       return
@@ -110,13 +109,16 @@ export default function SessionsBoard() {
           <Typography variant="h5" sx={{ marginTop: 10 }}>
             {t('archivedList')}
           </Typography>
-          {
-            loading ? <CircularProgress /> :
-              <CollapsibleTable currentSession={sessions.filter(s => !s.deleted && s.archived)}
-                deleteSession={deleteSession}
-                archiveSession={archiveSession}
-                lockSession={lockSession} />
-          }
+          {loading ? (
+            <CircularProgress />
+          ) : (
+            <CollapsibleTable
+              currentSession={sessions.filter((s) => !s.deleted && s.archived)}
+              deleteSession={deleteSession}
+              archiveSession={archiveSession}
+              lockSession={lockSession}
+            />
+          )}
         </AccueilWrapper>
       </Container>
     </>

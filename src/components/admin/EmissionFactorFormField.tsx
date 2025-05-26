@@ -4,10 +4,10 @@ import { isText } from './EmissionFactorForm'
 
 interface EmissionFactorFormFieldProps {
   value: string | number | undefined
-  id: string
+  id: number
   fieldKey: string
   handleInputChange: (
-    id: string,
+    id: number,
     key: string,
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     toUpdate?: boolean,

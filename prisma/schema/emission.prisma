@@ -1,5 +1,5 @@
 model EmissionCategories {
-  id                        Int                         @id @default(autoincrement())
+  id                        Int                         @id
   idEmissionCategory        Int                         @map("id_emission_category")
   idLanguage                Int                         @map("id_language")
   label                     String                      @db.VarChar(255)
@@ -12,7 +12,7 @@ model EmissionCategories {
 }
 
 model EmissionSubCategories {
-  id                           Int                            @id @default(autoincrement())
+  id                           Int                            @id
   idEmissionCategory           Int                            @map("id_emission_category")
   idEmissionSubCategory        Int                            @map("id_emission_sub_category")
   idLanguage                   Int                            @map("id_language")
@@ -33,9 +33,9 @@ model EmissionFactors {
   label                 String                @db.VarChar(255)
   type                  String
   unit                  String
-  value                 Decimal               @db.Decimal
-  depreciationPeriod    Decimal?              @db.Decimal
-  uncertainty           Decimal               @db.Decimal
+  value                 Float
+  depreciationPeriod    Float?
+  uncertainty           Float?
   emissionSubCategory   EmissionSubCategories @relation(fields: [idEmissionSubCategory], references: [id], onDelete: Cascade)
   language              Languages             @relation(fields: [idLanguage], references: [id])
   sessionEmissions      SessionEmissions[]

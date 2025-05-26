@@ -1,6 +1,7 @@
 'use client'
 
 import PieChart from '@/components/charts/PieChart'
+import { NestedSessionStudents } from '@/types/NestedSessionStudents'
 import { Download } from '@mui/icons-material'
 import { Box, Button, Divider, Grid, Popover, Typography } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
@@ -8,9 +9,7 @@ import { styled } from '@mui/system'
 import ExcelJS from 'exceljs'
 import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
-import { fetchExportFile } from '../../../api/export'
 import { backgroundColors } from '../../constants/colors'
-import { Session } from '../../types/Session'
 
 const StatsGrid = styled(Grid)`
   margin-top: 30px;
@@ -50,7 +49,7 @@ const DownloadButton = styled(Button)(({ theme }) => ({
 }))
 
 interface Props {
-  session: Session
+  session: NestedSessionStudents
 }
 
 export const Stats = ({ session }: Props) => {
@@ -93,14 +92,11 @@ export const Stats = ({ session }: Props) => {
 
   const handleExport = async () => {
     try {
-      const arrayBuffer = await fetchExportFile()
-      if (!arrayBuffer) {
-        throw new Error('Failed to fetch the file')
-      }
+      const arrayBuffer = fetchExportFile()
 
       const workbook = new ExcelJS.Workbook()
 
-      await workbook.xlsx.load(arrayBuffer)
+      // await workbook.xlsx.load(arrayBuffer)
       const synthese = workbook.getWorksheet('Synthèse & Profil')
       const fe = workbook.getWorksheet('FE')
       if (!fe) {
@@ -237,4 +233,8 @@ export const Stats = ({ session }: Props) => {
       </Grid>
     </>
   )
+}
+function fetchExportFile() {
+  // ADD export xls function from bc+
+  throw new Error('Function not implemented.')
 }

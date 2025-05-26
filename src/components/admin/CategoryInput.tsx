@@ -1,11 +1,10 @@
-import { Category } from '@/types/Category'
-import { SubCategory } from '@/types/SubCategory'
 import { TextField } from '@mui/material'
+import { EmissionCategories, EmissionSubCategories } from '@prisma/client'
 import React, { useEffect, useRef, useState } from 'react'
 
 interface CategoryInputProps {
-  category: Category | SubCategory
-  modifyCategory: (category: Category | SubCategory) => void
+  category: EmissionCategories | EmissionSubCategories
+  modifyCategory: (category: EmissionCategories | EmissionSubCategories) => void
 }
 
 const useDebounce = (callback: (...args: any[]) => void, delay: number) => {
@@ -28,12 +27,12 @@ export const CategoryInput: React.FC<CategoryInputProps> = ({ category, modifyCa
     setCategoryData(category)
   }, [category])
 
-  const debouncedModifyCategory = useDebounce((updatedCategory: Category | SubCategory) => {
+  const debouncedModifyCategory = useDebounce((updatedCategory: EmissionCategories | EmissionSubCategories) => {
     modifyCategory(updatedCategory)
   }, 300)
 
   const handleChange = (
-    field: keyof Category | keyof SubCategory,
+    field: keyof EmissionCategories | keyof EmissionSubCategories,
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     event.preventDefault()
@@ -43,7 +42,7 @@ export const CategoryInput: React.FC<CategoryInputProps> = ({ category, modifyCa
   }
 
   const handleBlur = (
-    field: keyof Category | keyof SubCategory,
+    field: keyof EmissionCategories | keyof EmissionSubCategories,
     event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>,
   ) => {
     event.preventDefault()

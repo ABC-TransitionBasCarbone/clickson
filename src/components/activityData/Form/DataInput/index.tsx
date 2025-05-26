@@ -14,11 +14,10 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material'
+import { EmissionFactors, SessionEmissions } from '@prisma/client'
 import { useTranslations } from 'next-intl'
 import { ChangeEvent, useState } from 'react'
 import { PrimaryButton } from '../../../../components/buttons/primaryButton'
-import { Emission } from '../../../../types/Emission'
-import { EmissionFactor } from '../../../../types/EmissionFactor'
 import { classes, StyledInputData } from './styles'
 
 interface DataInputProps {
@@ -27,18 +26,38 @@ interface DataInputProps {
   titleSelectInput?: string
   tootlipText?: string
   annualConsumptionText?: string
-  emissionFactors: EmissionFactor[]
-  handleAddData: (emission: Emission) => void
+  emissionFactors: EmissionFactors[]
+  handleAddData: (emission: SessionEmissions & { emissionFactor: EmissionFactors }) => void
 }
 
 export const DataInput = (props: DataInputProps) => {
   const t = useTranslations('category')
-  const [emission, setEmission] = useState<Emission>({
-    emissionFactor: props.emissionFactors
-      ? props.emissionFactors[0]
-      : ({ id: '0', value: 0, label: '', unit: '' } as EmissionFactor),
+  const [emission, setEmission] = useState<SessionEmissions & { emissionFactor: EmissionFactors }>({
+    id: '',
+    label: '',
+    type: '',
+    unit: '',
     value: 0,
+    uncertainty: 0,
+    idSessionEmissionSubCategory: '',
+    idEmissionFactor: props.emissionFactors && props.emissionFactors[0] ? props.emissionFactors[0].id : 0,
     total: 0,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    emissionFactor:
+      props.emissionFactors && props.emissionFactors[0]
+        ? props.emissionFactors[0]
+        : ({
+            id: 0,
+            idEmissionSubCategory: 0,
+            idLanguage: 0,
+            label: '',
+            type: '',
+            unit: '',
+            value: 0,
+            depreciationPeriod: null,
+            uncertainty: 0,
+          } as EmissionFactors),
   })
 
   const handleEmissionFactorChange = (event: SelectChangeEvent<number>) => {
@@ -46,7 +65,7 @@ export const DataInput = (props: DataInputProps) => {
       target: { value: factorId },
     } = event
 
-    const selectedFactor = props.emissionFactors.find((factor) => factor.id === factorId.toString())
+    const selectedFactor = props.emissionFactors.find((factor) => factor.id === factorId)
     if (selectedFactor) {
       setEmission((prevEmission) => ({
         ...prevEmission,
@@ -58,7 +77,7 @@ export const DataInput = (props: DataInputProps) => {
   const handleEmissionValueChange = (event: ChangeEvent<HTMLInputElement>) => {
     setEmission((prevEmission) => ({
       ...prevEmission,
-      value: Number(event.target.value),
+      value: event.target.value ? Number(event.target.value) : 0,
     }))
   }
 
@@ -107,7 +126,7 @@ export const DataInput = (props: DataInputProps) => {
         <Stack className={classes.button}>
           <PrimaryButton
             disabled={props.saving || props.locked}
-            onClick={() => emission.value > 0 && props.handleAddData(emission)}
+            onClick={() => emission.value && props.handleAddData(emission)}
           >
             {props.locked ? t('locked') : t('add')}
           </PrimaryButton>

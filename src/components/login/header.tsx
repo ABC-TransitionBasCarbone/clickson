@@ -29,20 +29,17 @@ const CustomContainer = styled('div')`
   background-color: white;
 `
 
-interface Props {
-  logoPosition?: string
-}
+const BoxHeader = styled(Box)(() => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  img: {
+    maxHeight: '60px',
+    padding: '5px',
+  },
+}))
 
-export const Header = ({ logoPosition }: Props) => {
-  const BoxHeader = styled(Box)(({ theme }) => ({
-    display: 'flex',
-    justifyContent: logoPosition,
-    alignItems: 'center',
-    img: {
-      maxHeight: '60px',
-      padding: '5px',
-    },
-  }))
+export const Header = () => {
   return (
     <CustomContainer>
       <Box sx={{ width: '100%' }}>

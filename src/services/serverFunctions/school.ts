@@ -1,6 +1,8 @@
+'use server'
+
 import { prismaClient } from '@/db/client'
+import { getSchoolById } from '@/db/school'
 import { getSchoolAdminByEmail } from '@/db/schoolAdmin'
-import { getSchoolById } from '@/db/schools'
 
 export const getSchoolByAdminEmail = async (email: string | null) => {
   const schoolAdmin = email ? await getSchoolAdminByEmail(email) : null
@@ -22,10 +24,9 @@ export async function updateSchoolById(data: {
   adress?: string
 }) {
   try {
-
     const school = await prismaClient.schools.update({
       where: { id: data.id },
-      data
+      data,
     })
 
     return school
@@ -34,11 +35,9 @@ export async function updateSchoolById(data: {
   }
 }
 
-export async function getSchool(id: string) {
+export async function getSchoolService(id: string) {
   try {
-    const school = await prismaClient.schools.findUnique({
-      where: { id }
-    })
+    const school = await getSchoolById(id)
     return school
   } catch (error) {
     throw error

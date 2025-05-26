@@ -1,5 +1,6 @@
 import theme from '@/app/theme'
 import { getUserCookies } from '@/services/auth'
+import { updateSchoolById } from '@/services/serverFunctions/school'
 import { User } from '@/types/User'
 import EditIcon from '@mui/icons-material/Edit'
 import {
@@ -49,11 +50,11 @@ const StyledLoadingButton = styled(Button)(({ theme }) => ({
   },
 }))
 
-interface EstablishmentProps {
+interface Props {
   school: Schools
 }
 
-export default function Establishment(props: EstablishmentProps) {
+export default function Establishment(props: Props) {
   const t = useTranslations('school')
 
   const [open, setOpen] = useState(false)
@@ -67,8 +68,15 @@ export default function Establishment(props: EstablishmentProps) {
   const updateSchool = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
-    // const schoolReturn = await editSchool(formData, school)
-    // setSchool(schoolReturn)
+    const schoolReturn = await updateSchoolById({
+      id: school.id,
+      name: formData.get('name') as string,
+      adress: formData.get('adress') as string,
+      studentCount: Number(formData.get('studentCount')),
+      staffCount: Number(formData.get('staffCount')),
+      establishmentYear: Number(formData.get('establishmentYear')),
+    })
+    setSchool(schoolReturn)
     setShowSuccess(true)
   }
   const getUser = async () => {
@@ -82,12 +90,8 @@ export default function Establishment(props: EstablishmentProps) {
 
   return (
     <>
-      <Grid container spacing={3}>
-        <Grid size={8} sx={{ marginTop: 3, display: 'flex', alignItems: 'center' }}></Grid>
-      </Grid>
-
-      <Grid container spacing={6}>
-        <Grid size={8}>
+      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        <Grid size={6}>
           <Item>
             <Typography variant="h5">
               {school?.name}
@@ -101,9 +105,9 @@ export default function Establishment(props: EstablishmentProps) {
           <Item>{school?.adress}</Item>
           <Item>
             {school?.postalCode} {school?.townName}
-          </Item>
+          </Item>{' '}
         </Grid>
-        <Grid size={8} rowSpacing={1}>
+        <Grid size={6}>
           <Item>
             {t('numberStudents')}: {school?.studentCount}
           </Item>

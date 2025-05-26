@@ -1,31 +1,19 @@
+import { rights } from '@/constants/rights'
 import { prismaClient } from './client'
 
-const rights = [
-  { key: 0, label: 'energy', advanced: false },
-  { key: 1, label: 'travel', advanced: false },
-  { key: 2, label: 'foodService', advanced: false },
-  { key: 3, label: 'supplies', advanced: false },
-  { key: 4, label: 'fixedAssets', advanced: false },
-  { key: 5, label: 'travel', advanced: false },
-  { key: 6, label: 'energy', advanced: true },
-  { key: 7, label: 'travel', advanced: true },
-  { key: 8, label: 'foodService', advanced: true },
-  { key: 9, label: 'supplies', advanced: true },
-  { key: 10, label: 'fixedAssets', advanced: true },
-  { key: 11, label: 'travel', advanced: true },
-]
-
 export const getSessionsBySchoolId = (id: string | null | undefined) =>
-  id ? prismaClient.sessionStudents.findMany({
-    where: { idSchool: id },
-    include: {
-      groups: {
-        where: {
-          deleted: false
-        }
-      },
-    }
-  }) : null
+  id
+    ? prismaClient.sessionStudents.findMany({
+        where: { idSchool: id },
+        include: {
+          groups: {
+            where: {
+              deleted: false,
+            },
+          },
+        },
+      })
+    : null
 
 export const createSessionInDb = async (
   idSchool: string,
@@ -34,8 +22,6 @@ export const createSessionInDb = async (
   emissionCategories: any[],
   emissionSubCategories: any[],
 ) => {
-  console.log('createSessionInDb', { idSchool, name, year, emissionCategories, emissionSubCategories })
-
   try {
     return await prismaClient.$transaction(async (tx) => {
       const createdSession = await tx.sessionStudents.create({ data: { idSchool, name, year } })
@@ -58,9 +44,6 @@ export const createSessionInDb = async (
           )?.id || '',
         idEmissionSubCategory: subCategorie.idEmissionSubCategory,
       }))
-
-      console.log('sessionEmissionSubCategoriesMap', sessionEmissionSubCategoriesMap)
-
       if (sessionEmissionSubCategoriesMap.length > 0) {
         await tx.sessionEmissionSubCategories.createMany({ data: sessionEmissionSubCategoriesMap })
       }
@@ -74,6 +57,12 @@ export const createSessionInDb = async (
           rights: rights.filter((r) => r.advanced).map((r) => r.key),
         },
       })
+
+      if (sessionEmissionCategories.length < 0 || sessionEmissionCategories.length === 0) {
+        throw new Error(
+          'No categories found for the session. Aborting transaction.' + JSON.stringify({ createdSession }),
+        )
+      }
 
       return { ...createdSession, groups: [adminGroup] }
     })
@@ -104,8 +93,28 @@ export const toggleSessionCategoryLockInDb = async (idSessionEmissionCategory: s
   })
 }
 
-export const getSessionSubCategoriesByCategory = async (idSessionEmissionCategory: string) => {
-  return await prismaClient.sessionEmissionSubCategories.findMany({
-    where: { idSessionEmissionCategory },
+export const getSessionCategoryById = async (id: string, idLanguage: number) => {
+  return await prismaClient.sessionEmissionCategories.findFirst({
+    where: { id },
+    include: {
+      emissionCategory: {
+        include: {
+          emissionSubCategories: {
+            where: { idLanguage },
+            include: {
+              emissionFactors: {
+                where: { idLanguage },
+              },
+              sessionEmissionSubCategories: {
+                include: {
+                  sessionEmissions: true,
+                  comments: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
   })
 }

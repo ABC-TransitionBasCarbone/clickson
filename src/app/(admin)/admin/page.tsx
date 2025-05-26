@@ -1,14 +1,22 @@
 'use client'
 
 import { getUserCookies } from '@/services/auth'
+import {
+  createEmissionFactor,
+  deleteEmissionFactor,
+  deleteEmissionSubCategory,
+  getEmissionFactors,
+  updateEmissionCategory,
+  updateEmissionFactor,
+  updateEmissionSubCategory,
+} from '@/services/serverFunctions/emission'
+import { NestedEmissionCategory } from '@/types/NestedEmissionCategory'
 import { Alert, CircularProgress, Container, Snackbar } from '@mui/material'
+import { EmissionCategories, EmissionSubCategories } from '@prisma/client'
 import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useReducer, useState } from 'react'
 import { CategoryList } from '../../../../src/components/admin/CategoryList'
 import { Header } from '../../../../src/components/login/header'
-import { EmissionFactors, SessionEmissionCategories } from '@prisma/client'
-import { createEmissionFactor, deleteEmissionFactor, getEmissionFactors } from '@/services/serverFunctions/emission'
-import { Decimal } from '@prisma/client/runtime/library'
 
 const keys = ['label', 'type', 'value', 'unit', 'uncertainty', 'depreciationPeriod']
 
@@ -17,7 +25,7 @@ const isAuthenticated = async () => {
   return !!user
 }
 
-const categoriesReducer = (state: SessionEmissionCategories[], action: any) => {
+const categoriesReducer = (state: NestedEmissionCategory[], action: any) => {
   switch (action.type) {
     case 'SET_CATEGORIES':
       return action.payload
@@ -82,9 +90,9 @@ export default function Admin() {
   }, [router])
 
   const handleInputChange = useCallback(
-    (id: string, key: string, event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, toUpdate?: boolean) => {
+    (id: number, key: string, event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, toUpdate?: boolean) => {
       if (key === 'delete') {
-        deleteEmissionFactor(Number(id))
+        deleteEmissionFactor(id)
         dispatch({ type: 'DELETE_FACTOR', payload: id })
         setSnackbarMessage(`Deleted emission factor with id: ${id}`)
         setSnackbarOpen(true)
@@ -93,7 +101,19 @@ export default function Admin() {
 
       const value = formatInput(key, event)
       dispatch({ type: 'UPDATE_FACTOR', payload: { id, key, value } })
-      toUpdate && updateEmissionFactor({ id, [key]: value } as unknown as EmissionFactors)
+      toUpdate &&
+        updateEmissionFactor({
+          id,
+          [key]: value,
+          idLanguage: 0,
+          label: '',
+          idEmissionSubCategory: 0,
+          type: '',
+          unit: '',
+          value: 0,
+          depreciationPeriod: null,
+          uncertainty: null,
+        })
       setSnackbarMessage(`Updated emission factor with id: ${id}, key: ${key}, value: ${value}`)
       setSnackbarOpen(true)
     },
@@ -111,6 +131,7 @@ export default function Admin() {
       const value = formatInput(key, event)
       if (value === '' || value === 0) return
       const newFactor = {
+        id: 0, // or generate a unique id if required by your DB (e.g., use Date.now() or a uuid)
         label: '',
         type: '',
         unit: '',
@@ -118,8 +139,8 @@ export default function Admin() {
         uncertainty: 0,
         depreciationPeriod: 0,
         [key]: value,
-        idEmissionSubCategory: idEmissionCategory,
-        idLanguage: idLanguage,
+        emissionSubCategory: { connect: { id: idEmissionCategory } },
+        language: { connect: { id: idLanguage } },
       }
       createEmissionFactor(newFactor).then((factor) => {
         dispatch({ type: 'ADD_FACTOR', payload: { idEmissionSubCategory: idEmissionCategory, newFactor: factor } })
@@ -130,20 +151,20 @@ export default function Admin() {
     [categories],
   )
 
-  function modifyCategory(category: Category | SubCategory): void {
-    const error = updateCategory(category)
+  function modifyCategory(category: EmissionCategories | EmissionSubCategories) {
+    const error = updateEmissionCategory(category)
     setSnackbarMessage(`Modified category: ${JSON.stringify(category)} + ${error}`)
     setSnackbarOpen(true)
   }
 
-  function modifySubCategory(subCategory: Category | SubCategory): void {
-    const error = updateSubCategory(subCategory)
+  function modifySubCategory(subCategory: EmissionCategories | EmissionSubCategories) {
+    const error = updateEmissionSubCategory(subCategory)
     setSnackbarMessage(`Modified sub-category: ${JSON.stringify(subCategory)} + ${error}`)
     setSnackbarOpen(true)
   }
 
-  function deleteSubCategory(subCategory: SubCategory): void {
-    const error = deleteSC(subCategory)
+  function deleteSubCategory(subCategory: EmissionCategories | EmissionSubCategories) {
+    const error = deleteEmissionSubCategory(subCategory.id)
     setSnackbarMessage(`Deleted sub-category: ${JSON.stringify(subCategory)} +  ${error}`)
     setSnackbarOpen(true)
   }
@@ -182,7 +203,3 @@ export default function Admin() {
     return key === 'label' || key === 'type' || key === 'unit' ? event.target.value : Number(event.target.value)
   }
 }
-function updateEmissionFactor(arg0: { label: string; type: string; value: Decimal; unit: string; uncertainty: Decimal; depreciationPeriod: Decimal | null; id: number; idEmissionSubCategory: number; idLanguage: number }) {
-  throw new Error('Function not implemented.')
-}
-

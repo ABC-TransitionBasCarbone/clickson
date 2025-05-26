@@ -1,13 +1,13 @@
-import { EmissionFactor } from '@/types/EmissionFactor'
 import { Delete } from '@mui/icons-material'
 import { IconButton } from '@mui/material'
+import { EmissionFactors } from '@prisma/client'
 import { EmissionFactorFormField } from './EmissionFactorFormField'
 
 export interface EmissionFactorFormProps {
-  factor: EmissionFactor
+  factor: EmissionFactors
   keys: string[]
   handleInputChange: (
-    id: string,
+    id: number,
     key: string,
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     toUpdate?: boolean,
@@ -21,7 +21,7 @@ export const EmissionFactorForm: React.FC<EmissionFactorFormProps> = ({ factor, 
         key={id}
         fieldKey={key}
         id={factor.id}
-        value={factor[key as keyof EmissionFactor]}
+        value={factor[key as keyof EmissionFactors] ?? undefined}
         handleInputChange={handleInputChange}
       />
     ))}

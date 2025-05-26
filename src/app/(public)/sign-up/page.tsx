@@ -96,7 +96,7 @@ export default function SignUp() {
   return (
     <>
       <div>
-        <Header logoPosition="flex-start" />
+        <Header />
       </div>
       <Container
         maxWidth="xl"

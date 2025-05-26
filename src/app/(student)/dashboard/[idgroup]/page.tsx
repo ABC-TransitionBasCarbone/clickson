@@ -1,6 +1,9 @@
 'use client'
 
 import { getUserCookies } from '@/services/auth'
+import { getEmissionCategories } from '@/services/serverFunctions/emission'
+import { getGroup } from '@/services/serverFunctions/group'
+import { NestedSessionStudents } from '@/types/NestedSessionStudents'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import { Box, Button, Grid, Typography } from '@mui/material'
 import CircularProgress from '@mui/material/CircularProgress'
@@ -18,10 +21,6 @@ import { getLocale } from '../../../../i18n/locale'
 import { routing } from '../../../../i18n/routing'
 import { UrlParams } from '../../../../types/UrlParams'
 import { User } from '../../../../types/User'
-import { EmissionCategories, EmissionFactors, EmissionSubCategories, Groups, Schools, SessionEmissionCategories, SessionEmissions, SessionEmissionSubCategories, SessionStudents } from '@prisma/client'
-import { getGroup } from '@/services/serverFunctions/group'
-import { getEmissionCategories } from '@/services/serverFunctions/emission'
-import { Session } from 'inspector/promises'
 
 const DashboardWrapper = styled(Box)`
   max-width: 100%;
@@ -44,30 +43,13 @@ const DividerSmall = styled('hr')`
   border-radius: 5px;
 `
 
-type SessionCategory = EmissionCategories & {
-  emissionSubCategories: (EmissionSubCategories & {
-    emissionFactors: EmissionFactors[]
-  })[]
-}
-
-type SessionStudent = {
-  sessionEmissionCategories: ({
-    sessionEmissionSubCategories: ({
-      sessionEmissions: SessionEmissions[];
-    } & SessionEmissionSubCategories)[];
-    emissionCategory: EmissionCategories;
-  } & SessionEmissionCategories)[];
-  school: Schools;
-} & SessionStudents
-
 export default function Dashboard() {
   const t = useTranslations('dashboard')
   const params = useParams<UrlParams>()
   const router = useRouter()
 
   const [loadingCategories, setLoadingCategories] = useState(false)
-  const [categories, setCategories] = useState<SessionCategory[]>([])
-  const [session, setSession] = useState<SessionStudent>({} as SessionStudent)
+  const [session, setSession] = useState<NestedSessionStudents>({} as NestedSessionStudents)
   const [user, setUser] = useState<User>({} as User)
 
   useEffect(() => {
@@ -86,23 +68,21 @@ export default function Dashboard() {
   const fetchGroup = async () => {
     setLoadingCategories(true)
     const group = await getGroup(params.idgroup)
+    if (!group) {
+      return
+    }
     const locale = await getLocale()
     const idLang = routing.locales.findIndex((l) => l === locale) + 1
 
-    const emissionCategories = (await getEmissionCategories(idLang))
+    const emissionCategories = await getEmissionCategories(idLang)
     const sessionCategories = group.sessionStudent.sessionEmissionCategories.map((sc, index) => ({
       ...emissionCategories[index],
       id: index,
       locked: sc.locked,
-      idSessionEmissionCategory: sc.id
+      idSessionEmissionCategory: sc.id,
     }))
 
-    setCategories(sessionCategories)
-
-    setSession({
-      ...group.sessionStudent,
-      school: group.sessionStudent.school ? group.sessionStudent.school : ({} as Schools),
-    })
+    setSession(group.sessionStudent as NestedSessionStudents)
     setLoadingCategories(false)
   }
 
@@ -124,7 +104,7 @@ export default function Dashboard() {
             </Button>
           )}
 
-          <Establishment school={session.school} />
+          {session.school && <Establishment school={session.school} />}
           <Stats session={session} />
 
           {session.locked ? (
@@ -143,15 +123,16 @@ export default function Dashboard() {
               <CircularProgress />
             </Box>
           ) : (
-            <Grid container>
-              {session.sessionEmissionCategories?.map((sc, i) => (
-                <CategoryItem
-                  key={i}
-                  category={sc}
-                  idGroup={params.idgroup}
-                  user={user}
-                  borderColor={backgroundColors[i]}
-                />
+            <Grid container spacing={1} columns={10}>
+              {session.sessionEmissionCategories?.map((sessionEmissionCategory, i) => (
+                <Grid key={i} size={2}>
+                  <CategoryItem
+                    category={sessionEmissionCategory}
+                    idGroup={params.idgroup}
+                    user={user}
+                    borderColor={backgroundColors[i]}
+                  />
+                </Grid>
               ))}
             </Grid>
           )}

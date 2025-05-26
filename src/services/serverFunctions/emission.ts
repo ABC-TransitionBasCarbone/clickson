@@ -1,203 +1,154 @@
-import { PrismaClient } from '@prisma/client'
-const prisma = new PrismaClient()
+'use server'
+
+import { prismaClient } from '@/db/client'
+import { EmissionFactors, Prisma } from '@prisma/client'
 
 export async function createEmissionSubCategory(data: {
-    label: string,
-    idLanguage: number,
-    idEmissionCategory: number
+  label: string
+  idLanguage: number
+  idEmissionCategory: number
 }) {
-    const alreadyCreated = await prisma.emissionSubCategories.findFirst({
-        where: {
-            label: data.label,
-            idLanguage: data.idLanguage
-        }
-    })
-    if (alreadyCreated) throw new Error("Category already exists");
+  const alreadyCreated = await prismaClient.emissionSubCategories.findFirst({
+    where: {
+      label: data.label,
+      idLanguage: data.idLanguage,
+    },
+  })
+  if (alreadyCreated) throw new Error('Category already exists')
 
-    const lastEmissionSubCategory = await prisma.emissionSubCategories.findFirst({
-        orderBy: { id: 'desc' }
-    });
-    const id = lastEmissionSubCategory ? lastEmissionSubCategory.id + 1 : 1;
+  const lastEmissionSubCategory = await prismaClient.emissionSubCategories.findFirst({
+    orderBy: { id: 'desc' },
+  })
+  const id = lastEmissionSubCategory ? lastEmissionSubCategory.id + 1 : 1
 
-    return prisma.emissionSubCategories.create({
-        data: {
-            id: id,
-            label: data.label,
-            detail: "",
-            idEmissionCategory: data.idEmissionCategory,
-            idEmissionSubCategory: id,
-            idLanguage: data.idLanguage,
-        }
-    });
+  return prismaClient.emissionSubCategories.create({
+    data: {
+      id: id,
+      label: data.label,
+      detail: '',
+      idEmissionCategory: data.idEmissionCategory,
+      idEmissionSubCategory: id,
+      idLanguage: data.idLanguage,
+    },
+  })
 }
 
-export async function createEmissionCategory(data: {
-    label: string,
-    idLanguage: number,
-    idEmissionCategory: number
-}) {
-    const alreadyCreated = await prisma.emissionCategories.findFirst({
-        where: {
-            label: data.label,
-            idLanguage: data.idLanguage
-        }
-    })
-    if (alreadyCreated) throw new Error("Category already exists");
+export async function createEmissionCategory(data: { label: string; idLanguage: number; idEmissionCategory: number }) {
+  const alreadyCreated = await prismaClient.emissionCategories.findFirst({
+    where: {
+      label: data.label,
+      idLanguage: data.idLanguage,
+    },
+  })
+  if (alreadyCreated) throw new Error('Category already exists')
 
-    const lastEmissionCategory = await prisma.emissionCategories.findFirst({
-        orderBy: { id: 'desc' }
-    });
-    const id = lastEmissionCategory ? lastEmissionCategory.id + 1 : 1;
+  const lastEmissionCategory = await prismaClient.emissionCategories.findFirst({
+    orderBy: { id: 'desc' },
+  })
+  const id = lastEmissionCategory ? lastEmissionCategory.id + 1 : 1
 
-    return prisma.emissionCategories.create({
-        data: {
-            id: id,
-            idEmissionCategory: data.idEmissionCategory,
-            label: data.label,
-            detail: "",
-            idLanguage: data.idLanguage
-        }
-    });
+  return prismaClient.emissionCategories.create({
+    data: {
+      id: id,
+      idEmissionCategory: data.idEmissionCategory,
+      label: data.label,
+      detail: '',
+      idLanguage: data.idLanguage,
+    },
+  })
 }
 
-export async function updateEmissionSubCategory(data: {
-    id: number,
-    label: string,
-    detail: string
-}) {
-    return prisma.emissionSubCategories.update({
-        where: { id: data.id },
-        data: {
-            label: data.label,
-            detail: data.detail,
-        }
-    });
+export async function updateEmissionSubCategory(data: { id: number; label: string; detail: string }) {
+  return prismaClient.emissionSubCategories.update({
+    where: { id: data.id },
+    data: {
+      label: data.label,
+      detail: data.detail,
+    },
+  })
 }
 
 export async function deleteEmissionSubCategory(id: number) {
-    return prisma.emissionSubCategories.delete({
-        where: { id }
-    });
+  return prismaClient.emissionSubCategories.delete({
+    where: { id },
+  })
 }
 
-export async function updateEmissionCategory(data: {
-    id: number,
-    label: string,
-    detail: string
-}) {
-    return prisma.emissionCategories.update({
-        where: { id: data.id },
-        data: {
-            label: data.label,
-            detail: data.detail,
-        }
-    });
+export async function updateEmissionCategory(data: { id: number; label: string; detail: string }) {
+  return prismaClient.emissionCategories.update({
+    where: { id: data.id },
+    data: {
+      label: data.label,
+      detail: data.detail,
+    },
+  })
 }
 
 export async function getEmissionCategories(idLanguage: number) {
-    return prisma.emissionCategories.findMany({
-        where: { idLanguage },
+  return prismaClient.emissionCategories.findMany({
+    where: { idLanguage },
+    include: {
+      emissionSubCategories: {
         include: {
-            emissionSubCategories: {
-                include: {
-                    emissionFactors: true
-                },
-                orderBy: [
-                    { id: 'asc' }
-                ]
-            }
+          emissionFactors: true,
         },
-    });
+        orderBy: [{ id: 'asc' }],
+      },
+    },
+  })
 }
 
 export async function getEmissionSubCategoriesByLangId(idLanguage: number) {
-    return prisma.emissionSubCategories.findMany({
-        where: { idLanguage },
-        include: {
-            emissionFactors: true
-        }
-    });
+  return prismaClient.emissionSubCategories.findMany({
+    where: { idLanguage },
+    include: {
+      emissionFactors: true,
+    },
+  })
 }
 
 export async function getEmissionFactors(idEmissionSubCategory: number) {
-    return prisma.emissionFactors.findMany({
-        where: {
-            idEmissionSubCategory
-        }
-    });
+  return prismaClient.emissionFactors.findMany({
+    where: {
+      idEmissionSubCategory,
+    },
+  })
 }
 
 export async function getAllEmissionFactors() {
-    return prisma.emissionCategories.findMany({
+  return prismaClient.emissionCategories.findMany({
+    include: {
+      emissionSubCategories: {
         include: {
-            emissionSubCategories: {
-                include: {
-                    emissionFactors: true
-                },
-                orderBy: [
-                    { id: 'asc' }
-                ]
-            }
+          emissionFactors: true,
         },
-        orderBy: [
-            { idLanguage: 'asc' },
-            { id: 'asc' }
-        ]
-    });
+        orderBy: [{ id: 'asc' }],
+      },
+    },
+    orderBy: [{ idLanguage: 'asc' }, { id: 'asc' }],
+  })
 }
 
 export async function deleteEmissionFactor(id: number) {
-    return prisma.emissionFactors.delete({ where: { id } });
+  return prismaClient.emissionFactors.delete({ where: { id } })
 }
 
-export async function updateEmissionFactor(data: {
-    id: number,
-    value: number,
-    uncertainty: number,
-    depreciationPeriod: number,
-    label: string,
-    unit: string,
-    type: string
-}) {
-    return prisma.emissionFactors.update({
-        where: { id: data.id },
-        data: {
-            value: data.value,
-            uncertainty: data.uncertainty,
-            depreciationPeriod: data.depreciationPeriod,
-            label: data.label,
-            unit: data.unit,
-            type: data.type,
-        }
-    });
+export async function updateEmissionFactor(data: EmissionFactors) {
+  return prismaClient.emissionFactors.update({
+    where: { id: data.id },
+    data: {
+      value: data.value,
+      uncertainty: data.uncertainty,
+      depreciationPeriod: data.depreciationPeriod,
+      label: data.label,
+      unit: data.unit,
+      type: data.type,
+    },
+  })
 }
 
-export async function createEmissionFactor(data: {
-    value: number,
-    uncertainty: number,
-    depreciationPeriod: number,
-    label: string,
-    unit: string,
-    type: string,
-    idEmissionSubCategory: number,
-    idLanguage: number
-}) {
-    const lastEmissionFactor = await prisma.emissionFactors.findFirst({
-        orderBy: { id: 'desc' }
-    });
-    const id = lastEmissionFactor ? lastEmissionFactor.id + 1 : 1;
-
-    return prisma.emissionFactors.create({
-        data: {
-            id: id,
-            value: data.value,
-            uncertainty: data.uncertainty,
-            depreciationPeriod: data.depreciationPeriod,
-            label: data.label,
-            unit: data.unit,
-            type: data.type,
-            idEmissionSubCategory: data.idEmissionSubCategory,
-            idLanguage: data.idLanguage
-        }
-    });
+export async function createEmissionFactor(data: Prisma.EmissionFactorsCreateInput) {
+  return prismaClient.emissionFactors.create({
+    data,
+  })
 }

@@ -1,5 +1,5 @@
 import { useTranslations } from 'next-intl'
-import { DataToFill } from '../../../../../../src/types/DataToFill'
+import { DataToFill } from '../types/DataToFill'
 
 export const useDataToFill = () => {
   const t = useTranslations('dataToFill')

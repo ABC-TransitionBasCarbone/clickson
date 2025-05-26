@@ -1,5 +1,6 @@
 'use client'
 
+import { createGroup, deleteGroupInDatabase, updateGroup } from '@/services/serverFunctions/group'
 import {
   Delete,
   Inventory,
@@ -35,7 +36,6 @@ import ConfirmationDialog from '../ConfirmationDialog'
 import CopyToClipboard from '../copytoclipboard'
 import FormCreateGroup from './Form/FormCreateGroup'
 import MultipleSelectChip from './SelectChip'
-import { createGroup, deleteGroupInDatabase, updateGroup } from '@/services/serverFunctions/group'
 
 interface CollapsibleTableProps {
   currentSession: SessionStudents[]
@@ -233,7 +233,13 @@ function Row(props: RowProps) {
   )
 }
 
-export default function CollapsibleTable({ currentSession, deleteSession, archiveSession, lockSession, modifySessionName }: CollapsibleTableProps) {
+export default function CollapsibleTable({
+  currentSession,
+  deleteSession,
+  archiveSession,
+  lockSession,
+  modifySessionName,
+}: CollapsibleTableProps) {
   const t = useTranslations('session')
 
   return (

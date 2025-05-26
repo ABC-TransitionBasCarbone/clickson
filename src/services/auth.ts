@@ -3,12 +3,11 @@
 import { prismaClient } from '@/db/client'
 import { User } from '@/types/User'
 import { cookies } from 'next/headers'
-import { getSchoolByAdminEmail } from './school'
+import { getSchoolByAdminEmail } from './serverFunctions/school'
 
 const wordpressApiUrl = process.env.WORDPRESS_API_URL || ''
 const usernameWordpress = process.env.WORDPRESS_APPLICATION_USERNAME
 const passwordWordpress = process.env.WORDPRESS_APPLICATION_PASSWORD
-const urlApi = process.env.NEXT_PUBLIC_CLICKSON_API_URL
 
 const myHeaders = new Headers()
 myHeaders.append('Content-Type', 'application/json')
@@ -28,7 +27,7 @@ export async function login(email: string, password: string, rememberMe?: boolea
 
   const maxAge = rememberMe ? 60 * 60 * 24 * 30 : 60 * 60 * 24 // 30 days or 1 day
   const user = { ...wordpressUser, role: 'teacher', school }
-    ; (await cookies()).set('user', JSON.stringify(user), { maxAge })
+  ;(await cookies()).set('user', JSON.stringify(user), { maxAge })
   return user
 }
 
@@ -68,17 +67,15 @@ export const getWordpressUser = async (email: string, password: string) => {
   }
 }
 
-export async function logout() {
-  ; (await cookies()).delete('user')
-}
+export const logout = async () => (await cookies()).delete('user')
 
-export async function getUserCookies() {
+export const getUserCookies = async () => {
   const userCookies = (await cookies()).get('user')?.value
   if (!userCookies) return {} as User
   return JSON.parse(userCookies) as User
 }
 
-export async function signUp(formData: FormData) {
+export const signUp = async (formData: FormData) => {
   // Extract form data
   const email = formData.get('email')?.toString().toLowerCase() || ''
   const firstName = formData.get('firstName')?.toString() || ''

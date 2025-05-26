@@ -1,52 +1,82 @@
 'use server'
 
+import { prismaClient } from '@/db/client'
 import { getEmissionCategoriesIdLanguage, getEmissionSubCategoriesIdLanguage } from '@/db/emissions'
 import {
-    createSessionInDb,
-    getSessionsBySchoolId,
-    getSessionSubCategoriesByCategory,
-    toggleSessionCategoryLockInDb,
-    toggleSessionLockInDb,
-    updateSessionInDb,
+  createSessionInDb,
+  getSessionCategoryById,
+  getSessionsBySchoolId,
+  toggleSessionCategoryLockInDb,
+  toggleSessionLockInDb,
+  updateSessionInDb,
 } from '@/db/session'
-import { SessionEmissionCategories, SessionStudents } from '@prisma/client'
+import { SessionEmissionCategories, SessionEmissions, SessionStudents } from '@prisma/client'
 
 export async function getSessions(idSchool: string | null | undefined) {
-    return await getSessionsBySchoolId(idSchool)
+  return await getSessionsBySchoolId(idSchool)
 }
 
-export async function createSession(idSchool: string, name?: string) {
-    const year = new Date().getFullYear()
-    if (!idSchool || !name || !year) {
-        throw new Error('Missing required fields')
-    }
+export async function createSession(id: string, name?: string) {
+  const year = new Date().getFullYear()
+  if (!id || !name || !year) {
+    throw new Error('Missing required fields')
+  }
 
-    // Fetch emission categories and subcategories in parallel
-    const [emissionCategories, emissionSubCategories] = await Promise.all([
-        getEmissionCategoriesIdLanguage(idSchool),
-        getEmissionSubCategoriesIdLanguage(idSchool),
-    ])
+  // Fetch emission categories and subcategories in parallel
+  const [emissionCategories, emissionSubCategories] = await Promise.all([
+    getEmissionCategoriesIdLanguage(id),
+    getEmissionSubCategoriesIdLanguage(id),
+  ])
 
-    return await createSessionInDb(idSchool, name, year, emissionCategories, emissionSubCategories)
+  if (!emissionCategories[0] || !emissionSubCategories[0]) {
+    throw new Error('Failed to fetch emission categories or subcategories')
+  }
+
+  return await createSessionInDb(id, name, year, emissionCategories, emissionSubCategories)
 }
 
-export async function getSessionSubCategoriesWithIdSessionCategory(idSessionCategory: string) {
-    return await getSessionSubCategoriesByCategory(idSessionCategory)
+export async function getSessionCategoryWithId(idSessionCategory: string, idLang: number) {
+  return await getSessionCategoryById(idSessionCategory, idLang)
 }
 
 export async function modifySession(session: SessionStudents): Promise<string> {
-    await updateSessionInDb(session.id, { name: session.name, year: session.year })
-    return session.id
+  await updateSessionInDb(session.id, { name: session.name, year: session.year })
+  return session.id
 }
 
 export async function lockedStudentSession(session: SessionStudents): Promise<SessionStudents> {
-    const updatedSession = await toggleSessionLockInDb(session.id, !session.locked)
-    return updatedSession
+  const updatedSession = await toggleSessionLockInDb(session.id, !session.locked)
+  return updatedSession
 }
 
 export async function lockedSessionCategory(
-    idSessionEmissionCategory: string,
-    locked: boolean,
+  idSessionEmissionCategory: string,
+  locked: boolean,
 ): Promise<SessionEmissionCategories> {
-    return await toggleSessionCategoryLockInDb(idSessionEmissionCategory, locked)
+  return await toggleSessionCategoryLockInDb(idSessionEmissionCategory, locked)
+}
+
+export async function createSessionEmission(data: SessionEmissions) {
+  console.log('Creating session emission with data:', data)
+  return await prismaClient.sessionEmissions.create({
+    data: {
+      value: data.value,
+      total: data.total,
+      label: data.label,
+      type: data.type,
+      unit: data.unit,
+      sessionEmissionSubCategory: {
+        connect: { id: data.idSessionEmissionSubCategory },
+      },
+      emissionFactor: {
+        connect: { id: data.idEmissionFactor },
+      },
+    },
+  })
+}
+
+export async function deleteSessionEmission(id: string): Promise<SessionEmissions> {
+  return await prismaClient.sessionEmissions.delete({
+    where: { id },
+  })
 }

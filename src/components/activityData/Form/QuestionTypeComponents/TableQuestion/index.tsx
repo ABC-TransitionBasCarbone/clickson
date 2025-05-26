@@ -1,31 +1,44 @@
 'use client'
 
+import { createComment, deleteComment } from '@/services/serverFunctions/comment'
+import { createSessionEmission, deleteSessionEmission } from '@/services/serverFunctions/session'
+import { DataToFill } from '@/types/DataToFill'
 import { CancelPresentationOutlined } from '@mui/icons-material'
 import { CircularProgress, IconButton, Typography } from '@mui/material'
 import { Box, Stack } from '@mui/system'
+import {
+  Comments,
+  EmissionFactors,
+  EmissionSubCategories,
+  SessionEmissions,
+  SessionEmissionSubCategories,
+} from '@prisma/client'
 import { useTranslations } from 'next-intl'
 import { useState } from 'react'
-import { createComment } from '../../../../../../api/comments'
-import { createEmission, deleteComment, deleteEmission } from '../../../../../../api/emissions'
 import ConfirmationDialog from '../../../../../components/ConfirmationDialog'
 import { CustomDialog } from '../../../../../components/customDialog'
-import { Comment } from '../../../../../types/Comment'
-import { Emission } from '../../../../../types/Emission'
-import { SessionSubCategory } from '../../../../../types/SessionSubCategory'
 import { DataInput } from '../../DataInput'
 import { DataTable } from '../../DataTable'
 import { CommentInput } from '../CommentInput'
 
-interface QuestionTypeComponentProps {
-  sessionSubCategoryProp: SessionSubCategory
+interface Props {
+  emissionSubCategory: EmissionSubCategories & {
+    emissionFactors: EmissionFactors[]
+    dataToFill?: DataToFill
+    locked: boolean
+    sessionEmissionSubCategories: (SessionEmissionSubCategories & {
+      sessionEmissions: SessionEmissions[]
+      comments: Comments[]
+    })[]
+  }
   schoolYear?: number | null
 }
 
-export const QuestionTypeComponent = ({ sessionSubCategoryProp, schoolYear }: QuestionTypeComponentProps) => {
+export const QuestionTypeComponent = ({ emissionSubCategory, schoolYear }: Props) => {
   const [saving, setSaving] = useState(false)
   const [loadingData, setLoadingData] = useState(false)
   const [open, setOpen] = useState(false)
-  const [sessionSubCategory, setSessionSubCategory] = useState(sessionSubCategoryProp)
+  const [sessionSubCategory, setSessionSubCategory] = useState(emissionSubCategory)
   const t = useTranslations('category')
 
   const handleClose = () => {
@@ -34,56 +47,85 @@ export const QuestionTypeComponent = ({ sessionSubCategoryProp, schoolYear }: Qu
 
   const addComment = async (comment: string) => {
     setLoadingData(true)
-    const commentData = await createComment({ comment: comment, idEmissionSubCategory: sessionSubCategory.id })
-    setSessionSubCategory({ ...sessionSubCategory, comments: sessionSubCategory.comments?.concat(commentData) })
-    setLoadingData(false)
-  }
+    const commentData = await createComment(sessionSubCategory.sessionEmissionSubCategories[0].id, comment)
+    const updateSubCategory = sessionSubCategory.sessionEmissionSubCategories[0]
 
-  const handleDelete = async (emission: Emission) => {
-    setLoadingData(true)
     setSessionSubCategory({
       ...sessionSubCategory,
-      sessionEmissions: sessionSubCategory.sessionEmissions.filter((se) => se.id !== emission.id),
+      sessionEmissionSubCategories: [
+        { ...updateSubCategory, comments: updateSubCategory.comments?.concat(commentData) },
+      ],
     })
-    await deleteEmission(emission)
     setLoadingData(false)
   }
 
-  const handleDeleteComment = async (comment: Comment) => {
+  const handleDelete = async (emission: SessionEmissions) => {
     setLoadingData(true)
+    const updateSubCategory = sessionSubCategory.sessionEmissionSubCategories[0]
+
     setSessionSubCategory({
       ...sessionSubCategory,
-      comments: sessionSubCategory.comments?.filter((se) => se.id !== comment.id),
+      sessionEmissionSubCategories: [
+        {
+          ...updateSubCategory,
+          sessionEmissions: updateSubCategory.sessionEmissions.filter((se) => se.id !== emission.id),
+        },
+      ],
     })
-    await deleteComment(comment)
+
+    await deleteSessionEmission(emission.id)
     setLoadingData(false)
   }
 
-  const handleAddData = async (emission: Emission) => {
+  const handleDeleteComment = async (comment: Comments) => {
+    setLoadingData(true)
+    const updateSubCategory = sessionSubCategory.sessionEmissionSubCategories[0]
+
+    setSessionSubCategory({
+      ...sessionSubCategory,
+      sessionEmissionSubCategories: [
+        { ...updateSubCategory, comments: updateSubCategory.comments?.filter((se) => se.id !== comment.id) },
+      ],
+    })
+
+    await deleteComment(comment.id)
+    setLoadingData(false)
+  }
+
+  const handleAddData = async (emission: SessionEmissions & { emissionFactor: EmissionFactors }) => {
     setLoadingData(true)
     setSaving(true)
 
     const currentYear = new Date().getFullYear()
 
     let totalEmission = emission.value * emission.emissionFactor.value
-    if (emission.emissionFactor.depreciationPeriod && emission.emissionFactor.depreciationPeriod > 0 && schoolYear) {
-      if (currentYear - schoolYear < emission.emissionFactor.depreciationPeriod) {
-        totalEmission = 0
-      } else {
-        totalEmission = totalEmission / emission.emissionFactor.depreciationPeriod
-      }
+    const depreciationPeriod = emission.emissionFactor.depreciationPeriod
+      ? emission.emissionFactor.depreciationPeriod
+      : 0
+    if (depreciationPeriod > 0 && schoolYear) {
+      totalEmission = currentYear - schoolYear < depreciationPeriod ? 0 : totalEmission / depreciationPeriod
     }
 
-    const emissionData = await createEmission({
-      ...emission.emissionFactor,
+    const emissionData = {
       ...emission,
+      idSessionEmissionSubCategory: sessionSubCategory.sessionEmissionSubCategories[0].id,
       total: totalEmission,
-      idSessionEmissionSubCategory: sessionSubCategory.id,
-      idEmissionFactor: emission.emissionFactor.id,
-    })
+    }
+
+    console.log('Creating session emission with data:', emissionData)
+
+    const emissionResult = await createSessionEmission(emissionData)
+
+    const updateSubCategory = sessionSubCategory.sessionEmissionSubCategories[0]
+
     setSessionSubCategory({
       ...sessionSubCategory,
-      sessionEmissions: sessionSubCategory.sessionEmissions.concat({ ...emission, ...emissionData }),
+      sessionEmissionSubCategories: [
+        {
+          ...updateSubCategory,
+          sessionEmissions: updateSubCategory.sessionEmissions.concat({ ...emission, ...emissionResult }),
+        },
+      ],
     })
 
     setSaving(false)
@@ -102,7 +144,7 @@ export const QuestionTypeComponent = ({ sessionSubCategoryProp, schoolYear }: Qu
       />
       <DataInput
         titleSelectInput={sessionSubCategory.dataToFill?.titleSelectInput}
-        emissionFactors={sessionSubCategory.emissionSubCategory.emissionFactors}
+        emissionFactors={sessionSubCategory.emissionFactors || []}
         saving={saving}
         locked={sessionSubCategory.locked}
         tootlipText={sessionSubCategory.dataToFill?.tooltipText}
@@ -117,11 +159,16 @@ export const QuestionTypeComponent = ({ sessionSubCategoryProp, schoolYear }: Qu
         <>
           <DataTable
             tableHeader={sessionSubCategory.dataToFill?.tableHeader}
-            emissions={sessionSubCategory.sessionEmissions}
+            emissions={
+              sessionSubCategory.sessionEmissionSubCategories[0]?.sessionEmissions.map((emission) => ({
+                ...emission,
+                emissionFactor: sessionSubCategory.emissionFactors.find((ef) => ef.id === emission.idEmissionFactor)!,
+              })) || []
+            }
             handleDelete={handleDelete}
           />
           <CommentInput addComment={addComment} />
-          {sessionSubCategory.comments?.map((comment, index) => (
+          {sessionSubCategory.sessionEmissionSubCategories[0].comments?.map((comment, index) => (
             <Stack direction="row" spacing={2} key={index}>
               <Typography sx={{ paddingTop: 1 }}>{comment.comment}</Typography>
               <ConfirmationDialog

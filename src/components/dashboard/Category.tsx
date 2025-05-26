@@ -2,11 +2,11 @@
 
 import theme from '@/app/theme'
 import { lockedSessionCategory } from '@/services/serverFunctions/session'
+import { NestedSessionEmissionCategory } from '@/types/NestedSessionEmissionCategory'
 import { User } from '@/types/User'
 import { Lock, LockOpen } from '@mui/icons-material'
 import { Grid, Switch, Typography } from '@mui/material'
 import { styled } from '@mui/system'
-import { SessionEmissionCategories } from '@prisma/client'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { ChangeEvent, useState } from 'react'
@@ -28,16 +28,16 @@ const OngoingButton = styled('button')(({ theme }) => ({
   },
 }))
 
-interface CategoryItemProps {
-  category: SessionEmissionCategories
+interface Props {
+  category: NestedSessionEmissionCategory
   borderColor: string
   user: User
   idGroup: string
 }
 
-export const CategoryItem = (props: CategoryItemProps) => {
+export const CategoryItem = (props: Props) => {
   const t = useTranslations('dashboard')
-  const [locked, setLocked] = useState(props.category.locked)
+  const [locked, setLocked] = useState(props.category.locked ?? false)
 
   const handleValueChange = (event: ChangeEvent<HTMLInputElement>) => {
     setLocked(event.target.checked)
@@ -59,10 +59,10 @@ export const CategoryItem = (props: CategoryItemProps) => {
   return (
     <Grid container size={8} sx={conatinerStyle}>
       <Typography color={theme.palette.primary.main} variant="h5" align={'center'}>
-        {props.category.id}
+        {props.category.emissionCategory.label}
       </Typography>
       <Typography marginTop={2} marginBottom={2}>
-        {props.category.id}
+        {props.category.emissionCategory.detail}
       </Typography>
       <Grid display={'inline-block'} alignSelf={'flex-end'}>
         <Link href={`/category/` + props.idGroup + '/' + props.category.id}>

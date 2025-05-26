@@ -1,21 +1,20 @@
 import { Grid, Typography } from '@mui/material'
-import { Category } from '../../types/Category'
-import { SubCategory } from '../../types/SubCategory'
+import { EmissionCategories, EmissionSubCategories } from '@prisma/client'
 import { CategoryInput } from './CategoryInput'
 import { SubCategoryList } from './SubCategoryList'
 
 interface CategoryListProps {
-  categories: Category[]
+  categories: (EmissionCategories & { emissionSubCategories: EmissionSubCategories[] })[]
   keys: string[]
   handleInputChange: (
-    id: string,
+    id: number,
     key: string,
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     toUpdate?: boolean,
   ) => void
-  modifyCategory: (category: Category | SubCategory) => void
-  modifySubCategory: (category: Category | SubCategory) => void
-  deleteSubCategory: (category: SubCategory) => void
+  modifyCategory: (category: EmissionCategories | EmissionSubCategories) => void
+  modifySubCategory: (category: EmissionCategories | EmissionSubCategories) => void
+  deleteSubCategory: (category: EmissionSubCategories) => void
   createFE: (
     idEmissionCategory: number,
     idLanguage: number,

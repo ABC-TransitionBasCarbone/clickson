@@ -2,16 +2,16 @@
 
 import ConfirmationDialog from '@/components/ConfirmationDialog'
 import { toLocaleString } from '@/helpers/helpers'
-import { Emission } from '@/types/Emission'
 import { CancelPresentationOutlined } from '@mui/icons-material'
 import { IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
+import { EmissionFactors, SessionEmissions } from '@prisma/client'
 import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
 
 interface DataTableProps {
-  emissions: Emission[]
+  emissions: (SessionEmissions & { emissionFactor: EmissionFactors })[]
   tableHeader?: string[]
-  handleDelete: (row: Emission) => void
+  handleDelete: (row: SessionEmissions & { emissionFactor: EmissionFactors }) => void
 }
 
 export const DataTable = ({ tableHeader, emissions, handleDelete }: DataTableProps) => {
@@ -41,16 +41,16 @@ export const DataTable = ({ tableHeader, emissions, handleDelete }: DataTablePro
               <TableCell component="th" scope="row">
                 {emission.emissionFactor?.label}
               </TableCell>
-              <TableCell align="right">{toLocaleString(emission.value)}</TableCell>
+              <TableCell align="right">{toLocaleString(Number(emission.value))}</TableCell>
               <TableCell align="right">
-                {toLocaleString(emission.emissionFactor?.value) +
+                {toLocaleString(Number(emission.emissionFactor?.value)) +
                   ' ' +
                   t('kgCO₂e') +
                   '/' +
                   emission.emissionFactor?.unit}
               </TableCell>
-              <TableCell align="right">{emission.emissionFactor?.uncertainty}</TableCell>
-              <TableCell align="right">{toLocaleString(emission.total)}</TableCell>
+              <TableCell align="right">{emission.emissionFactor?.uncertainty?.toString() ?? ''}</TableCell>
+              <TableCell align="right">{toLocaleString(Number(emission.total))}</TableCell>
               <TableCell align="right">
                 <ConfirmationDialog
                   title={t('confirmTitle')}

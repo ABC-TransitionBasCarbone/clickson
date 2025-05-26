@@ -4,7 +4,6 @@ import type { Metadata } from 'next'
 import { NextIntlClientProvider } from 'next-intl'
 import { getLocale, getMessages } from 'next-intl/server'
 
-import Head from 'next/head'
 import './global.css'
 import Providers from './Providers'
 import theme from './theme'
@@ -26,10 +25,6 @@ const RootLayout = async ({ children }: Readonly<Props>) => {
 
   return (
     <html lang={locale}>
-      <Head>
-        <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/gilroy-bold" />
-      </Head>
-
       <body>
         <ThemeProvider theme={theme}>
           <CssBaseline />
