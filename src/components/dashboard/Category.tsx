@@ -4,7 +4,7 @@ import theme from '@/app/theme'
 import { lockedSessionCategory } from '@/services/serverFunctions/session'
 import { NestedSessionEmissionCategory } from '@/types/NestedSessionEmissionCategory'
 import { User } from '@/types/User'
-import { Lock, LockOpen } from '@mui/icons-material'
+import { Lock, NoEncryption } from '@mui/icons-material'
 import { Grid, Switch, Typography } from '@mui/material'
 import { styled } from '@mui/system'
 import { useTranslations } from 'next-intl'
@@ -64,17 +64,22 @@ export const CategoryItem = (props: Props) => {
       <Typography marginTop={2} marginBottom={2}>
         {props.category.emissionCategory.detail}
       </Typography>
-      <Grid display={'inline-block'} alignSelf={'flex-end'}>
+      <Grid display="flex" alignItems="center" gap={1} alignSelf="flex-end">
         <Link href={`/category/` + props.idGroup + '/' + props.category.id}>
           <OngoingButton>{t('onGoing')}</OngoingButton>
         </Link>
         {props.user.email && (
           <Switch
             checkedIcon={<Lock />}
-            icon={<LockOpen sx={{ color: 'green', borderRadius: 10 }} />}
+            icon={<NoEncryption sx={{ color: 'green' }} />}
             checked={locked}
             color="error"
             onChange={handleValueChange}
+            sx={{
+              '& .MuiSwitch-track': {
+                backgroundColor: 'green',
+              },
+            }}
           />
         )}
       </Grid>

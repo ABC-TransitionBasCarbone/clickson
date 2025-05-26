@@ -125,7 +125,7 @@ export default function Dashboard() {
           ) : (
             <Grid container spacing={1} columns={10}>
               {session.sessionEmissionCategories?.map((sessionEmissionCategory, i) => (
-                <Grid key={i} size={2}>
+                <Grid key={i} size={2} sx={{ height: 700, display: 'flex' }}>
                   <CategoryItem
                     category={sessionEmissionCategory}
                     idGroup={params.idgroup}

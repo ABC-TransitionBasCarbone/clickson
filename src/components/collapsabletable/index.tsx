@@ -7,7 +7,7 @@ import {
   KeyboardArrowDown,
   KeyboardArrowUp,
   Lock,
-  LockOpen,
+  NoEncryption,
   Login,
   Unarchive,
 } from '@mui/icons-material'
@@ -127,10 +127,15 @@ function Row(props: RowProps) {
             <Tooltip title={t('locked')}>
               <Switch
                 checkedIcon={<Lock />}
-                icon={<LockOpen sx={{ color: 'green', borderRadius: 10 }} />}
+                icon={<NoEncryption sx={{ color: 'green' }} />}
                 checked={session.locked}
                 color="error"
                 onClick={() => (props.lockSession(session), setSession({ ...session, locked: !session.locked }))}
+                sx={{
+                  '& .MuiSwitch-track': {
+                    backgroundColor: 'green',
+                  },
+                }}
               />
             </Tooltip>
             <ConfirmationDialog
