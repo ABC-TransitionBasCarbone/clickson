@@ -64,6 +64,8 @@ export const ActivityDataForm = ({ dataToFill }: Props) => {
       },
     }
 
+    console.log('sessionEmissionCategories ', sessionEmissionCategories)
+
     setSessionSubCategory(sessionEmissionCategories)
 
     getSchool()

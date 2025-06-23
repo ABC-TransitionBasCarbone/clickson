@@ -112,8 +112,6 @@ export const QuestionTypeComponent = ({ emissionSubCategory, schoolYear }: Props
       total: totalEmission,
     }
 
-    console.log('Creating session emission with data:', emissionData)
-
     const emissionResult = await createSessionEmission(emissionData)
 
     const updateSubCategory = sessionSubCategory.sessionEmissionSubCategories[0]
@@ -168,7 +166,7 @@ export const QuestionTypeComponent = ({ emissionSubCategory, schoolYear }: Props
             handleDelete={handleDelete}
           />
           <CommentInput addComment={addComment} />
-          {sessionSubCategory.sessionEmissionSubCategories[0].comments?.map((comment, index) => (
+          {sessionSubCategory.sessionEmissionSubCategories[0]?.comments?.map((comment, index) => (
             <Stack direction="row" spacing={2} key={index}>
               <Typography sx={{ paddingTop: 1 }}>{comment.comment}</Typography>
               <ConfirmationDialog

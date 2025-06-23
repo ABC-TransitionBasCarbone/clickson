@@ -18,7 +18,7 @@ export async function getGroupWithDetails(id: string) {
                   sessionEmissions: true,
                 },
               },
-              emissionCategory: true,
+              emissionCategory: true
             },
           },
           school: true,

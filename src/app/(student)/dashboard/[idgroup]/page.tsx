@@ -21,6 +21,7 @@ import { getLocale } from '../../../../i18n/locale'
 import { routing } from '../../../../i18n/routing'
 import { UrlParams } from '../../../../types/UrlParams'
 import { User } from '../../../../types/User'
+import { EmissionCategories } from '@prisma/client'
 
 const DashboardWrapper = styled(Box)`
   max-width: 100%;
@@ -50,6 +51,7 @@ export default function Dashboard() {
 
   const [loadingCategories, setLoadingCategories] = useState(false)
   const [session, setSession] = useState<NestedSessionStudents>({} as NestedSessionStudents)
+  const [emissionCategories, setEmissionCategories] = useState<EmissionCategories[]>([])
   const [user, setUser] = useState<User>({} as User)
 
   useEffect(() => {
@@ -67,20 +69,15 @@ export default function Dashboard() {
 
   const fetchGroup = async () => {
     setLoadingCategories(true)
+
+    const locale = await getLocale()
+    const idLang = routing.locales.findIndex((l) => l === locale) + 1
+
     const group = await getGroup(params.idgroup)
     if (!group) {
       return
     }
-    const locale = await getLocale()
-    const idLang = routing.locales.findIndex((l) => l === locale) + 1
-
-    const emissionCategories = await getEmissionCategories(idLang)
-    const sessionCategories = group.sessionStudent.sessionEmissionCategories.map((sc, index) => ({
-      ...emissionCategories[index],
-      id: index,
-      locked: sc.locked,
-      idSessionEmissionCategory: sc.id,
-    }))
+    setEmissionCategories(await getEmissionCategories(idLang))
 
     setSession(group.sessionStudent as NestedSessionStudents)
     setLoadingCategories(false)
@@ -127,7 +124,10 @@ export default function Dashboard() {
               {session.sessionEmissionCategories?.map((sessionEmissionCategory, i) => (
                 <Grid key={i} size={2} sx={{ height: 700, display: 'flex' }}>
                   <CategoryItem
-                    category={sessionEmissionCategory}
+                    emissionCategory={emissionCategories.find(
+                      (ec) => ec.idEmissionCategory === sessionEmissionCategory.idEmissionCategory
+                    ) || ({} as EmissionCategories)}
+                    sessionEmissionCategory={sessionEmissionCategory}
                     idGroup={params.idgroup}
                     user={user}
                     borderColor={backgroundColors[i]}

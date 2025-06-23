@@ -7,6 +7,7 @@ import { User } from '@/types/User'
 import { Lock, NoEncryption } from '@mui/icons-material'
 import { Grid, Switch, Typography } from '@mui/material'
 import { styled } from '@mui/system'
+import { EmissionCategories } from '@prisma/client'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { ChangeEvent, useState } from 'react'
@@ -29,19 +30,20 @@ const OngoingButton = styled('button')(({ theme }) => ({
 }))
 
 interface Props {
-  category: NestedSessionEmissionCategory
+  emissionCategory: EmissionCategories
+  sessionEmissionCategory: NestedSessionEmissionCategory
   borderColor: string
   user: User
   idGroup: string
 }
 
-export const CategoryItem = (props: Props) => {
+export const CategoryItem = ({ emissionCategory, sessionEmissionCategory, borderColor, user, idGroup }: Props) => {
   const t = useTranslations('dashboard')
-  const [locked, setLocked] = useState(props.category.locked ?? false)
+  const [locked, setLocked] = useState(sessionEmissionCategory.locked ?? false)
 
   const handleValueChange = (event: ChangeEvent<HTMLInputElement>) => {
     setLocked(event.target.checked)
-    lockedSessionCategory(props.category.id, event.target.checked)
+    lockedSessionCategory(sessionEmissionCategory.id, event.target.checked)
   }
 
   const conatinerStyle = {
@@ -52,23 +54,23 @@ export const CategoryItem = (props: Props) => {
     paddingBottom: 5,
     margin: 2,
     borderRadius: 3,
-    border: `2px solid ${props.borderColor}`,
+    border: `2px solid ${borderColor}`,
     display: 'flex',
   }
 
   return (
     <Grid container size={8} sx={conatinerStyle}>
       <Typography color={theme.palette.primary.main} variant="h5" align={'center'}>
-        {props.category.emissionCategory.label}
+        {emissionCategory.label}
       </Typography>
       <Typography marginTop={2} marginBottom={2}>
-        {props.category.emissionCategory.detail}
+        {emissionCategory.detail}
       </Typography>
       <Grid display="flex" alignItems="center" gap={1} alignSelf="flex-end">
-        <Link href={`/category/` + props.idGroup + '/' + props.category.id}>
+        <Link href={`/category/` + idGroup + '/' + sessionEmissionCategory.id}>
           <OngoingButton>{t('onGoing')}</OngoingButton>
         </Link>
-        {props.user.email && (
+        {user.email && (
           <Switch
             checkedIcon={<Lock />}
             icon={<NoEncryption sx={{ color: 'green' }} />}
