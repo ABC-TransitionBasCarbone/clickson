@@ -185,5 +185,797 @@
     "october": "ottobre",
     "november": "novembre",
     "december": "Dicembre"
+  },
+  "emissionFactor": {
+    "1": {
+      "label": "Olio per combustibile domestico",
+      "type": "Fuelli",
+      "unit": "litro"
+    },
+    "2": {
+      "label": "Olio combustibile pesante/commerciale",
+      "type": "Fuelli",
+      "unit": "litro"
+    },
+    "3": {
+      "label": "Gas naturale",
+      "type": "Fuelli",
+      "unit": "M3"
+    },
+    "4": {
+      "label": "Pellet di legno (umidità 8%)",
+      "type": "Fuelli",
+      "unit": "KWh"
+    },
+    "5": {
+      "label": "Gennaio",
+      "type": "Elettricità",
+      "unit": "KWh"
+    },
+    "6": {
+      "label": "FEBBRAIO",
+      "type": "Elettricità",
+      "unit": "KWh"
+    },
+    "7": {
+      "label": "Marzo",
+      "type": "Elettricità",
+      "unit": "KWh"
+    },
+    "8": {
+      "label": "aprile",
+      "type": "Elettricità",
+      "unit": "KWh"
+    },
+    "9": {
+      "label": "Maggio",
+      "type": "Elettricità",
+      "unit": "KWh"
+    },
+    "10": {
+      "label": "Giugno",
+      "type": "Elettricità",
+      "unit": "KWh"
+    },
+    "11": {
+      "label": "Luglio",
+      "type": "Elettricità",
+      "unit": "KWh"
+    },
+    "12": {
+      "label": "agosto",
+      "type": "Elettricità",
+      "unit": "KWh"
+    },
+    "13": {
+      "label": "settembre",
+      "type": "Elettricità",
+      "unit": "KWh"
+    },
+    "14": {
+      "label": "ottobre",
+      "type": "Elettricità",
+      "unit": "KWh"
+    },
+    "15": {
+      "label": "novembre",
+      "type": "Elettricità",
+      "unit": "KWh"
+    },
+    "16": {
+      "label": "Dicembre",
+      "type": "Elettricità",
+      "unit": "KWh"
+    },
+    "17": {
+      "label": "R134A",
+      "type": "Refrigerante",
+      "unit": "kg"
+    },
+    "18": {
+      "label": "R422",
+      "type": "Refrigerante",
+      "unit": "kg"
+    },
+    "19": {
+      "label": "R32",
+      "type": "Refrigerante",
+      "unit": "kg"
+    },
+    "20": {
+      "label": "R404A",
+      "type": "Refrigerante",
+      "unit": "kg"
+    },
+    "21": {
+      "label": "R407C",
+      "type": "Refrigerante",
+      "unit": "kg"
+    },
+    "22": {
+      "label": "R410A",
+      "type": "Refrigerante",
+      "unit": "kg"
+    },
+    "23": {
+      "label": "R452A",
+      "type": "Refrigerante",
+      "unit": "kg"
+    },
+    "24": {
+      "label": "R513A",
+      "type": "Refrigerante",
+      "unit": "kg"
+    },
+    "25": {
+      "label": "R744 - CO2",
+      "type": "Refrigerante",
+      "unit": "kg"
+    },
+    "26": {
+      "label": "CO2",
+      "type": "Gas serra principale",
+      "unit": "kg"
+    },
+    "27": {
+      "label": "Fossile CH4",
+      "type": "Gas serra principale",
+      "unit": "kg"
+    },
+    "28": {
+      "label": "CH4 Biogenico",
+      "type": "Gas serra principale",
+      "unit": "kg"
+    },
+    "29": {
+      "label": "N2O",
+      "type": "Gas serra principale",
+      "unit": "kg"
+    },
+    "30": {
+      "label": "SF6",
+      "type": "Gas serra principale",
+      "unit": "kg"
+    },
+    "31": {
+      "label": "NF3",
+      "type": "Gas serra principale",
+      "unit": "kg"
+    },
+    "32": {
+      "label": "Pasto medio",
+      "type": "Pasto",
+      "unit": "pasto"
+    },
+    "33": {
+      "label": "Pasto vegetariano",
+      "type": "Pasto",
+      "unit": "pasto"
+    },
+    "34": {
+      "label": "Pasto vegano",
+      "type": "Pasto",
+      "unit": "pasto"
+    },
+    "35": {
+      "label": "Pasto di carne rossa",
+      "type": "Pasto",
+      "unit": "pasto"
+    },
+    "36": {
+      "label": "Bottiglia d'acqua",
+      "type": "ATM",
+      "unit": "litro"
+    },
+    "37": {
+      "label": "Soda",
+      "type": "ATM",
+      "unit": "litro"
+    },
+    "38": {
+      "label": "Biscotti",
+      "type": "ATM",
+      "unit": "kg"
+    },
+    "39": {
+      "label": "Patatine",
+      "type": "ATM",
+      "unit": "porzione"
+    },
+    "40": {
+      "label": "Truck di consegna (peso totale autorizzato in carica, 12-20t)",
+      "type": "Trasporto su strada",
+      "unit": "ton.km"
+    },
+    "41": {
+      "label": "Veicolo di consegna locale (peso totale autorizzato in carica, 7,5-12t)",
+      "type": "Trasporto su strada",
+      "unit": "ton.km"
+    },
+    "42": {
+      "label": "Camion di refrigerazione",
+      "type": "Trasporto su strada",
+      "unit": "ton.km"
+    },
+    "43": {
+      "label": "Camion articolato di grande volume 40t",
+      "type": "Trasporto su strada",
+      "unit": "ton.km"
+    },
+    "44": {
+      "label": "Veicolo di utilità leggera",
+      "type": "Trasporto su strada",
+      "unit": "ton.km"
+    },
+    "45": {
+      "label": "Airplane - Trasporto di merci (mondo)",
+      "type": "Air Freight",
+      "unit": "ton.km"
+    },
+    "46": {
+      "label": "Freight ferroviario (Europa)",
+      "type": "Freight ferroviario",
+      "unit": "ton.km"
+    },
+    "48": {
+      "label": "Ship da carico - Meno di 1.200 EVP",
+      "type": "Nave da carico",
+      "unit": "ton.km"
+    },
+    "50": {
+      "label": "Bike elettrica",
+      "type": "Trasporto",
+      "unit": "km"
+    },
+    "51": {
+      "label": "Scooter elettrico",
+      "type": "Trasporto",
+      "unit": "km"
+    },
+    "52": {
+      "label": "Moto (benzina)",
+      "type": "Trasporto",
+      "unit": "km"
+    },
+    "53": {
+      "label": "Bike elettrica",
+      "type": "Trasporto",
+      "unit": "km"
+    },
+    "54": {
+      "label": "Scooter elettrico",
+      "type": "Trasporto",
+      "unit": "km"
+    },
+    "55": {
+      "label": "Moto (benzina)",
+      "type": "Trasporto",
+      "unit": "km"
+    },
+    "56": {
+      "label": "Veicolo elettrico compatto",
+      "type": "Trasporto",
+      "unit": "km"
+    },
+    "57": {
+      "label": "Auto individuale - benzina",
+      "type": "Trasporto",
+      "unit": "km"
+    },
+    "58": {
+      "label": "Auto individuale - diesel",
+      "type": "Trasporto",
+      "unit": "km"
+    },
+    "59": {
+      "label": "Autobus medio",
+      "type": "Trasporto",
+      "unit": "passeggeri"
+    },
+    "60": {
+      "label": "Transilien, rer, metropolitana, tram",
+      "type": "Trasporto",
+      "unit": "passeggero"
+    },
+    "61": {
+      "label": "Ter",
+      "type": "Trasporto",
+      "unit": "passeggeri"
+    },
+    "62": {
+      "label": "TGV",
+      "type": "Trasporto",
+      "unit": "passeggeri"
+    },
+    "73": {
+      "label": "Auto personale - benzina",
+      "type": "Trasporto",
+      "unit": "km"
+    },
+    "79": {
+      "label": "Autobus medio",
+      "type": "Trasporto",
+      "unit": "passeggeri"
+    },
+    "80": {
+      "label": "Transilien, rer, metropolitana, tram",
+      "type": "Trasporto",
+      "unit": "passeggeri"
+    },
+    "81": {
+      "label": "Ter",
+      "type": "Trasporto",
+      "unit": "passeggeri"
+    },
+    "82": {
+      "label": "TGV",
+      "type": "Trasporto",
+      "unit": "passeggeri"
+    },
+    "83": {
+      "label": "Piccole forniture (penne ...)",
+      "type": "Forniture",
+      "unit": "€ €"
+    },
+    "85": {
+      "label": "Libri",
+      "type": "Forniture",
+      "unit": "unità"
+    },
+    "87": {
+      "label": "Carta (canottaggio)",
+      "type": "Forniture",
+      "unit": "unità"
+    },
+    "88": {
+      "label": "Acido cloridrico",
+      "type": "Prodotti chimici",
+      "unit": "litro"
+    },
+    "89": {
+      "label": "Acido solforico",
+      "type": "Prodotti chimici",
+      "unit": "litro"
+    },
+    "90": {
+      "label": "Soda solida (polvere, pellet)",
+      "type": "Prodotti chimici",
+      "unit": "kg"
+    },
+    "91": {
+      "label": "Aceto bianco",
+      "type": "Prodotti chimici",
+      "unit": "litro"
+    },
+    "92": {
+      "label": "Pallacanestro",
+      "type": "Attrezzatura sportiva",
+      "unit": "unità"
+    },
+    "93": {
+      "label": "Palla da calcio",
+      "type": "Attrezzatura sportiva",
+      "unit": "unità"
+    },
+    "94": {
+      "label": "Palla da pallavolo",
+      "type": "Attrezzatura sportiva",
+      "unit": "unità"
+    },
+    "95": {
+      "label": "Pallamano",
+      "type": "Attrezzatura sportiva",
+      "unit": "unità"
+    },
+    "96": {
+      "label": "Edificio scolastico (struttura in cemento)",
+      "type": "Costruzione",
+      "unit": "m²"
+    },
+    "97": {
+      "label": "Parcheggio (edificio - Struttura in cemento)",
+      "type": "Costruzione",
+      "unit": "m²"
+    },
+    "98": {
+      "label": "Parcheggio (superficie bitume)",
+      "type": "Costruzione",
+      "unit": "m²"
+    },
+    "99": {
+      "label": "Parcheggio (superficie semi-dure)",
+      "type": "Costruzione",
+      "unit": "m²"
+    },
+    "100": {
+      "label": "Desktop",
+      "type": "Apparecchiatura IT/audiovisiva",
+      "unit": "unità"
+    },
+    "101": {
+      "label": "Compresse",
+      "type": "Apparecchiatura IT/audiovisiva",
+      "unit": "unità"
+    },
+    "102": {
+      "label": "Fotocopiatrici",
+      "type": "Apparecchiatura IT/audiovisiva",
+      "unit": "unità"
+    },
+    "103": {
+      "label": "Video proiettore",
+      "type": "Apparecchiatura IT/audiovisiva",
+      "unit": "unità"
+    },
+    "104": {
+      "label": "Stampante",
+      "type": "Apparecchiatura IT/audiovisiva",
+      "unit": "unità"
+    },
+    "209": {
+      "label": "Biopropano",
+      "type": "Fuelli",
+      "unit": "kg"
+    },
+    "210": {
+      "label": "Rete di calore",
+      "type": "Fuelli",
+      "unit": "KWh"
+    },
+    "211": {
+      "label": "Pasto bianco",
+      "type": "Pasto",
+      "unit": "pasto"
+    },
+    "212": {
+      "label": "Pasto di pesce bianco",
+      "type": "Pasto",
+      "unit": "pasto"
+    },
+    "213": {
+      "label": "Caffè nero",
+      "type": "ATM",
+      "unit": "litro"
+    },
+    "214": {
+      "label": "Tè infuso",
+      "type": "ATM",
+      "unit": "litro"
+    },
+    "215": {
+      "label": "Pane sandwich",
+      "type": "ATM",
+      "unit": "kg"
+    },
+    "216": {
+      "label": "Barretta di cioccolato",
+      "type": "ATM",
+      "unit": "kg"
+    },
+    "217": {
+      "label": "Veicolo elettrico compatto",
+      "type": "Trasporto",
+      "unit": "km"
+    },
+    "219": {
+      "label": "Fine della vita",
+      "type": "Rifiuti familiari e biologici",
+      "unit": "tonnellata"
+    },
+    "220": {
+      "label": "Sepoltura",
+      "type": "Rifiuti familiari e biologici",
+      "unit": "tonnellata"
+    },
+    "221": {
+      "label": "Incenerimento",
+      "type": "Rifiuti familiari e biologici",
+      "unit": "tonnellata"
+    },
+    "222": {
+      "label": "Compostaggio domestico in cumuli",
+      "type": "Rifiuti familiari e biologici",
+      "unit": "tonnellata"
+    },
+    "223": {
+      "label": "Auto individuale - benzina",
+      "type": "Trasporto",
+      "unit": "km"
+    },
+    "224": {
+      "label": "Auto individuale - diesel",
+      "type": "Trasporto",
+      "unit": "km"
+    },
+    "225": {
+      "label": "Autobus medio",
+      "type": "Trasporto",
+      "unit": "passeggeri"
+    },
+    "226": {
+      "label": "Transilien, rer, metropolitana, tram",
+      "type": "Trasporto",
+      "unit": "passeggeri"
+    },
+    "227": {
+      "label": "Ter",
+      "type": "Trasporto",
+      "unit": "passeggeri"
+    },
+    "228": {
+      "label": "TGV",
+      "type": "Trasporto",
+      "unit": "passeggeri"
+    },
+    "229": {
+      "label": "Mail aeroplano/breve",
+      "type": "Trasporto",
+      "unit": "passeggeri"
+    },
+    "230": {
+      "label": "Aereo/corriere centrale",
+      "type": "Trasporto",
+      "unit": "passeggeri"
+    },
+    "231": {
+      "label": "Aereo/Long Hold",
+      "type": "Trasporto",
+      "unit": "passeggeri"
+    },
+    "232": {
+      "label": "Materiali di consumo (cartucce di inchiostro ...)",
+      "type": "Forniture",
+      "unit": "€ €"
+    },
+    "233": {
+      "label": "Batterie AAA (alcaline)",
+      "type": "Forniture",
+      "unit": "unità"
+    },
+    "234": {
+      "label": "Batterie AA (alcaline)",
+      "type": "Forniture",
+      "unit": "unità"
+    },
+    "239": {
+      "label": "Sapone solido",
+      "type": "Prodotti chimici",
+      "unit": "kg"
+    },
+    "241": {
+      "label": "Lavaggio del piatto liquido",
+      "type": "Prodotti chimici",
+      "unit": "litro"
+    },
+    "242": {
+      "label": "Sapone liquido",
+      "type": "Prodotti chimici",
+      "unit": "litro"
+    },
+    "243": {
+      "label": "Prodotto di vetro",
+      "type": "Prodotti chimici",
+      "unit": "litro"
+    },
+    "244": {
+      "label": "Cleaner per pavimenti",
+      "type": "Prodotti chimici",
+      "unit": "litro"
+    },
+    "245": {
+      "label": "Cleaner multiuso",
+      "type": "Prodotti chimici",
+      "unit": "litro"
+    },
+    "246": {
+      "label": "Detergente per la salute",
+      "type": "Prodotti chimici",
+      "unit": "litro"
+    },
+    "247": {
+      "label": "Disinfettante",
+      "type": "Prodotti chimici",
+      "unit": "litro"
+    },
+    "248": {
+      "label": "Cloro",
+      "type": "Prodotti chimici",
+      "unit": "litro"
+    },
+    "249": {
+      "label": "Bicarbonato di sodio",
+      "type": "Prodotti chimici",
+      "unit": "litro"
+    },
+    "250": {
+      "label": "Dipinto - copertura delle pareti interne",
+      "type": "Prodotti chimici",
+      "unit": "kg"
+    },
+    "251": {
+      "label": "Dipinto - copertura da parete all'aperto",
+      "type": "Prodotti chimici",
+      "unit": "kg"
+    },
+    "252": {
+      "label": "T-shirt in poliestere",
+      "type": "Attrezzatura sportiva",
+      "unit": "unità"
+    },
+    "253": {
+      "label": "Palla di rugby",
+      "type": "Attrezzatura sportiva",
+      "unit": "unità"
+    },
+    "254": {
+      "label": "Maglie tutte le sport",
+      "type": "Attrezzatura sportiva",
+      "unit": "unità"
+    },
+    "255": {
+      "label": "Tutti i pantaloncini sportivi",
+      "type": "Attrezzatura sportiva",
+      "unit": "unità"
+    },
+    "256": {
+      "label": "Kimono (judo)",
+      "type": "Attrezzatura sportiva",
+      "unit": "unità"
+    },
+    "262": {
+      "label": "Garage (struttura in cemento)",
+      "type": "Costruzione",
+      "unit": "m²"
+    },
+    "263": {
+      "label": "Garage (struttura metallica)",
+      "type": "Costruzione",
+      "unit": "m²"
+    },
+    "264": {
+      "label": "Ristrutturazione",
+      "type": "Ristrutturazioni",
+      "unit": "m²"
+    },
+    "265": {
+      "label": "Computer portatile",
+      "type": "Apparecchiatura IT/audiovisiva",
+      "unit": "unità"
+    },
+    "266": {
+      "label": "Server per computer",
+      "type": "Apparecchiatura IT/audiovisiva",
+      "unit": "unità"
+    },
+    "267": {
+      "label": "TV/40-49 pollici",
+      "type": "Apparecchiatura IT/audiovisiva",
+      "unit": "unità"
+    },
+    "268": {
+      "label": "Rack server",
+      "type": "Apparecchiatura IT/audiovisiva",
+      "unit": "unità"
+    },
+    "269": {
+      "label": "Telecomando/televisione, universale, senza batterie, 80g",
+      "type": "Apparecchiatura IT/audiovisiva",
+      "unit": "unità"
+    },
+    "270": {
+      "label": "Stereo classico",
+      "type": "Apparecchiatura IT/audiovisiva",
+      "unit": "unità"
+    },
+    "271": {
+      "label": "Altoparlante Bluetooth",
+      "type": "Apparecchiatura IT/audiovisiva",
+      "unit": "unità"
+    },
+    "272": {
+      "label": "Smartphone da 5 pollici",
+      "type": "Apparecchiatura IT/audiovisiva",
+      "unit": "unità"
+    },
+    "273": {
+      "label": "Schermata/23,8 pollici",
+      "type": "Apparecchiatura IT/audiovisiva",
+      "unit": "unità"
+    },
+    "274": {
+      "label": "Tosaerba termica",
+      "type": "Varie",
+      "unit": "unità"
+    },
+    "275": {
+      "label": "Trulancia elettrica",
+      "type": "Varie",
+      "unit": "unità"
+    },
+    "276": {
+      "label": "Bollitore",
+      "type": "Varie",
+      "unit": "unità"
+    },
+    "277": {
+      "label": "Microonde",
+      "type": "Varie",
+      "unit": "unità"
+    },
+    "278": {
+      "label": "Aspirapolvere professionale",
+      "type": "Varie",
+      "unit": "unità"
+    },
+    "279": {
+      "label": "Scallo idrico elettrico - 200L",
+      "type": "Varie",
+      "unit": "unità"
+    },
+    "280": {
+      "label": "Macchina da caffè - filtro",
+      "type": "Varie",
+      "unit": "unità"
+    },
+    "281": {
+      "label": "Macchina da caffè - baccelli",
+      "type": "Varie",
+      "unit": "unità"
+    },
+    "282": {
+      "label": "Lavastoviglie professionista",
+      "type": "Varie",
+      "unit": "unità"
+    },
+    "283": {
+      "label": "Forno professionale",
+      "type": "Varie",
+      "unit": "unità"
+    },
+    "284": {
+      "label": "Lavastoviglie standard",
+      "type": "Varie",
+      "unit": "unità"
+    },
+    "285": {
+      "label": "Lavatrice (capacità 7 kg)",
+      "type": "Varie",
+      "unit": "unità"
+    },
+    "286": {
+      "label": "Freezer (Trunk) - 261L",
+      "type": "Varie",
+      "unit": "unità"
+    },
+    "287": {
+      "label": "Congelatore (mobile) 205L",
+      "type": "Varie",
+      "unit": "unità"
+    },
+    "288": {
+      "label": "Frigorifero - 250L",
+      "type": "Varie",
+      "unit": "unità"
+    },
+    "289": {
+      "label": "Piastre di cottura/gas 9000W",
+      "type": "Varie",
+      "unit": "unità"
+    },
+    "290": {
+      "label": "Ginnastica, tatami",
+      "type": "Varie",
+      "unit": "unità"
+    },
+    "291": {
+      "label": "Ginnastica, apparecchio a barre fisso",
+      "type": "Varie",
+      "unit": "unità"
+    },
+    "292": {
+      "label": "Ginnastica, apparato di bar paralleli",
+      "type": "Varie",
+      "unit": "unità"
+    }
   }
 }

@@ -185,5 +185,797 @@
     "october": "listopad",
     "november": "studeni",
     "december": "prosinac"
+  },
+  "emissionFactor": {
+    "1": {
+      "label": "Domaće loživo ulje",
+      "type": "Goriva",
+      "unit": "litra"
+    },
+    "2": {
+      "label": "Teško/komercijalno loživo ulje",
+      "type": "Goriva",
+      "unit": "litra"
+    },
+    "3": {
+      "label": "Prirodni plin",
+      "type": "Goriva",
+      "unit": "M3"
+    },
+    "4": {
+      "label": "Drvene pelete (8% vlage)",
+      "type": "Goriva",
+      "unit": "kWh"
+    },
+    "5": {
+      "label": "Siječanj",
+      "type": "Struja",
+      "unit": "kWh"
+    },
+    "6": {
+      "label": "VELJAČA",
+      "type": "Struja",
+      "unit": "kWh"
+    },
+    "7": {
+      "label": "ožujak",
+      "type": "Struja",
+      "unit": "kWh"
+    },
+    "8": {
+      "label": "travanj",
+      "type": "Struja",
+      "unit": "kWh"
+    },
+    "9": {
+      "label": "svibanj",
+      "type": "Struja",
+      "unit": "kWh"
+    },
+    "10": {
+      "label": "lipanj",
+      "type": "Struja",
+      "unit": "kWh"
+    },
+    "11": {
+      "label": "srpanj",
+      "type": "Struja",
+      "unit": "kWh"
+    },
+    "12": {
+      "label": "kolovoz",
+      "type": "Struja",
+      "unit": "kWh"
+    },
+    "13": {
+      "label": "rujan",
+      "type": "Struja",
+      "unit": "kWh"
+    },
+    "14": {
+      "label": "listopad",
+      "type": "Struja",
+      "unit": "kWh"
+    },
+    "15": {
+      "label": "studeni",
+      "type": "Struja",
+      "unit": "kWh"
+    },
+    "16": {
+      "label": "prosinac",
+      "type": "Struja",
+      "unit": "kWh"
+    },
+    "17": {
+      "label": "R134A",
+      "type": "Rashladno sredstvo",
+      "unit": "kg"
+    },
+    "18": {
+      "label": "R422",
+      "type": "Rashladno sredstvo",
+      "unit": "kg"
+    },
+    "19": {
+      "label": "R32",
+      "type": "Rashladno sredstvo",
+      "unit": "kg"
+    },
+    "20": {
+      "label": "R404A",
+      "type": "Rashladno sredstvo",
+      "unit": "kg"
+    },
+    "21": {
+      "label": "R407c",
+      "type": "Rashladno sredstvo",
+      "unit": "kg"
+    },
+    "22": {
+      "label": "R410A",
+      "type": "Rashladno sredstvo",
+      "unit": "kg"
+    },
+    "23": {
+      "label": "R452A",
+      "type": "Rashladno sredstvo",
+      "unit": "kg"
+    },
+    "24": {
+      "label": "R513A",
+      "type": "Rashladno sredstvo",
+      "unit": "kg"
+    },
+    "25": {
+      "label": "R744 - CO2",
+      "type": "Rashladno sredstvo",
+      "unit": "kg"
+    },
+    "26": {
+      "label": "Co2",
+      "type": "Glavni staklenički plin",
+      "unit": "kg"
+    },
+    "27": {
+      "label": "CH4 fosil",
+      "type": "Glavni staklenički plin",
+      "unit": "kg"
+    },
+    "28": {
+      "label": "CH4 biogeni",
+      "type": "Glavni staklenički plin",
+      "unit": "kg"
+    },
+    "29": {
+      "label": "N2O",
+      "type": "Glavni staklenički plin",
+      "unit": "kg"
+    },
+    "30": {
+      "label": "SF6",
+      "type": "Glavni staklenički plin",
+      "unit": "kg"
+    },
+    "31": {
+      "label": "NF3",
+      "type": "Glavni staklenički plin",
+      "unit": "kg"
+    },
+    "32": {
+      "label": "Prosječni obrok",
+      "type": "Obrok",
+      "unit": "obrok"
+    },
+    "33": {
+      "label": "Vegetarijanski obrok",
+      "type": "Obrok",
+      "unit": "obrok"
+    },
+    "34": {
+      "label": "Veganski obrok",
+      "type": "Obrok",
+      "unit": "obrok"
+    },
+    "35": {
+      "label": "Obrok od crvenog mesa",
+      "type": "Obrok",
+      "unit": "obrok"
+    },
+    "36": {
+      "label": "Boca za vodu",
+      "type": "bankomat",
+      "unit": "litra"
+    },
+    "37": {
+      "label": "Soda",
+      "type": "bankomat",
+      "unit": "litra"
+    },
+    "38": {
+      "label": "Kolačići",
+      "type": "bankomat",
+      "unit": "kg"
+    },
+    "39": {
+      "label": "Čips",
+      "type": "bankomat",
+      "unit": "dio"
+    },
+    "40": {
+      "label": "Kamion za dostavu (ukupna ovlaštena težina, 12-20T)",
+      "type": "Cestovni prijevoz",
+      "unit": "tona.km"
+    },
+    "41": {
+      "label": "Lokalno vozilo za dostavu (ukupna ovlaštena težina, 7,5-12T)",
+      "type": "Cestovni prijevoz",
+      "unit": "tona.km"
+    },
+    "42": {
+      "label": "Kamion za hlađenje",
+      "type": "Cestovni prijevoz",
+      "unit": "tona.km"
+    },
+    "43": {
+      "label": "Veliki volumen zglobni kamion 40T",
+      "type": "Cestovni prijevoz",
+      "unit": "tona.km"
+    },
+    "44": {
+      "label": "Lagano korisno vozilo",
+      "type": "Cestovni prijevoz",
+      "unit": "tona.km"
+    },
+    "45": {
+      "label": "Zrakoplov - Prijevoz robe (svijeta)",
+      "type": "Zračni teret",
+      "unit": "tona.km"
+    },
+    "46": {
+      "label": "Željeznički teret (Europa)",
+      "type": "Željeznički teret",
+      "unit": "tona.km"
+    },
+    "48": {
+      "label": "Teretni brod - manje od 1.200 EVP",
+      "type": "Teretni brod",
+      "unit": "tona.km"
+    },
+    "50": {
+      "label": "Električni bicikl",
+      "type": "Prijevoz",
+      "unit": "km"
+    },
+    "51": {
+      "label": "Električni skuter",
+      "type": "Prijevoz",
+      "unit": "km"
+    },
+    "52": {
+      "label": "Motocikl (benzin)",
+      "type": "Prijevoz",
+      "unit": "km"
+    },
+    "53": {
+      "label": "Električni bicikl",
+      "type": "Prijevoz",
+      "unit": "km"
+    },
+    "54": {
+      "label": "Električni skuter",
+      "type": "Prijevoz",
+      "unit": "km"
+    },
+    "55": {
+      "label": "Motocikl (benzin)",
+      "type": "Prijevoz",
+      "unit": "km"
+    },
+    "56": {
+      "label": "Kompaktno električno vozilo",
+      "type": "Prijevoz",
+      "unit": "km"
+    },
+    "57": {
+      "label": "Pojedinačni automobil - benzin",
+      "type": "Prijevoz",
+      "unit": "km"
+    },
+    "58": {
+      "label": "Pojedinačni automobil - dizel",
+      "type": "Prijevoz",
+      "unit": "km"
+    },
+    "59": {
+      "label": "Prosječni autobus",
+      "type": "Prijevoz",
+      "unit": "putnik"
+    },
+    "60": {
+      "label": "Transilien, RER, metro, tramvaj",
+      "type": "Prijevoz",
+      "unit": "putnik"
+    },
+    "61": {
+      "label": "Ter",
+      "type": "Prijevoz",
+      "unit": "putnik"
+    },
+    "62": {
+      "label": "TGV",
+      "type": "Prijevoz",
+      "unit": "putnik"
+    },
+    "73": {
+      "label": "Osobni automobil - benzin",
+      "type": "Prijevoz",
+      "unit": "km"
+    },
+    "79": {
+      "label": "Prosječni autobus",
+      "type": "Prijevoz",
+      "unit": "putnik"
+    },
+    "80": {
+      "label": "Transilien, RER, metro, tramvaj",
+      "type": "Prijevoz",
+      "unit": "putnik"
+    },
+    "81": {
+      "label": "Ter",
+      "type": "Prijevoz",
+      "unit": "putnik"
+    },
+    "82": {
+      "label": "TGV",
+      "type": "Prijevoz",
+      "unit": "putnik"
+    },
+    "83": {
+      "label": "Male zalihe (olovke ...)",
+      "type": "Pribor",
+      "unit": "€"
+    },
+    "85": {
+      "label": "Knjige",
+      "type": "Pribor",
+      "unit": "jedinica"
+    },
+    "87": {
+      "label": "Papir (veslanje)",
+      "type": "Pribor",
+      "unit": "jedinica"
+    },
+    "88": {
+      "label": "Klorovodična kiselina",
+      "type": "Kemikalije",
+      "unit": "litra"
+    },
+    "89": {
+      "label": "Sumporna kiselina",
+      "type": "Kemikalije",
+      "unit": "litra"
+    },
+    "90": {
+      "label": "Čvrsta soda (prah, pelete)",
+      "type": "Kemikalije",
+      "unit": "kg"
+    },
+    "91": {
+      "label": "Bijeli ocat",
+      "type": "Kemikalije",
+      "unit": "litra"
+    },
+    "92": {
+      "label": "Košarka",
+      "type": "Sportska oprema",
+      "unit": "jedinica"
+    },
+    "93": {
+      "label": "Nogometna lopta",
+      "type": "Sportska oprema",
+      "unit": "jedinica"
+    },
+    "94": {
+      "label": "Odbojkaška lopta",
+      "type": "Sportska oprema",
+      "unit": "jedinica"
+    },
+    "95": {
+      "label": "Rukomet",
+      "type": "Sportska oprema",
+      "unit": "jedinica"
+    },
+    "96": {
+      "label": "Školska zgrada (betonska struktura)",
+      "type": "Konstrukcija",
+      "unit": "m²"
+    },
+    "97": {
+      "label": "Parkiranje (zgrada - betonska građevina)",
+      "type": "Konstrukcija",
+      "unit": "m²"
+    },
+    "98": {
+      "label": "Parking (površina bitumena)",
+      "type": "Konstrukcija",
+      "unit": "m²"
+    },
+    "99": {
+      "label": "Parkiranje (polu-duž)",
+      "type": "Konstrukcija",
+      "unit": "m²"
+    },
+    "100": {
+      "label": "Radna površina",
+      "type": "IT/Audiovizualna oprema",
+      "unit": "jedinica"
+    },
+    "101": {
+      "label": "Tablete",
+      "type": "IT/Audiovizualna oprema",
+      "unit": "jedinica"
+    },
+    "102": {
+      "label": "Fotokopir",
+      "type": "IT/Audiovizualna oprema",
+      "unit": "jedinica"
+    },
+    "103": {
+      "label": "Video projektor",
+      "type": "IT/Audiovizualna oprema",
+      "unit": "jedinica"
+    },
+    "104": {
+      "label": "Pisač",
+      "type": "IT/Audiovizualna oprema",
+      "unit": "jedinica"
+    },
+    "209": {
+      "label": "Biopropan",
+      "type": "Goriva",
+      "unit": "kg"
+    },
+    "210": {
+      "label": "Toplinska mreža",
+      "type": "Goriva",
+      "unit": "kWh"
+    },
+    "211": {
+      "label": "Bijeli obrok",
+      "type": "Obrok",
+      "unit": "obrok"
+    },
+    "212": {
+      "label": "Obrok od bijele ribe",
+      "type": "Obrok",
+      "unit": "obrok"
+    },
+    "213": {
+      "label": "Crna kava",
+      "type": "bankomat",
+      "unit": "litra"
+    },
+    "214": {
+      "label": "Čaj",
+      "type": "bankomat",
+      "unit": "litra"
+    },
+    "215": {
+      "label": "Sendvič kruh",
+      "type": "bankomat",
+      "unit": "kg"
+    },
+    "216": {
+      "label": "Čokoladna šipka",
+      "type": "bankomat",
+      "unit": "kg"
+    },
+    "217": {
+      "label": "Kompaktno električno vozilo",
+      "type": "Prijevoz",
+      "unit": "km"
+    },
+    "219": {
+      "label": "Kraj života",
+      "type": "Kućanstvo i organski otpad",
+      "unit": "tona"
+    },
+    "220": {
+      "label": "Sahrana",
+      "type": "Kućanstvo i organski otpad",
+      "unit": "tona"
+    },
+    "221": {
+      "label": "Spaljivanje",
+      "type": "Kućanstvo i organski otpad",
+      "unit": "tona"
+    },
+    "222": {
+      "label": "Domaće kompostiranje u hrpi",
+      "type": "Kućanstvo i organski otpad",
+      "unit": "tona"
+    },
+    "223": {
+      "label": "Pojedinačni automobil - benzin",
+      "type": "Prijevoz",
+      "unit": "km"
+    },
+    "224": {
+      "label": "Pojedinačni automobil - dizel",
+      "type": "Prijevoz",
+      "unit": "km"
+    },
+    "225": {
+      "label": "Prosječni autobus",
+      "type": "Prijevoz",
+      "unit": "putnik"
+    },
+    "226": {
+      "label": "Transilien, RER, metro, tramvaj",
+      "type": "Prijevoz",
+      "unit": "putnik"
+    },
+    "227": {
+      "label": "Ter",
+      "type": "Prijevoz",
+      "unit": "putnik"
+    },
+    "228": {
+      "label": "TGV",
+      "type": "Prijevoz",
+      "unit": "putnik"
+    },
+    "229": {
+      "label": "Avion/kratka pošta",
+      "type": "Prijevoz",
+      "unit": "putnik"
+    },
+    "230": {
+      "label": "Zrakoplov/srednji kurir",
+      "type": "Prijevoz",
+      "unit": "putnik"
+    },
+    "231": {
+      "label": "Zrakoplov/dugo održan",
+      "type": "Prijevoz",
+      "unit": "putnik"
+    },
+    "232": {
+      "label": "Potrošni materijal (spremnici za tintu ...)",
+      "type": "Pribor",
+      "unit": "€"
+    },
+    "233": {
+      "label": "AAA baterije (alkalne)",
+      "type": "Pribor",
+      "unit": "jedinica"
+    },
+    "234": {
+      "label": "AA baterije (alkalne)",
+      "type": "Pribor",
+      "unit": "jedinica"
+    },
+    "239": {
+      "label": "Čvrsti sapun",
+      "type": "Kemikalije",
+      "unit": "kg"
+    },
+    "241": {
+      "label": "Tekuće pranje posuđa",
+      "type": "Kemikalije",
+      "unit": "litra"
+    },
+    "242": {
+      "label": "Tekući sapun",
+      "type": "Kemikalije",
+      "unit": "litra"
+    },
+    "243": {
+      "label": "Stakleni proizvod",
+      "type": "Kemikalije",
+      "unit": "litra"
+    },
+    "244": {
+      "label": "Čistač poda",
+      "type": "Kemikalije",
+      "unit": "litra"
+    },
+    "245": {
+      "label": "Višenamjenski čistač",
+      "type": "Kemikalije",
+      "unit": "litra"
+    },
+    "246": {
+      "label": "Zdravstveni deterdžent",
+      "type": "Kemikalije",
+      "unit": "litra"
+    },
+    "247": {
+      "label": "Dezinfekcijsko",
+      "type": "Kemikalije",
+      "unit": "litra"
+    },
+    "248": {
+      "label": "Klor",
+      "type": "Kemikalije",
+      "unit": "litra"
+    },
+    "249": {
+      "label": "Soda bikarbona",
+      "type": "Kemikalije",
+      "unit": "litra"
+    },
+    "250": {
+      "label": "Slikanje - Unutarnji poklopac zida",
+      "type": "Kemikalije",
+      "unit": "kg"
+    },
+    "251": {
+      "label": "Slikanje - Vanjski zidni poklopac",
+      "type": "Kemikalije",
+      "unit": "kg"
+    },
+    "252": {
+      "label": "Poliesterska majica",
+      "type": "Sportska oprema",
+      "unit": "jedinica"
+    },
+    "253": {
+      "label": "Ragbi kugla",
+      "type": "Sportska oprema",
+      "unit": "jedinica"
+    },
+    "254": {
+      "label": "Dresovi svi sport",
+      "type": "Sportska oprema",
+      "unit": "jedinica"
+    },
+    "255": {
+      "label": "Sve sportske kratke hlače",
+      "type": "Sportska oprema",
+      "unit": "jedinica"
+    },
+    "256": {
+      "label": "Kimono (džudo)",
+      "type": "Sportska oprema",
+      "unit": "jedinica"
+    },
+    "262": {
+      "label": "Garaža (betonska struktura)",
+      "type": "Konstrukcija",
+      "unit": "m²"
+    },
+    "263": {
+      "label": "Garaža (metalna struktura)",
+      "type": "Konstrukcija",
+      "unit": "m²"
+    },
+    "264": {
+      "label": "Obnova",
+      "type": "Obnavljanje",
+      "unit": "m²"
+    },
+    "265": {
+      "label": "Laptop",
+      "type": "IT/Audiovizualna oprema",
+      "unit": "jedinica"
+    },
+    "266": {
+      "label": "Računalni poslužitelj",
+      "type": "IT/Audiovizualna oprema",
+      "unit": "jedinica"
+    },
+    "267": {
+      "label": "TV/40-49 inča",
+      "type": "IT/Audiovizualna oprema",
+      "unit": "jedinica"
+    },
+    "268": {
+      "label": "Poslužitelj",
+      "type": "IT/Audiovizualna oprema",
+      "unit": "jedinica"
+    },
+    "269": {
+      "label": "Daljinski upravljač/televizija, univerzalna, bez baterija, 80g",
+      "type": "IT/Audiovizualna oprema",
+      "unit": "jedinica"
+    },
+    "270": {
+      "label": "Klasični stereo",
+      "type": "IT/Audiovizualna oprema",
+      "unit": "jedinica"
+    },
+    "271": {
+      "label": "Bluetooth zvučnik",
+      "type": "IT/Audiovizualna oprema",
+      "unit": "jedinica"
+    },
+    "272": {
+      "label": "5 inčni pametni telefon",
+      "type": "IT/Audiovizualna oprema",
+      "unit": "jedinica"
+    },
+    "273": {
+      "label": "Zaslon/23,8 inča",
+      "type": "IT/Audiovizualna oprema",
+      "unit": "jedinica"
+    },
+    "274": {
+      "label": "Termalna kosilica",
+      "type": "Razni",
+      "unit": "jedinica"
+    },
+    "275": {
+      "label": "Električna kosilica",
+      "type": "Razni",
+      "unit": "jedinica"
+    },
+    "276": {
+      "label": "Čajnik",
+      "type": "Razni",
+      "unit": "jedinica"
+    },
+    "277": {
+      "label": "Mikrovalna pećnica",
+      "type": "Razni",
+      "unit": "jedinica"
+    },
+    "278": {
+      "label": "Profesionalno sredstvo za čišćenje vakuuma",
+      "type": "Razni",
+      "unit": "jedinica"
+    },
+    "279": {
+      "label": "Električni grijač vode - 200L",
+      "type": "Razni",
+      "unit": "jedinica"
+    },
+    "280": {
+      "label": "Stroj za kavu - Filter",
+      "type": "Razni",
+      "unit": "jedinica"
+    },
+    "281": {
+      "label": "Stroj za kavu - mahune",
+      "type": "Razni",
+      "unit": "jedinica"
+    },
+    "282": {
+      "label": "Profesionalna perilica posuđa",
+      "type": "Razni",
+      "unit": "jedinica"
+    },
+    "283": {
+      "label": "Profesionalna pećnica",
+      "type": "Razni",
+      "unit": "jedinica"
+    },
+    "284": {
+      "label": "Standardna perilica posuđa",
+      "type": "Razni",
+      "unit": "jedinica"
+    },
+    "285": {
+      "label": "Perilica rublja (kapacitet 7kg)",
+      "type": "Razni",
+      "unit": "jedinica"
+    },
+    "286": {
+      "label": "Zamrzivač (trunk) - 261L",
+      "type": "Razni",
+      "unit": "jedinica"
+    },
+    "287": {
+      "label": "Zamrzivač (ormar) 205L",
+      "type": "Razni",
+      "unit": "jedinica"
+    },
+    "288": {
+      "label": "Hladnjak - 250L",
+      "type": "Razni",
+      "unit": "jedinica"
+    },
+    "289": {
+      "label": "Ploče za kuhanje/plin 9000W",
+      "type": "Razni",
+      "unit": "jedinica"
+    },
+    "290": {
+      "label": "Gimnastika, tatami",
+      "type": "Razni",
+      "unit": "jedinica"
+    },
+    "291": {
+      "label": "Gimnastika, fiksni bar aparat",
+      "type": "Razni",
+      "unit": "jedinica"
+    },
+    "292": {
+      "label": "Gimnastika, aparat za paralelne šipke",
+      "type": "Razni",
+      "unit": "jedinica"
+    }
   }
 }

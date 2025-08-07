@@ -185,5 +185,797 @@
     "october": "october",
     "november": "november",
     "december": "December"
+  },
+  "emissionFactor": {
+    "1": {
+      "label": "Domestic fuel oil",
+      "type": "Fuels",
+      "unit": "liter"
+    },
+    "2": {
+      "label": "Heavy/commercial fuel oil",
+      "type": "Fuels",
+      "unit": "liter"
+    },
+    "3": {
+      "label": "Natural gas",
+      "type": "Fuels",
+      "unit": "M3"
+    },
+    "4": {
+      "label": "Wood pellets (8% humidity)",
+      "type": "Fuels",
+      "unit": "kWh"
+    },
+    "5": {
+      "label": "January",
+      "type": "Electricity",
+      "unit": "kWh"
+    },
+    "6": {
+      "label": "FEBRUARY",
+      "type": "Electricity",
+      "unit": "kWh"
+    },
+    "7": {
+      "label": "March",
+      "type": "Electricity",
+      "unit": "kWh"
+    },
+    "8": {
+      "label": "April",
+      "type": "Electricity",
+      "unit": "kWh"
+    },
+    "9": {
+      "label": "May",
+      "type": "Electricity",
+      "unit": "kWh"
+    },
+    "10": {
+      "label": "June",
+      "type": "Electricity",
+      "unit": "kWh"
+    },
+    "11": {
+      "label": "July",
+      "type": "Electricity",
+      "unit": "kWh"
+    },
+    "12": {
+      "label": "August",
+      "type": "Electricity",
+      "unit": "kWh"
+    },
+    "13": {
+      "label": "September",
+      "type": "Electricity",
+      "unit": "kWh"
+    },
+    "14": {
+      "label": "October",
+      "type": "Electricity",
+      "unit": "kWh"
+    },
+    "15": {
+      "label": "November",
+      "type": "Electricity",
+      "unit": "kWh"
+    },
+    "16": {
+      "label": "December",
+      "type": "Electricity",
+      "unit": "kWh"
+    },
+    "17": {
+      "label": "R134A",
+      "type": "Refrigerant",
+      "unit": "kg"
+    },
+    "18": {
+      "label": "R422",
+      "type": "Refrigerant",
+      "unit": "kg"
+    },
+    "19": {
+      "label": "R32",
+      "type": "Refrigerant",
+      "unit": "kg"
+    },
+    "20": {
+      "label": "R404A",
+      "type": "Refrigerant",
+      "unit": "kg"
+    },
+    "21": {
+      "label": "R407C",
+      "type": "Refrigerant",
+      "unit": "kg"
+    },
+    "22": {
+      "label": "R410A",
+      "type": "Refrigerant",
+      "unit": "kg"
+    },
+    "23": {
+      "label": "R452A",
+      "type": "Refrigerant",
+      "unit": "kg"
+    },
+    "24": {
+      "label": "R513A",
+      "type": "Refrigerant",
+      "unit": "kg"
+    },
+    "25": {
+      "label": "R744 - CO2",
+      "type": "Refrigerant",
+      "unit": "kg"
+    },
+    "26": {
+      "label": "CO2",
+      "type": "Main greenhouse gas",
+      "unit": "kg"
+    },
+    "27": {
+      "label": "CH4 Fossil",
+      "type": "Main greenhouse gas",
+      "unit": "kg"
+    },
+    "28": {
+      "label": "CH4 Biogenic",
+      "type": "Main greenhouse gas",
+      "unit": "kg"
+    },
+    "29": {
+      "label": "N2o",
+      "type": "Main greenhouse gas",
+      "unit": "kg"
+    },
+    "30": {
+      "label": "Sf6",
+      "type": "Main greenhouse gas",
+      "unit": "kg"
+    },
+    "31": {
+      "label": "NF3",
+      "type": "Main greenhouse gas",
+      "unit": "kg"
+    },
+    "32": {
+      "label": "Average meal",
+      "type": "Meal",
+      "unit": "meal"
+    },
+    "33": {
+      "label": "Vegetarian meal",
+      "type": "Meal",
+      "unit": "meal"
+    },
+    "34": {
+      "label": "Vegan meal",
+      "type": "Meal",
+      "unit": "meal"
+    },
+    "35": {
+      "label": "Red meat meal",
+      "type": "Meal",
+      "unit": "meal"
+    },
+    "36": {
+      "label": "Water bottle",
+      "type": "ATM",
+      "unit": "liter"
+    },
+    "37": {
+      "label": "Soda",
+      "type": "ATM",
+      "unit": "liter"
+    },
+    "38": {
+      "label": "Cookies",
+      "type": "ATM",
+      "unit": "kg"
+    },
+    "39": {
+      "label": "Chips",
+      "type": "ATM",
+      "unit": "portion"
+    },
+    "40": {
+      "label": "Delivery truck (total authorized weight in charge, 12-20T)",
+      "type": "Road transport",
+      "unit": "ton.km"
+    },
+    "41": {
+      "label": "Local delivery vehicle (total authorized weight in charge, 7.5-12T)",
+      "type": "Road transport",
+      "unit": "ton.km"
+    },
+    "42": {
+      "label": "Refrigeration truck",
+      "type": "Road transport",
+      "unit": "ton.km"
+    },
+    "43": {
+      "label": "Large volume articulated truck 40T",
+      "type": "Road transport",
+      "unit": "ton.km"
+    },
+    "44": {
+      "label": "Light utility vehicle",
+      "type": "Road transport",
+      "unit": "ton.km"
+    },
+    "45": {
+      "label": "Airplane - Transport of goods (World)",
+      "type": "Air freight",
+      "unit": "ton.km"
+    },
+    "46": {
+      "label": "Rail freight (Europe)",
+      "type": "Rail freight",
+      "unit": "ton.km"
+    },
+    "48": {
+      "label": "Cargo ship - less than 1,200 EVP",
+      "type": "Cargo ship",
+      "unit": "ton.km"
+    },
+    "50": {
+      "label": "Electric bike",
+      "type": "Transportation",
+      "unit": "km"
+    },
+    "51": {
+      "label": "Electric scooter",
+      "type": "Transportation",
+      "unit": "km"
+    },
+    "52": {
+      "label": "Motorcycle (petrol)",
+      "type": "Transportation",
+      "unit": "km"
+    },
+    "53": {
+      "label": "Electric bike",
+      "type": "Transportation",
+      "unit": "km"
+    },
+    "54": {
+      "label": "Electric scooter",
+      "type": "Transportation",
+      "unit": "km"
+    },
+    "55": {
+      "label": "Motorcycle (petrol)",
+      "type": "Transportation",
+      "unit": "km"
+    },
+    "56": {
+      "label": "Compact electric vehicle",
+      "type": "Transportation",
+      "unit": "km"
+    },
+    "57": {
+      "label": "Individual car - petrol",
+      "type": "Transportation",
+      "unit": "km"
+    },
+    "58": {
+      "label": "Individual car - Diesel",
+      "type": "Transportation",
+      "unit": "km"
+    },
+    "59": {
+      "label": "Average bus",
+      "type": "Transportation",
+      "unit": "passenger"
+    },
+    "60": {
+      "label": "Transilien, RER, Metro, Tramway",
+      "type": "Transportation",
+      "unit": "passenger"
+    },
+    "61": {
+      "label": "Ter",
+      "type": "Transportation",
+      "unit": "passenger"
+    },
+    "62": {
+      "label": "TGV",
+      "type": "Transportation",
+      "unit": "passenger"
+    },
+    "73": {
+      "label": "Personal car - petrol",
+      "type": "Transportation",
+      "unit": "km"
+    },
+    "79": {
+      "label": "Average bus",
+      "type": "Transportation",
+      "unit": "passenger"
+    },
+    "80": {
+      "label": "Transilien, RER, Metro, Tramway",
+      "type": "Transportation",
+      "unit": "passenger"
+    },
+    "81": {
+      "label": "Ter",
+      "type": "Transportation",
+      "unit": "passenger"
+    },
+    "82": {
+      "label": "TGV",
+      "type": "Transportation",
+      "unit": "passenger"
+    },
+    "83": {
+      "label": "Small supplies (pens ...)",
+      "type": "Supplies",
+      "unit": "€ €"
+    },
+    "85": {
+      "label": "Books",
+      "type": "Supplies",
+      "unit": "unit"
+    },
+    "87": {
+      "label": "Paper (rowing)",
+      "type": "Supplies",
+      "unit": "unit"
+    },
+    "88": {
+      "label": "Hydrochloric acid",
+      "type": "Chemicals",
+      "unit": "liter"
+    },
+    "89": {
+      "label": "Sulfuric acid",
+      "type": "Chemicals",
+      "unit": "liter"
+    },
+    "90": {
+      "label": "Solid soda (powder, pellets)",
+      "type": "Chemicals",
+      "unit": "kg"
+    },
+    "91": {
+      "label": "White vinegar",
+      "type": "Chemicals",
+      "unit": "liter"
+    },
+    "92": {
+      "label": "Basketball",
+      "type": "Sports equipment",
+      "unit": "unit"
+    },
+    "93": {
+      "label": "Football ball",
+      "type": "Sports equipment",
+      "unit": "unit"
+    },
+    "94": {
+      "label": "Volleyball ball",
+      "type": "Sports equipment",
+      "unit": "unit"
+    },
+    "95": {
+      "label": "Handball",
+      "type": "Sports equipment",
+      "unit": "unit"
+    },
+    "96": {
+      "label": "School building (concrete structure)",
+      "type": "Construction",
+      "unit": "m²"
+    },
+    "97": {
+      "label": "Parking (Building - Concrete structure)",
+      "type": "Construction",
+      "unit": "m²"
+    },
+    "98": {
+      "label": "Parking (bitumen surface)",
+      "type": "Construction",
+      "unit": "m²"
+    },
+    "99": {
+      "label": "Parking (semi-dure surface)",
+      "type": "Construction",
+      "unit": "m²"
+    },
+    "100": {
+      "label": "Desktop",
+      "type": "IT/Audiovisual equipment",
+      "unit": "unit"
+    },
+    "101": {
+      "label": "Tablets",
+      "type": "IT/Audiovisual equipment",
+      "unit": "unit"
+    },
+    "102": {
+      "label": "Photocopiers",
+      "type": "IT/Audiovisual equipment",
+      "unit": "unit"
+    },
+    "103": {
+      "label": "Video projector",
+      "type": "IT/Audiovisual equipment",
+      "unit": "unit"
+    },
+    "104": {
+      "label": "Printer",
+      "type": "IT/Audiovisual equipment",
+      "unit": "unit"
+    },
+    "209": {
+      "label": "Biopropane",
+      "type": "Fuels",
+      "unit": "kg"
+    },
+    "210": {
+      "label": "Heat network",
+      "type": "Fuels",
+      "unit": "kWh"
+    },
+    "211": {
+      "label": "White meal meal",
+      "type": "Meal",
+      "unit": "meal"
+    },
+    "212": {
+      "label": "White fish meal",
+      "type": "Meal",
+      "unit": "meal"
+    },
+    "213": {
+      "label": "Black coffee",
+      "type": "ATM",
+      "unit": "liter"
+    },
+    "214": {
+      "label": "Infused tea",
+      "type": "ATM",
+      "unit": "liter"
+    },
+    "215": {
+      "label": "Sandwich Bread",
+      "type": "ATM",
+      "unit": "kg"
+    },
+    "216": {
+      "label": "Chocolate bar",
+      "type": "ATM",
+      "unit": "kg"
+    },
+    "217": {
+      "label": "Compact electric vehicle",
+      "type": "Transportation",
+      "unit": "km"
+    },
+    "219": {
+      "label": "End of life",
+      "type": "Household and organic waste",
+      "unit": "tonne"
+    },
+    "220": {
+      "label": "Burial",
+      "type": "Household and organic waste",
+      "unit": "tonne"
+    },
+    "221": {
+      "label": "Incineration",
+      "type": "Household and organic waste",
+      "unit": "tonne"
+    },
+    "222": {
+      "label": "Domestic composting in heaps",
+      "type": "Household and organic waste",
+      "unit": "tonne"
+    },
+    "223": {
+      "label": "Individual car - petrol",
+      "type": "Transportation",
+      "unit": "km"
+    },
+    "224": {
+      "label": "Individual car - Diesel",
+      "type": "Transportation",
+      "unit": "km"
+    },
+    "225": {
+      "label": "Average bus",
+      "type": "Transportation",
+      "unit": "passenger"
+    },
+    "226": {
+      "label": "Transilien, RER, Metro, Tramway",
+      "type": "Transportation",
+      "unit": "passenger"
+    },
+    "227": {
+      "label": "Ter",
+      "type": "Transportation",
+      "unit": "passenger"
+    },
+    "228": {
+      "label": "TGV",
+      "type": "Transportation",
+      "unit": "passenger"
+    },
+    "229": {
+      "label": "Airplane/short mail",
+      "type": "Transportation",
+      "unit": "passenger"
+    },
+    "230": {
+      "label": "Airplane/Middle Courier",
+      "type": "Transportation",
+      "unit": "passenger"
+    },
+    "231": {
+      "label": "Airplane/Long Held",
+      "type": "Transportation",
+      "unit": "passenger"
+    },
+    "232": {
+      "label": "Consumables (ink cartridges ...)",
+      "type": "Supplies",
+      "unit": "€ €"
+    },
+    "233": {
+      "label": "AAA batteries (alkaline)",
+      "type": "Supplies",
+      "unit": "unit"
+    },
+    "234": {
+      "label": "AA batteries (alkaline)",
+      "type": "Supplies",
+      "unit": "unit"
+    },
+    "239": {
+      "label": "Solid soap",
+      "type": "Chemicals",
+      "unit": "kg"
+    },
+    "241": {
+      "label": "Liquid dishwashing",
+      "type": "Chemicals",
+      "unit": "liter"
+    },
+    "242": {
+      "label": "Liquid soap",
+      "type": "Chemicals",
+      "unit": "liter"
+    },
+    "243": {
+      "label": "Glass product",
+      "type": "Chemicals",
+      "unit": "liter"
+    },
+    "244": {
+      "label": "Floor cleaner",
+      "type": "Chemicals",
+      "unit": "liter"
+    },
+    "245": {
+      "label": "Multi-purpose cleaner",
+      "type": "Chemicals",
+      "unit": "liter"
+    },
+    "246": {
+      "label": "Health detergent",
+      "type": "Chemicals",
+      "unit": "liter"
+    },
+    "247": {
+      "label": "Disinfectant",
+      "type": "Chemicals",
+      "unit": "liter"
+    },
+    "248": {
+      "label": "Chlorine",
+      "type": "Chemicals",
+      "unit": "liter"
+    },
+    "249": {
+      "label": "Baking soda",
+      "type": "Chemicals",
+      "unit": "liter"
+    },
+    "250": {
+      "label": "Painting - Interior wall covering",
+      "type": "Chemicals",
+      "unit": "kg"
+    },
+    "251": {
+      "label": "Painting - Outdoor wall covering",
+      "type": "Chemicals",
+      "unit": "kg"
+    },
+    "252": {
+      "label": "Polyester t-shirt",
+      "type": "Sports equipment",
+      "unit": "unit"
+    },
+    "253": {
+      "label": "Rugby ball",
+      "type": "Sports equipment",
+      "unit": "unit"
+    },
+    "254": {
+      "label": "Jerseys All Sports",
+      "type": "Sports equipment",
+      "unit": "unit"
+    },
+    "255": {
+      "label": "All sports shorts",
+      "type": "Sports equipment",
+      "unit": "unit"
+    },
+    "256": {
+      "label": "Kimono (judo)",
+      "type": "Sports equipment",
+      "unit": "unit"
+    },
+    "262": {
+      "label": "Garage (concrete structure)",
+      "type": "Construction",
+      "unit": "m²"
+    },
+    "263": {
+      "label": "Garage (metal structure)",
+      "type": "Construction",
+      "unit": "m²"
+    },
+    "264": {
+      "label": "Renovation",
+      "type": "Renovations",
+      "unit": "m²"
+    },
+    "265": {
+      "label": "Laptop",
+      "type": "IT/Audiovisual equipment",
+      "unit": "unit"
+    },
+    "266": {
+      "label": "Computer server",
+      "type": "IT/Audiovisual equipment",
+      "unit": "unit"
+    },
+    "267": {
+      "label": "TV/40-49 inches",
+      "type": "IT/Audiovisual equipment",
+      "unit": "unit"
+    },
+    "268": {
+      "label": "Server rack",
+      "type": "IT/Audiovisual equipment",
+      "unit": "unit"
+    },
+    "269": {
+      "label": "Remote control/television, universal, without batteries, 80g",
+      "type": "IT/Audiovisual equipment",
+      "unit": "unit"
+    },
+    "270": {
+      "label": "Classic stereo",
+      "type": "IT/Audiovisual equipment",
+      "unit": "unit"
+    },
+    "271": {
+      "label": "Bluetooth speaker",
+      "type": "IT/Audiovisual equipment",
+      "unit": "unit"
+    },
+    "272": {
+      "label": "5 inch smartphone",
+      "type": "IT/Audiovisual equipment",
+      "unit": "unit"
+    },
+    "273": {
+      "label": "Screen/23.8 inch",
+      "type": "IT/Audiovisual equipment",
+      "unit": "unit"
+    },
+    "274": {
+      "label": "Thermal mower",
+      "type": "Miscellaneous",
+      "unit": "unit"
+    },
+    "275": {
+      "label": "Electric mower",
+      "type": "Miscellaneous",
+      "unit": "unit"
+    },
+    "276": {
+      "label": "Kettle",
+      "type": "Miscellaneous",
+      "unit": "unit"
+    },
+    "277": {
+      "label": "Microwave",
+      "type": "Miscellaneous",
+      "unit": "unit"
+    },
+    "278": {
+      "label": "Professional vacuum cleaner",
+      "type": "Miscellaneous",
+      "unit": "unit"
+    },
+    "279": {
+      "label": "Electric water heater - 200l",
+      "type": "Miscellaneous",
+      "unit": "unit"
+    },
+    "280": {
+      "label": "Coffee machine - filter",
+      "type": "Miscellaneous",
+      "unit": "unit"
+    },
+    "281": {
+      "label": "Coffee machine - pods",
+      "type": "Miscellaneous",
+      "unit": "unit"
+    },
+    "282": {
+      "label": "Professional dishwasher",
+      "type": "Miscellaneous",
+      "unit": "unit"
+    },
+    "283": {
+      "label": "Professional oven",
+      "type": "Miscellaneous",
+      "unit": "unit"
+    },
+    "284": {
+      "label": "Standard dishwasher",
+      "type": "Miscellaneous",
+      "unit": "unit"
+    },
+    "285": {
+      "label": "Washing machine (capacity 7kg)",
+      "type": "Miscellaneous",
+      "unit": "unit"
+    },
+    "286": {
+      "label": "Freezer (trunk) - 261l",
+      "type": "Miscellaneous",
+      "unit": "unit"
+    },
+    "287": {
+      "label": "Freezer (cabinet) 205l",
+      "type": "Miscellaneous",
+      "unit": "unit"
+    },
+    "288": {
+      "label": "Refrigerator - 250l",
+      "type": "Miscellaneous",
+      "unit": "unit"
+    },
+    "289": {
+      "label": "Cooking plates/gas 9000W",
+      "type": "Miscellaneous",
+      "unit": "unit"
+    },
+    "290": {
+      "label": "Gymnastics, tatami",
+      "type": "Miscellaneous",
+      "unit": "unit"
+    },
+    "291": {
+      "label": "Gymnastics, fixed bar apparatus",
+      "type": "Miscellaneous",
+      "unit": "unit"
+    },
+    "292": {
+      "label": "Gymnastics, parallel bars apparatus",
+      "type": "Miscellaneous",
+      "unit": "unit"
+    }
   }
 }

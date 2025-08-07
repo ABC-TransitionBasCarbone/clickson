@@ -57,7 +57,6 @@ export async function lockedSessionCategory(
 }
 
 export async function createSessionEmission(data: SessionEmissions) {
-  console.log('Creating session emission with data:', data)
   return await prismaClient.sessionEmissions.create({
     data: {
       value: data.value,

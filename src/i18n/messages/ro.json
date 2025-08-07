@@ -185,5 +185,797 @@
     "october": "octombrie",
     "november": "noiembrie",
     "december": "decembrie"
+  },
+  "emissionFactor": {
+    "1": {
+      "label": "Combustibil intern",
+      "type": "Combustibili",
+      "unit": "litru"
+    },
+    "2": {
+      "label": "Combustibil greu/comercial",
+      "type": "Combustibili",
+      "unit": "litru"
+    },
+    "3": {
+      "label": "Gaz natural",
+      "type": "Combustibili",
+      "unit": "M3"
+    },
+    "4": {
+      "label": "Pelete de lemn (8% umiditate)",
+      "type": "Combustibili",
+      "unit": "KWH"
+    },
+    "5": {
+      "label": "ianuarie",
+      "type": "Electricitate",
+      "unit": "KWH"
+    },
+    "6": {
+      "label": "FEBRUARIE",
+      "type": "Electricitate",
+      "unit": "KWH"
+    },
+    "7": {
+      "label": "martie",
+      "type": "Electricitate",
+      "unit": "KWH"
+    },
+    "8": {
+      "label": "aprilie",
+      "type": "Electricitate",
+      "unit": "KWH"
+    },
+    "9": {
+      "label": "mai",
+      "type": "Electricitate",
+      "unit": "KWH"
+    },
+    "10": {
+      "label": "iunie",
+      "type": "Electricitate",
+      "unit": "KWH"
+    },
+    "11": {
+      "label": "iulie",
+      "type": "Electricitate",
+      "unit": "KWH"
+    },
+    "12": {
+      "label": "august",
+      "type": "Electricitate",
+      "unit": "KWH"
+    },
+    "13": {
+      "label": "septembrie",
+      "type": "Electricitate",
+      "unit": "KWH"
+    },
+    "14": {
+      "label": "octombrie",
+      "type": "Electricitate",
+      "unit": "KWH"
+    },
+    "15": {
+      "label": "noiembrie",
+      "type": "Electricitate",
+      "unit": "KWH"
+    },
+    "16": {
+      "label": "decembrie",
+      "type": "Electricitate",
+      "unit": "KWH"
+    },
+    "17": {
+      "label": "R134A",
+      "type": "Frigider",
+      "unit": "kg"
+    },
+    "18": {
+      "label": "R422",
+      "type": "Frigider",
+      "unit": "kg"
+    },
+    "19": {
+      "label": "R32",
+      "type": "Frigider",
+      "unit": "kg"
+    },
+    "20": {
+      "label": "R404A",
+      "type": "Frigider",
+      "unit": "kg"
+    },
+    "21": {
+      "label": "R407C",
+      "type": "Frigider",
+      "unit": "kg"
+    },
+    "22": {
+      "label": "R410A",
+      "type": "Frigider",
+      "unit": "kg"
+    },
+    "23": {
+      "label": "R452A",
+      "type": "Frigider",
+      "unit": "kg"
+    },
+    "24": {
+      "label": "R513A",
+      "type": "Frigider",
+      "unit": "kg"
+    },
+    "25": {
+      "label": "R744 - CO2",
+      "type": "Frigider",
+      "unit": "kg"
+    },
+    "26": {
+      "label": "CO2",
+      "type": "Gaz principal cu efect de seră",
+      "unit": "kg"
+    },
+    "27": {
+      "label": "CH4 Fossil",
+      "type": "Gaz principal cu efect de seră",
+      "unit": "kg"
+    },
+    "28": {
+      "label": "CH4 biogenic",
+      "type": "Gaz principal cu efect de seră",
+      "unit": "kg"
+    },
+    "29": {
+      "label": "N2O",
+      "type": "Gaz principal cu efect de seră",
+      "unit": "kg"
+    },
+    "30": {
+      "label": "SF6",
+      "type": "Gaz principal cu efect de seră",
+      "unit": "kg"
+    },
+    "31": {
+      "label": "NF3",
+      "type": "Gaz principal cu efect de seră",
+      "unit": "kg"
+    },
+    "32": {
+      "label": "Masă medie",
+      "type": "Masă",
+      "unit": "masă"
+    },
+    "33": {
+      "label": "Masă vegetariană",
+      "type": "Masă",
+      "unit": "masă"
+    },
+    "34": {
+      "label": "Masă vegană",
+      "type": "Masă",
+      "unit": "masă"
+    },
+    "35": {
+      "label": "Masă de carne roșie",
+      "type": "Masă",
+      "unit": "masă"
+    },
+    "36": {
+      "label": "Sticlă de apă",
+      "type": "ATM",
+      "unit": "litru"
+    },
+    "37": {
+      "label": "Sifon",
+      "type": "ATM",
+      "unit": "litru"
+    },
+    "38": {
+      "label": "Cookie -uri",
+      "type": "ATM",
+      "unit": "kg"
+    },
+    "39": {
+      "label": "Chipsuri",
+      "type": "ATM",
+      "unit": "porţiune"
+    },
+    "40": {
+      "label": "Camion de livrare (greutate totală autorizată în sarcină, 12-20T)",
+      "type": "Transport rutier",
+      "unit": "ton.km"
+    },
+    "41": {
+      "label": "Vehicul de livrare locală (greutate totală autorizată în sarcină, 7,5-12T)",
+      "type": "Transport rutier",
+      "unit": "ton.km"
+    },
+    "42": {
+      "label": "Camion de refrigerare",
+      "type": "Transport rutier",
+      "unit": "ton.km"
+    },
+    "43": {
+      "label": "Camion articulat cu volum mare 40t",
+      "type": "Transport rutier",
+      "unit": "ton.km"
+    },
+    "44": {
+      "label": "Vehicul utilitar ușor",
+      "type": "Transport rutier",
+      "unit": "ton.km"
+    },
+    "45": {
+      "label": "Avion - Transportul mărfurilor (Lumea)",
+      "type": "Marfă aeriană",
+      "unit": "ton.km"
+    },
+    "46": {
+      "label": "Transport feroviar (Europa)",
+      "type": "Transport feroviar",
+      "unit": "ton.km"
+    },
+    "48": {
+      "label": "Nava de marfă - mai puțin de 1.200 EVP",
+      "type": "Nava de marfă",
+      "unit": "ton.km"
+    },
+    "50": {
+      "label": "Bicicletă electrică",
+      "type": "Transport",
+      "unit": "km"
+    },
+    "51": {
+      "label": "Scuter electric",
+      "type": "Transport",
+      "unit": "km"
+    },
+    "52": {
+      "label": "Motocicletă (benzină)",
+      "type": "Transport",
+      "unit": "km"
+    },
+    "53": {
+      "label": "Bicicletă electrică",
+      "type": "Transport",
+      "unit": "km"
+    },
+    "54": {
+      "label": "Scuter electric",
+      "type": "Transport",
+      "unit": "km"
+    },
+    "55": {
+      "label": "Motocicletă (benzină)",
+      "type": "Transport",
+      "unit": "km"
+    },
+    "56": {
+      "label": "Vehicul electric compact",
+      "type": "Transport",
+      "unit": "km"
+    },
+    "57": {
+      "label": "Mașină individuală - benzină",
+      "type": "Transport",
+      "unit": "km"
+    },
+    "58": {
+      "label": "Mașină individuală - Diesel",
+      "type": "Transport",
+      "unit": "km"
+    },
+    "59": {
+      "label": "Autobuz mediu",
+      "type": "Transport",
+      "unit": "pasager"
+    },
+    "60": {
+      "label": "Transilien, RER, metrou, tramvai",
+      "type": "Transport",
+      "unit": "pasager"
+    },
+    "61": {
+      "label": "Ter",
+      "type": "Transport",
+      "unit": "pasager"
+    },
+    "62": {
+      "label": "TGV",
+      "type": "Transport",
+      "unit": "pasager"
+    },
+    "73": {
+      "label": "Mașină personală - benzină",
+      "type": "Transport",
+      "unit": "km"
+    },
+    "79": {
+      "label": "Autobuz mediu",
+      "type": "Transport",
+      "unit": "pasager"
+    },
+    "80": {
+      "label": "Transilien, RER, metrou, tramvai",
+      "type": "Transport",
+      "unit": "pasager"
+    },
+    "81": {
+      "label": "Ter",
+      "type": "Transport",
+      "unit": "pasager"
+    },
+    "82": {
+      "label": "TGV",
+      "type": "Transport",
+      "unit": "pasager"
+    },
+    "83": {
+      "label": "Mici livrări (pixuri ...)",
+      "type": "Furnituri",
+      "unit": "€ €"
+    },
+    "85": {
+      "label": "Cărți",
+      "type": "Furnituri",
+      "unit": "unitate"
+    },
+    "87": {
+      "label": "Hârtie (canotaj)",
+      "type": "Furnituri",
+      "unit": "unitate"
+    },
+    "88": {
+      "label": "Acid clorhidric",
+      "type": "Produse chimice",
+      "unit": "litru"
+    },
+    "89": {
+      "label": "Acid sulfuric",
+      "type": "Produse chimice",
+      "unit": "litru"
+    },
+    "90": {
+      "label": "Soda solidă (pulbere, pelete)",
+      "type": "Produse chimice",
+      "unit": "kg"
+    },
+    "91": {
+      "label": "Oțet alb",
+      "type": "Produse chimice",
+      "unit": "litru"
+    },
+    "92": {
+      "label": "Baschet",
+      "type": "Echipament sportiv",
+      "unit": "unitate"
+    },
+    "93": {
+      "label": "Minge de fotbal",
+      "type": "Echipament sportiv",
+      "unit": "unitate"
+    },
+    "94": {
+      "label": "Minge de volei",
+      "type": "Echipament sportiv",
+      "unit": "unitate"
+    },
+    "95": {
+      "label": "Handbal",
+      "type": "Echipament sportiv",
+      "unit": "unitate"
+    },
+    "96": {
+      "label": "Clădirea școlii (structură de beton)",
+      "type": "Construcție",
+      "unit": "m²"
+    },
+    "97": {
+      "label": "Parcare (clădire - structură de beton)",
+      "type": "Construcție",
+      "unit": "m²"
+    },
+    "98": {
+      "label": "Parcare (suprafață de bitum)",
+      "type": "Construcție",
+      "unit": "m²"
+    },
+    "99": {
+      "label": "Parcare (suprafață semi-Dure)",
+      "type": "Construcție",
+      "unit": "m²"
+    },
+    "100": {
+      "label": "Desktop",
+      "type": "IT/Echipament audiovizual",
+      "unit": "unitate"
+    },
+    "101": {
+      "label": "Tablete",
+      "type": "IT/Echipament audiovizual",
+      "unit": "unitate"
+    },
+    "102": {
+      "label": "Fotocopiatori",
+      "type": "IT/Echipament audiovizual",
+      "unit": "unitate"
+    },
+    "103": {
+      "label": "Proiector video",
+      "type": "IT/Echipament audiovizual",
+      "unit": "unitate"
+    },
+    "104": {
+      "label": "Imprimante",
+      "type": "IT/Echipament audiovizual",
+      "unit": "unitate"
+    },
+    "209": {
+      "label": "Biopropan",
+      "type": "Combustibili",
+      "unit": "kg"
+    },
+    "210": {
+      "label": "Rețea de căldură",
+      "type": "Combustibili",
+      "unit": "KWH"
+    },
+    "211": {
+      "label": "Masă albă",
+      "type": "Masă",
+      "unit": "masă"
+    },
+    "212": {
+      "label": "Masă de pește alb",
+      "type": "Masă",
+      "unit": "masă"
+    },
+    "213": {
+      "label": "Cafea neagră",
+      "type": "ATM",
+      "unit": "litru"
+    },
+    "214": {
+      "label": "Ceai infuzat",
+      "type": "ATM",
+      "unit": "litru"
+    },
+    "215": {
+      "label": "Pâine sandwich",
+      "type": "ATM",
+      "unit": "kg"
+    },
+    "216": {
+      "label": "Bara de ciocolată",
+      "type": "ATM",
+      "unit": "kg"
+    },
+    "217": {
+      "label": "Vehicul electric compact",
+      "type": "Transport",
+      "unit": "km"
+    },
+    "219": {
+      "label": "Sfârșitul vieții",
+      "type": "Deșeuri gospodărești și organice",
+      "unit": "tonă"
+    },
+    "220": {
+      "label": "Înmormântare",
+      "type": "Deșeuri gospodărești și organice",
+      "unit": "tonă"
+    },
+    "221": {
+      "label": "Incinerare",
+      "type": "Deșeuri gospodărești și organice",
+      "unit": "tonă"
+    },
+    "222": {
+      "label": "Compostare internă în grămezi",
+      "type": "Deșeuri gospodărești și organice",
+      "unit": "tonă"
+    },
+    "223": {
+      "label": "Mașină individuală - benzină",
+      "type": "Transport",
+      "unit": "km"
+    },
+    "224": {
+      "label": "Mașină individuală - Diesel",
+      "type": "Transport",
+      "unit": "km"
+    },
+    "225": {
+      "label": "Autobuz mediu",
+      "type": "Transport",
+      "unit": "pasager"
+    },
+    "226": {
+      "label": "Transilien, RER, metrou, tramvai",
+      "type": "Transport",
+      "unit": "pasager"
+    },
+    "227": {
+      "label": "Ter",
+      "type": "Transport",
+      "unit": "pasager"
+    },
+    "228": {
+      "label": "TGV",
+      "type": "Transport",
+      "unit": "pasager"
+    },
+    "229": {
+      "label": "Avion/poștă scurtă",
+      "type": "Transport",
+      "unit": "pasager"
+    },
+    "230": {
+      "label": "Avion/Curier de mijloc",
+      "type": "Transport",
+      "unit": "pasager"
+    },
+    "231": {
+      "label": "Avion/de lungă durată",
+      "type": "Transport",
+      "unit": "pasager"
+    },
+    "232": {
+      "label": "Consumabile (cartușe de cerneală ...)",
+      "type": "Furnituri",
+      "unit": "€ €"
+    },
+    "233": {
+      "label": "Baterii AAA (alcalină)",
+      "type": "Furnituri",
+      "unit": "unitate"
+    },
+    "234": {
+      "label": "Baterii AA (alcalin)",
+      "type": "Furnituri",
+      "unit": "unitate"
+    },
+    "239": {
+      "label": "Săpun solid",
+      "type": "Produse chimice",
+      "unit": "kg"
+    },
+    "241": {
+      "label": "Spălare de vase lichidă",
+      "type": "Produse chimice",
+      "unit": "litru"
+    },
+    "242": {
+      "label": "Săpun lichid",
+      "type": "Produse chimice",
+      "unit": "litru"
+    },
+    "243": {
+      "label": "Produs de sticlă",
+      "type": "Produse chimice",
+      "unit": "litru"
+    },
+    "244": {
+      "label": "Curățător de podea",
+      "type": "Produse chimice",
+      "unit": "litru"
+    },
+    "245": {
+      "label": "Curățător polivalent",
+      "type": "Produse chimice",
+      "unit": "litru"
+    },
+    "246": {
+      "label": "Detergent de sănătate",
+      "type": "Produse chimice",
+      "unit": "litru"
+    },
+    "247": {
+      "label": "Dezinfectant",
+      "type": "Produse chimice",
+      "unit": "litru"
+    },
+    "248": {
+      "label": "Clor",
+      "type": "Produse chimice",
+      "unit": "litru"
+    },
+    "249": {
+      "label": "Bicarbonat de sodiu",
+      "type": "Produse chimice",
+      "unit": "litru"
+    },
+    "250": {
+      "label": "Pictură - acoperire perete interioară",
+      "type": "Produse chimice",
+      "unit": "kg"
+    },
+    "251": {
+      "label": "Pictură - acoperire perete exterior",
+      "type": "Produse chimice",
+      "unit": "kg"
+    },
+    "252": {
+      "label": "Tricou din poliester",
+      "type": "Echipament sportiv",
+      "unit": "unitate"
+    },
+    "253": {
+      "label": "Mingea de rugby",
+      "type": "Echipament sportiv",
+      "unit": "unitate"
+    },
+    "254": {
+      "label": "Tricouri toate sporturile",
+      "type": "Echipament sportiv",
+      "unit": "unitate"
+    },
+    "255": {
+      "label": "Toate pantaloni scurți sportivi",
+      "type": "Echipament sportiv",
+      "unit": "unitate"
+    },
+    "256": {
+      "label": "Kimono (Judo)",
+      "type": "Echipament sportiv",
+      "unit": "unitate"
+    },
+    "262": {
+      "label": "Garaj (structură concretă)",
+      "type": "Construcție",
+      "unit": "m²"
+    },
+    "263": {
+      "label": "Garaj (structură metalică)",
+      "type": "Construcție",
+      "unit": "m²"
+    },
+    "264": {
+      "label": "Renovare",
+      "type": "Renovări",
+      "unit": "m²"
+    },
+    "265": {
+      "label": "Laptop",
+      "type": "IT/Echipament audiovizual",
+      "unit": "unitate"
+    },
+    "266": {
+      "label": "Server de calculator",
+      "type": "IT/Echipament audiovizual",
+      "unit": "unitate"
+    },
+    "267": {
+      "label": "TV/40-49 inci",
+      "type": "IT/Echipament audiovizual",
+      "unit": "unitate"
+    },
+    "268": {
+      "label": "Rack de server",
+      "type": "IT/Echipament audiovizual",
+      "unit": "unitate"
+    },
+    "269": {
+      "label": "Telecomandă/televiziune, Universal, fără baterii, 80G",
+      "type": "IT/Echipament audiovizual",
+      "unit": "unitate"
+    },
+    "270": {
+      "label": "Stereo clasic",
+      "type": "IT/Echipament audiovizual",
+      "unit": "unitate"
+    },
+    "271": {
+      "label": "Difuzor Bluetooth",
+      "type": "IT/Echipament audiovizual",
+      "unit": "unitate"
+    },
+    "272": {
+      "label": "Smartphone de 5 inch",
+      "type": "IT/Echipament audiovizual",
+      "unit": "unitate"
+    },
+    "273": {
+      "label": "Ecran/23,8 inch",
+      "type": "IT/Echipament audiovizual",
+      "unit": "unitate"
+    },
+    "274": {
+      "label": "Cositoare termică",
+      "type": "Diverse",
+      "unit": "unitate"
+    },
+    "275": {
+      "label": "Cositoare electrică",
+      "type": "Diverse",
+      "unit": "unitate"
+    },
+    "276": {
+      "label": "Fierbător",
+      "type": "Diverse",
+      "unit": "unitate"
+    },
+    "277": {
+      "label": "Cuptor cu microunde",
+      "type": "Diverse",
+      "unit": "unitate"
+    },
+    "278": {
+      "label": "Aspirator profesionist",
+      "type": "Diverse",
+      "unit": "unitate"
+    },
+    "279": {
+      "label": "Încălzitor de apă electrică - 200L",
+      "type": "Diverse",
+      "unit": "unitate"
+    },
+    "280": {
+      "label": "Mașină de cafea - Filtru",
+      "type": "Diverse",
+      "unit": "unitate"
+    },
+    "281": {
+      "label": "Mașină de cafea - păstăi",
+      "type": "Diverse",
+      "unit": "unitate"
+    },
+    "282": {
+      "label": "Mașină de spălat vase profesională",
+      "type": "Diverse",
+      "unit": "unitate"
+    },
+    "283": {
+      "label": "Cuptor profesionist",
+      "type": "Diverse",
+      "unit": "unitate"
+    },
+    "284": {
+      "label": "Mașină de spălat vase standard",
+      "type": "Diverse",
+      "unit": "unitate"
+    },
+    "285": {
+      "label": "Mașină de spălat (capacitate 7 kg)",
+      "type": "Diverse",
+      "unit": "unitate"
+    },
+    "286": {
+      "label": "Congelator (portbagaj) - 261L",
+      "type": "Diverse",
+      "unit": "unitate"
+    },
+    "287": {
+      "label": "Congelator (dulap) 205L",
+      "type": "Diverse",
+      "unit": "unitate"
+    },
+    "288": {
+      "label": "Frigider - 250L",
+      "type": "Diverse",
+      "unit": "unitate"
+    },
+    "289": {
+      "label": "Plăci de gătit/gaz 9000W",
+      "type": "Diverse",
+      "unit": "unitate"
+    },
+    "290": {
+      "label": "Gimnastică, Tatami",
+      "type": "Diverse",
+      "unit": "unitate"
+    },
+    "291": {
+      "label": "Gimnastică, aparat de bar fix",
+      "type": "Diverse",
+      "unit": "unitate"
+    },
+    "292": {
+      "label": "Gimnastică, aparat de bare paralele",
+      "type": "Diverse",
+      "unit": "unitate"
+    }
   }
 }

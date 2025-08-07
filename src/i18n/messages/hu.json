@@ -185,5 +185,797 @@
     "october": "október",
     "november": "november",
     "december": "december"
+  },
+  "emissionFactor": {
+    "1": {
+      "label": "Háztartási fűtőolaj",
+      "type": "Üzemanyagok",
+      "unit": "liter"
+    },
+    "2": {
+      "label": "Nehéz/kereskedelmi fűtőolaj",
+      "type": "Üzemanyagok",
+      "unit": "liter"
+    },
+    "3": {
+      "label": "Földgáz",
+      "type": "Üzemanyagok",
+      "unit": "M3"
+    },
+    "4": {
+      "label": "Fa pellet (8% páratartalom)",
+      "type": "Üzemanyagok",
+      "unit": "kWh"
+    },
+    "5": {
+      "label": "január",
+      "type": "Villamosenergia",
+      "unit": "kWh"
+    },
+    "6": {
+      "label": "FEBRUÁR",
+      "type": "Villamosenergia",
+      "unit": "kWh"
+    },
+    "7": {
+      "label": "március",
+      "type": "Villamosenergia",
+      "unit": "kWh"
+    },
+    "8": {
+      "label": "április",
+      "type": "Villamosenergia",
+      "unit": "kWh"
+    },
+    "9": {
+      "label": "május",
+      "type": "Villamosenergia",
+      "unit": "kWh"
+    },
+    "10": {
+      "label": "június",
+      "type": "Villamosenergia",
+      "unit": "kWh"
+    },
+    "11": {
+      "label": "július",
+      "type": "Villamosenergia",
+      "unit": "kWh"
+    },
+    "12": {
+      "label": "augusztus",
+      "type": "Villamosenergia",
+      "unit": "kWh"
+    },
+    "13": {
+      "label": "szeptember",
+      "type": "Villamosenergia",
+      "unit": "kWh"
+    },
+    "14": {
+      "label": "október",
+      "type": "Villamosenergia",
+      "unit": "kWh"
+    },
+    "15": {
+      "label": "november",
+      "type": "Villamosenergia",
+      "unit": "kWh"
+    },
+    "16": {
+      "label": "december",
+      "type": "Villamosenergia",
+      "unit": "kWh"
+    },
+    "17": {
+      "label": "R134A",
+      "type": "Hűtőközeg",
+      "unit": "kg"
+    },
+    "18": {
+      "label": "R422",
+      "type": "Hűtőközeg",
+      "unit": "kg"
+    },
+    "19": {
+      "label": "R32",
+      "type": "Hűtőközeg",
+      "unit": "kg"
+    },
+    "20": {
+      "label": "R404A",
+      "type": "Hűtőközeg",
+      "unit": "kg"
+    },
+    "21": {
+      "label": "R407C",
+      "type": "Hűtőközeg",
+      "unit": "kg"
+    },
+    "22": {
+      "label": "R410A",
+      "type": "Hűtőközeg",
+      "unit": "kg"
+    },
+    "23": {
+      "label": "R452A",
+      "type": "Hűtőközeg",
+      "unit": "kg"
+    },
+    "24": {
+      "label": "R513A",
+      "type": "Hűtőközeg",
+      "unit": "kg"
+    },
+    "25": {
+      "label": "R744 - CO2",
+      "type": "Hűtőközeg",
+      "unit": "kg"
+    },
+    "26": {
+      "label": "CO2",
+      "type": "Fő üvegházhatású gáz",
+      "unit": "kg"
+    },
+    "27": {
+      "label": "CH4 fosszilis",
+      "type": "Fő üvegházhatású gáz",
+      "unit": "kg"
+    },
+    "28": {
+      "label": "CH4 biogén",
+      "type": "Fő üvegházhatású gáz",
+      "unit": "kg"
+    },
+    "29": {
+      "label": "N2O",
+      "type": "Fő üvegházhatású gáz",
+      "unit": "kg"
+    },
+    "30": {
+      "label": "Sf6",
+      "type": "Fő üvegházhatású gáz",
+      "unit": "kg"
+    },
+    "31": {
+      "label": "Nf3",
+      "type": "Fő üvegházhatású gáz",
+      "unit": "kg"
+    },
+    "32": {
+      "label": "Átlagos étkezés",
+      "type": "Étkezés",
+      "unit": "étkezés"
+    },
+    "33": {
+      "label": "Vegetáriánus étkezés",
+      "type": "Étkezés",
+      "unit": "étkezés"
+    },
+    "34": {
+      "label": "Vegán étkezés",
+      "type": "Étkezés",
+      "unit": "étkezés"
+    },
+    "35": {
+      "label": "Vörös hús étel",
+      "type": "Étkezés",
+      "unit": "étkezés"
+    },
+    "36": {
+      "label": "Vizes palack",
+      "type": "ATM",
+      "unit": "liter"
+    },
+    "37": {
+      "label": "Szóda",
+      "type": "ATM",
+      "unit": "liter"
+    },
+    "38": {
+      "label": "Sütik",
+      "type": "ATM",
+      "unit": "kg"
+    },
+    "39": {
+      "label": "Chips",
+      "type": "ATM",
+      "unit": "adag"
+    },
+    "40": {
+      "label": "Szállítási teherautó (teljes felhatalmazott súly a felelős, 12-20T)",
+      "type": "Közúti szállítás",
+      "unit": "ton.km"
+    },
+    "41": {
+      "label": "Helyi szállítási jármű (teljes felhatalmazott súlyú, 7,5-12T)",
+      "type": "Közúti szállítás",
+      "unit": "ton.km"
+    },
+    "42": {
+      "label": "Hűtőszobás teherautó",
+      "type": "Közúti szállítás",
+      "unit": "ton.km"
+    },
+    "43": {
+      "label": "Nagy mennyiségű csuklós teherautó 40t",
+      "type": "Közúti szállítás",
+      "unit": "ton.km"
+    },
+    "44": {
+      "label": "Könnyűhasználati jármű",
+      "type": "Közúti szállítás",
+      "unit": "ton.km"
+    },
+    "45": {
+      "label": "Repülőgép - Áruk szállítása (világ)",
+      "type": "Légi fuvar",
+      "unit": "ton.km"
+    },
+    "46": {
+      "label": "Vasúti áruszállítás (Európa)",
+      "type": "Vasúti áruszállítás",
+      "unit": "ton.km"
+    },
+    "48": {
+      "label": "Teherhajó - kevesebb, mint 1200 EVP",
+      "type": "Rakományhajó",
+      "unit": "ton.km"
+    },
+    "50": {
+      "label": "Elektromos kerékpár",
+      "type": "Szállítás",
+      "unit": "km"
+    },
+    "51": {
+      "label": "Elektromos robogó",
+      "type": "Szállítás",
+      "unit": "km"
+    },
+    "52": {
+      "label": "Motorkerékpár (benzin)",
+      "type": "Szállítás",
+      "unit": "km"
+    },
+    "53": {
+      "label": "Elektromos kerékpár",
+      "type": "Szállítás",
+      "unit": "km"
+    },
+    "54": {
+      "label": "Elektromos robogó",
+      "type": "Szállítás",
+      "unit": "km"
+    },
+    "55": {
+      "label": "Motorkerékpár (benzin)",
+      "type": "Szállítás",
+      "unit": "km"
+    },
+    "56": {
+      "label": "Kompakt elektromos jármű",
+      "type": "Szállítás",
+      "unit": "km"
+    },
+    "57": {
+      "label": "Egyéni autó - benzin",
+      "type": "Szállítás",
+      "unit": "km"
+    },
+    "58": {
+      "label": "Egyéni autó - dízel",
+      "type": "Szállítás",
+      "unit": "km"
+    },
+    "59": {
+      "label": "Átlagbusz",
+      "type": "Szállítás",
+      "unit": "utas"
+    },
+    "60": {
+      "label": "Transilien, RER, Metro, villamosút",
+      "type": "Szállítás",
+      "unit": "utas"
+    },
+    "61": {
+      "label": "Tó",
+      "type": "Szállítás",
+      "unit": "utas"
+    },
+    "62": {
+      "label": "TGV",
+      "type": "Szállítás",
+      "unit": "utas"
+    },
+    "73": {
+      "label": "Személyes autó - benzin",
+      "type": "Szállítás",
+      "unit": "km"
+    },
+    "79": {
+      "label": "Átlagbusz",
+      "type": "Szállítás",
+      "unit": "utas"
+    },
+    "80": {
+      "label": "Transilien, RER, Metro, villamosút",
+      "type": "Szállítás",
+      "unit": "utas"
+    },
+    "81": {
+      "label": "Tó",
+      "type": "Szállítás",
+      "unit": "utas"
+    },
+    "82": {
+      "label": "TGV",
+      "type": "Szállítás",
+      "unit": "utas"
+    },
+    "83": {
+      "label": "Kis kellékek (tollak ...)",
+      "type": "Készletek",
+      "unit": "€ €"
+    },
+    "85": {
+      "label": "Könyvek",
+      "type": "Készletek",
+      "unit": "egység"
+    },
+    "87": {
+      "label": "Papír (evezés)",
+      "type": "Készletek",
+      "unit": "egység"
+    },
+    "88": {
+      "label": "Sósav",
+      "type": "Vegyszerek",
+      "unit": "liter"
+    },
+    "89": {
+      "label": "Kénsav",
+      "type": "Vegyszerek",
+      "unit": "liter"
+    },
+    "90": {
+      "label": "Szilárd szóda (por, pellet)",
+      "type": "Vegyszerek",
+      "unit": "kg"
+    },
+    "91": {
+      "label": "Fehér ecet",
+      "type": "Vegyszerek",
+      "unit": "liter"
+    },
+    "92": {
+      "label": "Kosárlabda",
+      "type": "Sporteszközök",
+      "unit": "egység"
+    },
+    "93": {
+      "label": "Futballgolyó",
+      "type": "Sporteszközök",
+      "unit": "egység"
+    },
+    "94": {
+      "label": "Röplabda golyó",
+      "type": "Sporteszközök",
+      "unit": "egység"
+    },
+    "95": {
+      "label": "Kézilabda",
+      "type": "Sporteszközök",
+      "unit": "egység"
+    },
+    "96": {
+      "label": "Iskolaépület (betonszerkezet)",
+      "type": "Építés",
+      "unit": "m²"
+    },
+    "97": {
+      "label": "Parkolás (épület - betonszerkezet)",
+      "type": "Építés",
+      "unit": "m²"
+    },
+    "98": {
+      "label": "Parkolás (bitumen felület)",
+      "type": "Építés",
+      "unit": "m²"
+    },
+    "99": {
+      "label": "Parkolás (félig dure felület)",
+      "type": "Építés",
+      "unit": "m²"
+    },
+    "100": {
+      "label": "Asztali számítógép",
+      "type": "IT/audiovizuális berendezés",
+      "unit": "egység"
+    },
+    "101": {
+      "label": "Tabletta",
+      "type": "IT/audiovizuális berendezés",
+      "unit": "egység"
+    },
+    "102": {
+      "label": "Fénymásolók",
+      "type": "IT/audiovizuális berendezés",
+      "unit": "egység"
+    },
+    "103": {
+      "label": "Video projektor",
+      "type": "IT/audiovizuális berendezés",
+      "unit": "egység"
+    },
+    "104": {
+      "label": "Nyomtató",
+      "type": "IT/audiovizuális berendezés",
+      "unit": "egység"
+    },
+    "209": {
+      "label": "Biopropán",
+      "type": "Üzemanyagok",
+      "unit": "kg"
+    },
+    "210": {
+      "label": "Hőhálózat",
+      "type": "Üzemanyagok",
+      "unit": "kWh"
+    },
+    "211": {
+      "label": "Fehér étkezés",
+      "type": "Étkezés",
+      "unit": "étkezés"
+    },
+    "212": {
+      "label": "Fehér halalás",
+      "type": "Étkezés",
+      "unit": "étkezés"
+    },
+    "213": {
+      "label": "Feketekávé",
+      "type": "ATM",
+      "unit": "liter"
+    },
+    "214": {
+      "label": "Infúziós tea",
+      "type": "ATM",
+      "unit": "liter"
+    },
+    "215": {
+      "label": "Szendvics kenyér",
+      "type": "ATM",
+      "unit": "kg"
+    },
+    "216": {
+      "label": "Csokoládé",
+      "type": "ATM",
+      "unit": "kg"
+    },
+    "217": {
+      "label": "Kompakt elektromos jármű",
+      "type": "Szállítás",
+      "unit": "km"
+    },
+    "219": {
+      "label": "Élettartam",
+      "type": "Háztartási és szerves hulladék",
+      "unit": "tonna"
+    },
+    "220": {
+      "label": "Temetés",
+      "type": "Háztartási és szerves hulladék",
+      "unit": "tonna"
+    },
+    "221": {
+      "label": "Égetés",
+      "type": "Háztartási és szerves hulladék",
+      "unit": "tonna"
+    },
+    "222": {
+      "label": "Házi komposztálás halomban",
+      "type": "Háztartási és szerves hulladék",
+      "unit": "tonna"
+    },
+    "223": {
+      "label": "Egyéni autó - benzin",
+      "type": "Szállítás",
+      "unit": "km"
+    },
+    "224": {
+      "label": "Egyéni autó - dízel",
+      "type": "Szállítás",
+      "unit": "km"
+    },
+    "225": {
+      "label": "Átlagbusz",
+      "type": "Szállítás",
+      "unit": "utas"
+    },
+    "226": {
+      "label": "Transilien, RER, Metro, villamosút",
+      "type": "Szállítás",
+      "unit": "utas"
+    },
+    "227": {
+      "label": "Tó",
+      "type": "Szállítás",
+      "unit": "utas"
+    },
+    "228": {
+      "label": "TGV",
+      "type": "Szállítás",
+      "unit": "utas"
+    },
+    "229": {
+      "label": "Repülőgép/rövid levél",
+      "type": "Szállítás",
+      "unit": "utas"
+    },
+    "230": {
+      "label": "Repülőgép/középső futár",
+      "type": "Szállítás",
+      "unit": "utas"
+    },
+    "231": {
+      "label": "Repülőgép/Hosszú tartott",
+      "type": "Szállítás",
+      "unit": "utas"
+    },
+    "232": {
+      "label": "Fogyóeszközök (tintapatronok ...)",
+      "type": "Készletek",
+      "unit": "€ €"
+    },
+    "233": {
+      "label": "AAA akkumulátorok (lúg)",
+      "type": "Készletek",
+      "unit": "egység"
+    },
+    "234": {
+      "label": "AA akkumulátorok (lúgos)",
+      "type": "Készletek",
+      "unit": "egység"
+    },
+    "239": {
+      "label": "Szilárd szappan",
+      "type": "Vegyszerek",
+      "unit": "kg"
+    },
+    "241": {
+      "label": "Folyékony mosogatás",
+      "type": "Vegyszerek",
+      "unit": "liter"
+    },
+    "242": {
+      "label": "Folyékony szappan",
+      "type": "Vegyszerek",
+      "unit": "liter"
+    },
+    "243": {
+      "label": "Üvegtermék",
+      "type": "Vegyszerek",
+      "unit": "liter"
+    },
+    "244": {
+      "label": "Padlótisztító",
+      "type": "Vegyszerek",
+      "unit": "liter"
+    },
+    "245": {
+      "label": "Többcélú tisztítószer",
+      "type": "Vegyszerek",
+      "unit": "liter"
+    },
+    "246": {
+      "label": "Egészségügyi mosószer",
+      "type": "Vegyszerek",
+      "unit": "liter"
+    },
+    "247": {
+      "label": "Fertőtlenítő",
+      "type": "Vegyszerek",
+      "unit": "liter"
+    },
+    "248": {
+      "label": "Klór",
+      "type": "Vegyszerek",
+      "unit": "liter"
+    },
+    "249": {
+      "label": "Szódabikarbóna",
+      "type": "Vegyszerek",
+      "unit": "liter"
+    },
+    "250": {
+      "label": "Festés - Belső fal burkolata",
+      "type": "Vegyszerek",
+      "unit": "kg"
+    },
+    "251": {
+      "label": "Festés - Kültéri fal burkolat",
+      "type": "Vegyszerek",
+      "unit": "kg"
+    },
+    "252": {
+      "label": "Poliészter póló",
+      "type": "Sporteszközök",
+      "unit": "egység"
+    },
+    "253": {
+      "label": "Rögbi labda",
+      "type": "Sporteszközök",
+      "unit": "egység"
+    },
+    "254": {
+      "label": "Mezek minden sport",
+      "type": "Sporteszközök",
+      "unit": "egység"
+    },
+    "255": {
+      "label": "Minden sport rövidnadrág",
+      "type": "Sporteszközök",
+      "unit": "egység"
+    },
+    "256": {
+      "label": "Kimono (judo)",
+      "type": "Sporteszközök",
+      "unit": "egység"
+    },
+    "262": {
+      "label": "Garázs (betonszerkezet)",
+      "type": "Építés",
+      "unit": "m²"
+    },
+    "263": {
+      "label": "Garázs (fémszerkezet)",
+      "type": "Építés",
+      "unit": "m²"
+    },
+    "264": {
+      "label": "Felújítás",
+      "type": "Felújítás",
+      "unit": "m²"
+    },
+    "265": {
+      "label": "Laptop",
+      "type": "IT/audiovizuális berendezés",
+      "unit": "egység"
+    },
+    "266": {
+      "label": "Számítógépes szerver",
+      "type": "IT/audiovizuális berendezés",
+      "unit": "egység"
+    },
+    "267": {
+      "label": "TV/40-49 hüvelyk",
+      "type": "IT/audiovizuális berendezés",
+      "unit": "egység"
+    },
+    "268": {
+      "label": "Szerver állvány",
+      "type": "IT/audiovizuális berendezés",
+      "unit": "egység"
+    },
+    "269": {
+      "label": "Távirányító/televízió, univerzális, akkumulátorok nélkül, 80 g",
+      "type": "IT/audiovizuális berendezés",
+      "unit": "egység"
+    },
+    "270": {
+      "label": "Klasszikus sztereó",
+      "type": "IT/audiovizuális berendezés",
+      "unit": "egység"
+    },
+    "271": {
+      "label": "Bluetooth hangszóró",
+      "type": "IT/audiovizuális berendezés",
+      "unit": "egység"
+    },
+    "272": {
+      "label": "5 hüvelykes okostelefon",
+      "type": "IT/audiovizuális berendezés",
+      "unit": "egység"
+    },
+    "273": {
+      "label": "Képernyő/23,8 hüvelyk",
+      "type": "IT/audiovizuális berendezés",
+      "unit": "egység"
+    },
+    "274": {
+      "label": "Hőtermelő",
+      "type": "Különféle",
+      "unit": "egység"
+    },
+    "275": {
+      "label": "Elektromos fűnyíró",
+      "type": "Különféle",
+      "unit": "egység"
+    },
+    "276": {
+      "label": "Vízforraló",
+      "type": "Különféle",
+      "unit": "egység"
+    },
+    "277": {
+      "label": "Mikrohullámú",
+      "type": "Különféle",
+      "unit": "egység"
+    },
+    "278": {
+      "label": "Professzionális porszívó",
+      "type": "Különféle",
+      "unit": "egység"
+    },
+    "279": {
+      "label": "Elektromos vízmelegítő - 200L",
+      "type": "Különféle",
+      "unit": "egység"
+    },
+    "280": {
+      "label": "Kávéfőző - szűrő",
+      "type": "Különféle",
+      "unit": "egység"
+    },
+    "281": {
+      "label": "Kávéfőző - hüvelyek",
+      "type": "Különféle",
+      "unit": "egység"
+    },
+    "282": {
+      "label": "Professzionális mosogatógép",
+      "type": "Különféle",
+      "unit": "egység"
+    },
+    "283": {
+      "label": "Szakmai sütő",
+      "type": "Különféle",
+      "unit": "egység"
+    },
+    "284": {
+      "label": "Szabványos mosogatógép",
+      "type": "Különféle",
+      "unit": "egység"
+    },
+    "285": {
+      "label": "Mosógép (kapacitás 7 kg)",
+      "type": "Különféle",
+      "unit": "egység"
+    },
+    "286": {
+      "label": "Fagyasztó (csomagtartó) - 261L",
+      "type": "Különféle",
+      "unit": "egység"
+    },
+    "287": {
+      "label": "Fagyasztó (szekrény) 205L",
+      "type": "Különféle",
+      "unit": "egység"
+    },
+    "288": {
+      "label": "Hűtőszekrény - 250L",
+      "type": "Különféle",
+      "unit": "egység"
+    },
+    "289": {
+      "label": "Főző lemezek/gáz 9000W",
+      "type": "Különféle",
+      "unit": "egység"
+    },
+    "290": {
+      "label": "Torna, tatami",
+      "type": "Különféle",
+      "unit": "egység"
+    },
+    "291": {
+      "label": "Torna, rögzített bár készülék",
+      "type": "Különféle",
+      "unit": "egység"
+    },
+    "292": {
+      "label": "Torna, párhuzamos rúd -készülék",
+      "type": "Különféle",
+      "unit": "egység"
+    }
   }
 }
