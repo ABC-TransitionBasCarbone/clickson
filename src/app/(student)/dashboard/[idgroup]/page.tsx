@@ -75,14 +75,14 @@ export default function Dashboard() {
     const idLang = routing.locales.findIndex((l) => l === locale) + 1
 
     const emissionCategories = await getEmissionCategories(idLang)
-    group.sessionStudent.sessionEmissionCategories = group.sessionStudent.sessionEmissionCategories.map(
-      (sc, index) => ({
+    group.sessionStudent.sessionEmissionCategories = group.sessionStudent.sessionEmissionCategories
+      .sort((a, b) => a.idEmissionCategory - b.idEmissionCategory)
+      .map((sc, index) => ({
         ...sc,
         emissionCategory: { ...emissionCategories[index] },
         locked: sc.locked,
         idSessionEmissionCategory: sc.id,
-      }),
-    )
+      }))
 
     setSession(group.sessionStudent as NestedSessionStudents)
     setLoadingCategories(false)
