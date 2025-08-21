@@ -23,7 +23,6 @@ export const DataTable = ({ tableHeader, emissions, handleDelete }: DataTablePro
   const [totalValues, setTotalValues] = useState(0)
 
   useEffect(() => {
-    console.log("Emission factor : ", emissions)
     setTotalValues(emissions.reduce((acc, emission) => acc + Number(emission.total), 0))
   }, [emissions])
 

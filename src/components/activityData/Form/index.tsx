@@ -42,8 +42,6 @@ export const ActivityDataForm = ({ dataToFill }: Props) => {
       return
     }
 
-    console.log('sessionCategory', sessionCategory)
-
     setSessionCategory({
       ...sessionCategory,
       sessionEmissionSubCategories: sessionCategory.sessionEmissionSubCategories.map((ssc) => ({
