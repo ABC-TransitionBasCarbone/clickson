@@ -35,8 +35,8 @@ export async function createSession(id: string, name?: string) {
   return await createSessionInDb(id, name, year, emissionCategories, emissionSubCategories)
 }
 
-export async function getSessionCategoryWithId(idSessionCategory: string, idLang: number) {
-  return await getSessionCategoryById(idSessionCategory, idLang)
+export async function getSessionCategoryWithId(idSessionCategory: string) {
+  return await getSessionCategoryById(idSessionCategory)
 }
 
 export async function modifySession(session: SessionStudents): Promise<string> {

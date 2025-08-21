@@ -88,7 +88,7 @@
     "rights": "Hozzáférési jogok",
     "home": "Az én munkameneteim",
     "dashboard": "Műszerfal",
-    "unit": "kgco₂e",
+    "unit": "kgCO₂e",
     "energy": "Energia",
     "travel": "Elmozdulás",
     "foodService": "Felújítás",
@@ -111,7 +111,7 @@
     "teacher": "Tanár"
   },
   "category": {
-    "kgCO₂e": "kgco₂e",
+    "kgCO₂e": "kgCO₂e",
     "locked": "Bezárt",
     "home": "Műszerfal",
     "confirmDelete": "Szeretné véglegesen törölni ezeket az adatokat?",
@@ -140,7 +140,7 @@
     "confirmDuplicate": "A tevékenységi adatok már léteznek, még mindig szeretne új adatokat rögzíteni?"
   },
   "dataToFill": {
-    "total": "Teljes kgco₂e",
+    "total": "Teljes kgCO₂e",
     "energy": "Energia",
     "travel": "Elmozdulás",
     "foodService": "Felújítás",
@@ -186,7 +186,99 @@
     "november": "november",
     "december": "december"
   },
-  "emissionFactor": {
+  "categories": {
+    "1": {
+      "label": "Energia",
+      "detail": "Az Energia kategória az intézmény energiafogyasztásával foglalkozik egy tanév során (beleértve júliust és augusztust is!). Ebben a kategóriában megtalálhatók az elektromos áram, a fűtés, valamint a kémiai laboratóriumokban használt gázok fogyasztására vonatkozó információk."
+    },
+    "2": {
+      "label": "Éttermi Szolgáltatás",
+      "detail": "Az Éttermi Szolgáltatás kategóriában meg kell határozni az ebédhez kapcsolódó kibocsátásokat. Figyelembe kell venni az iskolai menzán felszolgált ételeket és az otthon elfogyasztottakat is!"
+    },
+    "3": {
+      "label": "Utazás",
+      "detail": "Az Utazás kategória az otthon-iskola közötti ingázásokkal kapcsolatos kibocsátásokkal foglalkozik a diákok és a személyzet számára, valamint az iskolai kirándulásokkal."
+    },
+    "4": {
+      "label": "Beszerzések",
+      "detail": "A Beszerzések kategóriában az iskolai évre vásárolt összes anyag szerepel. Ezek többnyire fogyóeszközök vagy rövid élettartamú termékek, amelyeket az év során használnak fel, és a következő évben újra meg kell vásárolni."
+    },
+    "5": {
+      "label": "Tárgyi Eszközök",
+      "detail": "A Tárgyi Eszközök kategória az épületeket/felújításokat és az 'hosszú távú' besorolású javakat foglalja magában, például az informatikai eszközöket, gyártóberendezéseket stb. Az ezen javak gyártása által generált kibocsátásokat egy hagyományosan választott időszakra osztják el (20 év az épületek esetében, 5 év az informatikai eszközök esetében)."
+    }
+  },
+  "subCategories": {
+    "1": {
+      "label": "Üzemanyagok",
+      "detail": "A létesítményének valószínűleg van egy vagy több kazánja a fűtéshez. A működtetéshez ezek az eszközök különféle típusú fosszilis tüzelőanyagokat (fűtőolaj, földgáz stb.) Használhatnak. Például az üvegházhatású gázok kibocsátása (GHG), amelyet ezen berendezés által generált, felszabadulnak a fűtőolaj vagy a gáz égése során."
+    },
+    "2": {
+      "label": "Villamosenergia",
+      "detail": "Az Ön létesítménye az Ön országának elektromos hálózatához kapcsolódik. A villamos energiát különféle módon lehet előállítani (atomerőművek, megújuló energiák, fosszilis éghető erőművek stb.). Minden gyártási mód az üvegházhatású gázokat (üvegházhatást okozó gázokat) bocsátja ki különböző mennyiségekben."
+    },
+    "3": {
+      "label": "Egyéb gáz - Speciális mód",
+      "detail": "A létesítményében kétségtelenül van kémiai laboratóriuma, amely bunsen kifolyókkal vagy más berendezésekkel van felszerelve, amelyek energiát fogyasztanak, hozzájárulva az üvegházhatású gázok kibocsátásához."
+    },
+    "4": {
+      "label": "Étkezési típusok",
+      "detail": "Itt kiszámítja az iskolai étkezdében, a kávézóban vagy az otthoni étkezéshez kapcsolódó kibocsátásokat. Ha ismeri az összetevők részleteit, ne töltse ki ezt a részt, hanem csak a következő rész \"Az ételek részlete\"!  Vigyázzon, hogy vegye figyelembe az étkezési számot x A tanév napjának száma."
+    },
+    "5": {
+      "label": "ATM",
+      "detail": "Abban az esetben, ha van egy automatikus forgalmazója a létesítményében, íme néhány étel és ital, amelyeket megtalálhat. A menedzser és a szállító segíthet megtalálni ezeket az adatokat."
+    },
+    "6": {
+      "label": "Étkezés útválasztás - Speciális mód",
+      "detail": "Az étkezdén elfogyasztott összes ételt különféle szállítási eszközökkel szállítják, amelyek üvegházhatást okozó gázokat bocsátanak ki. Itt meg kell jegyezni a felhasznált szállítás típusát és a távolságokat. Az étkező szolgáltatója itt segíthet."
+    },
+    "16": {
+      "label": "Maradék háztartási hulladék (beleértve az ökológiai hulladékot is) - Fejlett mód",
+      "detail": "Itt elszámolhatja az étkezdéből származó összes szerves hulladékot. Az étkezde vezetője segíthet ezen információk megszerzésében."
+    },
+    "7": {
+      "label": "A hallgatók szállítását",
+      "detail": "Itt belép a hallgatók által végrehajtott összes otthoni utazásba. Ne felejtse el megsokszorozni adatait a tanév napjának számával!"
+    },
+    "8": {
+      "label": "Személyzet szállítás",
+      "detail": "Itt információkat nyújt a nem oktatási tanárok és a személyzet minden otthoni útjáról. Ne felejtse el megsokszorozni adatait a tanév napjának számával!"
+    },
+    "10": {
+      "label": "Iskolai kirándulások",
+      "detail": "Ha a létesítmény iskolai kirándulásokat vagy kirándulásokat szervez, ezeket az utakat is rögzíteni kell. Adja hozzá a megtett távolságot, és megszorozzon az utazást végző emberek számával. A menedzser minden bizonnyal segíteni fog ezen adatok megtalálásában."
+    },
+    "11": {
+      "label": "Készletek",
+      "detail": "A létesítmény gyakran vásárol felszerelést, hogy a kurzusok jó körülmények között zajlanak. Itt az a kérdés, hogy egy leltárt a lehető legpontosabbá tegye, és minden bizonnyal a létesítmény vezetője segíthet."
+    },
+    "12": {
+      "label": "Vegyszerek",
+      "detail": "Gondoljon itt a termékekre, amelyeket a tudomány, a technológia vagy a kémiai laboratórium során használ. Ne felejtsd el megszámolni a létesítmény munkatársai által használt karbantartási termékeket is!  A menedzser által nyújtott számlák segíthetnek ezen adatok megtalálásában."
+    },
+    "13": {
+      "label": "Sporteszközök",
+      "detail": "Itt megszámolja az EPS során használt összes berendezést. A menedzser segíthet megtalálni ezeket az adatokat."
+    },
+    "14": {
+      "label": "Építés",
+      "detail": "Minden építkezés magában foglalja az üvegházhatású gázok kibocsátását, még akkor is, ha az iskolát régen építették. Ezt csillapításnak hívják. Az épület élettartamának figyelembevétele érdekében az építési kibocsátások 50 év alatt elterjednek.  Példa: 2025 -ben vagyunk, és az Ön létesítményét 2001 -ben építették, ezért további 26 évre (26/50 program) kell számolnia. A menedzser segíthet megtalálni ezeket az adatokat."
+    },
+    "15": {
+      "label": "IT/audiovizuális berendezés",
+      "detail": "A létesítmény rendszeresen megújítja a számítógépes berendezéseket. Itt elszámolhatja az összes számítógépet, képernyőt vagy táblagépet. Az épületekhez hasonlóan itt is amortizálnia kell a kibocsátást, de rövidebb idő alatt. Ez az időtartam a terméktől függ. Ezen adatok beszerzéséhez készítsen leltárt az összes szobán áthaladva. Ellenkező esetben a menedzser segít megtalálni ezeket az adatokat."
+    },
+    "18": {
+      "label": "Felújítás",
+      "detail": "Ha a felújítás fontos (példa: szigetelés), akkor ebbe a kategóriába tartozik a felújított felület. Például 150 m2 izolált falak.  Ha a felújítás minimális marad (festés, padlók stb.), Vegye ki a vásárlási kibocsátási pozícióban használt termékeket külön dokumentumon. Megtalálhatja a megfelelő emissziós tényezőket az Ademe Imprint® alapon."
+    },
+    "19": {
+      "label": "Egyéb (háztartási készülékek, professzionális felszerelések ...)",
+      "detail": "Itt elszámolja azokat az árukat, amelyek nem adnak be egy adott kategóriát. Ezért el kell mennie a tanárokhoz, az étkezőkhöz vagy a gazdálkodáshoz, hogy leltárt készítsen háztartási vagy ipari készülékekről.  Az épületekhez hasonlóan itt is amortizálnia kell a kibocsátást, de rövidebb idő alatt. Ez az időtartam a terméktől függ. Ezen adatok beszerzéséhez készítsen leltárt az összes szobán áthaladva. Ellenkező esetben a menedzser segít megtalálni ezeket az adatokat."
+    }
+  },
+  "emissionFactors": {
     "1": {
       "label": "Háztartási fűtőolaj",
       "type": "Üzemanyagok",

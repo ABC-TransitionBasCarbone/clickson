@@ -84,11 +84,12 @@
     "update": "Modificirati"
   },
   "dashboard": {
+    "of": "ból",
     "noData": "Nema podataka za prikaz",
     "rights": "Prava pristupa",
     "home": "Moje sesije",
     "dashboard": "Nadzorna ploča",
-    "unit": "kgco₂e",
+    "unit": "kgCO₂e",
     "energy": "Energija",
     "travel": "Raseljavanje",
     "foodService": "Restauracija",
@@ -111,7 +112,7 @@
     "teacher": "Učitelj"
   },
   "category": {
-    "kgCO₂e": "kgco₂e",
+    "kgCO₂e": "kgCO₂e",
     "locked": "Zaključan",
     "home": "Nadzorna ploča",
     "confirmDelete": "Želite li trajno izbrisati ove podatke?",
@@ -140,7 +141,7 @@
     "confirmDuplicate": "Podaci o aktivnosti već postoje za, želite li još uvijek snimiti nove podatke?"
   },
   "dataToFill": {
-    "total": "Ukupno kgco₂e",
+    "total": "Ukupno kgCO₂e",
     "energy": "Energija",
     "travel": "Raseljavanje",
     "foodService": "Restauracija",
@@ -186,7 +187,99 @@
     "november": "studeni",
     "december": "prosinac"
   },
-  "emissionFactor": {
+  "categories": {
+    "1": {
+      "label": "Energija",
+      "detail": "Kategorija Energija odnosi se na potrošnju energije ustanove tijekom školske godine (uključujući srpanj i kolovoz!). U ovoj kategoriji pronaći ćete informacije o potrošnji električne energije, grijanja, kao i plinova koji se koriste u kemijskim laboratorijima."
+    },
+    "2": {
+      "label": "Usluga Prehrane",
+      "detail": "U kategoriji Usluga Prehrane trebate odrediti emisije povezane s ručkom. Trebate uzeti u obzir obroke poslužene u školskoj kantini i one konzumirane kod kuće!"
+    },
+    "3": {
+      "label": "Putovanja",
+      "detail": "Kategorija Putovanja odnosi se na emisije povezane s putovanjima od kuće do škole za učenike i osoblje, kao i na školske izlete."
+    },
+    "4": {
+      "label": "Nabava",
+      "detail": "U kategoriji Nabava unose se svi materijali kupljeni za školsku godinu. To su uglavnom potrošni materijali ili proizvodi kratkog vijeka koji će se koristiti tijekom godine i morat će se ponovno kupiti sljedeće godine."
+    },
+    "5": {
+      "label": "Fiksna Imovina",
+      "detail": "Kategorija Fiksna Imovina pokriva zgrade/renovacije i robu klasificiranu kao 'dugoročna', poput IT opreme, proizvodnih strojeva itd. Emisije generirane proizvodnjom ove robe raspoređuju se tijekom konvencionalno odabranog razdoblja (20 godina za zgrade, 5 godina za IT opremu)."
+    }
+  },
+  "subCategories": {
+    "1": {
+      "label": "Goriva",
+      "detail": "Vaša ustanova vjerojatno ima jedan ili više kotlova za grijanje. Za rad, ovi uređaji mogu koristiti različite vrste fosilnih goriva (loživo ulje, prirodni plin itd.). Emisije stakleničkih plinova (GHG) generirane ovom opremom oslobađaju se, na primjer, tijekom izgaranja lož ulja ili plina."
+    },
+    "2": {
+      "label": "Struja",
+      "detail": "Vaša je ustanova povezana s električnom mrežom vaše zemlje. Električna energija se može proizvesti na različite načine (nuklearne elektrane, obnovljive energije, fosilne zapaljive elektrane itd.). Svaki način proizvodnje emitira stakleničke plinove (staklenički plin) u različite količine."
+    },
+    "3": {
+      "label": "Ostali plin - Napredni način",
+      "detail": "Vaša ustanova nesumnjivo ima kemijske laboratorije opremljene izljevima Bunsena ili drugom opremom koja troši energiju, doprinoseći emisiji stakleničkih plinova."
+    },
+    "4": {
+      "label": "Tipovi obroka",
+      "detail": "Ovdje ćete izračunati emisije povezane s obrocima posluženim u školskoj kantini, kafeteriji ili kod kuće. Ako znate detalje sastojaka, nemojte ispuniti ovaj dio, već samo sljedeći dio \"Detalj jela\"!  Pazite da uzmite u obzir broj obroka posluženih x broj dana u školskoj godini."
+    },
+    "5": {
+      "label": "bankomat",
+      "detail": "U slučaju da imate automatskog distributera u svom ustanovi, evo nekoliko namirnica i pića koje možete pronaći iznutra. Voditelj i njegov dobavljač mogu vam pomoći da pronađete ove podatke."
+    },
+    "6": {
+      "label": "Usmjeravanje obroka - Napredni način",
+      "detail": "Svi obroci konzumirani u kantini prevoze se različitim prijevoznim sredstvima koji emitiraju stakleničke plinove. Ovdje ćete primijetiti vrstu korištenog prijevoza i propuštene udaljenosti. Davatelj kantine može vam pomoći ovdje."
+    },
+    "16": {
+      "label": "Preostali kućni otpad (uključujući organski otpad) - Napredni način",
+      "detail": "Ovdje ćete objasniti sav organski otpad iz kantine. Vođa kantine može vam pomoći da dobijete ove podatke."
+    },
+    "7": {
+      "label": "Prijevoz učenika",
+      "detail": "Ovdje ćete ući u sva putovanja u kući koja su proveli studenti. Ne zaboravite pomnožiti svoje podatke s brojem dana u školskoj godini!"
+    },
+    "8": {
+      "label": "Prijevoz osoblja",
+      "detail": "Ovdje ćete pružiti informacije o svim domaćim putovanjima od strane nastavnika i osoblja koji nisu obrazovani. Ne zaboravite pomnožiti svoje podatke s brojem dana u školskoj godini!"
+    },
+    "10": {
+      "label": "Školska izleta",
+      "detail": "Ako vaše ustanove organizira školska putovanja ili putovanja, ta se putovanja također moraju zabilježiti. Dodajte udaljenost koja se prelazi i umnožava s brojem ljudi koji putuju. Voditelj će vam sigurno moći pomoći u pronalaženju ovih podataka."
+    },
+    "11": {
+      "label": "Pribor",
+      "detail": "Vaša ustanova često kupuje opremu tako da se tečajevi odvijaju u dobrim uvjetima. Ovdje će biti pitanje da se inventar preciznije napravi i sigurno će vam upravitelj ustanove pomoći."
+    },
+    "12": {
+      "label": "Kemikalije",
+      "detail": "Ovdje razmislite o proizvodima koje koristite tijekom laboratorija za znanost, tehnologiju ili kemiju. Ne zaboravite računati i proizvode za održavanje koje koristi osoblje ustanove!  Računi koje je pružio upravitelj moći će vam pomoći u pronalaženju ovih podataka."
+    },
+    "13": {
+      "label": "Sportska oprema",
+      "detail": "Ovdje ćete prebrojati svu opremu koja se koristi tijekom EPS -a. Upravitelj vam može pomoći da pronađete ove podatke."
+    },
+    "14": {
+      "label": "Konstrukcija",
+      "detail": "Sva gradnja uključuje emisije stakleničkih plinova, čak i ako je škola izgrađena davno. To se naziva prigušivanje. Da bi se uzeo u obzir život zgrade, građevinske emisije šire se tijekom 50 godina.  Primjer: Nalazimo se na 2025. i vaše je uspostavljanje izgrađeno 2001. godine, stoga ćete morati računati njegove programe još 26 godina (26/50 programa). Upravitelj vam može pomoći da pronađete ove podatke."
+    },
+    "15": {
+      "label": "IT/Audiovizualna oprema",
+      "detail": "Vaša ustanova redovito obnavlja računalnu opremu. Ovdje ćete računati za sva računala, zaslone ili tablete. Kao i kod zgrada, ovdje morate amortizirati emisije, ali tijekom kraćeg trajanja. Ovo trajanje ovisit će o proizvodu. Da biste dobili ove podatke, napravite popis prolazeći kroz sve sobe. Inače, upravitelj vam može pomoći da pronađete ove podatke."
+    },
+    "18": {
+      "label": "Obnavljanje",
+      "detail": "Ako je obnova važna (primjer: izolacija), u ovoj kategoriji ubrojava obnovljenu površinu. Na primjer, 150 m2 izoliranih zidova.  Ako obnova ostane minimalna (slikanje, podovi, itd.), Broji proizvode koji se koriste u položaju emisije kupnje na zasebnom dokumentu. Moći ćete pronaći prave faktore emisije na osnovi Ademe Imprint®."
+    },
+    "19": {
+      "label": "Razno (kućanski aparati, profesionalna oprema ...)",
+      "detail": "Ovdje ćete objasniti robu koja ne unosi određenu kategoriju. Stoga ćete morati otići nastavnicima, kantini ili upravljanju kako biste napravili popis kućanskih ili industrijskih uređaja.  Kao i kod zgrada, ovdje morate amortizirati emisije, ali tijekom kraćeg trajanja. Ovo trajanje ovisit će o proizvodu. Da biste dobili ove podatke, napravite popis prolazeći kroz sve sobe. Inače, upravitelj vam može pomoći da pronađete ove podatke."
+    }
+  },
+  "emissionFactors": {
     "1": {
       "label": "Domaće loživo ulje",
       "type": "Goriva",

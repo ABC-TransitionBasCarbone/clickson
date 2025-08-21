@@ -84,11 +84,12 @@
     "update": "Pentru a modifica"
   },
   "dashboard": {
+    "of": "din",
     "noData": "Nu există date de afișat",
     "rights": "Drepturi de acces",
     "home": "Ședințele mele",
     "dashboard": "Bord",
-    "unit": "kgco₂e",
+    "unit": "kgCO₂e",
     "energy": "Energie",
     "travel": "Deplasare",
     "foodService": "Restaurare",
@@ -111,7 +112,7 @@
     "teacher": "Profesor"
   },
   "category": {
-    "kgCO₂e": "kgco₂e",
+    "kgCO₂e": "kgCO₂e",
     "locked": "Blocat",
     "home": "Bord",
     "confirmDelete": "Doriți să ștergeți permanent aceste date?",
@@ -140,7 +141,7 @@
     "confirmDuplicate": "Există deja date de activitate pentru, doriți în continuare să înregistrați o nouă date?"
   },
   "dataToFill": {
-    "total": "Total kgco₂e",
+    "total": "Total kgCO₂e",
     "energy": "Energie",
     "travel": "Deplasare",
     "foodService": "Restaurare",
@@ -186,7 +187,99 @@
     "november": "noiembrie",
     "december": "decembrie"
   },
-  "emissionFactor": {
+  "categrories": {
+    "1": {
+      "label": "Energie",
+      "detail": "Categoria Energie abordează consumul de energie al instituției pe parcursul unui an școlar (inclusiv iulie și august!). În această categorie, veți găsi informații despre consumul de energie electrică, încălzire, precum și gaze utilizate în laboratoarele de chimie."
+    },
+    "2": {
+      "label": "Servicii Alimentare",
+      "detail": "În categoria Servicii Alimentare, trebuie să determinați emisiile legate de prânz. Trebuie să luați în considerare mesele servite la cantina școlii și cele consumate acasă!"
+    },
+    "3": {
+      "label": "Călătorii",
+      "detail": "Categoria Călătorii abordează emisiile legate de naveta casă-școală pentru elevi și personal, precum și excursiile școlare."
+    },
+    "4": {
+      "label": "Aprovizionări",
+      "detail": "În categoria Aprovizionări, sunt introduse toate materialele cumpărate pentru anul școlar. Acestea sunt în mare parte consumabile sau produse de scurtă durată care vor fi utilizate pe parcursul anului și vor trebui cumpărate din nou anul viitor."
+    },
+    "5": {
+      "label": "Active Fixe",
+      "detail": "Categoria Active Fixe acoperă clădirile/renovările și bunurile clasificate ca 'pe termen lung', cum ar fi echipamentele IT, utilajele de producție etc. Emisiile generate de fabricarea acestor bunuri sunt distribuite pe o perioadă convențional aleasă (20 de ani pentru clădiri, 5 ani pentru echipamente IT)."
+    }
+  },
+  "subCategories": {
+    "1": {
+      "label": "Combustibili",
+      "detail": "Stabilirea dvs. are probabil unul sau mai multe cazane pentru încălzire. Pentru a funcționa, aceste dispozitive pot utiliza diferite tipuri de combustibili fosili (combustibil, gaze naturale etc.). Emisiile de gaze cu efect de seră (GES) generate de acest echipament sunt eliberate în timpul combustiei de combustibil sau gaz, de exemplu."
+    },
+    "2": {
+      "label": "Electricitate",
+      "detail": "Unitatea dvs. este conectată la rețeaua electrică a țării dvs. Electricitatea poate fi produsă în moduri diferite (centrale nucleare, energii regenerabile, centrale electrice combustibile fosile etc.). Fiecare mod de producție emite gaze cu efect de seră (GES) în cantități diferite."
+    },
+    "3": {
+      "label": "Alte gaz - modul avansat",
+      "detail": "Înființarea dvs. are, fără îndoială, laboratoare de chimie echipate cu Bunsen Spouts sau alte echipamente care consumă energie, contribuind la emisiile de gaze cu efect de seră."
+    },
+    "4": {
+      "label": "Tipuri de masă",
+      "detail": "Aici, veți calcula emisiile legate de mesele servite la cantina școlii, la cantină sau acasă. Dacă cunoașteți detaliile ingredientelor, nu completați această parte, ci doar următoarea parte „Detaliu al vaselor”!  Atenție să țineți cont de numărul de mese servite x numărul de zile din anul școlar."
+    },
+    "5": {
+      "label": "ATM",
+      "detail": "În cazul în care aveți un distribuitor automat în unitatea dvs., iată câteva alimente și băuturi pe care le puteți găsi în interior. Managerul și furnizorul său vă pot ajuta să găsiți aceste date."
+    },
+    "6": {
+      "label": "Rutarea mesei - modul avansat",
+      "detail": "Toate mesele consumate la cantină sunt transportate prin diferite mijloace de transport care emit gaze cu efect de seră. Veți observa aici tipul de transport folosit și distanțele parcurse. Furnizorul de cantină vă poate ajuta aici."
+    },
+    "16": {
+      "label": "Deșeuri reziduale ale gospodăriei (inclusiv deșeuri ecologice) - Mod avansat",
+      "detail": "Aici, veți reprezenta toate deșeurile organice de la cantină. Liderul cantinei vă poate ajuta să obțineți aceste informații."
+    },
+    "7": {
+      "label": "Transportul studenților",
+      "detail": "Aici, veți intra în toate călătoriile consacrate la domiciliu efectuate de studenți. Nu uitați să vă înmulțiți datele cu numărul de zile din anul școlar!"
+    },
+    "8": {
+      "label": "Transportul personalului",
+      "detail": "Aici, veți oferi informații despre toate călătoriile consacrate de casă de către profesori și personal needucațional. Nu uitați să vă înmulțiți datele cu numărul de zile din anul școlar!"
+    },
+    "10": {
+      "label": "Excursii școlare",
+      "detail": "Dacă unitatea dvs. organizează excursii școlare sau călătorii, aceste călătorii trebuie, de asemenea, înregistrate. Adăugați distanța parcursă și se înmulțește cu numărul de persoane care fac călătoria. Managerul va putea cu siguranță să vă ajute să găsiți aceste date."
+    },
+    "11": {
+      "label": "Furnituri",
+      "detail": "Unitatea dvs. achiziționează frecvent echipamente, astfel încât cursurile să aibă loc în condiții bune. Aici, va fi o problemă de a face un inventar cât mai precis și este cu siguranță managerul unității care vă poate ajuta."
+    },
+    "12": {
+      "label": "Produse chimice",
+      "detail": "Aici, gândiți -vă la produsele pe care le utilizați în timpul laboratorului de știință, tehnologie sau chimie. Nu uitați să numărați și produsele de întreținere utilizate de personalul unității!  Facturile furnizate de manager vă vor putea ajuta să găsiți aceste date."
+    },
+    "13": {
+      "label": "Echipament sportiv",
+      "detail": "Aici veți număra toate echipamentele utilizate în timpul EPS. Managerul vă poate ajuta să găsiți aceste date."
+    },
+    "14": {
+      "label": "Construcție",
+      "detail": "Toată construcția implică emisii de gaze cu efect de seră, chiar dacă școala a fost construită cu mult timp în urmă. Aceasta se numește amortizare. Pentru a ține cont de viața clădirii, emisiile de construcții sunt răspândite pe parcursul a 50 de ani.  Exemplu: Suntem în 2025, iar înființarea dvs. a fost construită în 2001, va trebui, prin urmare, să numărați programele sale pentru încă 26 de ani (26/50 de programe). Managerul vă poate ajuta să găsiți aceste date."
+    },
+    "15": {
+      "label": "IT/Echipament audiovizual",
+      "detail": "Unitatea dvs. reînnoiește în mod regulat echipamentele computerizate. Aici, veți reprezenta toate computerele, ecranele sau tabletele. Ca și în cazul clădirilor, aici trebuie să amortizați emisiile, dar pe o durată mai scurtă. Această durată va depinde de produs. Pentru a obține aceste date, faceți un inventar trecând prin toate camerele. În caz contrar, managerul vă poate ajuta să găsiți aceste date."
+    },
+    "18": {
+      "label": "Renovări",
+      "detail": "Dacă renovarea este importantă (exemplu: izolație), contează în această categorie suprafața renovată. De exemplu, 150 m2 de pereți izolați.  Dacă renovarea rămâne minimă (pictură, podele etc.), contează produsele utilizate în poziția de emisie de cumpărare pe un document separat. Veți putea găsi factori de emisie potriviți pe baza Ademe Imprint®."
+    },
+    "19": {
+      "label": "Diverse (aparate de uz casnic, echipamente profesionale ...)",
+      "detail": "Aici, veți da socoteală pentru mărfurile care nu intră într -o anumită categorie. Prin urmare, va trebui să mergeți la profesori, cantină sau administrare pentru a face un inventar al aparatelor gospodărești sau industriale.  Ca și în cazul clădirilor, aici trebuie să amortizați emisiile, dar pe o durată mai scurtă. Această durată va depinde de produs. Pentru a obține aceste date, faceți un inventar trecând prin toate camerele. În caz contrar, managerul vă poate ajuta să găsiți aceste date."
+    }
+  },
+  "emissionFactors": {
     "1": {
       "label": "Combustibil intern",
       "type": "Combustibili",

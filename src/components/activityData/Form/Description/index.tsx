@@ -2,14 +2,14 @@ import { useTranslations } from 'next-intl'
 import { StyledContainer, classes } from './styles'
 
 interface ActivityDataFormDescription {
-  description: string
+  idSubCategory: number
 }
-export const ActivityDataFormDescription = ({ description }: ActivityDataFormDescription) => {
-  const t = useTranslations('category')
+export const ActivityDataFormDescription = ({ idSubCategory }: ActivityDataFormDescription) => {
+  const t = useTranslations('subCategories')
 
   return (
     <StyledContainer>
-      <p className={classes.paragraph}>{description}</p>
+      <p className={classes.paragraph}>{t(`${idSubCategory}.detail`)}</p>
     </StyledContainer>
   )
 }
