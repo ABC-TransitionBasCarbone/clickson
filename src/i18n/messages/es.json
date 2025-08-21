@@ -84,11 +84,12 @@
     "update": "Para modificar"
   },
   "dashboard": {
+    "of": "de",
     "noData": "No hay datos para mostrar",
     "rights": "Derechos de acceso",
     "home": "Mis sesiones",
     "dashboard": "Panel",
-    "unit": "kgco₂e",
+    "unit": "kgCO₂e",
     "energy": "Energía",
     "travel": "Desplazamiento",
     "foodService": "Restauración",
@@ -111,7 +112,7 @@
     "teacher": "Maestro"
   },
   "category": {
-    "kgCO₂e": "kgco₂e",
+    "kgCO₂e": "kgCO₂e",
     "locked": "Encerrado",
     "home": "Panel",
     "confirmDelete": "¿Quieres eliminar permanentemente estos datos?",
@@ -186,7 +187,99 @@
     "november": "noviembre",
     "december": "Diciembre"
   },
-  "emissionFactor": {
+  "categories": {
+    "1": {
+      "label": "Energía",
+      "detail": "La categoría Energía aborda el consumo de energía del establecimiento durante un año escolar (¡sin olvidar julio y agosto!). En esta categoría, encontrarás información sobre el consumo de electricidad, calefacción, así como los gases utilizados en los laboratorios de química."
+    },
+    "2": {
+      "label": "Servicio de Comida",
+      "detail": "En la categoría Servicio de Comida, debes determinar las emisiones relacionadas con las comidas consumidas al mediodía. ¡No olvides tener en cuenta las comidas servidas en la cantina y las que se toman en casa!"
+    },
+    "3": {
+      "label": "Desplazamientos",
+      "detail": "La categoría Desplazamientos aborda las emisiones relacionadas con los trayectos de casa al establecimiento de los alumnos y el personal, así como los viajes escolares."
+    },
+    "4": {
+      "label": "Compras",
+      "detail": "La categoría Compras tiene en cuenta los suministros escolares, los productos electrónicos y de limpieza, los equipos deportivos o incluso los residuos no orgánicos. Estas compras tienen una corta vida útil y deberán ser reemplazadas muy regularmente."
+    },
+    "5": {
+      "label": "Inmovilizaciones",
+      "detail": "La categoría Inmovilizaciones cubre los edificios/renovaciones y los bienes cuyas emisiones deben amortizarse durante varios años, como los equipos informáticos, el mobiliario o ciertos aparatos industriales."
+    }
+  },
+  "subCategories": {
+    "10": {
+      "label": "Viajes escolares",
+      "detail": "Si su establecimiento organiza viajes escolares o viajes, estos viajes también deben registrarse. Agregue la distancia recorrida y se multiplica por la cantidad de personas que hacen el viaje. El gerente ciertamente podrá ayudarlo a encontrar estos datos."
+    },
+    "19": {
+      "label": "Varios (electrodomésticos, equipos profesionales ...)",
+      "detail": "Aquí, tendrá en cuenta los bienes que no ingresan una categoría en particular. Por lo tanto, tendrá que ir a los maestros, la cantina o la administración para hacer un inventario de electrodomésticos o electrodomésticos.  Al igual que con los edificios, aquí tienes que amortizar las emisiones pero durante una duración más corta. Esta duración dependerá del producto. Para obtener estos datos, realice un inventario pasando por todas las habitaciones. De lo contrario, el gerente puede ayudarlo a encontrar estos datos."
+    },
+    "1": {
+      "label": "Combustibles",
+      "detail": "Su establecimiento probablemente tenga una o más calderas para calentar. Para operar, estos dispositivos pueden usar diferentes tipos de combustibles fósiles (combustible, gas natural, etc.). Las emisiones de gases de efecto invernadero (GEI) generados por este equipo se liberan durante la combustión de combustible o gas, por ejemplo."
+    },
+    "2": {
+      "label": "Electricidad",
+      "detail": "Su establecimiento está conectado a la red eléctrica de su país. La electricidad se puede producir de diferentes maneras (centrales nucleares, energías renovables, plantas de energía combustibles fósiles, etc.). Cada modo de producción emite gases de efecto invernadero (GEI) en diferentes cantidades."
+    },
+    "3": {
+      "label": "Otros gas - Modo avanzado",
+      "detail": "Sin duda, su establecimiento tiene laboratorios de química equipados con bounds de Bunsen u otros equipos que consumen energía, contribuyendo a las emisiones de gases de efecto invernadero."
+    },
+    "4": {
+      "label": "Tipos de comidas",
+      "detail": "Aquí, calculará las emisiones relacionadas con las comidas servidas en la cantina escolar, la cafetería o en el hogar. Si conoce los detalles de los ingredientes, ¡no llene esta parte sino solo la siguiente parte \"Detalle de los platos\"!  Tenga cuidado de tener en cuenta la cantidad de comidas servidas x la cantidad de días en el año escolar."
+    },
+    "5": {
+      "label": "cajero automático",
+      "detail": "En caso de que tenga un distribuidor automático en su establecimiento, aquí hay algunos alimentos y bebidas que puede encontrar dentro. El gerente y su proveedor pueden ayudarlo a encontrar estos datos."
+    },
+    "6": {
+      "label": "Enrutamiento de comidas - Modo avanzado",
+      "detail": "Todas las comidas consumidas en la cantina son transportadas por varios medios de transporte que emiten gases de efecto invernadero. Notará aquí el tipo de transporte utilizado y las distancias recorridas. El proveedor de la cantina puede ayudarlo aquí."
+    },
+    "16": {
+      "label": "Residuos residuales del hogar (incluidos los desechos orgánicos) - Modo avanzado",
+      "detail": "Aquí, explicará todos los desechos orgánicos de la cantina. El líder de la cantina puede ayudarlo a obtener esta información."
+    },
+    "7": {
+      "label": "Transporte de estudiantes",
+      "detail": "Aquí, ingresará todos los viajes establecidos en el hogar realizados por los estudiantes. ¡No olvide multiplicar sus datos por la cantidad de días en el año escolar!"
+    },
+    "8": {
+      "label": "Transporte del personal",
+      "detail": "Aquí, proporcionará información sobre todos los viajes establecidos en el hogar de maestros y personal no educativos. ¡No olvide multiplicar sus datos por la cantidad de días en el año escolar!"
+    },
+    "11": {
+      "label": "Suministros",
+      "detail": "Su establecimiento con frecuencia compra equipos para que los cursos tengan lugar en buenas condiciones. Aquí, será una cuestión de hacer un inventario lo más preciso posible y sin duda es el gerente del establecimiento quien puede ayudarlo."
+    },
+    "12": {
+      "label": "Químicos",
+      "detail": "Aquí, piense en los productos que usa durante el laboratorio de ciencia, tecnología o química. ¡No olvides contar también los productos de mantenimiento utilizados por el personal del establecimiento!  Las facturas proporcionadas por el gerente podrán ayudarlo a encontrar estos datos."
+    },
+    "13": {
+      "label": "Equipo deportivo",
+      "detail": "Aquí contará todo el equipo utilizado durante el EPS. El gerente puede ayudarlo a encontrar estos datos."
+    },
+    "14": {
+      "label": "Construcción",
+      "detail": "Toda la construcción implica emisiones de gases de efecto invernadero, incluso si la escuela fue construida hace mucho tiempo. Esto se llama amortiguación. Para tener en cuenta la vida útil del edificio, las emisiones de construcción se extienden durante 50 años.  Ejemplo: estamos en 2025 y su establecimiento fue construido en 2001, por lo tanto, tendrá que contar sus programas durante otros 26 años (26/50 de programas). El gerente puede ayudarlo a encontrar estos datos."
+    },
+    "15": {
+      "label": "IT/Equipo audiovisual",
+      "detail": "Su establecimiento renueva regularmente el equipo informático. Aquí, representará todas las computadoras, pantallas o tabletas. Al igual que con los edificios, aquí tienes que amortizar las emisiones pero durante una duración más corta. Esta duración dependerá del producto. Para obtener estos datos, realice un inventario pasando por todas las habitaciones. De lo contrario, el gerente puede ayudarlo a encontrar estos datos."
+    },
+    "18": {
+      "label": "Renovaciones",
+      "detail": "Si la renovación es importante (ejemplo: aislamiento), cuenta en esta categoría la superficie renovada. Por ejemplo, 150 m2 de paredes aisladas.  Si la renovación sigue siendo mínima (pintura, pisos, etc.), cuenta los productos utilizados en la posición de emisión de compras en un documento separado. Podrá encontrar los factores de emisión correctos en la base de ademe Imprint®."
+    }
+  },
+  "emissionFactors": {
     "1": {
       "label": "Aceite de combustible doméstico",
       "type": "Combustible",

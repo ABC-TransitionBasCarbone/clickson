@@ -84,6 +84,7 @@
     "update": "Modifier"
   },
   "dashboard": {
+    "of": "de",
     "noData": "Aucune donnée à afficher",
     "rights": "Droits d'accès",
     "home": "Mes sessions",
@@ -99,7 +100,7 @@
     "calculatorsMarkers": "Feuille de calcul",
     "clickMarkerStart": "Cliquez simplement sur la rubrique pour commencer la collecte de données",
     "dataGathering": "collecte de données !",
-    "emissionsProfil": "Profil d'émissions",
+    "emissionsProfil": "Profile d'émissions",
     "download": "Télécharger",
     "downloadExcel": "Télécharger les résultats de la session au format Excel",
     "onGoing": "En cours",
@@ -186,7 +187,99 @@
     "november": "novembre",
     "december": "décembre"
   },
-  "emissionFactor": {
+  "categories": {
+    "1": {
+      "label": "Energie",
+      "detail": "La catégorie Energie aborde la consommation d'énergie de l'établissement sur une année scolaire (sans oublier juillet et août!). Dans cette catégorie, tu retrouverasles consommations d'électricité, de chauffage ainsi que les gaz utilisés en laboratoires de chimie."
+    },
+    "2": {
+      "label": "Restauration",
+      "detail": "Dans la catégorie Restauration, tu dois déterminer les émissions liées aux repas consommés le midi. Il ne faut pas oublier de prendre en compte les repas servis à la cantine et ceux pris à la maison !"
+    },
+    "3": {
+      "label": "Déplacements",
+      "detail": "La catégorie Déplacements aborde les émissions liées aux trajets domicile-établissement des élèves et du personnel, ainsi que les voyages scolaires."
+    },
+    "4": {
+      "label": "Achats",
+      "detail": "La catégorie Achats prend en compte les fournitures scolaires, les produits électroniques et d'entretien, les équipements de sport ou encore les déchets non-organiques. Ces achats ont une courte durée de vie et devront être rachetés très régulièrement."
+    },
+    "5": {
+      "label": "Immobilisations",
+      "detail": "La catégorie Immobilisations couvre les bâtiments / rénovations et les biens dont les émissions nécessitent d'être amorties sur plusieurs années, tels que les équipements informatiques, le mobilier ou certains appareils industriels."
+    }
+  },
+  "subCategories": {
+    "1": {
+      "label": "Combustibles",
+      "detail": "Ton établissement possède probablement une ou plusieurs chaudières pour le chauffage. Pour fonctionner, ces appareils peuvent utiliser différents types de combustibles fossiles (fioul, gaz naturel, etc.). Les émissions de gaz à effet de serre (GES) générées par cet équipement sont relâchées lors de la combustion de fioul ou de gaz, par exemple."
+    },
+    "2": {
+      "label": "Électricité",
+      "detail": "Ton établissement est relié au réseau électrique de ton pays. L'électricité peut être produite de différentes manières (centrales nucléaires, énergies renouvelables, centrales à combustibles fossiles, etc.). Chaque mode de production émet des gaz à effet de serre (GES) en quantités différentes."
+    },
+    "3": {
+      "label": "Autres gaz - Mode avancé",
+      "detail": "Ton établissement dispose sans doute de laboratoires de chimie équipés de becs Bunsen ou d'autres équipements qui consomment de l'énergie, contribuant aux émissions de gaz à effet de serre."
+    },
+    "4": {
+      "label": "Types de repas",
+      "detail": "Ici, tu calculeras les émissions liées aux repas servis à la cantine scolaire, cafétéria ou à la maison. Si tu connais le détail des ingrédients, ne remplis pas cette partie mais uniquement la partie suivante \"Détail des plats\" !  Veille à bien prendre en compte le nombre de repas servis x le nombre de jours dans l'année scolaire. "
+    },
+    "5": {
+      "label": "Distributeur automatique",
+      "detail": "Au cas où tu aurais un distributeur automatique dans ton établissement, voici quelques aliments et boissons que tu peux trouver à l'intérieur. Le gestionnaire et son fournisseur pourront t'aider à trouver ces données."
+    },
+    "6": {
+      "label": "Acheminement des repas - Mode avancé",
+      "detail": "Tous les repas consommés à la cantine sont acheminés par divers moyens de transport qui émettent des gaz à effet de serre. Tu noteras ici le type de transport utilisé et les distances parcourues. Le fournisseur de la cantine pourra t'aider ici."
+    },
+    "7": {
+      "label": "Transport des élèves",
+      "detail": "Ici, tu renseigneras tous les trajets domicile-établissement effectués par les élèves. N'oublie pas de multiplier tes données par le nombre de jours dans l'année scolaire !"
+    },
+    "8": {
+      "label": "Transport du personnel",
+      "detail": "Ici, tu renseigneras tous les trajets domicile-établissement effectués par les enseignants et personnels non-éducatifs. N'oublie pas de multiplier tes données par le nombre de jours dans l'année scolaire !"
+    },
+    "10": {
+      "label": "Voyages scolaires",
+      "detail": "Si ton établissement organise des sorties ou voyages scolaires, ces déplacements doivent aussi être comptabilisés. Additionne la distance parcourue et multiplie par le nombre de personnes qui font le voyage. Le gestionnaire pourra certainement t'aider à trouver ces données."
+    },
+    "11": {
+      "label": "Fournitures",
+      "detail": "Ton établissement achète fréquemment du matériel pour que les cours se déroulent dans de bonnes conditions. Ici, il s'agira de faire un inventaire le plus précis possible et c'est certainement le ou la gestionnaire de l'établissement qui pourra t'aider."
+    },
+    "12": {
+      "label": "Produits chimiques",
+      "detail": "Ici, pense aux produits que tu utilises en cours de sciences, technologie ou en laboratoire de chimie. N'oublie pas de comptabiliser aussi les produits d'entretien utilisés par les personnels de l'établissement !  Les factures fournies par le gestionnaire pourront t'aider à trouver ces données."
+    },
+    "13": {
+      "label": "Équipements de sport",
+      "detail": "Ici, tu comptabiliseras tous les équipements utilisés en cours d'EPS. Le gestionnaire pourra t'aider à trouver ces données."
+    },
+    "14": {
+      "label": "Construction",
+      "detail": "Toute construction implique des émissions de gaz à effet de serre, même si l'école a été construite il y a longtemps. C'est ce qu'on appelle un amortissement. Pour tenir compte de la durée de vie du bâtiment, les émissions de construction sont réparties sur 50 ans.  Exemple : nous sommes en 2025 et ton établissement a été construit en 2001, tu devras donc comptabiliser ses émissions pendant encore 26 ans (26/50e des émissions). Le gestionnaire pourra t'aider à trouver ces données."
+    },
+    "15": {
+      "label": "Équipement informatique/audiovisuel",
+      "detail": "Ton établissement renouvelle régulièrement le matériel informatique. Ici, tu comptabiliseras tous les ordinateurs, écrans ou encore tablettes. Comme pour les bâtiments, ici il faut amortir les émissions mais sur une durée plus courte. Cette durée dépendra du produit. Pour obtenir ces données, fais l'inventaire en passant dans toutes les salles. Sinon, le gestionnaire pourra t'aider à trouver ces données."
+    },
+    "16": {
+      "label": "Ordures ménagères résiduelles (dont déchets organiques) - Mode avancé",
+      "detail": "Ici, tu comptabiliseras tous les déchets organiques issus de la cantine. Le chef de cantine pourra t'aider à obtenir ces informations."
+    },
+    "18": {
+      "label": "Rénovations",
+      "detail": "Si la rénovation est importante (exemple : isolation), compte dans cette catégorie la surface rénovée. Par exemple, 150 m2 de murs isolés.  Si la rénovation reste minime (peinture, sols...), compte les produits utilisés dans le poste d'émissions Achats sur un document à part. Tu pourras trouver les bons facteurs d'émission sur le Base Empreinte® de l'Ademe."
+    },
+    "19": {
+      "label": "Divers (électroménager, équipements professionnels...)",
+      "detail": "Ici, tu comptabliseras des biens qui n'entrent pas dans une catégorie en particulier. Tu devras donc aller en salle des profs, cantine ou à l'intendance pour faire l'inventaire des appareils électroménagers ou industriels.  Comme pour les bâtiments, ici il faut amortir les émissions mais sur une durée plus courte. Cette durée dépendra du produit. Pour obtenir ces données, fais l'inventaire en passant dans toutes les salles. Sinon, le gestionnaire pourra t'aider à trouver ces données."
+    }
+  },
+  "emissionFactors": {
     "1": {
       "label": "Fioul domestique",
       "type": "Combustibles",

@@ -2,14 +2,12 @@
 
 import { createComment, deleteComment } from '@/services/serverFunctions/comment'
 import { createSessionEmission, deleteSessionEmission } from '@/services/serverFunctions/session'
-import { DataToFill } from '@/types/DataToFill'
 import { CancelPresentationOutlined } from '@mui/icons-material'
 import { CircularProgress, IconButton, Typography } from '@mui/material'
 import { Box, Stack } from '@mui/system'
 import {
   Comments,
   EmissionFactors,
-  EmissionSubCategories,
   SessionEmissions,
   SessionEmissionSubCategories,
 } from '@prisma/client'
@@ -20,25 +18,18 @@ import { CustomDialog } from '../../../../../components/customDialog'
 import { DataInput } from '../../DataInput'
 import { DataTable } from '../../DataTable'
 import { CommentInput } from '../CommentInput'
+import { SessionSubCategory } from '@/types/SessionSubCategory'
 
 interface Props {
-  emissionSubCategory: EmissionSubCategories & {
-    emissionFactors: EmissionFactors[]
-    dataToFill?: DataToFill
-    locked: boolean
-    sessionEmissionSubCategories: (SessionEmissionSubCategories & {
-      sessionEmissions: SessionEmissions[]
-      comments: Comments[]
-    })[]
-  }
+  subCategory: SessionSubCategory
   schoolYear?: number | null
 }
 
-export const QuestionTypeComponent = ({ emissionSubCategory, schoolYear }: Props) => {
+export const QuestionTypeComponent = ({ subCategory, schoolYear }: Props) => {
   const [saving, setSaving] = useState(false)
   const [loadingData, setLoadingData] = useState(false)
   const [open, setOpen] = useState(false)
-  const [sessionSubCategory, setSessionSubCategory] = useState(emissionSubCategory)
+  const [sessionSubCategory, setSessionSubCategory] = useState(subCategory)
   const t = useTranslations('category')
 
   const handleClose = () => {
@@ -47,30 +38,21 @@ export const QuestionTypeComponent = ({ emissionSubCategory, schoolYear }: Props
 
   const addComment = async (comment: string) => {
     setLoadingData(true)
-    const commentData = await createComment(sessionSubCategory.sessionEmissionSubCategories[0].id, comment)
-    const updateSubCategory = sessionSubCategory.sessionEmissionSubCategories[0]
+    const commentData = await createComment(sessionSubCategory.id, comment)
 
     setSessionSubCategory({
       ...sessionSubCategory,
-      sessionEmissionSubCategories: [
-        { ...updateSubCategory, comments: updateSubCategory.comments?.concat(commentData) },
-      ],
+      comments: sessionSubCategory.comments?.concat(commentData) || [],
     })
     setLoadingData(false)
   }
 
   const handleDelete = async (emission: SessionEmissions) => {
     setLoadingData(true)
-    const updateSubCategory = sessionSubCategory.sessionEmissionSubCategories[0]
 
     setSessionSubCategory({
       ...sessionSubCategory,
-      sessionEmissionSubCategories: [
-        {
-          ...updateSubCategory,
-          sessionEmissions: updateSubCategory.sessionEmissions.filter((se) => se.id !== emission.id),
-        },
-      ],
+      sessionEmissions: sessionSubCategory.sessionEmissions.filter((se) => se.id !== emission.id),
     })
 
     await deleteSessionEmission(emission.id)
@@ -79,13 +61,10 @@ export const QuestionTypeComponent = ({ emissionSubCategory, schoolYear }: Props
 
   const handleDeleteComment = async (comment: Comments) => {
     setLoadingData(true)
-    const updateSubCategory = sessionSubCategory.sessionEmissionSubCategories[0]
 
     setSessionSubCategory({
       ...sessionSubCategory,
-      sessionEmissionSubCategories: [
-        { ...updateSubCategory, comments: updateSubCategory.comments?.filter((se) => se.id !== comment.id) },
-      ],
+      comments: sessionSubCategory.comments?.filter((se) => se.id !== comment.id)
     })
 
     await deleteComment(comment.id)
@@ -108,24 +87,16 @@ export const QuestionTypeComponent = ({ emissionSubCategory, schoolYear }: Props
 
     const emissionData = {
       ...emission,
-      idSessionEmissionSubCategory: sessionSubCategory.sessionEmissionSubCategories[0].id,
+      idSessionEmissionSubCategory: sessionSubCategory.id,
       total: totalEmission,
     }
 
     const emissionResult = await createSessionEmission(emissionData)
 
-    const updateSubCategory = sessionSubCategory.sessionEmissionSubCategories[0]
-
     const updatedSessionSubCategory = {
       ...sessionSubCategory,
-      sessionEmissionSubCategories: [
-        {
-          ...updateSubCategory,
-          sessionEmissions: updateSubCategory.sessionEmissions.concat({ ...emission, ...emissionResult }),
-        },
-      ],
+      sessionEmissions: sessionSubCategory.sessionEmissions.concat({ ...emission, ...emissionResult }),
     }
-    console.log('updatedSessionSubCategory', updatedSessionSubCategory)
 
     setSessionSubCategory(updatedSessionSubCategory)
 
@@ -145,9 +116,9 @@ export const QuestionTypeComponent = ({ emissionSubCategory, schoolYear }: Props
       />
       <DataInput
         titleSelectInput={sessionSubCategory.dataToFill?.titleSelectInput}
-        emissionFactors={sessionSubCategory.emissionFactors || []}
+        emissionFactors={sessionSubCategory.emissionSubCategory?.emissionFactors || []}
         saving={saving}
-        locked={sessionSubCategory.locked}
+        locked={sessionSubCategory.locked || false}
         tootlipText={sessionSubCategory.dataToFill?.tooltipText}
         annualConsumptionText={sessionSubCategory.dataToFill?.titleAnnualConsumptionInput}
         handleAddData={handleAddData}
@@ -156,39 +127,34 @@ export const QuestionTypeComponent = ({ emissionSubCategory, schoolYear }: Props
         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '20' }}>
           <CircularProgress />
         </Box>
-      ) : (
-        <>
-          <DataTable
-            tableHeader={sessionSubCategory.dataToFill?.tableHeader}
-            emissions={
-              sessionSubCategory.sessionEmissionSubCategories[0]?.sessionEmissions.map((emission) => ({
-                ...emission,
-                emissionFactor: sessionSubCategory.emissionFactors.find((ef) => ef.id === emission.idEmissionFactor)!,
-              })) || []
-            }
-            handleDelete={handleDelete}
-          />
-          <CommentInput addComment={addComment} />
-          {sessionSubCategory.sessionEmissionSubCategories[0]?.comments?.map((comment, index) => (
-            <Stack direction="row" spacing={2} key={index}>
-              <Typography sx={{ paddingTop: 1 }}>{comment.comment}</Typography>
-              <ConfirmationDialog
-                title={t('confirmTitle')}
-                description={t('confirmDeleteComment')}
-                response={() => {
-                  handleDeleteComment(comment)
-                }}
-              >
-                {(showDialog: () => void) => (
-                  <IconButton onClick={showDialog}>
-                    <CancelPresentationOutlined sx={{ color: 'red' }} />
-                  </IconButton>
-                )}
-              </ConfirmationDialog>
-            </Stack>
-          ))}
-        </>
-      )}
+      ) :
+        (
+          <>
+            <DataTable
+              emissions={sessionSubCategory.sessionEmissions || []}
+              handleDelete={handleDelete}
+            />
+            <CommentInput addComment={addComment} />
+            {sessionSubCategory?.comments?.map((comment, index) => (
+              <Stack direction="row" spacing={2} key={index}>
+                <Typography sx={{ paddingTop: 1 }}>{comment.comment}</Typography>
+                <ConfirmationDialog
+                  title={t('confirmTitle')}
+                  description={t('confirmDeleteComment')}
+                  response={() => {
+                    handleDeleteComment(comment)
+                  }}
+                >
+                  {(showDialog: () => void) => (
+                    <IconButton onClick={showDialog}>
+                      <CancelPresentationOutlined sx={{ color: 'red' }} />
+                    </IconButton>
+                  )}
+                </ConfirmationDialog>
+              </Stack>
+            ))}
+          </>
+        )}
     </>
   )
 }

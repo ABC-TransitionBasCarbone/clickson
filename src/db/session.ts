@@ -4,15 +4,15 @@ import { prismaClient } from './client'
 export const getSessionsBySchoolId = (id: string | null | undefined) =>
   id
     ? prismaClient.sessionStudents.findMany({
-        where: { idSchool: id },
-        include: {
-          groups: {
-            where: {
-              deleted: false,
-            },
+      where: { idSchool: id },
+      include: {
+        groups: {
+          where: {
+            deleted: false,
           },
         },
-      })
+      },
+    })
     : null
 
 export const createSessionInDb = async (
@@ -93,28 +93,25 @@ export const toggleSessionCategoryLockInDb = async (idSessionEmissionCategory: s
   })
 }
 
-export const getSessionCategoryById = async (id: string, idLanguage: number) => {
+export const getSessionCategoryById = async (id: string) => {
   return await prismaClient.sessionEmissionCategories.findFirst({
     where: { id },
     include: {
-      emissionCategory: {
+      sessionEmissionSubCategories: {
         include: {
-          emissionSubCategories: {
-            where: { idLanguage },
+          sessionEmissions: {
             include: {
-              emissionFactors: {
-                where: { idLanguage },
-              },
-              sessionEmissionSubCategories: {
-                include: {
-                  sessionEmissions: true,
-                  comments: true,
-                },
-              },
+              emissionFactor: true,
             },
           },
-        },
-      },
+          comments: true,
+          emissionSubCategory: {
+            select: {
+              emissionFactors: true
+            }
+          },
+        }
+      }
     },
   })
 }

@@ -84,11 +84,12 @@
     "update": "Modificare"
   },
   "dashboard": {
+    "of": "di",
     "noData": "Nessun dato da visualizzare",
     "rights": "Diritti di accesso",
     "home": "Le mie sessioni",
     "dashboard": "Pannello di controllo",
-    "unit": "kgco₂e",
+    "unit": "kgCO₂e",
     "energy": "Energia",
     "travel": "Spostamento",
     "foodService": "Restauro",
@@ -111,7 +112,7 @@
     "teacher": "Insegnante"
   },
   "category": {
-    "kgCO₂e": "kgco₂e",
+    "kgCO₂e": "kgCO₂e",
     "locked": "Bloccato",
     "home": "Pannello di controllo",
     "confirmDelete": "Vuoi eliminare permanentemente questi dati?",
@@ -140,7 +141,7 @@
     "confirmDuplicate": "Esistono già dati di attività per, vuoi ancora registrare un nuovo dati?"
   },
   "dataToFill": {
-    "total": "Totale kgco₂e",
+    "total": "Totale kgCO₂e",
     "energy": "Energia",
     "travel": "Spostamento",
     "foodService": "Restauro",
@@ -186,7 +187,99 @@
     "november": "novembre",
     "december": "Dicembre"
   },
-  "emissionFactor": {
+  "categrories": {
+    "1": {
+      "label": "Energia",
+      "detail": "La categoria Energia affronta il consumo di energia dell'istituto durante un anno scolastico (inclusi luglio e agosto!). In questa categoria troverai informazioni sui consumi di elettricità, riscaldamento e gas utilizzati nei laboratori di chimica."
+    },
+    "2": {
+      "label": "Servizio di Ristorazione",
+      "detail": "Nella categoria Servizio di Ristorazione, devi determinare le emissioni legate ai pasti consumati a mezzogiorno. Non dimenticare di considerare i pasti serviti nella mensa scolastica e quelli consumati a casa!"
+    },
+    "3": {
+      "label": "Spostamenti",
+      "detail": "La categoria Spostamenti affronta le emissioni legate ai tragitti casa-scuola degli studenti e del personale, così come i viaggi scolastici."
+    },
+    "4": {
+      "label": "Acquisti",
+      "detail": "La categoria Acquisti tiene conto dei materiali scolastici, dei prodotti elettronici e per la pulizia, delle attrezzature sportive o anche dei rifiuti non organici. Questi acquisti hanno una breve durata e dovranno essere riacquistati molto regolarmente."
+    },
+    "5": {
+      "label": "Immobilizzazioni",
+      "detail": "La categoria Immobilizzazioni copre gli edifici/ristrutturazioni e i beni le cui emissioni devono essere ammortizzate su più anni, come le attrezzature informatiche, i mobili o alcuni apparecchi industriali."
+    }
+  },
+  "subCategories": {
+    "4": {
+      "label": "Tipi di pasti",
+      "detail": "Qui calcolerai le emissioni relative ai pasti serviti nella mensa della scuola, nella caffetteria o a casa. Se conosci i dettagli degli ingredienti, non riempire questa parte ma solo la parte successiva \"dettaglio dei piatti\"!  Fai attenzione a tenere conto del numero di pasti serviti x il numero di giorni nell'anno scolastico."
+    },
+    "5": {
+      "label": "ATM",
+      "detail": "Nel caso in cui tu abbia un distributore automatico nel tuo stabilimento, ecco alcuni alimenti e bevande che puoi trovare all'interno. Il manager e il suo fornitore possono aiutarti a trovare questi dati."
+    },
+    "6": {
+      "label": "Routing per pasto - Modalità avanzata",
+      "detail": "Tutti i pasti consumati nella mensa vengono trasportati con vari mezzi di trasporto che emettono gas serra. Noterai qui il tipo di trasporto utilizzato e le distanze percorse. Il fornitore della mensa può aiutarti qui."
+    },
+    "16": {
+      "label": "Rifiuti domestici residui (compresi i rifiuti biologici) - Modalità avanzata",
+      "detail": "Qui, rappresenterai tutti i rifiuti organici dalla mensa. Il leader della mensa può aiutarti a ottenere queste informazioni."
+    },
+    "7": {
+      "label": "Trasporto di studenti",
+      "detail": "Qui entrerai tutti i viaggi consolidati a casa effettuati dagli studenti. Non dimenticare di moltiplicare i tuoi dati per il numero di giorni nell'anno scolastico!"
+    },
+    "8": {
+      "label": "Trasporto del personale",
+      "detail": "Qui fornirai informazioni su tutti i viaggi consolidati a casa da insegnanti e personale non educativi. Non dimenticare di moltiplicare i tuoi dati per il numero di giorni nell'anno scolastico!"
+    },
+    "10": {
+      "label": "Viaggi scolastici",
+      "detail": "Se il tuo stabilimento organizza viaggi scolastici o viaggi, anche questi viaggi devono essere registrati. Aggiungi la distanza percorsa e si moltiplica per il numero di persone che fanno il viaggio. Il manager sarà sicuramente in grado di aiutarti a trovare questi dati."
+    },
+    "11": {
+      "label": "Forniture",
+      "detail": "Il tuo stabilimento acquista spesso attrezzature in modo che i corsi si svolgano in buone condizioni. Qui, sarà una questione di fare un inventario il più preciso possibile ed è certamente il manager dello stabilimento che può aiutarti."
+    },
+    "12": {
+      "label": "Prodotti chimici",
+      "detail": "Qui, pensa ai prodotti che usi durante la scienza, la tecnologia o il laboratorio di chimica. Non dimenticare di contare anche i prodotti di manutenzione utilizzati dal personale dello stabilimento!  Le fatture fornite dal gestore saranno in grado di aiutarti a trovare questi dati."
+    },
+    "13": {
+      "label": "Attrezzatura sportiva",
+      "detail": "Qui conterai tutte le attrezzature utilizzate durante l'EPS. Il manager può aiutarti a trovare questi dati."
+    },
+    "14": {
+      "label": "Costruzione",
+      "detail": "Tutta la costruzione prevede le emissioni di gas serra, anche se la scuola è stata costruita molto tempo fa. Questo si chiama smorzamento. Per tenere conto della vita dell'edificio, le emissioni di costruzione sono distribuite in 50 anni.  Esempio: siamo nel 2025 e il tuo stabilimento è stato costruito nel 2001, dovrai quindi contare i suoi programmi per altri 26 anni (26/50 di programmi). Il manager può aiutarti a trovare questi dati."
+    },
+    "15": {
+      "label": "Apparecchiatura IT/audiovisiva",
+      "detail": "Il tuo stabilimento rinnova regolarmente le apparecchiature informatiche. Qui, spiegherete tutti i computer, gli schermi o i tablet. Come per gli edifici, qui devi ammortizzare le emissioni ma per una durata più breve. Questa durata dipenderà dal prodotto. Per ottenere questi dati, fare un inventario passando attraverso tutte le stanze. Altrimenti, il manager può aiutarti a trovare questi dati."
+    },
+    "18": {
+      "label": "Ristrutturazioni",
+      "detail": "Se il rinnovamento è importante (esempio: isolamento), conta in questa categoria la superficie rinnovata. Ad esempio, 150 m2 di pareti isolate.  Se il rinnovamento rimane minimo (pittura, pavimenti, ecc.), Conta i prodotti utilizzati nella posizione di emissione di acquisto su un documento separato. Sarai in grado di trovare i giusti fattori di emissione sulla base di Ademe Imprint®."
+    },
+    "19": {
+      "label": "Varie (elettrodomestici, attrezzature professionali ...)",
+      "detail": "Qui, spiegherete le merci che non inseriscono una categoria particolare. Dovrai quindi andare agli insegnanti, alla mensa o alla gestione per fare un inventario di elettrodomestici o di elettrodomestici.  Come per gli edifici, qui devi ammortizzare le emissioni ma per una durata più breve. Questa durata dipenderà dal prodotto. Per ottenere questi dati, fare un inventario passando attraverso tutte le stanze. Altrimenti, il manager può aiutarti a trovare questi dati."
+    },
+    "1": {
+      "label": "Fuelli",
+      "detail": "Il tuo stabilimento probabilmente ha una o più caldaie per il riscaldamento. Per funzionare, questi dispositivi possono utilizzare diversi tipi di combustibili fossili (olio combustibile, gas naturale, ecc.). Le emissioni di gas serra (GHG) generate da questa attrezzatura vengono rilasciate durante la combustione di olio combustibile o gas, ad esempio."
+    },
+    "2": {
+      "label": "Elettricità",
+      "detail": "Il tuo stabilimento è collegato alla rete elettrica del tuo paese. L'elettricità può essere prodotta in diversi modi (centrali nucleari, energie rinnovabili, centrali elettriche combustibili fossili, ecc.). Ogni modalità di produzione emette gas serra (GHG) in diverse quantità."
+    },
+    "3": {
+      "label": "Altro gas - Modalità avanzata",
+      "detail": "Il tuo stabilimento ha indubbiamente laboratori di chimica dotati di beccuccio di bunsen o altre attrezzature che consumano energia, contribuendo alle emissioni di gas serra."
+    }
+  },
+  "emissionFactors": {
     "1": {
       "label": "Olio per combustibile domestico",
       "type": "Fuelli",

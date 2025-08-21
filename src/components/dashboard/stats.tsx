@@ -92,11 +92,10 @@ export const Stats = ({ session }: Props) => {
 
   const handleExport = async () => {
     try {
-      const arrayBuffer = fetchExportFile()
 
       const workbook = new ExcelJS.Workbook()
 
-      // await workbook.xlsx.load(arrayBuffer)
+
       const synthese = workbook.getWorksheet('Synthèse & Profil')
       const fe = workbook.getWorksheet('FE')
       if (!fe) {
@@ -170,7 +169,7 @@ export const Stats = ({ session }: Props) => {
     <>
       <Grid container>
         <Typography sx={{ marginTop: 5 }} variant="h5">
-          {t('emissionsProfil')} ({t('unit')}) de {session.name}
+          {`${t('emissionsProfil')} ${total} ${t('unit')} ${t('of')} ${session.name}`}
         </Typography>
         <Divider aria-hidden="true" sx={{ marginTop: theme.spacing(1) }} />
         <StatsGrid
@@ -233,8 +232,4 @@ export const Stats = ({ session }: Props) => {
       </Grid>
     </>
   )
-}
-function fetchExportFile() {
-  // ADD export xls function from bc+
-  throw new Error('Function not implemented.')
 }

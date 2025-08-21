@@ -9,13 +9,17 @@ import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
 
 interface DataTableProps {
-  emissions: (SessionEmissions & { emissionFactor: EmissionFactors })[]
+  emissions: (SessionEmissions & {
+    emissionFactor?: EmissionFactors
+  })[]
   tableHeader?: string[]
-  handleDelete: (row: SessionEmissions & { emissionFactor: EmissionFactors }) => void
+  handleDelete: (row: SessionEmissions) => void
 }
 
 export const DataTable = ({ tableHeader, emissions, handleDelete }: DataTableProps) => {
   const t = useTranslations('category')
+  const tEF = useTranslations('emissionFactors')
+
   const [totalValues, setTotalValues] = useState(0)
 
   useEffect(() => {
@@ -39,18 +43,18 @@ export const DataTable = ({ tableHeader, emissions, handleDelete }: DataTablePro
           {emissions.map((emission) => (
             <TableRow key={emission.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
               <TableCell component="th" scope="row">
-                {emission.emissionFactor?.label}
+                {tEF(`${emission.emissionFactor?.id}.label`)}
               </TableCell>
-              <TableCell align="right">{toLocaleString(Number(emission.value))}</TableCell>
+              <TableCell align="right">{toLocaleString(+emission.value)}</TableCell>
               <TableCell align="right">
                 {toLocaleString(Number(emission.emissionFactor?.value)) +
                   ' ' +
                   t('kgCO₂e') +
                   '/' +
-                  emission.emissionFactor?.unit}
+                  tEF(`${emission.emissionFactor?.id}.unit`)}
               </TableCell>
               <TableCell align="right">{emission.emissionFactor?.uncertainty?.toString() ?? ''}</TableCell>
-              <TableCell align="right">{toLocaleString(Number(emission.total))}</TableCell>
+              <TableCell align="right">{toLocaleString(+emission.total)}</TableCell>
               <TableCell align="right">
                 <ConfirmationDialog
                   title={t('confirmTitle')}

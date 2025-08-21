@@ -1,23 +1,22 @@
 import {
   Comments,
-  EmissionCategories,
   EmissionFactors,
-  EmissionSubCategories,
+  SessionEmissionCategories,
   SessionEmissions,
   SessionEmissionSubCategories,
 } from '@prisma/client'
-import { DataToFill } from './DataToFill'
+import { DataToFill } from './DataToFill';
 
-export interface SessionSubCategory {
-  emissionCategory: EmissionCategories & {
-    emissionSubCategories: (EmissionSubCategories & {
-      emissionFactors: EmissionFactors[]
-      dataToFill?: DataToFill
-      locked: boolean
-      sessionEmissionSubCategories: (SessionEmissionSubCategories & {
-        sessionEmissions: SessionEmissions[]
-        comments: Comments[]
-      })[]
-    })[]
-  }
+export interface SessionCategory extends SessionEmissionCategories {
+  sessionEmissionSubCategories: SessionSubCategory[]
+}
+
+export interface SessionSubCategory extends SessionEmissionSubCategories {
+  sessionEmissions: SessionEmissions[];
+  comments: Comments[];
+  dataToFill?: DataToFill;
+  locked?: boolean;
+  emissionSubCategory?: {
+    emissionFactors?: EmissionFactors[];
+  };
 }

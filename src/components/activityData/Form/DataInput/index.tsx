@@ -32,6 +32,8 @@ interface DataInputProps {
 
 export const DataInput = (props: DataInputProps) => {
   const t = useTranslations('category')
+  const tEF = useTranslations('emissionFactors')
+
   const [emission, setEmission] = useState<SessionEmissions & { emissionFactor: EmissionFactors }>({
     id: '',
     label: '',
@@ -48,16 +50,16 @@ export const DataInput = (props: DataInputProps) => {
       props.emissionFactors && props.emissionFactors[0]
         ? props.emissionFactors[0]
         : ({
-            id: 0,
-            idEmissionSubCategory: 0,
-            idLanguage: 0,
-            label: '',
-            type: '',
-            unit: '',
-            value: 0,
-            depreciationPeriod: null,
-            uncertainty: 0,
-          } as EmissionFactors),
+          id: 0,
+          idEmissionSubCategory: 0,
+          idLanguage: 0,
+          label: '',
+          type: '',
+          unit: '',
+          value: 0,
+          depreciationPeriod: null,
+          uncertainty: 0,
+        } as EmissionFactors),
   })
 
   const handleEmissionFactorChange = (event: SelectChangeEvent<number>) => {
@@ -94,7 +96,7 @@ export const DataInput = (props: DataInputProps) => {
             >
               {props.emissionFactors.map((emissionFactor) => (
                 <MenuItem key={emissionFactor.id} value={emissionFactor.id}>
-                  {emissionFactor.label}
+                  {tEF(`${emissionFactor.id}.label`)}
                 </MenuItem>
               ))}
             </Select>
@@ -108,7 +110,7 @@ export const DataInput = (props: DataInputProps) => {
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    {emission.emissionFactor.unit}
+                    {tEF(`${emission.emissionFactor.id}.unit`)}
                     {props.tootlipText && (
                       <Tooltip title={props.tootlipText}>
                         <IconButton>
