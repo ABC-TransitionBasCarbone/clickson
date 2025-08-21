@@ -87,6 +87,7 @@ export async function updateEmissionCategory(data: { id: number; label: string; 
 export async function getEmissionCategories(idLanguage: number) {
   return prismaClient.emissionCategories.findMany({
     where: { idLanguage },
+    orderBy: [{ idEmissionCategory: 'asc' }],
     include: {
       emissionSubCategories: {
         include: {
