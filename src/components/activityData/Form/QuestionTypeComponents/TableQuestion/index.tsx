@@ -131,6 +131,7 @@ export const QuestionTypeComponent = ({ subCategory, schoolYear }: Props) => {
         (
           <>
             <DataTable
+              tableHeader={sessionSubCategory.dataToFill?.tableHeader || []}
               emissions={sessionSubCategory.sessionEmissions || []}
               handleDelete={handleDelete}
             />

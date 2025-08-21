@@ -49,8 +49,8 @@ export const ActivityDataForm = ({ dataToFill }: Props) => {
         emissionSubCategory: {
           ...ssc.emissionSubCategory,
           locked: sessionCategory.locked,
-          dataToFill: dataToFill.find((dtf) => dtf.id === ssc.idEmissionSubCategory) || null,
         },
+        dataToFill: dataToFill.find((dtf) => dtf.id === ssc.idEmissionSubCategory),
       })),
     })
 

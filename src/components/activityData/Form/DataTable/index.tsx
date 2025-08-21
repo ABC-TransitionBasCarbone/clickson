@@ -18,6 +18,7 @@ interface DataTableProps {
 
 export const DataTable = ({ tableHeader, emissions, handleDelete }: DataTableProps) => {
   const t = useTranslations('category')
+  const tData = useTranslations('dataToFill')
   const tEF = useTranslations('emissionFactors')
 
   const [totalValues, setTotalValues] = useState(0)
@@ -33,7 +34,7 @@ export const DataTable = ({ tableHeader, emissions, handleDelete }: DataTablePro
           <TableRow>
             {tableHeader?.map((val, i) => (
               <TableCell align={i == 0 ? 'left' : 'right'} key={i}>
-                {val}
+                {tData(val)}
               </TableCell>
             ))}
             <TableCell />

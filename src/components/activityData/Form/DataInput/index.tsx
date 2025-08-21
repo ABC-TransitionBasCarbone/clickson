@@ -32,6 +32,7 @@ interface DataInputProps {
 
 export const DataInput = (props: DataInputProps) => {
   const t = useTranslations('category')
+  const tData = useTranslations('dataToFill')
   const tEF = useTranslations('emissionFactors')
 
   const [emission, setEmission] = useState<SessionEmissions & { emissionFactor: EmissionFactors }>({
@@ -88,7 +89,7 @@ export const DataInput = (props: DataInputProps) => {
       <StyledInputData>
         <Stack className={classes.input}>
           <FormControl className={classes.form}>
-            <Typography className={classes.label}>{props.titleSelectInput}</Typography>
+            <Typography className={classes.label}>{tData(props.titleSelectInput ?? '')}</Typography>
             <Select
               IconComponent={KeyboardArrowDown}
               value={Number(emission.emissionFactor.id)}
@@ -104,7 +105,7 @@ export const DataInput = (props: DataInputProps) => {
         </Stack>
         <Stack className={classes.input}>
           <FormControl className={classes.form}>
-            <Typography className={classes.label}>{props.annualConsumptionText}</Typography>
+            <Typography className={classes.label}>{tData(props.annualConsumptionText ?? '')}</Typography>
             <TextField
               type="number"
               InputProps={{
