@@ -84,9 +84,11 @@ export const Stats = ({ session }: Props) => {
     setTotalCategories(totalCategories)
     totalCategories.length > 0 &&
       setTotal(
-        totalCategories.reduce((acc, value) => {
-          return acc + value
-        }),
+        Number(
+          totalCategories
+            .reduce((acc, value) => acc + value, 0)
+            .toFixed(0)
+        )
       )
   }, [totalCategories])
 
