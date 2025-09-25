@@ -92,13 +92,12 @@ export const Stats = ({ session }: Props) => {
       if (!arrayBuffer) {
         throw new Error('Failed to fetch the file')
       }
+
       const workbook = new ExcelJS.Workbook()
       await workbook.xlsx.load(arrayBuffer)
 
       const synthese = workbook.getWorksheet('Synthèse & Profil')
       const fe = workbook.getWorksheet('FE')
-
-      console.log('Loading template...', { workbook, synthese, fe })
 
       if (!fe) {
         throw new Error(`fe not found`)
