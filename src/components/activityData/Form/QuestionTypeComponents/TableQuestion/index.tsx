@@ -2,15 +2,11 @@
 
 import { createComment, deleteComment } from '@/services/serverFunctions/comment'
 import { createSessionEmission, deleteSessionEmission } from '@/services/serverFunctions/session'
+import { SessionSubCategory } from '@/types/SessionSubCategory'
 import { CancelPresentationOutlined } from '@mui/icons-material'
 import { CircularProgress, IconButton, Typography } from '@mui/material'
 import { Box, Stack } from '@mui/system'
-import {
-  Comments,
-  EmissionFactors,
-  SessionEmissions,
-  SessionEmissionSubCategories,
-} from '@prisma/client'
+import { Comments, EmissionFactors, SessionEmissions } from '@prisma/client'
 import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 import ConfirmationDialog from '../../../../../components/ConfirmationDialog'
@@ -18,7 +14,6 @@ import { CustomDialog } from '../../../../../components/customDialog'
 import { DataInput } from '../../DataInput'
 import { DataTable } from '../../DataTable'
 import { CommentInput } from '../CommentInput'
-import { SessionSubCategory } from '@/types/SessionSubCategory'
 
 interface Props {
   subCategory: SessionSubCategory
@@ -64,7 +59,7 @@ export const QuestionTypeComponent = ({ subCategory, schoolYear }: Props) => {
 
     setSessionSubCategory({
       ...sessionSubCategory,
-      comments: sessionSubCategory.comments?.filter((se) => se.id !== comment.id)
+      comments: sessionSubCategory.comments?.filter((se) => se.id !== comment.id),
     })
 
     await deleteComment(comment.id)
@@ -127,35 +122,34 @@ export const QuestionTypeComponent = ({ subCategory, schoolYear }: Props) => {
         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '20' }}>
           <CircularProgress />
         </Box>
-      ) :
-        (
-          <>
-            <DataTable
-              tableHeader={sessionSubCategory.dataToFill?.tableHeader || []}
-              emissions={sessionSubCategory.sessionEmissions || []}
-              handleDelete={handleDelete}
-            />
-            <CommentInput addComment={addComment} />
-            {sessionSubCategory?.comments?.map((comment, index) => (
-              <Stack direction="row" spacing={2} key={index}>
-                <Typography sx={{ paddingTop: 1 }}>{comment.comment}</Typography>
-                <ConfirmationDialog
-                  title={t('confirmTitle')}
-                  description={t('confirmDeleteComment')}
-                  response={() => {
-                    handleDeleteComment(comment)
-                  }}
-                >
-                  {(showDialog: () => void) => (
-                    <IconButton onClick={showDialog}>
-                      <CancelPresentationOutlined sx={{ color: 'red' }} />
-                    </IconButton>
-                  )}
-                </ConfirmationDialog>
-              </Stack>
-            ))}
-          </>
-        )}
+      ) : (
+        <>
+          <DataTable
+            tableHeader={sessionSubCategory.dataToFill?.tableHeader || []}
+            emissions={sessionSubCategory.sessionEmissions || []}
+            handleDelete={handleDelete}
+          />
+          <CommentInput addComment={addComment} />
+          {sessionSubCategory?.comments?.map((comment, index) => (
+            <Stack direction="row" spacing={2} key={index}>
+              <Typography sx={{ paddingTop: 1 }}>{comment.comment}</Typography>
+              <ConfirmationDialog
+                title={t('confirmTitle')}
+                description={t('confirmDeleteComment')}
+                response={() => {
+                  handleDeleteComment(comment)
+                }}
+              >
+                {(showDialog: () => void) => (
+                  <IconButton onClick={showDialog}>
+                    <CancelPresentationOutlined sx={{ color: 'red' }} />
+                  </IconButton>
+                )}
+              </ConfirmationDialog>
+            </Stack>
+          ))}
+        </>
+      )}
     </>
   )
 }

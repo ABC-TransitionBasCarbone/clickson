@@ -1,13 +1,12 @@
 import { Divider } from '@mui/material'
-import { StyledContainer, classes } from '../styles'
 import { useTranslations } from 'next-intl'
+import { StyledContainer, classes } from '../styles'
 
 interface Props {
   idSubCategory: number
 }
 export const ActivityDataFormHeader = ({ idSubCategory }: Props) => {
   const t = useTranslations('subCategories')
-
 
   return (
     <StyledContainer>

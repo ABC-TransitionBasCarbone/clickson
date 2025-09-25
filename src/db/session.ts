@@ -4,15 +4,15 @@ import { prismaClient } from './client'
 export const getSessionsBySchoolId = (id: string | null | undefined) =>
   id
     ? prismaClient.sessionStudents.findMany({
-      where: { idSchool: id },
-      include: {
-        groups: {
-          where: {
-            deleted: false,
+        where: { idSchool: id },
+        include: {
+          groups: {
+            where: {
+              deleted: false,
+            },
           },
         },
-      },
-    })
+      })
     : null
 
 export const createSessionInDb = async (
@@ -107,11 +107,11 @@ export const getSessionCategoryById = async (id: string) => {
           comments: true,
           emissionSubCategory: {
             select: {
-              emissionFactors: true
-            }
+              emissionFactors: true,
+            },
           },
-        }
-      }
+        },
+      },
     },
   })
 }

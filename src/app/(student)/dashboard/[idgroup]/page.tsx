@@ -84,8 +84,6 @@ export default function Dashboard() {
         idSessionEmissionCategory: sc.id,
       }))
 
-    console.log("Emission Categories: ", group.sessionStudent.sessionEmissionCategories)
-
     setSession(group.sessionStudent as NestedSessionStudents)
     setLoadingCategories(false)
   }

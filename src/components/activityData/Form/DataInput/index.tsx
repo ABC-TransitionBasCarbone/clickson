@@ -51,16 +51,16 @@ export const DataInput = (props: DataInputProps) => {
       props.emissionFactors && props.emissionFactors[0]
         ? props.emissionFactors[0]
         : ({
-          id: 0,
-          idEmissionSubCategory: 0,
-          idLanguage: 0,
-          label: '',
-          type: '',
-          unit: '',
-          value: 0,
-          depreciationPeriod: null,
-          uncertainty: 0,
-        } as EmissionFactors),
+            id: 0,
+            idEmissionSubCategory: 0,
+            idLanguage: 0,
+            label: '',
+            type: '',
+            unit: '',
+            value: 0,
+            depreciationPeriod: null,
+            uncertainty: 0,
+          } as EmissionFactors),
   })
 
   const handleEmissionFactorChange = (event: SelectChangeEvent<number>) => {

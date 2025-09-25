@@ -1,6 +1,7 @@
 'use client'
 
 import PieChart from '@/components/charts/PieChart'
+import { fetchExportFile } from '@/services/serverFunctions/exports'
 import { NestedSessionStudents } from '@/types/NestedSessionStudents'
 import { Download } from '@mui/icons-material'
 import { Box, Button, Divider, Grid, Popover, Typography } from '@mui/material'
@@ -82,26 +83,25 @@ export const Stats = ({ session }: Props) => {
 
     setTotalSubCategorie(totalSubCategories)
     setTotalCategories(totalCategories)
-    totalCategories.length > 0 &&
-      setTotal(
-        Number(
-          totalCategories
-            .reduce((acc, value) => acc + value, 0)
-            .toFixed(0)
-        )
-      )
+    totalCategories.length > 0 && setTotal(Number(totalCategories.reduce((acc, value) => acc + value, 0).toFixed(0)))
   }, [totalCategories])
 
   const handleExport = async () => {
     try {
-
+      const arrayBuffer = await fetchExportFile()
+      if (!arrayBuffer) {
+        throw new Error('Failed to fetch the file')
+      }
       const workbook = new ExcelJS.Workbook()
-
+      await workbook.xlsx.load(arrayBuffer)
 
       const synthese = workbook.getWorksheet('Synthèse & Profil')
       const fe = workbook.getWorksheet('FE')
+
+      console.log('Loading template...', { workbook, synthese, fe })
+
       if (!fe) {
-        return
+        throw new Error(`fe not found`)
       }
 
       fe.addRow(['Label', "Donnée d'activité", "facteur d'émission", 'Emissions GES', 'Unité', 'Incertitude', 'Type'])

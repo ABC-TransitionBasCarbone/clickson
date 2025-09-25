@@ -3,6 +3,8 @@
 import { getGroup } from '@/services/serverFunctions/group'
 import { getSchoolService } from '@/services/serverFunctions/school'
 import { getSessionCategoryWithId } from '@/services/serverFunctions/session'
+import { DataToFill } from '@/types/DataToFill'
+import { SessionCategory } from '@/types/SessionSubCategory'
 import HomeIcon from '@mui/icons-material/Home'
 import { Button, CircularProgress, Typography } from '@mui/material'
 import { Box, Stack } from '@mui/system'
@@ -15,8 +17,6 @@ import { ActivityDataFormDescription } from './Description'
 import { ActivityDataFormHeader } from './Header'
 import { QuestionTypeComponent } from './QuestionTypeComponents/TableQuestion'
 import { StyledContainer } from './styles'
-import { SessionCategory, SessionSubCategory } from '@/types/SessionSubCategory'
-import { DataToFill } from '@/types/DataToFill'
 interface Props {
   dataToFill: DataToFill[]
 }
