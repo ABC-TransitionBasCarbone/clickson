@@ -31,7 +31,7 @@ export const useDataToFill = () => {
       category: 'food',
       type: 'table',
       titleSelectInput: 'foodService',
-      tooltipText: 'foodTootlipText',
+      tooltipText: 'Indique le nombre total de repas sur une année',
       titleAnnualConsumptionInput: 'meals',
       tableHeader: ['emissionFactor', 'quantity', 'value', 'uncertainty', 'total'],
     },
