@@ -41,10 +41,9 @@ export default function SessionsBoard() {
   }
 
   async function deleteSession(session: SessionStudents) {
-    session.deleted = !session.deleted
-    session.locked = true
-    const id = await modifySession(session)
-    setSessions(sessions.map((s) => (s.id == id ? session : s)))
+    const modifiedSession = { ...session, deleted: true, locked: true }
+    const id = await modifySession(modifiedSession)
+    setSessions(sessions.map((s) => (s.id == id ? { ...s, deleted: modifiedSession.deleted } : s)))
   }
 
   async function lockSession(session: SessionStudents) {

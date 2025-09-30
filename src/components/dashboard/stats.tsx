@@ -103,7 +103,7 @@ export const Stats = ({ session }: Props) => {
         throw new Error(`fe not found`)
       }
 
-      fe.addRow(['Label', "Donnée d'activité", "facteur d'émission", 'Emissions GES', 'Unité', 'Incertitude', 'Type'])
+      fe.addRow(['Label', 'Unité', 'Type', "Données", 'Facteur d\'émission', "Total", 'Incertitude'])
 
       if (!synthese) {
         throw new Error(`synthese not found`)
@@ -115,12 +115,12 @@ export const Stats = ({ session }: Props) => {
           subCategory.sessionEmissions.forEach((emission) => {
             fe.addRow([
               emission.label,
-              emission.total,
-              emission.value,
-              emission.total,
               emission.unit,
-              emission.uncertainty,
               emission.type,
+              Number(emission.value),
+              Number(emission.emissionFactor?.value),
+              Number(emission.total),
+              Number(emission.uncertainty),
             ])
           })
         })

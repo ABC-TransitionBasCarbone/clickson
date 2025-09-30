@@ -15,7 +15,11 @@ export async function getGroupWithDetails(id: string) {
             include: {
               sessionEmissionSubCategories: {
                 include: {
-                  sessionEmissions: true,
+                  sessionEmissions: {
+                    include: {
+                      emissionFactor: true,
+                    },
+                  }
                 },
               },
               emissionCategory: true,

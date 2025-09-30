@@ -40,7 +40,18 @@ export async function getSessionCategoryWithId(idSessionCategory: string) {
 }
 
 export async function modifySession(session: SessionStudents): Promise<string> {
-  await updateSessionInDb(session.id, { name: session.name, year: session.year })
+  await updateSessionInDb({
+    id: session.id,
+    name: session.name,
+    year: session.year,
+    deleted: session.deleted,
+    locked: session.locked,
+    idSchool: session.idSchool,
+    progress: session.progress,
+    archived: session.archived,
+    createdAt: new Date(session.createdAt),
+    updatedAt: new Date(session.updatedAt)
+  })
   return session.id
 }
 

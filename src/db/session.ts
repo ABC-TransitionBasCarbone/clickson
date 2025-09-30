@@ -1,18 +1,19 @@
 import { rights } from '@/constants/rights'
 import { prismaClient } from './client'
+import { SessionStudents } from '@prisma/client'
 
 export const getSessionsBySchoolId = (id: string | null | undefined) =>
   id
     ? prismaClient.sessionStudents.findMany({
-        where: { idSchool: id },
-        include: {
-          groups: {
-            where: {
-              deleted: false,
-            },
+      where: { idSchool: id },
+      include: {
+        groups: {
+          where: {
+            deleted: false,
           },
         },
-      })
+      },
+    })
     : null
 
 export const createSessionInDb = async (
@@ -72,10 +73,10 @@ export const createSessionInDb = async (
   }
 }
 
-export const updateSessionInDb = async (id: string, data: { name?: string; year?: number }) => {
+export const updateSessionInDb = async (sessionStudents: SessionStudents) => {
   return await prismaClient.sessionStudents.update({
-    where: { id },
-    data,
+    where: { id: sessionStudents.id },
+    data: sessionStudents,
   })
 }
 

@@ -82,6 +82,10 @@ export const QuestionTypeComponent = ({ subCategory, schoolYear }: Props) => {
 
     const emissionData = {
       ...emission,
+      label: emission.label || emission.emissionFactor.label,
+      type: emission.emissionFactor.type,
+      unit: emission.emissionFactor.unit,
+      idEmissionFactor: emission.emissionFactor.id,
       idSessionEmissionSubCategory: sessionSubCategory.id,
       total: totalEmission,
     }

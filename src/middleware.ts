@@ -20,6 +20,10 @@ export async function middleware(request: NextRequest) {
   // Check if the user cookie exists
   const user = request.cookies.get('user')
 
+  if (pathname === '/clickson.xlsx') {
+    return NextResponse.next()
+  }
+
   // Redirect the user to the login page if the user cookie does not exist
   if (user && (pathname === '/' || pathname === '/sign-up')) {
     return NextResponse.redirect(new URL('/sessions', request.url))
