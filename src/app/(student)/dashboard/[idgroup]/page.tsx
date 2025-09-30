@@ -51,6 +51,7 @@ export default function Dashboard() {
   const [loadingCategories, setLoadingCategories] = useState(false)
   const [session, setSession] = useState<NestedSessionStudents>({} as NestedSessionStudents)
   const [user, setUser] = useState<User>({} as User)
+  const [rights, setRights] = useState<number[]>([])
 
   useEffect(() => {
     getUser()
@@ -68,6 +69,7 @@ export default function Dashboard() {
   const fetchGroup = async () => {
     setLoadingCategories(true)
     const group = await getGroup(params.idgroup)
+    setRights(group?.rights || [])
     if (!group) {
       return
     }
@@ -83,9 +85,18 @@ export default function Dashboard() {
         locked: sc.locked,
         idSessionEmissionCategory: sc.id,
       }))
-
     setSession(group.sessionStudent as NestedSessionStudents)
     setLoadingCategories(false)
+  }
+
+  const displayCategoryOrNot = (locked: boolean, index: number) => {
+    if (user.email) {
+      return true
+    }
+    if (rights.length === 0) {
+      return !locked
+    }
+    return rights.includes(index + 1) || rights.includes(index + 5 + 1)
   }
 
   return session.id ? (
@@ -126,7 +137,7 @@ export default function Dashboard() {
             </Box>
           ) : (
             <Grid container spacing={1} columns={10}>
-              {session.sessionEmissionCategories?.map((sessionEmissionCategory, i) => (
+              {session.sessionEmissionCategories?.map((sessionEmissionCategory, i) => displayCategoryOrNot(sessionEmissionCategory.locked, i) && (
                 <Grid key={i} size={2} sx={{ height: 700, display: 'flex' }}>
                   <CategoryItem
                     category={sessionEmissionCategory}

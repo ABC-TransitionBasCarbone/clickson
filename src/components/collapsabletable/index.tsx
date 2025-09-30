@@ -36,6 +36,7 @@ import ConfirmationDialog from '../ConfirmationDialog'
 import CopyToClipboard from '../copytoclipboard'
 import FormCreateGroup from './Form/FormCreateGroup'
 import MultipleSelectChip from './SelectChip'
+import { Rights } from '@/types/Rights'
 
 interface CollapsibleTableProps {
   currentSession: SessionStudents[]
