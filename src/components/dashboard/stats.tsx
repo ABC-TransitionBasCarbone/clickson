@@ -69,7 +69,7 @@ export const Stats = ({ session }: Props) => {
     }
     let idSubCategory = 0
     session.sessionEmissionCategories.forEach((category, cIndex) => {
-      category.sessionEmissionSubCategories.forEach((subCategory, scIndex) => {
+      category.sessionEmissionSubCategories.forEach(subCategory => {
         const subTotal = subCategory.sessionEmissions.reduce((acc, emission) => {
           return acc + Number(emission.total)
         }, 0)
@@ -81,8 +81,8 @@ export const Stats = ({ session }: Props) => {
       })
     })
 
-    setTotalSubCategorie(totalSubCategories)
-    setTotalCategories(totalCategories)
+    setTotalSubCategorie(totalSubCategories.map(val => Math.round(val)))
+    setTotalCategories(totalCategories.map(val => Math.round(val)))
     totalCategories.length > 0 && setTotal(Number(totalCategories.reduce((acc, value) => acc + value, 0).toFixed(0)))
   }, [totalCategories])
 
@@ -96,8 +96,8 @@ export const Stats = ({ session }: Props) => {
       const workbook = new ExcelJS.Workbook()
       await workbook.xlsx.load(arrayBuffer)
 
-      const synthese = workbook.getWorksheet('Synthèse & Profil')
-      const fe = workbook.getWorksheet('FE')
+      const profil = workbook.getWorksheet("Mon profil")
+      const fe = workbook.getWorksheet("Données détaillées")
 
       if (!fe) {
         throw new Error(`fe not found`)
@@ -105,9 +105,10 @@ export const Stats = ({ session }: Props) => {
 
       fe.addRow(['Label', 'Unité', 'Type', "Données", 'Facteur d\'émission', "Total", 'Incertitude'])
 
-      if (!synthese) {
+      if (!profil) {
         throw new Error(`synthese not found`)
       }
+
 
       // Fill all activities data
       session.sessionEmissionCategories.forEach((category) => {
@@ -117,9 +118,9 @@ export const Stats = ({ session }: Props) => {
               emission.label,
               emission.unit,
               emission.type,
-              Number(emission.value),
+              Math.round(Number(emission.value)),
               Number(emission.emissionFactor?.value),
-              Number(emission.total),
+              Math.round(Number(emission.total)),
               Number(emission.uncertainty),
             ])
           })
@@ -128,20 +129,20 @@ export const Stats = ({ session }: Props) => {
 
       // Fill total emissions by categories
       totalCategories.forEach((data, index) => {
-        synthese.getCell(`B${6 + index}`).value = data
+        profil.getCell(`B${6 + index}`).value = data
       })
 
       // Fill total emissions by sub categories
       totalSubCategories.forEach((data, index) => {
-        synthese.getCell(`C${13 + index}`).value = data
+        profil.getCell(`C${13 + index}`).value = data
       })
+      profil.addRow(["Établissement : ", session.school?.name || ''])
 
       const buffer = await workbook.xlsx.writeBuffer()
-
       const blob = new Blob([buffer], { type: 'application/octet-stream' })
-      const url = window.URL.createObjectURL(blob)
+
       const link = document.createElement('a')
-      link.href = url
+      link.href = window.URL.createObjectURL(blob)
       link.setAttribute('download', 'clickson_report.xlsx')
       document.body.appendChild(link)
       link.click()

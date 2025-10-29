@@ -42,7 +42,7 @@ export const ActivityDataForm = ({ dataToFill }: Props) => {
       return
     }
 
-    setSessionCategory({
+    const sessionCategoryData = {
       ...sessionCategory,
       sessionEmissionSubCategories: sessionCategory.sessionEmissionSubCategories.map((ssc) => ({
         ...ssc,
@@ -52,7 +52,11 @@ export const ActivityDataForm = ({ dataToFill }: Props) => {
         },
         dataToFill: dataToFill.find((dtf) => dtf.id === ssc.idEmissionSubCategory),
       })),
-    })
+    }
+
+    console.log(sessionCategoryData)
+
+    setSessionCategory(sessionCategoryData)
 
     getSchool()
     setLoading(false)

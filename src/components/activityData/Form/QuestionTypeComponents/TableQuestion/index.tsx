@@ -97,6 +97,7 @@ export const QuestionTypeComponent = ({ subCategory, schoolYear }: Props) => {
       sessionEmissions: sessionSubCategory.sessionEmissions.concat({ ...emission, ...emissionResult }),
     }
 
+
     setSessionSubCategory(updatedSessionSubCategory)
 
     setSaving(false)

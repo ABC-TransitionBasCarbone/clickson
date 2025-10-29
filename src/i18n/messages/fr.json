@@ -270,6 +270,10 @@
       "label": "Ordures ménagères résiduelles (dont déchets organiques) - Mode avancé",
       "detail": "Ici, tu comptabiliseras tous les déchets organiques issus de la cantine. Le chef de cantine pourra t'aider à obtenir ces informations."
     },
+    "17": {
+      "label": "Ordures ménagères résiduelles (dont déchets organiques) - Mode avancé",
+      "detail": "Ici, tu comptabiliseras tous les déchets organiques issus de la cantine. Le chef de cantine pourra t'aider à obtenir ces informations."
+    },
     "18": {
       "label": "Rénovations",
       "detail": "Si la rénovation est importante (exemple : isolation), compte dans cette catégorie la surface rénovée. Par exemple, 150 m2 de murs isolés.  Si la rénovation reste minime (peinture, sols...), compte les produits utilisés dans le poste d'émissions Achats sur un document à part. Tu pourras trouver les bons facteurs d'émission sur le Base Empreinte® de l'Ademe."

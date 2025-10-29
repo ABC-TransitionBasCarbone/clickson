@@ -125,7 +125,7 @@ export const useDataToFill = () => {
     },
     {
       id: 16,
-      category: 'equipment',
+      category: 'food',
       type: 'input',
       titleSelectInput: 'kindOfEmissionFactor',
       titleAnnualConsumptionInput: 'quantity',

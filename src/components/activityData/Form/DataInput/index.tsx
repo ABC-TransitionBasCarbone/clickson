@@ -34,6 +34,7 @@ export const DataInput = (props: DataInputProps) => {
   const t = useTranslations('category')
   const tData = useTranslations('dataToFill')
   const tEF = useTranslations('emissionFactors')
+  const tSC = useTranslations('subCategories')
 
   const [emission, setEmission] = useState<SessionEmissions & { emissionFactor: EmissionFactors }>({
     id: '',
@@ -51,16 +52,16 @@ export const DataInput = (props: DataInputProps) => {
       props.emissionFactors && props.emissionFactors[0]
         ? props.emissionFactors[0]
         : ({
-            id: 0,
-            idEmissionSubCategory: 0,
-            idLanguage: 0,
-            label: '',
-            type: '',
-            unit: '',
-            value: 0,
-            depreciationPeriod: null,
-            uncertainty: 0,
-          } as EmissionFactors),
+          id: 0,
+          idEmissionSubCategory: 0,
+          idLanguage: 0,
+          label: '',
+          type: '',
+          unit: '',
+          value: 0,
+          depreciationPeriod: null,
+          uncertainty: 0,
+        } as EmissionFactors),
   })
 
   const handleEmissionFactorChange = (event: SelectChangeEvent<number>) => {
@@ -85,7 +86,7 @@ export const DataInput = (props: DataInputProps) => {
   }
 
   return (
-    props.emissionFactors && (
+    props.emissionFactors[0] && (
       <StyledInputData>
         <Stack className={classes.input}>
           <FormControl className={classes.form}>
