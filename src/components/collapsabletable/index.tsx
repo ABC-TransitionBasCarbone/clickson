@@ -31,7 +31,7 @@ import {
 import { Groups, SessionStudents } from '@prisma/client'
 import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
-import { ChangeEvent, FormEvent, Fragment, useState } from 'react'
+import { ChangeEvent, FormEvent, Fragment, useEffect, useState } from 'react'
 import ConfirmationDialog from '../ConfirmationDialog'
 import CopyToClipboard from '../copytoclipboard'
 import FormCreateGroup from './Form/FormCreateGroup'
@@ -99,6 +99,10 @@ function Row(props: RowProps) {
     props.modifySessionName && props.modifySessionName({ ...session, name: event.target.value })
   }
 
+  useEffect(() => {
+    console.log(session.groups)
+  }, [props.session])
+
   return (
     session && (
       <Fragment>
@@ -120,6 +124,7 @@ function Row(props: RowProps) {
           </TableCell>
           <TableCell width={250}>
             <Tooltip title={t('linkAdmin')}>
+              {/* TOFIX this don't take the first group admin */}
               <IconButton aria-label="dashboard" onClick={() => router.push('dashboard/' + session.groups?.[0]?.id)}>
                 <Login />
               </IconButton>
