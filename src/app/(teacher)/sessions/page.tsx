@@ -6,7 +6,7 @@ import { createSession, getSessions, lockedStudentSession, modifySession } from 
 import { Box, CircularProgress, Typography } from '@mui/material'
 import Container from '@mui/material/Container'
 import { styled } from '@mui/system'
-import { Schools, SessionStudents } from '@prisma/client'
+import { Groups, Schools, SessionStudents } from '@prisma/client'
 import { useTranslations } from 'next-intl'
 import { FormEvent, useEffect, useState } from 'react'
 import FormCreateSession from '../../../components/collapsabletable/Form/FormCreateSession'
@@ -25,7 +25,7 @@ const AccueilWrapper = styled(Box)`
 export default function SessionsBoard() {
   const t = useTranslations('session')
 
-  const [sessions, setSessions] = useState<SessionStudents[]>([])
+  const [sessions, setSessions] = useState<(SessionStudents & { groups?: Groups[] })[]>([])
   const [school, setSchool] = useState<Schools>()
   const [loading, setLoading] = useState(false)
 
@@ -83,6 +83,14 @@ export default function SessionsBoard() {
     fetchSessions()
   }, [])
 
+  const filterSessions = (sessions: (SessionStudents & { groups?: Groups[] })[]) => {
+    sessions = sessions.filter((s) => !s.deleted && !s.archived)
+    return sessions.map((session) => {
+      const groups = session.groups?.filter((group) => !group.deleted && !group.archived)
+      return { ...session, groups }
+    })
+  }
+
   return (
     <>
       <Header />
@@ -94,9 +102,9 @@ export default function SessionsBoard() {
           </Typography>
           {loading ? (
             <CircularProgress />
-          ) : sessions.filter((s) => !s.deleted && !s.archived).length > 0 ? (
+          ) : filterSessions(sessions).length > 0 ? (
             <CollapsibleTable
-              currentSession={sessions.filter((s) => !s.deleted && !s.archived)}
+              currentSession={filterSessions(sessions)}
               deleteSession={deleteSession}
               archiveSession={archiveSession}
               lockSession={lockSession}

@@ -39,7 +39,7 @@ import MultipleSelectChip from './SelectChip'
 import { Rights } from '@/types/Rights'
 
 interface CollapsibleTableProps {
-  currentSession: SessionStudents[]
+  currentSession: (SessionStudents & { groups?: Groups[] })[]
   deleteSession: (session: SessionStudents) => void
   archiveSession: (session: SessionStudents) => void
   lockSession: (session: SessionStudents) => void
